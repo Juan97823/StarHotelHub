@@ -1,7 +1,4 @@
-
-
-
-
+<!DOCTYPE html>
 <footer class="spacer">
         <div class="container">
             <div class="row">
@@ -11,13 +8,14 @@
                 </div>              
                  
                  <div class="col-sm-3">
-                    <h4>Quick Links</h4>
+                    <h4>Link redireccional</h4>
                     <ul class="list-unstyled">
-                        <li><a href="rooms-tariff.php">Rooms & Tariff</a></li>        
-                        <li><a href="introduction.php">Introduction</a></li>
-                        <li><a href="gallery.php">Gallery</a></li>
-                        <li><a href="tour.php">Tour Packages</a></li>
-                        <li><a href="contact.php">Contact</a></li>
+                        <li><a href="rooms-tariff.php">Habitaciones</a></li>        
+                        <li><a href="introduction.php">Introduccion</a></li>
+                        <li><a href="gallery.php">Galeria</a></li>
+                        <li><a href="tour.php">Paquetes Turisticos</a></li>
+                        <li><a href="contact.php">Contacto</a></li>
+                        <li><a href="login.php">Iniciar Sesion</a></li>
                     </ul>
                 </div>
                  <div class="col-sm-4 subscribe">
@@ -68,30 +66,30 @@
 
 
 
-<script src="assets/jquery.js"></script>
+<script src="assets/principal/jquery.js"></script>
 
 <!-- wow script -->
-<script src="assets/wow/wow.min.js"></script>
+<script src="assets/principal/wow/wow.min.js"></script>
 
 <!-- uniform -->
-<script src="assets/uniform/js/jquery.uniform.js"></script>
+<script src="assets/principal/uniform/js/jquery.uniform.js"></script>
 
 
 <!-- boostrap -->
-<script src="assets/bootstrap/js/bootstrap.js" type="text/javascript" ></script>
+<script src="assets/principal/bootstrap/js/bootstrap.js" type="text/javascript" ></script>
 
 <!-- jquery mobile -->
-<script src="assets/mobile/touchSwipe.min.js"></script>
+<script src="assets/principal/mobile/touchSwipe.min.js"></script>
 
 <!-- jquery mobile -->
-<script src="assets/respond/respond.js"></script>
+<script src="assets/principal/respond/respond.js"></script>
 
 <!-- gallery -->
-<script src="assets/gallery/jquery.blueimp-gallery.min.js"></script>
+<script src="assets/principal/gallery/jquery.blueimp-gallery.min.js"></script>
 
 
 <!-- custom script -->
-<script src="assets/script.js"></script>
+<script src="assets/principal/script.js"></script>
 
 
 

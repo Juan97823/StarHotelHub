@@ -15,24 +15,24 @@
 
 
   <!-- bootstrap -->
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/principal/bootstrap/css/bootstrap.min.css" />
 
   <!-- uniform -->
-  <link type="text/css" rel="stylesheet" href="assets/uniform/css/uniform.default.min.css" />
+  <link type="text/css" rel="stylesheet" href="assets/principal/uniform/css/uniform.default.min.css" />
 
   <!-- animate.css -->
-  <link rel="stylesheet" href="assets/wow/animate.css" />
+  <link rel="stylesheet" href="assets/principal/wow/animate.css" />
 
 
   <!-- gallery -->
-  <link rel="stylesheet" href="assets/gallery/blueimp-gallery.min.css">
+  <link rel="stylesheet" href="assets/principal/gallery/blueimp-gallery.min.css">
 
 
   <!-- favicon -->
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
   <link rel="icon" href="images/favicon.png" type="image/x-icon">
 
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/principal/style.css">
 
 </head>
 
@@ -74,6 +74,7 @@
           <li><a href="introduction.php">Introduccion</a></li>
           <li><a href="gallery.php">Galeria</a></li>
           <li><a href="contact.php">Contacto</a></li>
+          <li><a href="login.php">Iniciar Sesion</a></li>
         </ul>
       </div><!-- Wnavbar-collapse -->
     </div><!-- container-fluid -->

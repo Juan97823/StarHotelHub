@@ -131,7 +131,7 @@
                 <a class="left carousel-control" href="#TourCarousel" role="button" data-slide="prev"><i class="fa fa-angle-left"></i></a>
                 <a class="right carousel-control" href="#TourCarousel" role="button" data-slide="next"><i class="fa fa-angle-right"></i></a>
             </div>
-            <div class="caption">Paquetes Turísticos<a href="gallery.php" class="pull-right"><i class="fa fa-edit"></i></a></div>
+            <div class="caption">Paquetes Turísticos<a href="controller/principal/gallery.php" class="pull-right"><i class="fa fa-edit"></i></a></div>
         </div>
 
         <div class="col-sm-4">

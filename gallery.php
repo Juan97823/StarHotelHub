@@ -1,4 +1,4 @@
-<?php include 'header.php';?>
+<?php include 'header.php'; ?>
 <div class="container">
 
        <h1 class="title">Gallery</h1>
