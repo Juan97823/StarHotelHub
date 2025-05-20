@@ -8,6 +8,9 @@ class Principal extends Controller{
         //TRAER SLIDERS
         $data['sliders'] = $this->model->getSliders();
         $this->views->getView('index', $data);
+        //TRAER HABITACIONES
+        $data['habitaciones'] = $this->model->getHabitaciones();
+        $this->views->getView('index', $data);
     }
 }
 ?>

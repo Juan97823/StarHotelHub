@@ -66,36 +66,17 @@
 					</div>
 				</div>
 				<div class="col-lg-3">
-					<div class="row">
-						<div class="col-lg-6 col-sm-6">
-							<div class="check-content">
-								<p>Adults</p>
-								<div class="form-group">
-									<select name="adult" class="form-content">
-										<option value="1">01</option>
-										<option value="2">02</option>
-										<option value="3">03</option>
-										<option value="4">04</option>
-										<option value="5">05</option>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6 col-sm-6">
-							<div class="check-content">
-								<p>Children</p>
-								<div class="form-group">
-									<select name="adult" class="form-content">
-										<option value="1">01</option>
-										<option value="2">02</option>
-										<option value="3">03</option>
-										<option value="4">04</option>
-										<option value="5">05</option>
-									</select>
-								</div>
-							</div>
-						</div>
+					<div class="mb-3">
+						<label for="" class="form-label">Habitaciones</label>
+						<select class="form-select form-select-lg" name="habitacion" id="habitacion">
+							<option value="">Seleccionar</option>
+							<?php foreach ($data['habitaciones'] as $habitacion) { ?>
+								<option value="<?php echo $habitacion['id']; ?>"><?php echo $habitacion['estilo']; ?></option>
+							<?php } ?>
+						</select>
 					</div>
+
+
 				</div>
 				<div class="col-lg-3">
 					<div class="check-btn check-content mb-0">
