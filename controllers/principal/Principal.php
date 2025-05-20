@@ -4,8 +4,10 @@ class Principal extends Controller{
         parent::__construct();
     }
     public function index(){
-       
-        $this->views->getView('principal', 'index');
+        $data['title'] = 'Página Principal';
+        //TRAER SLIDERS
+        $data['sliders'] = $this->model->getSliders();
+        $this->views->getView('index', $data);
     }
 }
 ?>

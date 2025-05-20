@@ -7,4 +7,5 @@ define('USER', 'root');
 define('PASS', '');
 define('DATABASE', 'starhotelhub');
 define('CHARSET', 'charset=utf8');
+define('TITLE', 'STARHOTELHUB');
 ?>
