@@ -9,7 +9,7 @@ class PrincipalModel extends Query {
     public function getSliders(){
        return $this->selectAll("SELECT * FROM sliders");
     }
-    //RECUPERAR LOS SLIDERS
+    //RECUPERAR LAS HABITACIONES
     public function gethabitaciones(){
        return $this->selectAll("SELECT * FROM habitaciones");
     }

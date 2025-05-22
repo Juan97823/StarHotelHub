@@ -36,9 +36,11 @@
     <link rel="stylesheet" href="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/css/dark.css">
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/css/responsive.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo RUTA_PRINCIPAL . 'assets'; ?>/img/Logo.png">
+    <link rel="icon" type="image/png" href="<?php echo RUTA_PRINCIPAL . 'assets' ?>/img/Logo.png">
 
     <!-- TITLE -->
     <title><?php echo TITLE . ' | ' .  $data['title']; ?></title>
@@ -60,7 +62,7 @@
             <!-- Menu For Mobile Device -->
             <div class="mobile-nav">
                 <a href="<?php echo RUTA_PRINCIPAL; ?>" class="Logo">
-                    <img src="<?php echo RUTA_PRINCIPAL . 'assets'; ?>/img/Logo.png" alt="Logo">
+                    <img src="<?php echo RUTA_PRINCIPAL . 'assets' ?>/img/Logo.png" alt="Logo">
                 </a>
             </div>
             <!-- Menu For Desktop Device -->
@@ -68,27 +70,27 @@
                 <nav class="navbar navbar-expand-md navbar-light">
                     <div class="container">
                         <a class="navbar-brand" href="<?php echo RUTA_PRINCIPAL; ?>">
-                            <img src="<?php echo RUTA_PRINCIPAL . 'assets'; ?>/img/Logo.jng" alt="Logo">
+                            <img src="<?php echo RUTA_PRINCIPAL . 'assets' ?>/img/Logo.jng" style="width: 150px; height: auto;" alt="Logo">
                         </a>
                         <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                             <ul class="navbar-nav m-auto">
                                 <li class="nav-item">
-                                    <a href="<?php echo RUTA_PRINCIPAL. 'habitacion'; ?>" class="nav-link  active">
+                                    <a href="<?php echo RUTA_PRINCIPAL . 'habitacion'; ?>" class="nav-link  active">
                                         Habitaciones
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?php echo RUTA_PRINCIPAL. 'servicio'; ?>" class="nav-link">
+                                    <a href="<?php echo RUTA_PRINCIPAL . 'servicio'; ?>" class="nav-link">
                                         Servicios
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?php echo RUTA_PRINCIPAL. 'Blog'; ?>" class="nav-link">
+                                    <a href="<?php echo RUTA_PRINCIPAL . 'Blog'; ?>" class="nav-link">
                                         Blog
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?php echo RUTA_PRINCIPAL. 'Contacto'; ?>" class="nav-link">
+                                    <a href="<?php echo RUTA_PRINCIPAL . 'Contacto'; ?>" class="nav-link">
                                         Contactos
                                     </a>
                                 </li>
@@ -122,7 +124,7 @@
                         </button>
                         <h2 class="modal-title" id="myModalLabel2">
                             <a href="<?php echo RUTA_PRINCIPAL; ?>">
-                                <img src="<?php echo RUTA_PRINCIPAL . 'assets'; ?>/img/Logo.jpg" alt="Logo">
+                                <img src="<?php echo RUTA_PRINCIPAL . 'assets' ?>/img/Logo.jpg" alt="Logo">
                             </a>
                         </h2>
                     </div>

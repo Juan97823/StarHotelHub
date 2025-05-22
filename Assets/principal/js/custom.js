@@ -351,6 +351,8 @@
 
 	// Date Picker 1 JS
 	$('#datetimepicker-1').datepicker({
+		format: 'yyyy-mm-dd',
+		value: new Date(),
 		weekStart: 0,
 		todayBtn: "linked",
 		language: "es",

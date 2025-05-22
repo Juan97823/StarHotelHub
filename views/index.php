@@ -3,7 +3,7 @@
 <!-- Start Ecorik Slider Area -->
 <section class="eorik-slider-area">
 	<div class="eorik-slider owl-carousel owl-theme">
-		<?php foreach ($data['sliders'] as $slider); { ?>
+		<?php foreach ($data['sliders'] as $slider) { ?>
 			<div class="eorik-slider-item " style="background-image: url(<?php echo RUTA_PRINCIPAL . 'assets/img/sliders/' . $slider['foto'] ?>);">
 				<div class="d-table">
 					<div class="d-table-cell">
@@ -34,15 +34,15 @@
 <!-- Start Check Area -->
 <div class="check-area mb-minus-70">
 	<div class="container">
-		<form class="check-form">
+		<form class="check-form" action="<?php echo RUTA_PRINCIPAL . 'principal/verify'; ?>" method="POST">
 			<div class="row align-items-center">
 				<div class="col-lg-3 col-sm-6">
 					<div class="check-content">
-						<p>Arrival Date</p>
+						<p>Fecha Llegada</p>
 						<div class="form-group">
 							<div class="input-group date" id="datetimepicker-1">
 								<i class="flaticon-calendar"></i>
-								<input type="text" class="form-control" placeholder="29/02/2020">
+								<input type="text" class="form-control" name="f_llegada" placeholder="29/02/2020">
 								<span class="input-group-addon">
 									<i class="glyphicon glyphicon-th"></i>
 								</span>
@@ -53,11 +53,11 @@
 
 				<div class="col-lg-3 col-sm-6">
 					<div class="check-content">
-						<p>Departure Date</p>
+						<p>Fecha Salida</p>
 						<div class="form-group">
 							<div class="input-group date" id="datetimepicker-2">
 								<i class="flaticon-calendar"></i>
-								<input type="text" class="form-control" placeholder="29/02/2020">
+								<input type="text" class="form-control" name="f_salida" placeholder="29/02/2020">
 								<span class="input-group-addon">
 									<i class="glyphicon glyphicon-th"></i>
 								</span>
@@ -66,22 +66,23 @@
 					</div>
 				</div>
 				<div class="col-lg-3">
-					<div class="mb-3">
-						<label for="" class="form-label">Habitaciones</label>
-						<select class="form-select form-select-lg" name="habitacion" id="habitacion">
-							<option value="">Seleccionar</option>
-							<?php foreach ($data['habitaciones'] as $habitacion) { ?>
-								<option value="<?php echo $habitacion['id']; ?>"><?php echo $habitacion['estilo']; ?></option>
-							<?php } ?>
-						</select>
+					<div class="check-content">
+
+						<div class="form-group">
+							<label for="" class="form-label">Habitaciones</label>
+							<select name="habitacion" class="select-auto" id="habitacion" style="width : 100%;">
+								<option value="">Seleccionar</option>
+								<?php foreach ($data['habitaciones'] as $habitacion) { ?>
+									<option value="<?php echo $habitacion['id']; ?>"><?php echo $habitacion['estilo']; ?></option>
+								<?php } ?>
+							</select>
+						</div>
 					</div>
-
-
 				</div>
 				<div class="col-lg-3">
 					<div class="check-btn check-content mb-0">
-						<button class="default-btn">
-							Check Availability
+						<button class="default-btn" type="submit">
+							Comprobar
 							<i class="flaticon-right"></i>
 						</button>
 					</div>
@@ -833,6 +834,9 @@
 </section>
 <!-- End News Area -->
 <?php include_once 'views/template/footer-principal.php' ?>
+
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/index.js' ?>"></script>
+
 </body>
 
 </html>

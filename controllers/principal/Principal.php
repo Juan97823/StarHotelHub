@@ -12,5 +12,9 @@ class Principal extends Controller{
         $data['habitaciones'] = $this->model->getHabitaciones();
         $this->views->getView('index', $data);
     }
+
+    public function verify(){
+        
+    }
 }
 ?>
