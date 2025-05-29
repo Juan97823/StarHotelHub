@@ -1381,6 +1381,7 @@ Eorik SliderArea Style
   -webkit-animation: 2s .2s fadeInUp both;
           animation: 2s .2s fadeInUp both;
 }
+
 .slider-item-bg-2 {
   background-image: url(../img/home-one/slider/slider-img-2.jpg);
 }
@@ -1664,7 +1665,7 @@ Facilities Area Style
 
 .single-facilities-wrap .single-facilities {
   text-align: center;
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/facilities-card-bg.png);
+  background-image: url(../../assets/img/facilities-card-bg.png);
   background-position: center center;
   background-size: cover;
   height: 100%;
@@ -1771,7 +1772,7 @@ Facilities Area Style
 Incredible Area Style
 ======================================================*/
 .incredible-area {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/video-img.jpg);
+  background-image: url(../../assets/img/video-img.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -2014,27 +2015,27 @@ Rooms Area Style
 }
 
 .our-rooms-single-img.room-bg-1 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/rooms-1.jpg);
+  background-image: url(../../assets/img/rooms/rooms-1.jpg);
 }
 
 .our-rooms-single-img.room-bg-2 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/rooms-2.jpg);
+  background-image: url(../../assets/img/rooms/rooms-2.jpg);
 }
 
 .our-rooms-single-img.room-bg-3 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/rooms-3.jpg);
+  background-image: url(../../assets/img/rooms/rooms-3.jpg);
 }
 
 .our-rooms-single-img.room-bg-4 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/rooms-4.jpg);
+  background-image: url(../../assets/img/rooms/rooms-4.jpg);
 }
 
 .our-rooms-single-img.room-bg-5 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/rooms-5.jpg);
+  background-image: url(../../assets/img/rooms/rooms-5.jpg);
 }
 
 .our-rooms-single-img.room-bg-6 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/rooms-1.jpg);
+  background-image: url(../../assets/img/rooms/rooms-1.jpg);
 }
 
 .tab .tabs_item {
@@ -2053,7 +2054,7 @@ City View Area Style
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/city/city-bg.jpg);
+  background-image: url(../../assets/img/city/city-bg.jpg);
 }
 
 .city-view-area .city-wrap {
@@ -2175,11 +2176,11 @@ Exclusive View Area Style
 }
 
 .exclusive-img.bg-1 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/exclusive/1.jpg);
+  background-image: url(../../assets/img/exclusive/1.jpg);
 }
 
 .exclusive-img.bg-2 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/exclusive/2.jpg);
+  background-image: url(../../assets/img/exclusive/2.jpg);
 }
 
 .exclusive-content {
@@ -2374,19 +2375,19 @@ Restaurants Area Style
 }
 
 .single-restaurants.bg-1 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/restaurants//1.jpg);
+  background-image: url(../../assets/img/restaurants//1.jpg);
 }
 
 .single-restaurants.bg-2 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/restaurants/2.jpg);
+  background-image: url(../../assets/img/restaurants/2.jpg);
 }
 
 .single-restaurants.bg-3 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/restaurants/3.jpg);
+  background-image: url(../../assets/img/restaurants/3.jpg);
 }
 
 .single-restaurants.bg-4 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/restaurants/4.jpg);
+  background-image: url(../../assets/img/restaurants/4.jpg);
 }
 
 .single-restaurants .restaurants-icon {
@@ -2439,7 +2440,7 @@ Testimonials Area Style
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/testimonials/testimonials-bg.png);
+  background-image: url(../../assets/img/testimonials/testimonials-bg.png);
   padding: 30px;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
@@ -2611,7 +2612,7 @@ Footer Top Area Style
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/footer-bg.jpg);
+  background-image: url(../../assets/img/footer-bg.jpg);
   position: relative;
   z-index: 1;
   overflow: hidden;
@@ -2995,7 +2996,7 @@ Header Area Style
 Banner Area Two Style
 ======================================================*/
 .ecorik-banner-area {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/home-two/banner/1.png);
+  background-image: url(../../assets/img/home-two/banner/1.png);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -3288,19 +3289,19 @@ Exclusive Area Two Style
 }
 
 .exclusive-area-two .exclusive-img.bg-3 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/exclusive/3.jpg);
+  background-image: url(../../assets/img/exclusive/3.jpg);
 }
 
 .exclusive-area-two .exclusive-img.bg-4 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/exclusive/4.jpg);
+  background-image: url(../../assets/img/exclusive/4.jpg);
 }
 
 .exclusive-area-two .exclusive-img.bg-5 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/exclusive/5.jpg);
+  background-image: url(../../assets/img/exclusive/5.jpg);
 }
 
 .exclusive-area-two .exclusive-img.bg-6 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/exclusive/6.jpg);
+  background-image: url(../../assets/img/exclusive/6.jpg);
 }
 
 /*
@@ -3311,7 +3312,7 @@ Choose Restaurant Area Style
 }
 
 .choose-restaurant-area .choose-restaurant-img {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/choose-restaurant-img.jpg);
+  background-image: url(../../assets/img/choose-restaurant-img.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -3382,7 +3383,7 @@ Exclusive Offers Area Style
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/exclusive/bg.jpg);
+  background-image: url(../../assets/img/exclusive/bg.jpg);
   position: relative;
 }
 
@@ -3810,7 +3811,7 @@ Explore Area Three Style
 }
 
 .explore-area-three .explore-img-1 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/explore-img-1.jpg);
+  background-image: url(../../assets/img/explore-img-1.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -3825,7 +3826,7 @@ Explore Area Three Style
 }
 
 .explore-area-three .explore-img-2 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/explore-img-2.jpg);
+  background-image: url(../../assets/img/explore-img-2.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -3864,19 +3865,19 @@ Restaurant Area Three Style
 }
 
 .restaurant-item .restaurant-img.bg-1 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/restaurants/5.jpg);
+  background-image: url(../../assets/img/restaurants/5.jpg);
 }
 
 .restaurant-item .restaurant-img.bg-2 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/restaurants/6.jpg);
+  background-image: url(../../assets/img/restaurants/6.jpg);
 }
 
 .restaurant-item .restaurant-img.bg-3 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/restaurants/7.jpg);
+  background-image: url(../../assets/img/restaurants/7.jpg);
 }
 
 .restaurant-item .restaurant-img.bg-4 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/restaurants/8.jpg);
+  background-image: url(../../assets/img/restaurants/8.jpg);
 }
 
 /* 
@@ -3958,7 +3959,7 @@ Customer Area Two  Style
 Contact Us Area Two  Style
 ======================================================*/
 .contact-us-area {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/shape/contact-shape-bg.png);
+  background-image: url(../../assets/img/shape/contact-shape-bg.png);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -4382,15 +4383,15 @@ Ecorik Slider Area Four Style
 }
 
 .eorik-slider-area-four .eorik-slider-item.slider-item-bg-10 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/home-four/slider/1.jpg);
+  background-image: url(../../assets/img/home-four/slider/1.jpg);
 }
 
 .eorik-slider-area-four .eorik-slider-item.slider-item-bg-11 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/home-four/slider/2.jpg);
+  background-image: url(../../assets/img/home-four/slider/2.jpg);
 }
 
 .eorik-slider-area-four .eorik-slider-item.slider-item-bg-12 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/home-four/slider/3.jpg);
+  background-image: url(../../assets/img/home-four/slider/3.jpg);
 }
 
 .eorik-slider-area-four::before {
@@ -4491,7 +4492,7 @@ Restaurants Area Four Style
 }
 
 .restaurants-area-four .restaurants-img-height .restaurants-img-1 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/restaurants-img-1.jpg);
+  background-image: url(../../assets/img/restaurants-img-1.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -4499,7 +4500,7 @@ Restaurants Area Four Style
 }
 
 .restaurants-area-four .restaurants-img-height .restaurants-img-2 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/restaurants-img-2.jpg);
+  background-image: url(../../assets/img/restaurants-img-2.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -4510,7 +4511,7 @@ Restaurants Area Four Style
 Counter Area Style
 ======================================================*/
 .counter-area {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/counter-bg.jpg);
+  background-image: url(../../assets/img/counter-bg.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -4666,7 +4667,7 @@ Exclusive Offers Area Four Style
 Customer Offers Area Four Style
 ======================================================*/
 .customer-area-four {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/customer-bg.jpg);
+  background-image: url(../../assets/img/customer-bg.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -4811,7 +4812,7 @@ News Area Four Style
 }
 
 .news-area-four .news-img.bg-1 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/news/1.jpg);
+  background-image: url(../../assets/img/news/1.jpg);
 }
 
 .news-area-four .single-news {
@@ -5088,15 +5089,15 @@ Ecorik Slider Area Five Style
 }
 
 .eorik-slider-area-five .slider-item-bg-13 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/home-five/slider/1.jpg);
+  background-image: url(../../assets/img/home-five/slider/1.jpg);
 }
 
 .eorik-slider-area-five .slider-item-bg-14 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/home-five/slider/2.jpg);
+  background-image: url(../../assets/img/home-five/slider/2.jpg);
 }
 
 .eorik-slider-area-five .slider-item-bg-15 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/home-five/slider/3.jpg);
+  background-image: url(../../assets/img/home-five/slider/3.jpg);
 }
 
 .eorik-slider-area-five .eorik-slider-item::before {
@@ -5117,16 +5118,16 @@ Explore Area Five Style
 }
 
 .explore-area-five .explore-gallery.bg-1 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/explore-img-3.jpg);
+  background-image: url(../../assets/img/explore-img-3.jpg);
 }
 
 .explore-area-five .explore-gallery.bg-2 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/explore-img-4.jpg);
+  background-image: url(../../assets/img/explore-img-4.jpg);
   margin-bottom: 30px;
 }
 
 .explore-area-five .explore-gallery.bg-3 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/explore-img-5.jpg);
+  background-image: url(../../assets/img/explore-img-5.jpg);
 }
 
 .explore-area-five .explore-gallery-hight {
@@ -5137,7 +5138,7 @@ Explore Area Five Style
 Booking Area Five Style 
 ======================================================*/
 .booking-area-five {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/booking-bg.jpg);
+  background-image: url(../../assets/img/booking-bg.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -5205,7 +5206,7 @@ City View Area Five Style
 }
 
 .city-view-area-five .container {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/city-view-bg-5.jpg);
+  background-image: url(../../assets/img/city-view-bg-5.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -5288,7 +5289,7 @@ FacilitiesArea Five Style
 }
 
 .facilities-area-five .facilities-single-bg {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/facilities-single-bg.jpg);
+  background-image: url(../../assets/img/facilities-single-bg.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -5429,7 +5430,7 @@ INNER PAGE STYLE
 Page Title Area Style
 =====================================================*/
 .page-title-area {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/page-bg.jpg);
+  background-image: url(../../assets/img/page-bg.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -7137,7 +7138,7 @@ FAQ CSS
 }
 
 .faq-img {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/faq-img.jpg);
+  background-image: url(../../assets/img/faq-img.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -7355,7 +7356,7 @@ Sign In & Log In  Area Style
 Book Table Area Style
 =====================================================*/
 .book-table-area-three {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/table-bg-1.jpg);
+  background-image: url(../../assets/img/table-bg-1.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -7661,7 +7662,7 @@ Coming Soon Area Style
   position: relative;
   height: 100vh;
   z-index: 1;
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/coming-soon-bg.jpg);
+  background-image: url(../../assets/img/coming-soon-bg.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -7678,7 +7679,7 @@ Coming Soon Area Style
   height: 100%;
   -webkit-animation: border-transform 7s linear infinite alternate forwards;
           animation: border-transform 7s linear infinite alternate forwards;
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/coming-soon-bg.jpg);
+  background-image: url(../../assets/img/coming-soon-bg.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -8766,19 +8767,19 @@ News Details Area Style
 }
 
 .news-details-area .widget-area .widget-peru-posts-thumb .item .thumb .fullimage.bg1 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/news-details/popular-posts-1.png);
+  background-image: url(../../assets/img/news-details/popular-posts-1.png);
 }
 
 .news-details-area .widget-area .widget-peru-posts-thumb .item .thumb .fullimage.bg2 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/news-details/popular-posts-2.png);
+  background-image: url(../../assets/img/news-details/popular-posts-2.png);
 }
 
 .news-details-area .widget-area .widget-peru-posts-thumb .item .thumb .fullimage.bg3 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/news-details/popular-posts-3.png);
+  background-image: url(../../assets/img/news-details/popular-posts-3.png);
 }
 
 .news-details-area .widget-area .widget-peru-posts-thumb .item .thumb .fullimage.bg4 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/news-details/popular-posts-4.png);
+  background-image: url(../../assets/img/news-details/popular-posts-4.png);
 }
 
 .news-details-area .widget-area .widget-peru-posts-thumb .item .info {
@@ -9580,35 +9581,35 @@ Gallery Area Style
 }
 
 .single-gallery .gallery-image.bg-1 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/5.jpg);
+  background-image: url(../../assets/img/rooms/5.jpg);
 }
 
 .single-gallery .gallery-image.bg-2 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/6.jpg);
+  background-image: url(../../assets/img/rooms/6.jpg);
 }
 
 .single-gallery .gallery-image.bg-3 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/7.jpg);
+  background-image: url(../../assets/img/rooms/7.jpg);
 }
 
 .single-gallery .gallery-image.bg-4 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/8.jpg);
+  background-image: url(../../assets/img/rooms/8.jpg);
 }
 
 .single-gallery .gallery-image.bg-5 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/9.jpg);
+  background-image: url(../../assets/img/rooms/9.jpg);
 }
 
 .single-gallery .gallery-image.bg-6 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/10.jpg);
+  background-image: url(../../assets/img/rooms/10.jpg);
 }
 
 .single-gallery .gallery-image.bg-7 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/rooms-1.jpg);
+  background-image: url(../../assets/img/rooms/rooms-1.jpg);
 }
 
 .single-gallery .gallery-image.bg-8 {
-  background-image: url(../../<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/rooms-2.jpg);
+  background-image: url(../../assets/img/rooms/rooms-2.jpg);
 }
 
 .single-gallery .gallery-image img {

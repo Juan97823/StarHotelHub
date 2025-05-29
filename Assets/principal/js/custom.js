@@ -10,9 +10,6 @@
 	jQuery(window).on('load', function() {
 		$('.preloader').fadeOut();
 	});
-
-	// Nice Select JS
-	$('select').niceSelect();
 	
 	// Header Sticky JS
 	$(window).on('scroll', function() {
@@ -352,7 +349,7 @@
 	// Date Picker 1 JS
 	$('#datetimepicker-1').datepicker({
 		format: 'yyyy-mm-dd',
-		value: new Date(),
+		valu: new Date(),
 		weekStart: 0,
 		todayBtn: "linked",
 		language: "es",
@@ -363,6 +360,7 @@
 
 	// Date Picker 2 JS
 	$('#datetimepicker-2').datepicker({
+		format: 'yyyy-mm-dd',
 		weekStart: 0,
 		todayBtn: "linked",
 		language: "es",

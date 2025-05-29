@@ -11,7 +11,7 @@ include_once 'views/template/portada.php'; ?>
 				<div class="row">
 					<div class="col-lg-4 col-sm-6">
 						<div class="single-exclusive-four">
-							<img src="<?php echo RUTA_PRINCIPAL . 'assets/principal/'; ?>s/img/exclusive/7.jpg" alt="Image">
+							<img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>s/img/exclusive/7.jpg" alt="Image">
 							<div class="exclusive-content">
 								<span class="title">Up To 30% Off</span>
 								<h3>Swimming for man</h3>
@@ -39,7 +39,7 @@ include_once 'views/template/portada.php'; ?>
 					</div>
 					<div class="col-lg-4 col-sm-6">
 						<div class="single-exclusive-four">
-							<img src="<?php echo RUTA_PRINCIPAL . 'assets/principal/'; ?>s/img/exclusive/8.jpg" alt="Image">
+							<img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>s/img/exclusive/8.jpg" alt="Image">
 							<div class="exclusive-content">
 								<span class="title">This Month Only</span>
 								<h3>$5 Breakfast package</h3>
@@ -67,7 +67,7 @@ include_once 'views/template/portada.php'; ?>
 					</div>
 					<div class="col-lg-4 col-sm-6 offset-sm-3 offset-lg-0">
 						<div class="single-exclusive-four">
-							<img src="<?php echo RUTA_PRINCIPAL . 'assets/principal/'; ?>s/img/exclusive/9.jpg" alt="Image">
+							<img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>s/img/exclusive/9.jpg" alt="Image">
 							<div class="exclusive-content">
 								<span class="title">30% OFFonly This Week</span>
 								<h3>Free fitness club for women</h3>

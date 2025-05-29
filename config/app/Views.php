@@ -1,7 +1,7 @@
 <?php
 class Views{
-    public function getView($vista,$data=""){
+    public function getView($vista, $data="") {
         require 'views/' . $vista . '.php';
-        }
     }
+}
 ?>

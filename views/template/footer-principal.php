@@ -28,7 +28,7 @@
 				<div class="col-lg-3 col-md-6">
 					<div class="single-widget">
 						<a href="<?php echo RUTA_PRINCIPAL; ?>">
-							<img src="<?php echo RUTA_PRINCIPAL . 'assets'; ?>/img/Logo.png" width="80" alt="Image">
+							<img src="<?php echo RUTA_PRINCIPAL . 'assets'; ?>/img/Logo.png" alt="Image">
 						</a>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat molestiae corporis, magni maxime perferendis ducimus.</p>
 						<ul class="social-icon">
@@ -173,17 +173,18 @@
 					</div>
 				</div>
 			</div>
+
 		</div>
 		<div class="footer-bottom-area">
 			<div class="row align-items-center">
 				<div class="col-lg-6">
 					<div class="copy-right">
-						<p>Copyright @2025 <a href="<?php echo RUTA_PRINCIPAL; ?>">StarHotelHub</a>. All Rights Reserved</p>
+						<p>Copyright @2022 <a href="<?php echo RUTA_PRINCIPAL; ?>">Ecorik</a>. All Rights Reserved</p>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<div class="designed">
-						<p>Designed By <i class='bx bx-heart'></i> <a href="https://juan.byethost9.com/" target="_blank">DevStock</a></p>
+						<p>Designed By <i class='bx bx-heart'></i> <a href="https://envytheme.com/" target="_blank">EnvyTheme</a></p>
 					</div>
 				</div>
 			</div>
@@ -201,6 +202,7 @@
 	<i class='bx bx-chevrons-up bx-fade-up'></i>
 </div>
 <!-- End Go Top Area -->
+ 
 
 
 <!-- Jquery Min JS -->
