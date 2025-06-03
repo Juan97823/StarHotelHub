@@ -202,7 +202,7 @@
 	<i class='bx bx-chevrons-up bx-fade-up'></i>
 </div>
 <!-- End Go Top Area -->
- 
+
 
 
 <!-- Jquery Min JS -->
@@ -240,6 +240,19 @@
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/fullcalendar/index.global.min.js"></script>
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/fullcalendar/es.global.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+	const base_url ='<?php echo RUTA_PRINCIPAL; ?>';
+	function alertaSW(mensaje, tipo) {
+		Swal.fire({
+			position: "top-end",
+			icon: tipo,
+			title: mensaje,
+			showConfirmButton: false,
+			timer: 2500,
+			toast: true
+		});
+	}
+</script>
 <!-- Custom JS -->
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/js/custom.js"></script>

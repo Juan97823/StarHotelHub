@@ -23,6 +23,7 @@ if ($isAdmin && (count($array) == 1
 $metodoIndice = ($isAdmin) ? 2 : 1;
 if (!empty($array[$metodoIndice]) && $array[$metodoIndice] != '') {
     $metodo = $array[$metodoIndice];
+    
 }// VALIDAR PARAMETROS
 $parametro= '';
 $parametroIndice = ($isAdmin) ? 3 : 2;

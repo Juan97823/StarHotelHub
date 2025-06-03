@@ -27,32 +27,13 @@
     <div class="white-shape">
         <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/home-one/slider/white-shape.png" alt="Image">
     </div>
-    <div class="social-link">
-        <ul>
-            <li>
-                <a href="#">
-                    <i class="bx bxl-facebook"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="bx bxl-twitter"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="bx bxl-linkedin"></i>
-                </a>
-            </li>
-        </ul>
-    </div>
 </section>
 <!-- End Ecorik Slider Area -->
 
 <!-- Start Check Area -->
 <div class="check-area mb-minus-70">
     <div class="container">
-        <form class="check-form" action="<?php echo RUTA_PRINCIPAL .'principal/verify'; ?>">
+        <form class="check-form" id="formulario" action="<?php echo RUTA_PRINCIPAL . 'reserva/verify'; ?>">
             <div class="row align-items-center">
                 <div class="col-lg-3 col-sm-6">
                     <div class="check-content">
@@ -60,7 +41,7 @@
                         <div class="form-group">
                             <div class="input-group date" id="datetimepicker-1">
                                 <i class="flaticon-calendar"></i>
-                                <input type="text" class="form-control" name="f_llegada">
+                                <input type="text" class="form-control" id="f_llegada" name="f_llegada" value="<?php echo date('Y-m-d'); ?>">
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-th"></i>
                                 </span>
@@ -75,7 +56,7 @@
                         <div class="form-group">
                             <div class="input-group date" id="datetimepicker-2">
                                 <i class="flaticon-calendar"></i>
-                                <input type="text" class="form-control" name="f_salida">
+                                <input type="text" class="form-control" id="f_salida" name="f_salida" value="<?php echo date('Y-m-d'); ?>">
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-th"></i>
                                 </span>
@@ -85,16 +66,16 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="check-content">
-                        
-                    <div class="form-group">
-                        <label for="habitacion" class="form-label">Habitaciones</label>
-                        <select name="habitacion" class="select-auto" id="habitacion" style="width: 100%;">
-                            <option value="">Seleccionar</option>
-                            <?php foreach ($data['habitaciones'] as $habitacion) { ?>
-                                <option value="<?php echo $habitacion['id']; ?>"><?php echo $habitacion['estilo']; ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
+
+                        <div class="form-group">
+                            <label for="habitacion" class="form-label">Habitaciones</label>
+                            <select name="habitacion" class="select-auto" id="habitacion" style="width: 100%;">
+                                <option value="">Seleccionar</option>
+                                <?php foreach ($data['habitaciones'] as $habitacion) { ?>
+                                    <option value="<?php echo $habitacion['id']; ?>"><?php echo $habitacion['estilo']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
                     </div>
 
                 </div>
@@ -852,7 +833,16 @@
 </section>
 <!-- End News Area -->
 
-<?php include_once 'views/template/footer-principal.php'; ?>
+<?php include_once 'views/template/footer-principal.php';
+
+if (!empty($_GET['respuesta']) && $_GET['respuesta'] == 'warning') { ?>
+
+    <script>
+        alertaSW('TODO LOS CAMPOS SON REQUERIDOS', 'warning');
+    </script>
+
+<?php } ?>
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/disponibilidad.js'; ?>"></script>
 
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/index.js'; ?>"></script>
 </body>
