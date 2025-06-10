@@ -97,8 +97,8 @@
 <section class="explore-area pt-170 pb-100">
     <div class="container">
         <div class="section-title">
-            <span>Explore</span>
-            <h2>We are cool to give you pleasure</h2>
+            <span>Explorar</span>
+            <h2>Nosotros somos geniales para darte placer</h2>
         </div>
         <div class="row align-items-center">
             <div class="col-lg-6">
@@ -112,7 +112,7 @@
                     <p>Nuestras Suites de Lujo ofrecen un equilibrio perfecto entre elegancia, comodidad y modernidad. Diseñadas para los huéspedes más exigentes, cuentan con vistas impresionantes, una cama tamaño king, baño privado con jacuzzi, y una decoración cuidadosamente seleccionada para crear un ambiente relajante y exclusivo.</p>
                     <p>Disfruta de una experiencia inolvidable con servicio a la habitación, conexión Wi-Fi de alta velocidad, aire acondicionado, minibar y atención personalizada las 24 horas.</p>
                     <a href="about.html" class="default-btn">
-                        explore More
+                        explorar más
                         <i class="flaticon-right"></i>
                     </a>
                 </div>
@@ -126,16 +126,18 @@
 <section class="facilities-area pb-60">
     <div class="container">
         <div class="section-title">
-            <span>Facilities</span>
-            <h2>Giving entirely awesome</h2>
+            <span>Instalaciones</span>
+            <h2>
+                <h2>Instalaciones Completamente Asombrosas</h2>
+            </h2>
         </div>
         <div class="row">
             <div class="col-lg-3 col-sm-6">
                 <div class="single-facilities-wrap">
                     <div class="single-facilities">
                         <i class="facilities-icon flaticon-pickup"></i>
-                        <h3>Pick Up & Drop​</h3>
-                        <p>parkn ipsum dolor sit amet, consectetur adiing elit sed do eiu</p>
+                        <h3>Recepción y Traslados​</h3>
+                        <p>Disfruta de nuestro servicio de recogida y traslado para una llegada sin preocupaciones. </p>
                         <a href="service-details.html" class="icon-btn">
                             <i class="flaticon-right"></i>
                         </a>
@@ -146,8 +148,8 @@
                 <div class="single-facilities-wrap">
                     <div class="single-facilities">
                         <i class="facilities-icon flaticon-coffee-cup"></i>
-                        <h3>Welcome Drink​​​​</h3>
-                        <p>parkn ipsum dolor sit amet, consectetur adiing elit sed do eiu</p>
+                        <h3>Bebida de Bienvenida</h3>
+                        <p>Recíbete con un detalle especial y comienza tu experiencia con el mejor sabor.</p>
                         <a href="service-details.html" class="icon-btn">
                             <i class="flaticon-right"></i>
                         </a>
@@ -158,8 +160,8 @@
                 <div class="single-facilities-wrap">
                     <div class="single-facilities">
                         <i class="facilities-icon flaticon-garage"></i>
-                        <h3>​​Parking Space</h3>
-                        <p>parkn ipsum dolor sit amet, consectetur adiing elit sed do eiu</p>
+                        <h3>Zona de Parqueo</h3>
+                        <p>Estacionamiento privado y seguro para tu comodidad durante toda tu estancia.</p>
                         <a href="service-details.html" class="icon-btn">
                             <i class="flaticon-right"></i>
                         </a>
@@ -170,8 +172,8 @@
                 <div class="single-facilities-wrap">
                     <div class="single-facilities">
                         <i class="facilities-icon flaticon-water"></i>
-                        <h3>Cold Hot & Water​</h3>
-                        <p>parkn ipsum dolor sit amet, consectetur adiing elit sed do eiu</p>
+                        <h3>Agua Caliente y Fría 24/7</h3>
+                        <p>Confort absoluto con suministro constante de agua caliente y fría en todas las habitaciones.</p>
                         <a href="service-details.html" class="icon-btn">
                             <i class="flaticon-right"></i>
                         </a>
@@ -190,12 +192,15 @@
             <a href="https://www.youtube.com/watch?v=bk7McNUjWgw" class="video-btn popup-youtube">
                 <i class="flaticon-play-button"></i>
             </a>
-            <h2><span>Incredible!</span> Are you coming today</h2>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores sed obcaecati, magni excepturi, temporibus vero, inventore tenetur assumenda natus sequi labore. Voluptates eligendi dolores quod temporibus aperiam adipisci, quasi reprehenderit. Voluptates eligendi dolores quod temporibus.</p>
+            <h2><span>¡Exclusivo!</span> ¿Reservas para hoy?</h2>
+            <p>
+                Te invitamos a disfrutar de una experiencia de lujo, con instalaciones de primer nivel y un servicio diseñado para superar tus expectativas. Haz tu reserva ahora y descubre el verdadero significado del descanso.
+            </p>
             <a href="#" class="default-btn">
-                Join Us Today
+                Reserva Ahora
                 <i class="flaticon-right"></i>
             </a>
+
         </div>
     </div>
     <div class="white-shape">
@@ -215,40 +220,53 @@
         <div class="tab industries-list-tab">
             <div class="row">
                 <div class="col-lg-4">
+                    <div style="margin-bottom: 20px;">
+                        <label for="currency">Selecciona la moneda:</label>
+                        <select id="currency">
+                            <option value="USD" selected>Dólar (USD)</option>
+                            <option value="EUR">Euro (EUR)</option>
+                            <option value="COP">Peso Colombiano (COP)</option>
+                        </select>
+                    </div>
+
                     <ul class="tabs">
                         <li class="single-rooms">
                             <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/button-img-1.jpg" alt="Image">
                             <div class="room-content">
                                 <h3>Double Room</h3>
-                                <span>From $75.9/night</span>
+                                <span class="price" data-usd="75.90">Desde $75.9/noche</span>
                             </div>
                         </li>
                         <li class="single-rooms">
                             <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/button-img-2.jpg" alt="Image">
                             <div class="room-content">
                                 <h3>Luxury Room</h3>
-                                <span>From $50.9/night</span>
+                                <span class="price" data-usd="50,9">Desde $50,9/noche</span>
+
                             </div>
                         </li>
                         <li class="single-rooms">
                             <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/button-img-3.jpg" alt="Image">
                             <div class="room-content">
                                 <h3>Best Room</h3>
-                                <span>From $70.9/night</span>
+                                <span class="price" data-usd="70,9">Desde $70,9/noche</span>
+
                             </div>
                         </li>
                         <li class="single-rooms">
                             <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/button-img-4.jpg" alt="Image">
                             <div class="room-content">
                                 <h3>Classic Room</h3>
-                                <span>From $95.9/night</span>
+                                <span class="price" data-usd="95,9">Desde $95,9/noche</span>
+
                             </div>
                         </li>
                         <li class="single-rooms">
                             <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/button-img-5.jpg" alt="Image">
                             <div class="room-content">
                                 <h3>Budget Room</h3>
-                                <span>From $95.9/night</span>
+                                <span class="price" data-usd="105,9">Desde $105,9/noche</span>
+
                             </div>
                         </li>
                     </ul>
@@ -845,6 +863,42 @@ if (!empty($_GET['respuesta']) && $_GET['respuesta'] == 'warning') { ?>
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/disponibilidad.js'; ?>"></script>
 
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/index.js'; ?>"></script>
+<script>
+    const currencySelect = document.getElementById('currency');
+    const prices = document.querySelectorAll('.price');
+
+    const conversionRates = {
+        USD: 1,
+        EUR: 0.91,
+        COP: 4139.49  // puedes actualizarlo dinámicamente si quieres
+    };
+
+    const symbols = {
+        USD: '$',
+        EUR: '€',
+        COP: '$'
+    };
+
+    currencySelect.addEventListener('change', () => {
+        const selectedCurrency = currencySelect.value;
+
+        prices.forEach(price => {
+            const usdValue = parseFloat(price.dataset.usd);
+            const converted = usdValue * conversionRates[selectedCurrency];
+
+            let formatted = converted.toLocaleString('es-CO', {
+                style: 'currency',
+                currency: selectedCurrency,
+                minimumFractionDigits: selectedCurrency === 'COP' ? 0 : 2,
+                maximumFractionDigits: selectedCurrency === 'COP' ? 0 : 2
+            });
+
+            price.innerHTML = `Desde ${formatted}/noche`;
+        });
+    });
+</script>
+
+
 </body>
 
 </html>
