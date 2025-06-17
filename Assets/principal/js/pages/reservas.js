@@ -1,37 +1,41 @@
+const frm = document.querySelector("#formulario");
+const calendarEl = document.getElementById("calendar");
+let calendar;
+
 document.addEventListener("DOMContentLoaded", function () {
-  const f_llegada = document.querySelector("#f_llegada");
-  const f_salida = document.querySelector("#f_salida");
-  const habitacion = document.querySelector("#habitacion");
-  const calendarEl = document.getElementById("calendar");
+  frm.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-  let calendar = new FullCalendar.Calendar(calendarEl, {
-    headerToolbar: {
-      left: "prev,next today",
-      center: "title",
-      right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
-    },
-    locale: "es",
-    events: function (info, successCallback, failureCallback) {
-      const llegada = f_llegada.value;
-      const salida = f_salida.value;
-      const habit = habitacion.value;
+    const f_llegada = document.querySelector("#f_llegada").value;
+    const f_salida = document.querySelector("#f_salida").value;
+    const habitacion = document.querySelector("#habitacion").value;
 
-      if (llegada && salida && habit) {
-        fetch(`${base_url}reserva/listar/${llegada}/${salida}/${habit}`)
-          .then(res => res.json())
-          .then(data => successCallback(data))
-          .catch(err => failureCallback(err));
-      } else {
-        successCallback([]);
-      }
+    if (f_llegada === "" || f_salida === "" || habitacion === "") {
+      alertaSW("Todos los campos son obligatorios", "warning");
+      return;
     }
-  });
 
-  calendar.render();
+    const url = base_url + 'reserva/listar/' + f_llegada + '/' + f_salida + '/' + habitacion;
 
-  [f_llegada, f_salida, habitacion].forEach(input => {
-    input.addEventListener("change", () => {
-      calendar.refetchEvents();
+    // Si ya existe un calendario, lo destruimos
+    if (calendar) {
+      calendar.destroy();
+    }
+
+    calendar = new FullCalendar.Calendar(calendarEl, {
+      headerToolbar: {
+        left: "prev,next today",
+        center: "title",
+        right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
+      },
+      locale: "es",
+      navLinks: true,
+      businessHours: true,
+      editable: false,
+      selectable: false,
+      events: url
     });
+
+    calendar.render();
   });
 });
