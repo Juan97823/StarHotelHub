@@ -77,10 +77,18 @@ include_once 'views/template/portada.php'; ?>
                                     <h3><?php echo $data['habitacion']['estilo'] ?></h3>
                                     <ul class="rating">
                                         <span class="price"><?php echo $data['habitacion']['precio']; ?>/noche</span>
-                                        <a href="book-table.html" class="default-btn">
-                                            Reservar
-                                            <i class="flaticon-right"></i>
-                                        </a>
+                                        <?php if (!empty($_SESSION['id_usuario'])) { ?>
+                                            <a href="<?php echo RUTA_PRINCIPAL . 'perfil'; ?>" class="default-btn">
+                                                Procesar Reserva
+                                                <i class="flaticon-right"></i>
+                                            </a>
+                                        <?php } else { ?>
+
+                                            <a href="<?php echo RUTA_PRINCIPAL . 'login'; ?>" class="default-btn">
+                                                Login
+                                                <i class="flaticon-right"></i>
+                                            </a>
+                                        <?php } ?>
                                 </div>
                             </div>
                         </div>

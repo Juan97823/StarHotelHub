@@ -1,200 +1,132 @@
-<!-- Start Footer Area -->
+<!-- Inicio del Área de Footer -->
 <footer class="footer-top-area pt-140 jarallax">
 	<div class="container">
+
+		<!-- Título del boletín -->
 		<div class="section-title">
-			<h2>Subscribe newsletter</h2>
-			<p>Newsletr dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut laboreonsectetur adipiscinet dolore.</p>
+			<h2>Suscríbete al boletín</h2>
+			<p>Suscríbete para recibir noticias, novedades y ofertas exclusivas directamente en tu correo electrónico.</p>
 		</div>
+
+		<!-- Área de suscripción -->
 		<div class="footer-tops-area pb-60">
 			<div class="row">
-				<!-- Start Subscribe Area -->
 				<div class="subscribe-wrap">
 					<form class="newsletter-form" data-toggle="validator">
-						<input type="email" class="input-tracking" placeholder="Your Email" name="EMAIL" required autocomplete="off">
-
+						<input type="email" class="input-tracking" placeholder="Tu correo electrónico" name="EMAIL" required autocomplete="off">
 						<button class="default-btn active" type="submit">
-							Subscribe
+							Suscribirse
 							<i class="flaticon-right"></i>
 						</button>
-
 						<div id="validator-newsletter" class="form-result"></div>
 					</form>
 				</div>
-				<!-- End Subscribe Area -->
 			</div>
 		</div>
+
+		<!-- Contenido principal del footer -->
 		<div class="footer-middle-area pt-60">
 			<div class="row">
+
+				<!-- Columna 1 -->
 				<div class="col-lg-3 col-md-6">
 					<div class="single-widget">
 						<a href="<?php echo RUTA_PRINCIPAL; ?>">
-							<img src="<?php echo RUTA_PRINCIPAL . 'assets'; ?>/img/Logo.png" alt="Image">
+							<img src="<?php echo RUTA_PRINCIPAL . 'assets'; ?>/img/Logo.png" alt="Logo Starhotelhub">
 						</a>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat molestiae corporis, magni maxime perferendis ducimus.</p>
+						<p>Starhotelhub es una plataforma digital diseñada para conectar hoteles, huéspedes y proveedores de servicios en un ecosistema inteligente y eficiente. Más que una simple central de reservas, es un hub tecnológico que centraliza operaciones, optimiza la experiencia del usuario y digitaliza la gestión del hospedaje. Con enfoque en automatización, análisis de datos y personalización, Starhotelhub es el puente entre el hospedaje tradicional y su evolución digital.</p>
 						<ul class="social-icon">
-							<li>
-								<a href="#">
-									<i class="bx bxl-facebook"></i>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="bx bxl-twitter"></i>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="bx bxl-pinterest-alt"></i>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="bx bxl-linkedin"></i>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="bx bxl-youtube"></i>
-								</a>
-							</li>
+							<li><a href="#"><i class="bx bxl-facebook"></i></a></li>
+							<li><a href="#"><i class="bx bxl-twitter"></i></a></li>
+							<li><a href="#"><i class="bx bxl-pinterest-alt"></i></a></li>
+							<li><a href="#"><i class="bx bxl-linkedin"></i></a></li>
+							<li><a href="#"><i class="bx bxl-youtube"></i></a></li>
 						</ul>
 					</div>
 				</div>
+
+				<!-- Columna 2 -->
 				<div class="col-lg-3 col-md-6">
 					<div class="single-widget">
-						<h3>Quick Links</h3>
+						<h3>Enlaces rápidos</h3>
 						<ul>
-							<li>
-								<a href="#">
-									<i class="right-icon bx bx-chevrons-right"></i>
-									Big Data
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="right-icon bx bx-chevrons-right"></i>
-									Wellness
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="right-icon bx bx-chevrons-right"></i>
-									Spa Gallery
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="right-icon bx bx-chevrons-right"></i>
-									Reservation
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="right-icon bx bx-chevrons-right"></i>
-									FAQ
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="right-icon bx bx-chevrons-right"></i>
-									Contact
-								</a>
-							</li>
+							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Big Data</a></li>
+							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Bienestar</a></li>
+							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Galería de Spa</a></li>
+							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Reservas</a></li>
+							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Preguntas frecuentes</a></li>
+							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Contacto</a></li>
 						</ul>
 					</div>
 				</div>
+
+				<!-- Columna 3 -->
 				<div class="col-lg-3 col-md-6">
 					<div class="single-widget">
-						<h3>Services</h3>
+						<h3>Servicios</h3>
 						<ul>
-							<li>
-								<a href="#">
-									<i class="right-icon bx bx-chevrons-right"></i>
-									Restaurant
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="right-icon bx bx-chevrons-right"></i>
-									Swimming Pool
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="right-icon bx bx-chevrons-right"></i>
-									Wellness & Spa
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="right-icon bx bx-chevrons-right"></i>
-									Conference Room
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="right-icon bx bx-chevrons-right"></i>
-									Events
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="right-icon bx bx-chevrons-right"></i>
-									Adult Room
-								</a>
-							</li>
+							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Restaurante</a></li>
+							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Piscina</a></li>
+							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Spa y Bienestar</a></li>
+							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Sala de conferencias</a></li>
+							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Eventos</a></li>
+							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Habitación solo adultos</a></li>
 						</ul>
 					</div>
 				</div>
+
+				<!-- Columna 4 -->
 				<div class="col-lg-3 col-md-6">
 					<div class="single-widget">
-						<h3>Contact Info</h3>
+						<h3>Información de contacto</h3>
 						<ul class="information">
 							<li class="address">
 								<i class="flaticon-maps-and-flags"></i>
-								<span>Address</span>
-								205 Fida Walinton, Tongo Street Front The USA
+								<span>Dirección:</span>
+								205 Fida Walinton, Calle Tongo, Frente a USA
 							</li>
 							<li class="address">
 								<i class="flaticon-call"></i>
-								<span>Phone</span>
-								<a href="tel:+882-569-756">
-									+882-569-756
-								</a>
+								<span>Teléfono:</span>
+								<a href="tel:+57-319-587-8776">+57 319 587 8776</a>
 							</li>
 							<li class="address">
 								<i class="flaticon-envelope"></i>
-								<span>Email</span>
-								<a href="mailto:hello@ecorik.com">
-									hello@ecorik.com
-								</a>
+								<span>Correo electrónico:</span>
+								<a href="mailto:Juanneoplus@gmail.com">Juanneoplus@gmail.com</a>
 							</li>
 						</ul>
 					</div>
 				</div>
-			</div>
 
+			</div>
 		</div>
+
+		<!-- Pie de página inferior -->
 		<div class="footer-bottom-area">
 			<div class="row align-items-center">
 				<div class="col-lg-6">
 					<div class="copy-right">
-						<p>Copyright @2022 <a href="<?php echo RUTA_PRINCIPAL; ?>">Ecorik</a>. All Rights Reserved</p>
+						<p>&copy; 2025 <a href="<?php echo RUTA_PRINCIPAL; ?>">DevStock</a>. Todos los derechos reservados.</p>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<div class="designed">
-						<p>Designed By <i class='bx bx-heart'></i> <a href="https://envytheme.com/" target="_blank">EnvyTheme</a></p>
+						<p>Diseñado con <i class='bx bx-heart'></i> por <a href="https://envytheme.com/" target="_blank">DevStock</a></p>
 					</div>
 				</div>
 			</div>
 		</div>
+
 	</div>
+
+	<!-- Forma decorativa -->
 	<div class="footer-shape">
-		<img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/shape/white-shape-bottom.png" alt="Image">
+		<img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/shape/white-shape-bottom.png" alt="Decoración">
 	</div>
 </footer>
-<!-- End Footer Area -->
+<!-- Fin del Área de Footer -->
+
 
 <!-- Start Go Top Area -->
 <div class="go-top">
@@ -242,7 +174,8 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-	const base_url ='<?php echo RUTA_PRINCIPAL; ?>';
+	const base_url = '<?php echo RUTA_PRINCIPAL; ?>';
+
 	function alertaSW(mensaje, tipo) {
 		Swal.fire({
 			position: "top-end",

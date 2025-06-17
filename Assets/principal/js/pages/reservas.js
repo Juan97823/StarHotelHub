@@ -1,23 +1,37 @@
-const f_llegada = document.querySelector("#f_llegada");
-const f_salida = document.querySelector("#f_salida");
-const habitacion = document.querySelector("#habitacion");
 document.addEventListener("DOMContentLoaded", function () {
-  var calendarEl = document.getElementById("calendar");
+  const f_llegada = document.querySelector("#f_llegada");
+  const f_salida = document.querySelector("#f_salida");
+  const habitacion = document.querySelector("#habitacion");
+  const calendarEl = document.getElementById("calendar");
 
-  var calendar = new FullCalendar.Calendar(calendarEl, {
+  let calendar = new FullCalendar.Calendar(calendarEl, {
     headerToolbar: {
       left: "prev,next today",
       center: "title",
       right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
     },
     locale: "es",
-    navLinks: true, // can click day/week names to navigate views
-    businessHours: true, // display business hours
-    editable: true,
-    selectable: true,
-    events:
-      base_url + 'reserva/listar/' + f_llegada.value + '/' + f_salida.value + '/' + habitacion.value
+    events: function (info, successCallback, failureCallback) {
+      const llegada = f_llegada.value;
+      const salida = f_salida.value;
+      const habit = habitacion.value;
+
+      if (llegada && salida && habit) {
+        fetch(`${base_url}reserva/listar/${llegada}/${salida}/${habit}`)
+          .then(res => res.json())
+          .then(data => successCallback(data))
+          .catch(err => failureCallback(err));
+      } else {
+        successCallback([]);
+      }
+    }
   });
 
   calendar.render();
+
+  [f_llegada, f_salida, habitacion].forEach(input => {
+    input.addEventListener("change", () => {
+      calendar.refetchEvents();
+    });
+  });
 });
