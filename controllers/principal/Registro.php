@@ -13,7 +13,4 @@ class Registro extends Controller
         $this->views->getView('principal/Registro', $data);
 
     }
-    public function crear(){
-        print_r($_POST);
-    }
 }

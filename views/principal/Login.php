@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="col-12 text-center mt-3">
                                 <p class="account-desc">
                                     ¿No tienes cuenta?
-                                    <a href="<?php echo RUTA_PRINCIPAL; ?>registro">Regístrate aquí</a>
+                                    <a href="registro">Regístrate aquí</a>
                                 </p>
                             </div>
 
@@ -114,5 +114,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php include_once 'views/template/footer-principal.php'; ?>
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/login.js'; ?>"></script>
 </body>
-
 </html>
