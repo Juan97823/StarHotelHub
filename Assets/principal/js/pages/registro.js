@@ -1,17 +1,30 @@
-document.querySelector('form').addEventListener('submit', async function (e) {
+const frm = document.querySelector("#formulario");
+const terminos = document.querySelector("#chb2");
+document.addEventListener("DOMContentLoaded", function () {
+  frm.addEventListener("submit", function (e) {
     e.preventDefault();
-    const form = e.target;
-    const passwordField = form.querySelector('input[name="password"]');
-    const password = passwordField.value;
+    if (
+      frm.nombre.value == "" ||
+      frm.correo.value == "" ||
+      frm.clave.value == "" ||
+      frm.confirmar.value == ""
+    ) {
+      alertaSW("TODO LOS CAMPOS SON REQUERIDOS", "warning");
+    } else if (!terminos.checked) {
+      alertaSW("ACEPTA LOS TERMINOS Y CONDICIONES", "warning");
+    } else {
+      const http = new XMLHttpRequest();
+      const url = base_url + "registro/crear";
 
-    // Hashear con SHA-256 antes de enviar
-    const encoder = new TextEncoder();
-    const data = encoder.encode(password);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-
-    passwordField.value = hashHex; // reemplaza la contraseña con su hash
-
-    form.submit(); // ahora sí envía el formulario
+      http.open("POST", url, true);
+      http.send(new FormData(frm));
+      http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log(this.responseText);
+        }
+        {
+        }
+      };
+    }
+  });
 });

@@ -10,7 +10,7 @@
                         <h3 class="form-title">Crear una cuenta</h3>
                         <p class="form-desc">Solo necesitas tu correo y contraseña.</p>
                     </div>
-                    <form method="post">
+                    <form id="formulario" autocomplete="off">
                         <!-- Botón Google -->
                         <div class="mb-4">
                             <button class="default-btn w-100 py-3 fs-5" type="button" disabled>
@@ -20,20 +20,23 @@
 
                         <div class="row">
                             <div class="col-12 mb-3">
-                                <input class="form-control" type="text" name="nombre" placeholder="Nombre completo" required>
+                                <input class="form-control" type="text" name="nombre" placeholder="Nombre completo">
                             </div>
                             <div class="col-12 mb-3">
-                                <input class="form-control" type="email" name="correo" placeholder="Correo electrónico" required>
+                                <input class="form-control" type="email" name="correo" placeholder="Correo electrónico">
                             </div>
                             <div class="col-12 mb-3">
-                                <input class="form-control" type="password" name="clave" placeholder="Contraseña" required>
+                                <input class="form-control" type="password" name="clave" placeholder="Contraseña">
                             </div>
                             <div class="col-12 mb-3">
-                                <input class="form-control" type="password" name="confirmar" placeholder="Confirmar contraseña" required>
+                                <input class="form-control" type="password" name="confirmar" placeholder="Confirmar contraseña">
                             </div>
-                            <div class="col-12 mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="chb1" required>
-                                <label class="form-check-label" for="chb1">Acepto la <a href="#">política de privacidad</a></label>
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-condition">
+                                <div class="agree-label">
+                                    <input type="checkbox" id="chb2">
+                                    <label for="chb2">Acepto los <a href="<?php echo RUTA_PRINCIPAL . 'terminos'; ?>">Términos y Condiciones</a>
+                                    </label>
+                                </div>
                             </div>
                             <div class="col-12">
                                 <button class="default-btn btn-two w-100" type="submit">
@@ -42,7 +45,7 @@
                             </div>
                             <div class="col-12 text-center mt-3">
                                 <p class="account-desc">
-                                    ¿Ya tienes una cuenta? 
+                                    ¿Ya tienes una cuenta?
                                     <a href="<?php echo RUTA_PRINCIPAL . 'login'; ?>">Iniciar sesión</a>
                                 </p>
                             </div>
