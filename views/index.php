@@ -420,8 +420,9 @@
 <section class="bokking-area pb-70">
     <div class="container">
         <div class="section-title">
-            <span>Booking</span>
-            <h2>Direct booking benefits</h2>
+            <span>Reservas</span>
+            <h2>Beneficios de reservar directamente</h2>
+
         </div>
 
         <div class="row">
@@ -430,7 +431,9 @@
                     <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         <i class="book-icon flaticon-online-booking"></i>
                         <span class="booking-title">Free cost</span>
-                        <h3>No booking fee</h3>
+                        <h3>Sin costo de reserva</h3>
+
+
                     </a>
 
                     <div class="modal fade" id="staticBackdrop">
@@ -442,7 +445,7 @@
                                 </div>
 
                                 <div class="modal-body">
-                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo neque eum tempore ducimus odit esse porro aperiam, delectus sunt omnis sed quod alias. Natus voluptate nemo explicabo fugiat quibusdam cupiditate quod alias. Natus voluptate.</p>
+                                    <p>Realiza tu reserva sin cargos adicionales. Transparencia garantizada desde el primer paso.</p>
                                 </div>
 
                                 <div class="modal-footer">
@@ -462,7 +465,7 @@
                     <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop-2">
                         <i class="book-icon flaticon-podium"></i>
                         <span class="booking-title">Free cost</span>
-                        <h3>Best rate guarantee</h3>
+                        <h3>Mejor tarifa garantizada</h3>
                     </a>
 
                     <div class="modal fade" id="staticBackdrop-2">
@@ -474,7 +477,7 @@
                                 </div>
 
                                 <div class="modal-body">
-                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo neque eum tempore ducimus odit esse porro aperiam, delectus sunt omnis sed quod alias. Natus voluptate nemo explicabo fugiat quibusdam cupiditate quod alias. Natus voluptate.</p>
+                                    <p>Reservar directo te asegura el mejor precio disponible en línea. ¡Compruébalo tú mismo!</p>
                                 </div>
 
                                 <div class="modal-footer">
@@ -494,7 +497,7 @@
                     <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop-3">
                         <i class="book-icon flaticon-airport"></i>
                         <span class="booking-title">Free cost</span>
-                        <h3>Reservations 24/7</h3>
+                        <h3>Reservas 24/7</h3>
                     </a>
 
                     <div class="modal fade" id="staticBackdrop-3">
@@ -506,7 +509,7 @@
                                 </div>
 
                                 <div class="modal-body">
-                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo neque eum tempore ducimus odit esse porro aperiam, delectus sunt omnis sed quod alias. Natus voluptate nemo explicabo fugiat quibusdam cupiditate quod alias. Natus voluptate.</p>
+                                    <p>Estamos disponibles todo el día, todos los días, para que puedas planear tu viaje en cualquier momento.</p>
                                 </div>
 
                                 <div class="modal-footer">
@@ -526,7 +529,7 @@
                     <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop-4">
                         <i class="book-icon flaticon-slow"></i>
                         <span class="booking-title">Free cost</span>
-                        <h3>High-speed Wi-Fi</h3>
+                        <h3>Wi-Fi de Alta Velocidad</h3>
                     </a>
 
                     <div class="modal fade" id="staticBackdrop-4">
@@ -538,7 +541,7 @@
                                 </div>
 
                                 <div class="modal-body">
-                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo neque eum tempore ducimus odit esse porro aperiam, delectus sunt omnis sed quod alias. Natus voluptate nemo explicabo fugiat quibusdam cupiditate quod alias. Natus voluptate.</p>
+                                    <p>Conexión estable y veloz disponible en todas las áreas del hotel. Perfecto para trabajo o entretenimiento.</p>
                                 </div>
 
                                 <div class="modal-footer">
@@ -558,7 +561,7 @@
                     <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop-5">
                         <i class="book-icon flaticon-coffee-cup-1"></i>
                         <span class="booking-title">Free cost</span>
-                        <h3>Free breakfast</h3>
+                        <h3>Desayuno incluido</h3>
                     </a>
 
                     <div class="modal fade" id="staticBackdrop-5">
@@ -570,7 +573,7 @@
                                 </div>
 
                                 <div class="modal-body">
-                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo neque eum tempore ducimus odit esse porro aperiam, delectus sunt omnis sed quod alias. Natus voluptate nemo explicabo fugiat quibusdam cupiditate quod alias. Natus voluptate.</p>
+                                    <p>Empieza tu día con energía gracias a un desayuno completo cortesía de la casa.</p>
                                 </div>
 
                                 <div class="modal-footer">
@@ -593,8 +596,9 @@
 <section class="restaurants-area pb-100">
     <div class="container-fluid p-0">
         <div class="section-title">
-            <span>Restaurants</span>
-            <h2>The area we cover under Ecorik</h2>
+            <span>Instalaciones</span>
+            <h2>Lo que puedes disfrutar en StarHotelHub</h2>
+
         </div>
 
         <div class="restaurants-wrap owl-carousel owl-theme">
@@ -609,8 +613,9 @@
             </div>
             <div class="single-restaurants bg-2">
                 <i class="restaurants-icon flaticon-swimming"></i>
-                <span>Swimming Pool</span>
-                <p>Restaurant wansis dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magnaua. Ut nipor incididuit might br minim veniam.</p>
+                <span>Piscina</span>
+                <p>Una zona de relajación con piscina climatizada, tumbonas y bar. Ideal para disfrutar del sol con comodidad.</p>
+
                 <a href="#" class="default-btn">
                     Explore More
                     <i class="flaticon-right"></i>
@@ -870,7 +875,7 @@ if (!empty($_GET['respuesta']) && $_GET['respuesta'] == 'warning') { ?>
     const conversionRates = {
         USD: 1,
         EUR: 0.91,
-        COP: 4139.49  // puedes actualizarlo dinámicamente si quieres
+        COP: 4139.49 // puedes actualizarlo dinámicamente si quieres
     };
 
     const symbols = {

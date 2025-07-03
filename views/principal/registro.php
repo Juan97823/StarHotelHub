@@ -26,14 +26,14 @@
                                 <input class="form-control" type="email" name="correo" placeholder="Correo electrónico">
                             </div>
                             <div class="col-12 mb-3">
-                                <input class="form-control" type="password" name="clave" placeholder="Contraseña">
+                                <input class="form-control" type="password" name="clave" placeholder="Contraseña" >
                             </div>
                             <div class="col-12 mb-3">
                                 <input class="form-control" type="password" name="confirmar" placeholder="Confirmar contraseña">
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12 form-condition">
                                 <div class="agree-label">
-                                    <input type="checkbox" id="chb2">
+                                    <input type ="checkbox" id="chb2" name="chb2">
                                     <label for="chb2">Acepto los <a href="<?php echo RUTA_PRINCIPAL . 'terminos'; ?>">Términos y Condiciones</a>
                                     </label>
                                 </div>
@@ -45,7 +45,7 @@
                             </div>
                             <div class="col-12 text-center mt-3">
                                 <p class="account-desc">
-                                    ¿Ya tienes una cuenta?
+                                    ¿Ya tienes una cuenta? 
                                     <a href="<?php echo RUTA_PRINCIPAL . 'login'; ?>">Iniciar sesión</a>
                                 </p>
                             </div>

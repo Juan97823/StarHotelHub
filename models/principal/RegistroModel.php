@@ -1,14 +1,23 @@
 <?php
 class RegistroModel extends Query
 {
-
     public function __construct()
     {
         parent::__construct();
     }
-    public function registrarse($nombre, $correo, $hash, $rol)
+
+    // Registrar usuario
+    public function registrarse($nombre, $correo, $clave, $rol)
     {
         $sql = "INSERT INTO usuarios (nombre, correo, clave, rol) VALUES (?, ?, ?, ?)";
-        return $this->insert($sql, array($nombre, $correo, $hash, $rol));
+        $datos = [$nombre, $correo, $clave, $rol];
+        return $this->insert($sql, $datos);
     }
-};
+
+    public function verificarCorreo($correo)
+    {
+        $correo = addslashes($correo); // sanitizar mínimamente
+        $sql = "SELECT id FROM usuarios WHERE correo = '$correo'";
+        return $this->select($sql);
+    }
+}

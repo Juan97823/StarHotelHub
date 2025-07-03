@@ -1,5 +1,5 @@
-<?php include_once 'views/template/header-principal.php'; ?>
-<?php include_once 'views/template/portada.php'; ?>
+<?php include 'views/template/header-principal.php'; ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -16,19 +16,13 @@
             <div class="row justify-content-center">
                 <div class="col-xl-6 col-lg-7 col-md-9">
                     <div class="contact-form-action shadow-lg p-5 rounded bg-white position-relative">
-
-                        <!-- Escaneo facial -->
-                        <div class="bio-auth text-center mb-4">
-                            <div class="face-scan mx-auto"></div>
-                            <p class="mt-2">Escaneo facial activo</p>
-                        </div>
-
                         <div class="form-heading text-center mb-4">
                             <h3 class="form-title">Inicia sesión en StarHotelHub</h3>
                             <p class="form-desc">Autenticación segura y moderna</p>
                         </div>
 
-                        <form method="POST">
+                        <form method="POST" id="formularioLogin">
+
                             <div class="row g-3 justify-content-center">
 
                                 <!-- Google login -->
@@ -42,15 +36,14 @@
                                 <div class="col-12">
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                        <input class="form-control form-control-lg" type="text" name="username" placeholder="Usuario o Correo" required>
+                                        <input class="form-control form-control-lg" type="text" name="correo" placeholder="Correo">
                                     </div>
                                 </div>
-
                                 <!-- Contraseña -->
                                 <div class="col-12">
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                        <input class="form-control form-control-lg" type="password" name="password" id="password" placeholder="Contraseña" required>
+                                         <input class="form-control form-control-lg" type="password" name="clave" id="password">
                                         <button type="button" class="btn btn-outline-secondary show-password">
                                             <i class="fas fa-eye"></i>
                                         </button>
@@ -113,9 +106,8 @@
             }
         });
     </script>
+    <?php include_once 'views/template/footer-login.php'; ?>
+    <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/login.js'; ?>"></script>
 </body>
 
 </html>
-
-<?php include_once 'views/template/footer-principal.php'; ?>
-<script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/login.js'; ?>"></script>
