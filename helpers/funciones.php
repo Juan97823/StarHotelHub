@@ -303,4 +303,14 @@ function verificar($valor, $datos = [])
   $existe = array_search($valor, $datos, true);
   return is_numeric($existe);
 }
+//VERIFICAR ROL
+function verificarRol($rolRequerido)
+{
+    session_start();
+    if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== $rolRequerido) {
+        header('Location: ' . RUTA_PRINCIPAL . 'login');
+        exit;
+    }
+}
+
 ?>

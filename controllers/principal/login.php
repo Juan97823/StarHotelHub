@@ -8,8 +8,8 @@ class Login extends Controller
 
     public function index()
     {
-        $data['title'] = 'Login'; 
-        $data['subtitle'] = 'Inicio de sesión'; 
+        $data['title'] = 'Login';
+        $data['subtitle'] = 'Inicio de sesión';
         $this->views->getView('principal/login', $data);
     }
 
@@ -25,17 +25,29 @@ class Login extends Controller
                 $usuario = $this->model->getUsuarioCorreo($correo);
 
                 if (!empty($usuario)) {
-                    // (Opcional) Validar si usuario está activo
+                    // Validar estado
                     if (isset($usuario['estado']) && $usuario['estado'] == 0) {
                         $res = ['tipo' => 'warning', 'msg' => 'USUARIO INACTIVO. CONTACTE SOPORTE'];
                     } elseif (password_verify($clave, $usuario['clave'])) {
-                        // Iniciar sesión
+                        // Crear sesión
                         $_SESSION['id_usuario'] = $usuario['id'];
                         $_SESSION['nombre']     = $usuario['nombre'];
                         $_SESSION['correo']     = $usuario['correo'];
                         $_SESSION['rol']        = $usuario['rol'];
 
-                        $res = ['tipo' => 'success', 'msg' => 'BIENVENIDO ' . $usuario['nombre']];
+                        // Redirección según rol
+                        $redirect = match ($usuario['rol']) {
+                            'Administrador'   => 'admin/dashboard',
+                            'Recepcionista'  => 'recepcionista/inicio',
+                            'Cajero'         => 'caja/inicio',
+                            default          => 'cliente/inicio',
+                        };
+
+                        $res = [
+                            'tipo' => 'success',
+                            'msg' => 'BIENVENIDO ' . $usuario['nombre'],
+                            'redirect' => $redirect
+                        ];
                     } else {
                         $res = ['tipo' => 'error', 'msg' => 'CONTRASEÑA INCORRECTA'];
                     }

@@ -1,4 +1,6 @@
 <?php
+require_once 'config/app/Query.php';
+
 class LoginModel extends Query
 {
     public function __construct()
