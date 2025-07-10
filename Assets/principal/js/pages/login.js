@@ -1,39 +1,38 @@
-const frmLogin = document.querySelector("#formularioLogin");
+const frm = document.querySelector("#formulario");
 
 document.addEventListener("DOMContentLoaded", function () {
-  if (!frmLogin) return;
+  if (!frm) return;
 
-  frmLogin.addEventListener("submit", function (e) {
+  frm.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const correo = frmLogin.correo.value.trim();
-    const clave = frmLogin.clave.value.trim(); // <- actualizado aquí
+    const usuario = frm.usuario.value.trim();
+    const clave = frm.clave.value.trim();
+    const terminos = document.getElementById("terminos");
 
-    if (correo === "" || clave === "") {
+    if (usuario === "" || clave === "") {
       alertaSW("TODOS LOS CAMPOS SON REQUERIDOS", "warning");
-      return;
-    }
+    } else if (terminos && !terminos.checked) {
+      alertaSW("DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES", "warning");
+    } else {
+      const http = new XMLHttpRequest();
+      const url = base_url + "login/verify";
+      http.open("POST", url, true);
+      http.send(new FormData(frm));
 
-    const http = new XMLHttpRequest();
-    const url = base_url + "login/validar";
-    http.open("POST", url, true);
-    http.send(new FormData(frmLogin));
-
-    http.onreadystatechange = function () {
-      if (this.readyState === 4 && this.status === 200) {
-        try {
+      http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
           const res = JSON.parse(this.responseText);
           alertaSW(res.msg, res.tipo);
 
           if (res.tipo === "success") {
+            frm.reset();
             setTimeout(() => {
-              window.location.href = base_url + "dashboard";
-            }, 1500);
+              window.location = base_url + "dashboard"; // o ruta que necesites
+            }, 1600);
           }
-        } catch (error) {
-          console.error("Error al procesar la respuesta:", error);
         }
-      }
-    };
+      };
+    }
   });
 });

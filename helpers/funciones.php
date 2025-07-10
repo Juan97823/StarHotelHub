@@ -1,6 +1,7 @@
 <?php
 //LIMPIAR CARACTERES ESPECIALES PARA PREVENIR INYECCION SQL
-function strClean($cadena){
+function strClean($cadena)
+{
   $string = preg_replace(['/\s+/', '/^\s|\s$/'], [' ', ''], $cadena);
   $string = trim($string);
   $string = stripslashes($string);
@@ -30,7 +31,8 @@ function strClean($cadena){
   return $string;
 }
 // CREAR SLUG
-function slugify($text, string $divider = '-'){
+function slugify($text, string $divider = '-')
+{
   // replace non letter or digits by divider
   $text = preg_replace('~[^\pL\d]+~u', $divider, $text);
 
@@ -56,7 +58,8 @@ function slugify($text, string $divider = '-'){
   return $text;
 }
 // LIMITAR CADENA
-function limitar_cadena($cadena, $limite, $sufijo){
+function limitar_cadena($cadena, $limite, $sufijo)
+{
   // Si la longitud es mayor que el límite...
   if (strlen($cadena) > $limite) {
     // Entonces corta la cadena y ponle el sufijo
@@ -67,13 +70,15 @@ function limitar_cadena($cadena, $limite, $sufijo){
   return $cadena;
 }
 //PERSONALIZAR FECHA
-function fechaPerzo($fecha){
+function fechaPerzo($fecha)
+{
   $datos = explode('-', $fecha);
   $anio = $datos[0];
   $me = ltrim($datos[1], "0");
   $dia = $datos[2];
   $mes = array(
-    "", "Enero",
+    "",
+    "Enero",
     "Febrero",
     "Marzo",
     "Abril",
@@ -89,7 +94,8 @@ function fechaPerzo($fecha){
   return $dia . " de " . $mes[$me] . " de " . $anio;
 }
 // VALIDAR CAMPOS REQUERIDOS
-function validarCampos($campos){
+function validarCampos($campos)
+{
   foreach ($campos as $campo) {
     if (empty($_POST[$campo])) {
       return false;
@@ -97,8 +103,23 @@ function validarCampos($campos){
   }
   return true;
 }
+// CREAR SESIONES
+function crearSesion($datos)
+{
+  $_SESSION['id_usuario'] = $datos['id'];             // Coincide con columna `id`
+  $_SESSION['usuario'] = $datos['correo'];            // Coincide con columna `correo`
+  $_SESSION['nombre'] = $datos['nombre'];             // Coincide con columna `nombre`
+  $_SESSION['rol'] = $datos['rol'];                   // Coincide con columna `rol`
+
+}
+//REDIRECT
+function redirect($ruta)
+{
+  header('Location: ' . $ruta);
+}
 // AGREGAR PRODUCTOS AL CARRITO
-function addToCart($carrito, $id, $nombre, $precio, $token, $cant = 1){
+function addToCart($carrito, $id, $nombre, $precio, $token, $cant = 1)
+{
   if (!isset($_SESSION[$carrito])) {
     $_SESSION[$carrito] = [];
   }
@@ -139,7 +160,8 @@ function addToCart($carrito, $id, $nombre, $precio, $token, $cant = 1){
   return $response;
 }
 // ELIMINAR PRODUCTO DEL CARRITO
-function removeFromCart($carrito, $id, $token){
+function removeFromCart($carrito, $id, $token)
+{
   if (!isset($_SESSION[$carrito])) {
     $_SESSION[$carrito] = [];
   }
@@ -170,7 +192,8 @@ function removeFromCart($carrito, $id, $token){
   return $response;
 }
 //VACIAR PRODUCTOS DEL CARRITO
-function clearCart($carrito){
+function clearCart($carrito)
+{
   unset($_SESSION[$carrito]); // Eliminar el carrito de la sesión
 
   // Preparar una respuesta JSON
@@ -182,7 +205,8 @@ function clearCart($carrito){
   return $response;
 }
 //MOSTRAR EL TOTAL GENERAL
-function getTotalPrice($carrito){
+function getTotalPrice($carrito)
+{
   if (!isset($_SESSION[$carrito])) {
     return 0; // Devolver 0 si el carrito no existe en la sesión
   }
@@ -303,4 +327,12 @@ function verificar($valor, $datos = [])
   $existe = array_search($valor, $datos, true);
   return is_numeric($existe);
 }
-?>
+//VERIFICAR ROL
+function verificarRol($rolRequerido)
+{
+  session_start();
+  if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== $rolRequerido) {
+    header('Location: ' . RUTA_PRINCIPAL . 'login');
+    exit;
+  }
+}

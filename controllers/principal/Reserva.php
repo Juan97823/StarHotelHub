@@ -71,4 +71,8 @@ class Reserva extends Controller
         }
         die();
     }
+    public function pendiente(){
+         $data['title'] = 'Reserva Pendiente';
+        $this->views->getView('principal/clientes/reservas/pendiente', $data);
+    }
 }

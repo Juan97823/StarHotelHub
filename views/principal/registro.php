@@ -20,20 +20,21 @@
 
                         <div class="row">
                             <div class="col-12 mb-3">
-                                <input class="form-control" type="text" name="nombre" placeholder="Nombre completo">
+                                <input class="form-control" type="text" name="nombre" placeholder="Nombre completo" required>
                             </div>
                             <div class="col-12 mb-3">
-                                <input class="form-control" type="email" name="correo" placeholder="Correo electrónico">
+                                <input class="form-control" type="email" name="correo" placeholder="Correo electrónico" required>
+                            </div>
+                            
+                            <div class="col-12 mb-3">
+                                <input class="form-control" type="password" name="clave" placeholder="Contraseña" required >
                             </div>
                             <div class="col-12 mb-3">
-                                <input class="form-control" type="password" name="clave" placeholder="Contraseña" >
-                            </div>
-                            <div class="col-12 mb-3">
-                                <input class="form-control" type="password" name="confirmar" placeholder="Confirmar contraseña">
+                                <input class="form-control" type="password" name="confirmar" placeholder="Confirmar contraseña" required>
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12 form-condition">
                                 <div class="agree-label">
-                                    <input type ="checkbox" id="chb2" name="chb2">
+                                    <input type ="checkbox" id="chb2" name="chb2" required>
                                     <label for="chb2">Acepto los <a href="<?php echo RUTA_PRINCIPAL . 'terminos'; ?>">Términos y Condiciones</a>
                                     </label>
                                 </div>

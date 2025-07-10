@@ -21,17 +21,17 @@ document.addEventListener("DOMContentLoaded", function () {
       const url = base_url + "registro/crear";
       http.open("POST", url, true);
       http.send(new FormData(frm));
-
       http.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-          console.log(this.responseText);
           const res = JSON.parse(this.responseText);
 
           alertaSW(res.msg, res.tipo);
 
           if (res.tipo === "success") {
+            frm.reset();
+            //MANDAR A OTRA RUTA
             setTimeout(() => {
-              window.location.href = base_url + "login";
+              window.location = base_url + "dashboard";
             }, 1600); // Espera 1.6s para que el usuario vea la alerta
           }
         }

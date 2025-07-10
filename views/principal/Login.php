@@ -21,7 +21,7 @@
                             <p class="form-desc">Autenticación segura y moderna</p>
                         </div>
 
-                        <form method="POST" id="formularioLogin">
+                        <form id="formulario" autocomplete="off">
 
                             <div class="row g-3 justify-content-center">
 
@@ -36,14 +36,14 @@
                                 <div class="col-12">
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                        <input class="form-control form-control-lg" type="text" name="correo" placeholder="Correo">
+                                        <input class="form-control form-control-lg" type="text" name="usuario" placeholder="Correo">
                                     </div>
                                 </div>
                                 <!-- Contraseña -->
                                 <div class="col-12">
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                         <input class="form-control form-control-lg" type="password" name="clave" id="password">
+                                         <input class="form-control form-control-lg" type="password" name="clave" id="password" placeholder="Password">
                                         <button type="button" class="btn btn-outline-secondary show-password">
                                             <i class="fas fa-eye"></i>
                                         </button>
@@ -58,7 +58,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 text-end">
-                                    <a class="forget" href="recover-password.html">¿Olvidaste tu contraseña?</a>
+                                    <a class="forget" href="#">¿Olvidaste tu contraseña?</a>
                                 </div>
 
                                 <!-- Botón login -->
