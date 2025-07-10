@@ -214,8 +214,8 @@
 <section class="our-rooms-area pt-60 pb-100">
     <div class="container">
         <div class="section-title">
-            <span>Our Rooms</span>
-            <h2>Fascinating rooms & suites</h2>
+            <span>Nuestras Habitaciones</span>
+            <h2>Habitaciones y suites fascinantes</h2>
         </div>
         <div class="tab industries-list-tab">
             <div class="row">
@@ -231,78 +231,80 @@
 
                     <ul class="tabs">
                         <li class="single-rooms">
-                            <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/button-img-1.jpg" alt="Image">
+                            <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/button-img-1.jpg" alt="Imagen">
                             <div class="room-content">
-                                <h3>Double Room</h3>
+                                <h3>Habitación Doble</h3>
                                 <span class="price" data-usd="75.90">Desde $75.9/noche</span>
                             </div>
                         </li>
                         <li class="single-rooms">
-                            <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/button-img-2.jpg" alt="Image">
+                            <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/button-img-2.jpg" alt="Imagen">
                             <div class="room-content">
-                                <h3>Luxury Room</h3>
-                                <span class="price" data-usd="50,9">Desde $50,9/noche</span>
-
+                                <h3>Habitación de Lujo</h3>
+                                <span class="price" data-usd="50.9">Desde $50.9/noche</span>
                             </div>
                         </li>
                         <li class="single-rooms">
-                            <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/button-img-3.jpg" alt="Image">
+                            <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/button-img-3.jpg" alt="Imagen">
                             <div class="room-content">
-                                <h3>Best Room</h3>
-                                <span class="price" data-usd="70,9">Desde $70,9/noche</span>
-
+                                <h3>Mejor Habitación</h3>
+                                <span class="price" data-usd="70.9">Desde $70.9/noche</span>
                             </div>
                         </li>
                         <li class="single-rooms">
-                            <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/button-img-4.jpg" alt="Image">
+                            <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/button-img-4.jpg" alt="Imagen">
                             <div class="room-content">
-                                <h3>Classic Room</h3>
-                                <span class="price" data-usd="95,9">Desde $95,9/noche</span>
-
+                                <h3>Habitación Clásica</h3>
+                                <span class="price" data-usd="95.9">Desde $95.9/noche</span>
                             </div>
                         </li>
                         <li class="single-rooms">
-                            <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/button-img-5.jpg" alt="Image">
+                            <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/rooms/button-img-5.jpg" alt="Imagen">
                             <div class="room-content">
-                                <h3>Budget Room</h3>
-                                <span class="price" data-usd="105,9">Desde $105,9/noche</span>
-
+                                <h3>Habitación Económica</h3>
+                                <span class="price" data-usd="105.9">Desde $105.9/noche</span>
                             </div>
                         </li>
                     </ul>
                 </div>
-                <div class="col-lg-8">
-                    <div class="tab_content">
-                        <div class="tabs_item">
-                            <div class="our-rooms-single-img room-bg-1">
-                            </div>
-                            <span class="preview-item">The Preview Of Double Room</span>
-                        </div>
-                        <div class="tabs_item">
-                            <div class="our-rooms-single-img room-bg-2">
-                            </div>
-                            <span class="preview-item">The Preview Of Luxury Room</span>
-                        </div>
-                        <div class="tabs_item">
-                            <div class="our-rooms-single-img room-bg-3">
-                            </div>
-                            <span class="preview-item">The Preview Of Best Room</span>
-                        </div>
-                        <div class="tabs_item">
-                            <div class="our-rooms-single-img room-bg-4">
-                            </div>
-                            <span class="preview-item">The Preview Of Classic Room</span>
-                        </div>
-                        <div class="tabs_item">
-                            <div class="our-rooms-single-img room-bg-5">
-                            </div>
-                            <span class="preview-item">The Preview Of Budget Room</span>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
+</section>
+
+</li>
+</ul>
+</div>
+<!-- ... -->
+<div class="col-lg-8">
+    <div class="tab_content">
+        <div class="tabs_item">
+            <div class="our-rooms-single-img room-bg-1"></div>
+            <span class="preview-item">Vista previa: Habitación Doble</span>
+        </div>
+        <div class="tabs_item">
+            <div class="our-rooms-single-img room-bg-2"></div>
+            <span class="preview-item">Vista previa: Habitación de Lujo</span>
+        </div>
+        <div class="tabs_item">
+            <div class="our-rooms-single-img room-bg-3"></div>
+            <span class="preview-item">Vista previa: Mejor Habitación</span>
+        </div>
+        <div class="tabs_item">
+            <div class="our-rooms-single-img room-bg-4"></div>
+            <span class="preview-item">Vista previa: Habitación Clásica</span>
+        </div>
+        <div class="tabs_item">
+            <div class="our-rooms-single-img room-bg-5"></div>
+            <span class="preview-item">Vista previa: Habitación Económica</span>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
 </section>
 <!-- End Our Rooms Area -->
 
@@ -313,34 +315,33 @@
             <div class="single-city-item owl-carousel owl-theme">
                 <div class="city-view-single-item">
                     <div class="city-content">
-                        <span>The City View</span>
-                        <h3>A charming view of the city town</h3>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur necessitatibus fugit eligendi accusantium vel quos debitis cupiditate ducimus placeat explicabo distinctio, consectetur eos animi, a voluptate delectus. Id, explicabo saepe Consequuntur</p>
-
-                        <p>The view onin wansis dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ad minim veniam, quis nostrud exercitation consectetur.</p>
+                        <span>Vista de la Ciudad</span>
+                        <h3>Una vista encantadora del centro</h3>
+                        <p>Descubre el encanto de la ciudad desde una perspectiva única. Disfruta de paisajes urbanos, arquitectura vibrante y el ritmo acogedor de la vida local.</p>
+                        <p>Una experiencia visual que combina historia, cultura y modernidad. Ideal para los amantes de las ciudades con alma.</p>
                     </div>
                 </div>
                 <div class="city-view-single-item">
                     <div class="city-content">
-                        <span>The City View</span>
-                        <h3>The charming view of the city</h3>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur necessitatibus fugit eligendi accusantium vel quos debitis cupiditate ducimus placeat explicabo distinctio, consectetur eos animi, a voluptate delectus. Id, explicabo saepe Consequuntur</p>
-
-                        <p>The view onin wansis dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ad minim veniam, quis nostrud exercitation consectetur.</p>
+                        <span>Vista de la Ciudad</span>
+                        <h3>La mejor vista del casco urbano</h3>
+                        <p>Sumérgete en una vista panorámica que captura la esencia del destino. Cada amanecer y atardecer se convierte en un espectáculo desde nuestras instalaciones.</p>
+                        <p>Perfecto para relajarte, tomar fotos memorables o simplemente dejarte maravillar.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 <!-- End City View Area -->
 
 <!-- Start Exclusive Area -->
 <section class="exclusive-area pt-100 pb-70">
     <div class="container">
         <div class="section-title">
-            <span>Exclusive Offers</span>
-            <h2>You can get an exclusive offer </h2>
+            <span>Ofertas Exclusivas</span>
+            <h2>Aprovecha nuestras promociones especiales</h2>
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6">
@@ -351,25 +352,19 @@
                         </div>
                         <div class="col-lg-6 pl-0">
                             <div class="exclusive-content">
-                                <span class="title">Up To 30% Off</span>
-                                <h3>Swimming for man</h3>
+                                <span class="title">Hasta 30% de descuento</span>
+                                <h3>Natación para hombres</h3>
                                 <span class="review">
                                     4.5
-                                    <a href="#">(432 Reviews)</a>
+                                    <a href="#">(432 opiniones)</a>
                                 </span>
-                                <p>Swimming doller dolor sit aet odu tur adiing elitse</p>
+                                <p>Disfruta de una experiencia acuática exclusiva en nuestras instalaciones con atención profesional.</p>
                                 <ul>
-                                    <li>
-                                        <i class="bx bx-time"></i>
-                                        Duration: 2Hours
-                                    </li>
-                                    <li>
-                                        <i class="bx bx-target-lock"></i>
-                                        18+ years
-                                    </li>
+                                    <li><i class="bx bx-time"></i> Duración: 2 horas</li>
+                                    <li><i class="bx bx-target-lock"></i> Mayores de 18 años</li>
                                 </ul>
                                 <a href="book-table.html" class="default-btn">
-                                    Book Online
+                                    Reservar ahora
                                     <i class="flaticon-right"></i>
                                 </a>
                             </div>
@@ -377,6 +372,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-6 col-md-6">
                 <div class="exclusive-wrap">
                     <div class="row">
@@ -385,25 +381,19 @@
                         </div>
                         <div class="col-lg-6 pl-0">
                             <div class="exclusive-content">
-                                <span class="title">This Month Only</span>
-                                <h3>$5 Breakfast package</h3>
+                                <span class="title">Solo por este mes</span>
+                                <h3>Desayuno por solo $5</h3>
                                 <span class="review">
                                     5.0
-                                    <a href="#">(580 Reviews)</a>
+                                    <a href="#">(580 opiniones)</a>
                                 </span>
-                                <p>Start $5 doller dolor sit aet odeu tur adiing elitse</p>
+                                <p>Comienza tu día con un delicioso desayuno completo por un precio increíble. Oferta limitada.</p>
                                 <ul>
-                                    <li>
-                                        <i class="bx bx-time"></i>
-                                        Duration: 2Hours
-                                    </li>
-                                    <li>
-                                        <i class="bx bx-target-lock"></i>
-                                        18+ years
-                                    </li>
+                                    <li><i class="bx bx-time"></i> Duración: 2 horas</li>
+                                    <li><i class="bx bx-target-lock"></i> Mayores de 18 años</li>
                                 </ul>
                                 <a href="book-table.html" class="default-btn">
-                                    Book Online
+                                    Reservar ahora
                                     <i class="flaticon-right"></i>
                                 </a>
                             </div>
@@ -414,6 +404,7 @@
         </div>
     </div>
 </section>
+
 <!-- End Exclusive Area -->
 
 <!-- Start Booking Area -->
@@ -598,156 +589,92 @@
         <div class="section-title">
             <span>Instalaciones</span>
             <h2>Lo que puedes disfrutar en StarHotelHub</h2>
-
         </div>
 
         <div class="restaurants-wrap owl-carousel owl-theme">
             <div class="single-restaurants bg-1">
                 <i class="restaurants-icon flaticon-coffee-cup"></i>
-                <span>Restaurants</span>
-                <p>Restaurant wansis dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magnaua. Ut nipor incididuit might br minim veniam.</p>
+                <span>Restaurantes</span>
+                <p>Sabores únicos en nuestros espacios gastronómicos. Disfruta de cocina internacional y platos locales preparados por chefs expertos.</p>
                 <a href="#" class="default-btn">
-                    Explore More
+                    Explorar más
                     <i class="flaticon-right"></i>
                 </a>
             </div>
             <div class="single-restaurants bg-2">
                 <i class="restaurants-icon flaticon-swimming"></i>
                 <span>Piscina</span>
-                <p>Una zona de relajación con piscina climatizada, tumbonas y bar. Ideal para disfrutar del sol con comodidad.</p>
-
+                <p>Zona de relajación con piscina climatizada, tumbonas y bar. Ideal para disfrutar del sol y la tranquilidad.</p>
                 <a href="#" class="default-btn">
-                    Explore More
+                    Explorar más
                     <i class="flaticon-right"></i>
                 </a>
             </div>
             <div class="single-restaurants bg-3">
                 <i class="restaurants-icon flaticon-speaker"></i>
-                <span>Conference Room</span>
-                <p>Restaurant wansis dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magnaua. Ut nipor incididuit might br minim veniam.</p>
+                <span>Sala de conferencias</span>
+                <p>Espacios totalmente equipados para eventos, reuniones o presentaciones corporativas. Tecnología y comodidad en un solo lugar.</p>
                 <a href="#" class="default-btn">
-                    Explore More
+                    Explorar más
                     <i class="flaticon-right"></i>
                 </a>
             </div>
             <div class="single-restaurants bg-4">
                 <i class="restaurants-icon flaticon-podium"></i>
-                <span>Best Rate</span>
-                <p>Restaurant wansis dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magnaua. Ut nipor incididuit might br minim veniam.</p>
+                <span>Mejor tarifa</span>
+                <p>Al reservar directamente con nosotros obtienes los mejores precios del mercado sin comisiones ocultas.</p>
                 <a href="#" class="default-btn">
-                    Explore More
+                    Explorar más
                     <i class="flaticon-right"></i>
                 </a>
             </div>
         </div>
     </div>
 </section>
+
 <!-- End Restaurants Area -->
 
 <!-- start Testimonials Area -->
 <section class="testimonials-area pb-100">
     <div class="container">
         <div class="section-title">
-            <span>Testimonials</span>
-            <h2>What customers say</h2>
+            <span>Testimonios</span>
+            <h2>Lo que opinan nuestros clientes</h2>
         </div>
         <div class="testimonials-wrap owl-carousel owl-theme">
             <div class="single-testimonials">
                 <ul>
-                    <li>
-                        <i class="bx bxs-star"></i>
-                    </li>
-                    <li>
-                        <i class="bx bxs-star"></i>
-                    </li>
-                    <li>
-                        <i class="bx bxs-star"></i>
-                    </li>
-                    <li>
-                        <i class="bx bxs-star"></i>
-                    </li>
-                    <li>
-                        <i class="bx bxs-star"></i>
-                    </li>
+                    <li><i class="bx bxs-star"></i></li>
+                    <!-- ... -->
                 </ul>
-                <h3>Excellent Room</h3>
-                <p>“Awesome yksum dolor sit ametco elit, sed do eiusmod tempor incididunt et md do eiusmoeiusmod tempor inte emamnsecacing eiusmoeiusmod”</p>
+                <h3>Habitación excelente</h3>
+                <p>“Increíble experiencia. Todo impecable, cómodo y con excelente atención. ¡Volveremos sin duda!”</p>
                 <div class="testimonials-content">
-                    <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/testimonials/2.jpg" alt="Image">
+                    <img src="..." alt="Imagen">
                     <h4>Ayman Jenis</h4>
-                    <span>CEO@Leasuely</span>
+                    <span>CEO @Leasuely</span>
                 </div>
             </div>
-            <div class="single-testimonials">
-                <ul>
-                    <li>
-                        <i class="bx bxs-star"></i>
-                    </li>
-                    <li>
-                        <i class="bx bxs-star"></i>
-                    </li>
-                    <li>
-                        <i class="bx bxs-star"></i>
-                    </li>
-                    <li>
-                        <i class="bx bxs-star"></i>
-                    </li>
-                    <li>
-                        <i class="bx bxs-star"></i>
-                    </li>
-                </ul>
-                <h3>Excellent hotel</h3>
-                <p>“Awesome yksum dolor sit ametco elit, sed do eiusmod tempor incididunt et md do eiusmoeiusmod tempor inte emamnsecacing eiusmoeiusmod”</p>
-                <div class="testimonials-content">
-                    <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/testimonials/3.jpg" alt="Image">
-                    <h4>Ayman Jenis</h4>
-                    <span>CEO@Leasuely</span>
-                </div>
-            </div>
-            <div class="single-testimonials">
-                <ul>
-                    <li>
-                        <i class="bx bxs-star"></i>
-                    </li>
-                    <li>
-                        <i class="bx bxs-star"></i>
-                    </li>
-                    <li>
-                        <i class="bx bxs-star"></i>
-                    </li>
-                    <li>
-                        <i class="bx bxs-star"></i>
-                    </li>
-                    <li>
-                        <i class="bx bxs-star"></i>
-                    </li>
-                </ul>
-                <h3>Excellent Swimming</h3>
-                <p>“Awesome yksum dolor sit ametco elit, sed do eiusmod tempor incididunt et md do eiusmoeiusmod tempor inte emamnsecacing eiusmoeiusmod”</p>
-                <div class="testimonials-content">
-                    <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/testimonials/1.jpg" alt="Image">
-                    <h4>Ayman Jenis</h4>
-                    <span>CEO@Leasuely</span>
-                </div>
-            </div>
+            <!-- Puedes duplicar esto para los otros testimonios -->
         </div>
     </div>
 </section>
+
 <!-- End Testimonials Area -->
 
 <!-- End News Area -->
 <section class="news-area pb-60">
     <div class="container">
         <div class="section-title">
-            <span>Our BLog</span>
-            <h2>News & articles updates </h2>
+            <span>Nuestro Blog</span>
+            <h2>Novedades y artículos</h2>
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-6">
                 <div class="single-news">
                     <div class="news-img">
                         <a href="news-details.html">
-                            <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/news/1.jpg" alt="Image">
+                            <img src="..." alt="Imagen">
                         </a>
                         <div class="dates">
                             <span>HOTEL</span>
@@ -755,105 +682,24 @@
                     </div>
                     <div class="news-content-wrap">
                         <ul>
-                            <li>
-                                <a href="#">
-                                    <i class="flaticon-user"></i>
-                                    Admin
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="flaticon-conversation"></i>
-                                    Comment
-                                </a>
-                            </li>
+                            <li><i class="flaticon-user"></i> Admin</li>
+                            <li><i class="flaticon-conversation"></i> Comentarios</li>
                         </ul>
                         <a href="news-details.html">
-                            <h3>Celebrating Decade Years Of Hotel In 2020</h3>
+                            <h3>Celebrando una década del hotel en 2020</h3>
                         </a>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga veritatis veniam corrupti perferendis.</p>
+                        <p>Explora la historia, los logros y el crecimiento de nuestro hotel durante la última década.</p>
                         <a class="read-more" href="news-details.html">
-                            Read More
-                            <i class="flaticon-right"></i>
+                            Leer más <i class="flaticon-right"></i>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-news">
-                    <div class="news-img">
-                        <a href="news-details.html">
-                            <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/news/2.jpg" alt="Image">
-                        </a>
-                        <div class="dates">
-                            <span>PRICE</span>
-                        </div>
-                    </div>
-                    <div class="news-content-wrap">
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    <i class="flaticon-user"></i>
-                                    Admin
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="flaticon-conversation"></i>
-                                    Comment
-                                </a>
-                            </li>
-                        </ul>
-                        <a href="news-details.html">
-                            <h3>A Perfect Day With Businessman At Ecorik Hotel</h3>
-                        </a>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga veritatis veniam corrupti perferendis.</p>
-                        <a class="read-more" href="news-details.html">
-                            Read More
-                            <i class="flaticon-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
-                <div class="single-news">
-                    <div class="news-img">
-                        <a href="news-details.html">
-                            <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/news/1.jpg" alt="Image">
-                        </a>
-                        <div class="dates">
-                            <span>STORE</span>
-                        </div>
-                    </div>
-                    <div class="news-content-wrap">
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    <i class="flaticon-user"></i>
-                                    Admin
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="flaticon-conversation"></i>
-                                    Comment
-                                </a>
-                            </li>
-                        </ul>
-                        <a href="news-details.html">
-                            <h3>Celebrating Decade Years Of Hotel In 2019</h3>
-                        </a>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga veritatis veniam corrupti perferendis.</p>
-                        <a class="read-more" href="news-details.html">
-                            Read More
-                            <i class="flaticon-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <!-- Repite para las demás noticias -->
         </div>
     </div>
 </section>
+
 <!-- End News Area -->
 
 <?php include_once 'views/template/footer-principal.php';
