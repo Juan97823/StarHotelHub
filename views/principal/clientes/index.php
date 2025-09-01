@@ -1,152 +1,112 @@
 <?php include_once 'views/template/header-cliente.php'; ?>
-<div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
-  <div class="col">
-    <div class="card radius-10 border-start border-0 border-3 border-info">
-      <div class="card-body">
-        <div class="d-flex align-items-center">
-          <div>
-            <p class="mb-0 text-secondary">Total Reservations</p>
-            <h4 class="my-1 text-info">1,245</h4>
-            <p class="mb-0 font-13">+5.6% from last week</p>
-          </div>
-          <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i class='bx bxs-bed'></i>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card radius-10 border-start border-0 border-3 border-danger">
-      <div class="card-body">
-        <div class="d-flex align-items-center">
-          <div>
-            <p class="mb-0 text-secondary">Total Revenue</p>
-            <h4 class="my-1 text-danger">$45,789</h4>
-            <p class="mb-0 font-13">+3.2% from last week</p>
-          </div>
-          <div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i class='bx bxs-wallet'></i>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card radius-10 border-start border-0 border-3 border-success">
-      <div class="card-body">
-        <div class="d-flex align-items-center">
-          <div>
-            <p class="mb-0 text-secondary">Occupancy Rate</p>
-            <h4 class="my-1 text-success">78.4%</h4>
-            <p class="mb-0 font-13">+2.1% from last week</p>
-          </div>
-          <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"><i class='bx bxs-bar-chart-alt-2'></i>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card radius-10 border-start border-0 border-3 border-warning">
-      <div class="card-body">
-        <div class="d-flex align-items-center">
-          <div>
-            <p class="mb-0 text-secondary">Total Customers</p>
-            <h4 class="my-1 text-warning">5,134</h4>
-            <p class="mb-0 font-13">+7.8% from last week</p>
-          </div>
-          <div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"><i class='bx bxs-group'></i>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!--end row-->
 
-<div class="row">
-  <div class="col-12 col-lg-8">
-    <div class="card radius-10">
-      <div class="card-body">
-        <div class="d-flex align-items-center">
-          <div>
-            <h6 class="mb-0">Revenue Overview</h6>
-          </div>
-          <div class="dropdown ms-auto">
-            <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="javascript:;">Action</a></li>
-              <li><a class="dropdown-item" href="javascript:;">Another action</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
-            </ul>
-          </div>
+<div class="container py-4">
+
+    <!-- Encabezado de Perfil y Bienvenida -->
+    <div class="card profile-header mb-4 shadow-sm">
+        <div class="card-body p-4 d-flex flex-column flex-md-row align-items-center">
+            <div class="me-md-4 mb-3 mb-md-0 text-center">
+                <img src="https://i.pravatar.cc/100?u=<?php echo $_SESSION['usuario']['id']; ?>" alt="Avatar" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover; border: 3px solid #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            </div>
+            <div class="text-center text-md-start">
+                <h2 class="mb-0">Welcome back, <span class="fw-bold text-primary"><?php echo $_SESSION['usuario']['nombre'] ?? 'Customer'; ?>!</span></h2>
+                <p class="mb-0 text-secondary">Your personal space to manage all your bookings with StarHotel Hub.</p>
+            </div>
         </div>
-        <div class="d-flex align-items-center ms-auto font-13 gap-2 my-3">
-          <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1" style="color: #14abef"></i>Revenue</span>
-          <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1" style="color: #ffc107"></i>Occupancy</span>
-        </div>
-        <div class="chart-container-1">
-          <canvas id="chart1"></canvas>
-        </div>
-      </div>
-      <div class="row row-cols-1 row-cols-md-3 row-cols-xl-3 g-0 row-group text-center border-top">
-        <div class="col">
-          <div class="p-3">
-            <h5 class="mb-0">12.45M</h5>
-            <small class="mb-0">Total Visitors <span> <i class="bx bx-up-arrow-alt align-middle"></i> 3.5%</span></small>
-          </div>
-        </div>
-        <div class="col">
-          <div class="p-3">
-            <h5 class="mb-0">15:20</h5>
-            <small class="mb-0">Average Stay <span> <i class="bx bx-up-arrow-alt align-middle"></i> 4.8%</span></small>
-          </div>
-        </div>
-        <div class="col">
-          <div class="p-3">
-            <h5 class="mb-0">1,500</h5>
-            <small class="mb-0">Rooms Booked <span> <i class="bx bx-up-arrow-alt align-middle"></i> 2.1%</span></small>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
-  <div class="col-12 col-lg-4">
-    <div class="card radius-10">
-      <div class="card-body">
-        <div class="d-flex align-items-center">
-          <div>
-            <h6 class="mb-0">Trending Rooms</h6>
-          </div>
-          <div class="dropdown ms-auto">
-            <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="javascript:;">Action</a></li>
-              <li><a class="dropdown-item" href="javascript:;">Another action</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
-            </ul>
-          </div>
+
+    <!-- Tarjetas de Resumen -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+        <div class="col">
+            <div class="card radius-10 h-100 shadow-sm border-0">
+                <div class="card-body d-flex align-items-center">
+                    <div class="widgets-icons-2 bg-light-yellow rounded-circle me-3"><i class='bx bxs-purchase-tag'></i></div>
+                    <div>
+                        <p class="mb-1 text-secondary">Total Reservations</p>
+                        <h4 class="my-0 fw-bold"><?php echo $data['total_reservas']; ?></h4>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="chart-container-2 mt-4">
-          <canvas id="chart2"></canvas>
+        <div class="col">
+            <div class="card radius-10 h-100 shadow-sm border-0">
+                <div class="card-body d-flex align-items-center">
+                    <div class="widgets-icons-2 bg-light-blue rounded-circle me-3"><i class='bx bxs-time-five'></i></div>
+                    <div>
+                        <p class="mb-1 text-secondary">Pending</p>
+                        <h4 class="my-0 fw-bold"><?php echo $data['reservas_pendientes']; ?></h4>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Luxury Suite <span class="badge bg-success rounded-pill">45</span></li>
-        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Deluxe Room <span class="badge bg-danger rounded-pill">30</span></li>
-        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Standard Room <span class="badge bg-primary rounded-pill">90</span></li>
-        <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">Economy Room <span class="badge bg-warning text-dark rounded-pill">40</span></li>
-      </ul>
+        <div class="col">
+            <div class="card radius-10 h-100 shadow-sm border-0">
+                <div class="card-body d-flex align-items-center">
+                    <div class="widgets-icons-2 bg-light-green rounded-circle me-3"><i class='bx bxs-check-circle'></i></div>
+                    <div>
+                        <p class="mb-1 text-secondary">Completed</p>
+                        <h4 class="my-0 fw-bold"><?php echo $data['reservas_completadas']; ?></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--end row-->
+
+    <!-- Tabla de Historial de Reservas -->
+    <div class="card radius-10 mt-4 shadow-sm border-0">
+        <div class="card-body">
+            <h5 class="card-title mb-4 fw-bold"><i class='bx bx-history me-2'></i>Reservation History</h5>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle" id="reservasTable">
+                    <thead class="table-light">
+                        <tr class="text-uppercase">
+                            <th>#</th>
+                            <th><i class='bx bxs-hotel me-1'></i>Room</th>
+                            <th><i class='bx bxs-calendar me-1'></i>Check-in</th>
+                            <th><i class='bx bxs-calendar-check me-1'></i>Check-out</th>
+                            <th><i class='bx bxs-wallet me-1'></i>Amount</th>
+                            <th><i class='bx bxs-info-circle me-1'></i>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($data['reservas'])) : ?>
+                            <tr>
+                                <td colspan="6" class="text-center py-5">
+                                    <i class='bx bx-info-circle fs-2 text-primary'></i>
+                                    <h5 class="mt-2">You have no reservations yet.</h5>
+                                    <p class="text-secondary">Ready to book your next stay?</p>
+                                </td>
+                            </tr>
+                        <?php else : ?>
+                            <?php foreach ($data['reservas'] as $key => $reserva) : ?>
+                                <tr>
+                                    <td class="fw-bold"><?php echo $key + 1; ?></td>
+                                    <td><?php echo $reserva['tipo']; ?></td>
+                                    <td><?php echo date("d M, Y", strtotime($reserva['fecha_ingreso'])); ?></td>
+                                    <td><?php echo date("d M, Y", strtotime($reserva['fecha_salida'])); ?></td>
+                                    <td>$<?php echo number_format($reserva['monto_total'], 2); ?></td>
+                                    <td>
+                                        <?php
+                                        $estado = $reserva['estado'];
+                                        $badge_class = 'bg-secondary';
+                                        $icon = 'bx-question-mark';
+                                        if ($estado == 'pendiente') { $badge_class = 'bg-warning text-dark'; $icon='bx-time-five'; }
+                                        elseif ($estado == 'completada') { $badge_class = 'bg-success'; $icon='bx-check-circle'; }
+                                        elseif ($estado == 'cancelada') { $badge_class = 'bg-danger'; $icon='bx-x-circle'; }
+                                        ?>
+                                        <span class="badge rounded-pill d-inline-flex align-items-center <?php echo $badge_class; ?>">
+                                            <i class="bx <?php echo $icon; ?> me-1"></i>
+                                            <?php echo ucfirst($estado); ?>
+                                        </span>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-<!--end row-->
 
 <?php include_once 'views/template/footer-cliente.php'; ?>

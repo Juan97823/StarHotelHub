@@ -14,14 +14,14 @@ function strClean($cadena)
   $string = str_ireplace('INSERT INTO', '', $string);
   $string = str_ireplace('SELECT COUNT(*) FROM', '', $string);
   $string = str_ireplace('DROP TABLE', '', $string);
-  $string = str_ireplace("OR '1'='1", '', $string);
+  $string = str_ireplace("OR '1'='1'", '', $string);
   $string = str_ireplace('OR ´1´=´1', '', $string);
   $string = str_ireplace('IS NULL', '', $string);
   $string = str_ireplace('LIKE "', '', $string);
   $string = str_ireplace("LIKE '", '', $string);
   $string = str_ireplace('LIKE ´', '', $string);
   $string = str_ireplace('OR "a"="a', '', $string);
-  $string = str_ireplace("OR 'a'='a", '', $string);
+  $string = str_ireplace("OR 'a'='a'", '', $string);
   $string = str_ireplace('OR ´a´=´a', '', $string);
   $string = str_ireplace('--', '', $string);
   $string = str_ireplace('^', '', $string);
@@ -321,12 +321,24 @@ function verificar($valor, $datos = [])
   $existe = array_search($valor, $datos, true);
   return is_numeric($existe);
 }
-//VERIFICAR ROL
-function verificarRol($rolRequerido)
+
+//VERIFICAR SESION Y ROL
+function verificarSesion($rolRequerido)
 {
-  session_start();
-  if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== $rolRequerido) {
-    header('Location: ' . RUTA_PRINCIPAL . 'login');
-    exit;
-  }
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    // 1. Si no hay sesión o no hay rol de usuario, redirigir a login
+    if (!isset($_SESSION['usuario']['rol'])) {
+        header('Location: ' . RUTA_PRINCIPAL . 'login');
+        exit;
+    }
+
+    // 2. Si el rol no coincide, redirigir a login con error
+    if ($_SESSION['usuario']['rol'] != $rolRequerido) {
+        header('Location: ' . RUTA_PRINCIPAL . 'login?error=acceso_denegado');
+        exit;
+    }
 }
+?>

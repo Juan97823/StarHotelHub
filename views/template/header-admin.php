@@ -19,11 +19,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link href="<?php echo RUTA_PRINCIPAL . 'assets/admin/css/app.css'; ?>" rel="stylesheet">
     <link href="<?php echo RUTA_PRINCIPAL . 'assets/admin/css/icons.css'; ?>" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
-    <!-- Temas -->
-    <link rel="stylesheet" href="<?php echo RUTA_PRINCIPAL . 'assets/admin/css/dark-theme.css'; ?>" />
-    <link rel="stylesheet" href="<?php echo RUTA_PRINCIPAL . 'assets/admin/css/semi-dark.css'; ?>" />
-    <link rel="stylesheet" href="<?php echo RUTA_PRINCIPAL . 'assets/admin/css/header-colors.css'; ?>" />
+
+    <!-- Hoja de estilos personalizada -->
+    <link rel="stylesheet" href="<?php echo RUTA_PRINCIPAL . 'assets/admin/css/custom-dashboard.css'; ?>" />
 </head>
 
 <body>
@@ -32,91 +32,71 @@
         <div class="sidebar-wrapper" data-simplebar="true">
             <div class="sidebar-header">
                 <div>
-                    <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/logo.png'; ?>" class="logo-icon" alt="logo">
+                    <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/Logo.png'; ?>" class="logo-icon" alt="logo">
                 </div>
                 <div>
-                    <h4 class="logo-text">StarHotelHub - Admin</h4>
+                    <h4 class="logo-text">StarHotelHub</h4>
                 </div>
-                <div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i></div>
             </div>
+            <!-- Menú de Navegación -->
             <ul class="metismenu" id="menu">
-                <!-- Menú de administración -->
-                <li>
-                    <a href="<?php echo RUTA_PRINCIPAL; ?>admin/dashboard">
-                        <div class="parent-icon"><i class='bx bx-home-circle'></i></div>
+                 <li class="mm-active">
+                    <a href="<?php echo RUTA_ADMIN . 'dashboard'; ?>">
+                        <div class="parent-icon"><i class='bx bx-home-alt'></i></div>
                         <div class="menu-title">Dashboard</div>
                     </a>
                 </li>
-
                 <li>
-                    <a href="javascript:;" class="has-arrow">
+                    <a href="#">
                         <div class="parent-icon"><i class='bx bx-calendar'></i></div>
-                        <div class="menu-title">Gestión de Reservas</div>
+                        <div class="menu-title">Reservations</div>
                     </a>
-                    <ul>
-                        <li>
-                            <a href="<?php echo RUTA_PRINCIPAL; ?>admin/reservas">
-                                <i class="bx bx-right-arrow-alt"></i> Ver todas
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php echo RUTA_PRINCIPAL; ?>admin/pendientes">
-                                <i class="bx bx-right-arrow-alt"></i> Pendientes
-                            </a>
-                        </li>
-                    </ul>
                 </li>
-
                 <li>
-                    <a href="<?php echo RUTA_PRINCIPAL; ?>admin/usuarios">
+                    <a href="<?php echo RUTA_ADMIN . 'usuarios'; ?>">
                         <div class="parent-icon"><i class='bx bx-group'></i></div>
-                        <div class="menu-title">Gestión de Usuarios</div>
+                        <div class="menu-title">Users</div>
                     </a>
                 </li>
-
                 <li>
-                    <a href="<?php echo RUTA_PRINCIPAL; ?>admin/soporte">
-                        <div class="parent-icon"><i class='bx bx-help-circle'></i></div>
-                        <div class="menu-title">Soporte</div>
+                    <a href="#">
+                        <div class="parent-icon"><i class='bx bx-bed'></i></div>
+                        <div class="menu-title">Rooms</div>
                     </a>
                 </li>
-
                 <li>
-                    <a href="<?php echo RUTA_PRINCIPAL; ?>admin/configuraciones">
-                        <div class="parent-icon"><i class='bx bx-cogs'></i></div>
-                        <div class="menu-title">Configuraciones</div>
+                    <a href="#">
+                        <div class="parent-icon"><i class='bx bx-line-chart'></i></div>
+                        <div class="menu-title">Reports</div>
                     </a>
                 </li>
             </ul>
+            <!-- Fin Menú de Navegación -->
+
+            <!-- ** NUEVO BLOQUE DE PERFIL DE USUARIO ** -->
+            <div class="user-profile-section dropdown">
+                 <a class="d-flex align-items-center nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/logo.png'; ?>" class="user-img" alt="avatar">
+                    <div class="user-info ps-3">
+                        <p class="user-name mb-0"><?php echo $_SESSION['usuario']['nombre'] ?? 'Sarah Miller'; ?></p>
+                        <p class="designattion mb-0">View profile</p>
+                    </div>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#"><i class="bx bx-user"></i><span>Mi Perfil</span></a></li>
+                    <li><div class="dropdown-divider mb-0"></div></li>
+                    <li><a class="dropdown-item" href="<?php echo RUTA_PRINCIPAL; ?>logout"><i class='bx bx-log-out-circle'></i><span>Cerrar Sesión</span></a></li>
+                </ul>
+            </div>
+
         </div>
         <!-- Fin Sidebar -->
 
-        <!-- Encabezado superior -->
+        <!-- Encabezado superior (limpio) -->
         <header>
             <div class="topbar d-flex align-items-center">
                 <nav class="navbar navbar-expand">
                     <div class="mobile-toggle-menu"><i class='bx bx-menu'></i></div>
-                    <div class="flex-grow-1"></div>
-                    <div class="user-box dropdown">
-                        <?php
-                        $nombreAdmin = $_SESSION['usuario']['nombre'] ?? 'Administrador';
-                        ?>
-                        <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown">
-                            <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/logo.png'; ?>" class="user-img" alt="avatar">
-                            <div class="user-info ps-3">
-                                <p class="user-name mb-0"><?php echo $nombreAdmin; ?></p>
-                                <p class="designattion mb-0">Administrador</p>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="<?php echo RUTA_PRINCIPAL; ?>admin/perfil"><i class="bx bx-user"></i><span>Mi Perfil</span></a></li>
-                            <li><a class="dropdown-item" href="<?php echo RUTA_PRINCIPAL; ?>admin/reservas"><i class="bx bx-calendar"></i><span>Gestionar Reservas</span></a></li>
-                            <li>
-                                <div class="dropdown-divider mb-0"></div>
-                            </li>
-                            <li><a class="dropdown-item" href="javascript:;" onclick="cerrarSesion()"><i class='bx bx-log-out-circle'></i><span>Cerrar Sesión</span></a></li>
-                        </ul>
-                    </div>
                 </nav>
             </div>
         </header>
@@ -124,4 +104,4 @@
 
         <!-- Contenedor principal de contenido -->
         <div class="page-wrapper">
-            <div class="page-content"></div>
+            <div class="page-content">

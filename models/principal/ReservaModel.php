@@ -44,4 +44,28 @@ class ReservaModel extends Query
         $params = [':id_habitacion' => $id_habitacion];
         return $this->select($query, $params);
     }
+
+    // Obtener todas las reservas de un cliente
+    public function getReservasCliente($id_usuario)
+    {
+        $query = "SELECT r.*, h.estilo AS habitacion_estilo FROM reservas r JOIN habitaciones h ON r.id_habitacion = h.id WHERE r.id_usuario = :id_usuario";
+        $params = [':id_usuario' => $id_usuario];
+        return $this->selectAll($query, $params);
+    }
+
+    // Contar el total de reservas de un cliente
+    public function getCantidadReservas($id_usuario)
+    {
+        $query = "SELECT COUNT(*) AS total FROM reservas WHERE id_usuario = :id_usuario";
+        $params = [':id_usuario' => $id_usuario];
+        return $this->select($query, $params);
+    }
+
+    // Contar las reservas de un cliente por estado
+    public function getCantidadReservasByEstado($id_usuario, $estado)
+    {
+        $query = "SELECT COUNT(*) AS total FROM reservas WHERE id_usuario = :id_usuario AND estado = :estado";
+        $params = [':id_usuario' => $id_usuario, ':estado' => $estado];
+        return $this->select($query, $params);
+    }
 }

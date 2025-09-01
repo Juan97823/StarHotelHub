@@ -10,7 +10,7 @@ function cerrarSesion() {
     cancelButtonText: "Cancelar",
   }).then((result) => {
     if (result.isConfirmed) {
-      window.location.href = base_url + 'dashboard/salir';
+      window.location.href = base_url + 'logout';
     }
   });
 }

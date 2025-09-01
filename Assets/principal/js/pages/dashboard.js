@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("admin/dashboardData")
+  fetch(base_url + "admin/dashboardData")
     .then((res) => res.json())
     .then((data) => {
       // Indicadores
