@@ -25,6 +25,8 @@ class Login extends Controller
 
         $data['title'] = 'Login';
         $data['subtitle'] = 'Inicio de sesión';
+        // Inyectar nuestra hoja de estilos personalizada
+        $data['style'] = 'login.css'; 
         $this->views->getView('principal/login', $data);
     }
 
@@ -40,6 +42,7 @@ class Login extends Controller
                     $res = ['tipo' => 'warning', 'msg' => 'EL USUARIO O CORREO NO EXISTE'];
                 } else {
                     if (password_verify($clave, $verificar['clave'])) {
+                        // Cast explícito para evitar errores con === en JS
                         $rol = (int)$verificar['rol'];
 
                         $_SESSION['usuario'] = [
@@ -69,18 +72,9 @@ class Login extends Controller
         die();
     }
 
-    public function logout()
+    public function salir()
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        // Destruir todas las variables de sesión
-        $_SESSION = [];
         session_destroy();
-
-        // Redirigir al login
-        header('Location: ' . RUTA_PRINCIPAL . 'login');
-        exit;
+        header('Location: ' . RUTA_PRINCIPAL);
     }
 }
