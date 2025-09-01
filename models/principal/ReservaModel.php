@@ -45,6 +45,14 @@ class ReservaModel extends Query
         return $this->select($query, $params);
     }
 
+    // Recuperar información de una habitación específica por su slug
+    public function getHabitacionBySlug($slug)
+    {
+        $query = "SELECT * FROM habitaciones WHERE slug = :slug";
+        $params = [':slug' => $slug];
+        return $this->select($query, $params);
+    }
+
     // Obtener todas las reservas de un cliente
     public function getReservasCliente($id_usuario)
     {

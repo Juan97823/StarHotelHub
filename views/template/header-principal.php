@@ -83,7 +83,7 @@
                         <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                             <ul class="navbar-nav m-auto">
                                 <li class="nav-item">
-                                    <a href="<?php echo RUTA_PRINCIPAL . 'Habitacion'; ?>" class="nav-link active">
+                                    <a href="<?php echo RUTA_PRINCIPAL . 'Habitaciones'; ?>" class="nav-link active">
                                         Habitaciones
                                     </a>
                                 </li>

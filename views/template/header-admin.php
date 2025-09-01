@@ -59,9 +59,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="<?php echo RUTA_ADMIN . 'habitaciones'; ?>">
                         <div class="parent-icon"><i class='bx bx-bed'></i></div>
-                        <div class="menu-title">Rooms</div>
+                        <div class="menu-title">Habitaciones</div>
                     </a>
                 </li>
                 <li>

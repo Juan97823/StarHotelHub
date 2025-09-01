@@ -1,0 +1,27 @@
+<?php
+class Habitaciones extends Controller{
+    public function __construct(){
+        parent::__construct();
+        $this->cargarModel('Principal');
+    }
+    public function index(){
+        $data['title'] = 'Habitaciones';
+        $data['subtitle'] = 'Habitaciones con estilo';
+        $data['habitaciones'] = $this->model->getHabitaciones();
+
+        $this->views->getView('principal/habitacion/index', $data);
+    }
+
+    public function detalle($slug)
+    {
+        $data['habitacion'] = $this->model->getHabitacionBySlug($slug);
+        if (empty($data['habitacion'])) {
+            header('Location: ' . RUTA_PRINCIPAL . 'habitaciones');
+            exit;
+        }
+        $data['title'] = $data['habitacion']['estilo'];
+        $data['subtitle'] = 'Detalles de la Habitación';
+        $this->views->getView('principal/habitacion/detalle', $data);
+    }
+}
+?>

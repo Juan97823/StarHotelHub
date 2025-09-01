@@ -9,6 +9,8 @@ class Principal extends Controller{
         $data['sliders'] = $this->model->getSliders();
         //TRAER HABITACIONES
         $data['habitaciones'] = $this->model->getHabitaciones();
+        //TRAER ENTRADAS DEL BLOG
+        $data['entradas'] = $this->model->getEntradasRecientes();
         $this->views->getView('index', $data);
     }
 
