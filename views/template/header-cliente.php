@@ -57,7 +57,7 @@
                 </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="<?php echo RUTA_PRINCIPAL; ?>login/logout"><i class='bx bx-log-out-circle'></i><span>Cerrar Sesión</span></a></li>
+                <li><a class="dropdown-item" href="<?php echo RUTA_PRINCIPAL; ?>logout"><i class='bx bx-log-out-circle'></i><span>Cerrar Sesión</span></a></li>
             </ul>
         </div>
     </div>

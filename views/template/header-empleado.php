@@ -64,7 +64,7 @@
             <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="#"><i class="bx bx-user"></i><span>Mi Perfil</span></a></li>
                 <li><div class="dropdown-divider mb-0"></div></li>
-                <li><a class="dropdown-item" href="<?php echo RUTA_PRINCIPAL; ?>login/logout"><i class='bx bx-log-out-circle'></i><span>Cerrar Sesión</span></a></li>
+                <li><a class="dropdown-item" href="<?php echo RUTA_PRINCIPAL; ?>logout"><i class='bx bx-log-out-circle'></i><span>Cerrar Sesión</span></a></li>
             </ul>
         </div>
     </div>

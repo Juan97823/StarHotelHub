@@ -22,7 +22,7 @@ class Registro extends Controller
                 $clave = strClean($_POST['clave']);
                 $confirmar = strClean($_POST['confirmar']);
                 $hash = password_hash($clave, PASSWORD_DEFAULT);
-                $rol = 2; // Usuario normal
+                $rol = 3; // Usuario normal
                 if ($clave == $confirmar) {
                     // VERIFICAR CORREO
                     $verificarCorreo = $this->model->validarUnique('correo', $correo, 0);

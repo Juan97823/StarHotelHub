@@ -4,7 +4,7 @@ class Blog extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->loadModel('principal/BlogModel');
+        $this->cargarModel('principal/BlogModel');
     }
     public function index()
     {
