@@ -23,6 +23,8 @@
 
     <!-- Estilos de DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <!-- CSS para los botones de DataTables (NUEVO) -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
 
     <!-- Hoja de estilos personalizada -->
     <link rel="stylesheet" href="<?php echo RUTA_PRINCIPAL . 'assets/admin/css/custom-dashboard.css'; ?>" />
@@ -49,15 +51,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="<?php echo RUTA_ADMIN . 'reservas'; ?>">
                         <div class="parent-icon"><i class='bx bx-calendar'></i></div>
-                        <div class="menu-title">Reservations</div>
+                        <div class="menu-title">Reservas</div>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo RUTA_ADMIN . 'usuarios'; ?>">
                         <div class="parent-icon"><i class='bx bx-group'></i></div>
-                        <div class="menu-title">Users</div>
+                        <div class="menu-title">Usuarios</div>
                     </a>
                 </li>
                 <li>
@@ -69,7 +71,7 @@
                 <li>
                     <a href="#">
                         <div class="parent-icon"><i class='bx bx-line-chart'></i></div>
-                        <div class="menu-title">Reports</div>
+                        <div class="menu-title">Reportes</div>
                     </a>
                 </li>
             </ul>

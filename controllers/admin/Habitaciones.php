@@ -4,6 +4,20 @@ class Habitaciones extends Controller
     public function __construct()
     {
         parent::__construct();
+        // ✅ Validar siempre al instanciar el controlador
+        $this->verificarSesionAdmin();
+    }
+
+    private function verificarSesionAdmin()
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] != 1) {
+            // 🚨 Bloquear si no es admin
+            header('Location: ' . RUTA_PRINCIPAL . 'login');
+            exit;
+        }
     }
 
     public function index()
@@ -21,25 +35,6 @@ class Habitaciones extends Controller
 
     public function crear()
     {
-        $data['title'] = 'Nueva Habitación';
-        $this->views->getView('admin/habitaciones/crear', $data);
-    }
-
-    public function editar($id)
-    {
-        $data['title'] = 'Editar Habitación';
-        $data['habitacion'] = $this->model->getHabitacion($id);
-        // Nueva línea: obtenemos también la galería
-        $data['galeria'] = $this->model->getGaleria($id);
-        if ($data['habitacion']) {
-            $this->views->getView('admin/habitaciones/editar', $data);
-        } else {
-            header('Location: ' . RUTA_PRINCIPAL . 'admin/habitaciones');
-        }
-    }
-
-    public function registrar()
-    {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $id = $_POST['id'] ?? null;
             $estilo = $_POST['estilo'];
@@ -55,7 +50,6 @@ class Habitaciones extends Controller
                 $destino = 'assets/img/habitaciones/';
                 $nombre_foto = date('YmdHis') . $foto['name'];
                 if (move_uploaded_file($foto['tmp_name'], $destino . $nombre_foto)) {
-                    // Si la subida es exitosa y había una foto anterior, la eliminamos
                     if (!empty($foto_actual) && file_exists($destino . $foto_actual)) {
                         unlink($destino . $foto_actual);
                     }
@@ -72,6 +66,22 @@ class Habitaciones extends Controller
 
             header('Location: ' . RUTA_PRINCIPAL . 'admin/habitaciones');
             exit;
+
+        } else {
+            $data['title'] = 'Nueva Habitación';
+            $this->views->getView('admin/habitaciones/crear', $data);
+        }
+    }
+
+    public function editar($id)
+    {
+        $data['title'] = 'Editar Habitación';
+        $data['habitacion'] = $this->model->getHabitacion($id);
+        $data['galeria'] = $this->model->getGaleria($id);
+        if ($data['habitacion']) {
+            $this->views->getView('admin/habitaciones/editar', $data);
+        } else {
+            header('Location: ' . RUTA_PRINCIPAL . 'admin/habitaciones');
         }
     }
 
@@ -85,13 +95,12 @@ class Habitaciones extends Controller
             for ($i = 0; $i < count($imagenes['name']); $i++) {
                 $nombre_imagen = date('YmdHis') . $i . '_' . $imagenes['name'][$i];
                 $tmp_name = $imagenes['tmp_name'][$i];
-                
+
                 if (move_uploaded_file($tmp_name, $destino . $nombre_imagen)) {
                     $this->model->insertarImagenGaleria($nombre_imagen, $id_habitacion);
                 }
             }
         }
-        // Redirigir de vuelta a la página de edición
         header('Location: ' . RUTA_PRINCIPAL . 'admin/habitaciones/editar/' . $id_habitacion);
         exit;
     }
@@ -109,7 +118,7 @@ class Habitaciones extends Controller
         } else {
             $res = array('msg' => 'Error, la foto no existe', 'icono' => 'error');
         }
-         echo json_encode($res, JSON_UNESCAPED_UNICODE);
+        echo json_encode($res, JSON_UNESCAPED_UNICODE);
         die();
     }
 
@@ -125,4 +134,3 @@ class Habitaciones extends Controller
         die();
     }
 }
-?>

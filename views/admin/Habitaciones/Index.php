@@ -57,8 +57,8 @@
                     "render": function(data, type, row) {
                         const urlEditar = `<?php echo RUTA_PRINCIPAL; ?>admin/habitaciones/editar/${row.id}`;
                         return '' +
-                            `<a href="${urlEditar}" class="btn btn-warning btn-sm"><i class="ti ti-pencil"></i></a> ` +
-                            `<button class="btn btn-danger btn-sm" onclick="eliminarHabitacion(${row.id})"><i class="ti ti-trash"></i></button> `;
+                            `<a href="${urlEditar}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a> ` +
+                            `<button class="btn btn-danger btn-sm" onclick="eliminarHabitacion(${row.id})"><i class="fas fa-trash-alt"></i></button> `;
                     }
                 }
             ]
@@ -90,4 +90,4 @@
             }
         });
     }
-</script>
+</script>   

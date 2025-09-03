@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-08-2025 a las 22:39:51
+-- Tiempo de generación: 04-09-2025 a las 00:47:11
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -74,6 +74,18 @@ CREATE TABLE `entradas` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `galeria_habitaciones`
+--
+
+CREATE TABLE `galeria_habitaciones` (
+  `id` int(11) NOT NULL,
+  `imagen` varchar(100) NOT NULL,
+  `id_habitacion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `habitaciones`
 --
 
@@ -86,6 +98,7 @@ CREATE TABLE `habitaciones` (
   `foto` varchar(100) NOT NULL,
   `video` varchar(255) DEFAULT NULL,
   `descripcion` text NOT NULL,
+  `servicios` text DEFAULT NULL,
   `precio` decimal(10,2) NOT NULL,
   `estado` int(11) NOT NULL DEFAULT 1,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -95,8 +108,9 @@ CREATE TABLE `habitaciones` (
 -- Volcado de datos para la tabla `habitaciones`
 --
 
-INSERT INTO `habitaciones` (`id`, `estilo`, `numero`, `capacidad`, `slug`, `foto`, `video`, `descripcion`, `precio`, `estado`, `fecha`) VALUES
-(1, 'ESTANDAR', 10, 3, 'estandar', '1.jpg', NULL, 'PRIMERA HABITACION PARA PRUEBAS', 50.00, 1, '2025-05-21 02:07:57');
+INSERT INTO `habitaciones` (`id`, `estilo`, `numero`, `capacidad`, `slug`, `foto`, `video`, `descripcion`, `servicios`, `precio`, `estado`, `fecha`) VALUES
+(1, 'Habitacion Deluxe', 10, 3, 'habitacion-deluxe', '1.jpg', NULL, 'PRIMERA HABITACION PARA PRUEBAS', '', 130000.00, 1, '2025-09-03 21:35:47'),
+(2, 'Habitacion Doble', 0, 2, 'habitacion-doble', '20250903192822DuoROom.jpg', NULL, 'Nuestra cómoda habitación doble, decorada en tonos marrones, es perfecta para parejas o dos huéspedes. Cuenta con una confortable cama doble vestida con sábanas frescas y almohadas mullidas, garantizando un descanso reparador. Disfrute de un baño privado con ducha y artículos de aseo gratuitos, un televisor de pantalla plana con canales por cable y aire acondicionado individual. Amplio espacio de guardarropas para sus pertenencias. Manténgase conectado con nuestro Wi-Fi gratuito.', '', 90000.00, 1, '2025-09-03 17:28:22');
 
 -- --------------------------------------------------------
 
@@ -119,6 +133,15 @@ CREATE TABLE `reservas` (
   `id_habitacion` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `reservas`
+--
+
+INSERT INTO `reservas` (`id`, `monto`, `num_transaccion`, `cod_reserva`, `fecha_ingreso`, `fecha_salida`, `fecha_reserva`, `descripcion`, `estado`, `metodo`, `facturacion`, `id_habitacion`, `id_usuario`) VALUES
+(3, 300.00, '451231', '254778', '2025-09-01', '2025-09-24', '2025-09-03 21:19:00', 'Reserva con llegada a las 8 pm', 1, 1, '1', 1, 26),
+(4, 300000.00, '5161200', '213215', '2025-07-01', '2025-09-01', '2025-09-03 21:31:48', '', 1, 1, '', 1, 26),
+(5, 300000.00, '5161266', '213219', '2025-04-01', '2025-04-16', '2025-09-03 21:33:23', '', 1, 0, '', 2, 26);
 
 -- --------------------------------------------------------
 
@@ -160,9 +183,9 @@ CREATE TABLE `sliders` (
 --
 
 INSERT INTO `sliders` (`id`, `titulo`, `subtitulo`, `url`, `foto`, `estado`) VALUES
-(1, 'Descubre el mundo, una estancia a la vez', 'Encuentra el hotel perfecto en cualquier destino y reserva en segundos, sin complicaciones.', 'http://localhost/starhotelhub/habitacion', 'slider1.jpg', 1),
-(2, ' Tu escapada soñada empieza aquí', 'Ofertas exclusivas en miles de hoteles. Elige, reserva y relájate.', 'http://localhost/starhotelhub/habitacion', 'slider2.jpg', 1),
-(3, ' Hospédate como mereces', 'Hoteles seleccionados para ti, con el mejor precio garantizado y cancelación flexible.', 'http://localhost/starhotelhub/habitacion', 'slider3.jpg', 1);
+(1, 'Descubre el mundo, una estancia a la vez', 'Encuentra el hotel perfecto en cualquier destino y reserva en segundos, sin complicaciones.', 'http://localhost/starhotelhub/Habitaciones', 'slider1.jpg', 1),
+(2, ' Tu escapada soñada empieza aquí', 'Ofertas exclusivas en miles de hoteles. Elige, reserva y relájate.', 'http://localhost/starhotelhub/Habitaciones', 'slider2.jpg', 1),
+(3, ' Hospédate como mereces', 'Hoteles seleccionados para ti, con el mejor precio garantizado y cancelación flexible.', 'http://localhost/starhotelhub/Habitaciones', 'slider3.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -189,7 +212,8 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `clave`, `token`, `verify`, `rol`, `foto`, `estado`, `fecha`) VALUES
 (23, 'Juan', 'Juanesab423@gmail.com', '$2y$10$le84w2Y0t5zYH8BTJ7zmFu/nLppj7ugkwopl/o/6s4KjJWXFQh6dq', NULL, 0, 1, NULL, 1, '2025-07-07 04:00:24'),
-(25, 'aa', 'aas@gmail.com', '$2y$10$13KGtawbenSpE81bbt3S..MRqB.0pjrb78JVY9UzUTMLrc/LaZn16', NULL, 0, 2, NULL, 1, '2025-08-22 20:26:14');
+(25, 'Empleado', 'Empleado@gmail.com', '$2y$10$13KGtawbenSpE81bbt3S..MRqB.0pjrb78JVY9UzUTMLrc/LaZn16', NULL, 0, 2, NULL, 1, '2025-09-03 00:55:49'),
+(26, 'Sofia Salamanca', 'Salamancas648@gmail.com', '$2y$10$hEjwn2u5zkqjw.gOPYpD9etgUVMAl2jySl.Od0.6Apbb85E7TbKw.', NULL, 0, 3, NULL, 1, '2025-09-03 19:22:33');
 
 --
 -- Índices para tablas volcadas
@@ -213,6 +237,13 @@ ALTER TABLE `empresa`
 ALTER TABLE `entradas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_usuario` (`id_usuario`);
+
+--
+-- Indices de la tabla `galeria_habitaciones`
+--
+ALTER TABLE `galeria_habitaciones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_habitacion` (`id_habitacion`);
 
 --
 -- Indices de la tabla `habitaciones`
@@ -269,16 +300,22 @@ ALTER TABLE `entradas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `galeria_habitaciones`
+--
+ALTER TABLE `galeria_habitaciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `habitaciones`
 --
 ALTER TABLE `habitaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `reservas`
 --
 ALTER TABLE `reservas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -296,7 +333,7 @@ ALTER TABLE `sliders`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Restricciones para tablas volcadas
@@ -307,6 +344,12 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `entradas`
   ADD CONSTRAINT `entradas_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `galeria_habitaciones`
+--
+ALTER TABLE `galeria_habitaciones`
+  ADD CONSTRAINT `galeria_habitaciones_ibfk_1` FOREIGN KEY (`id_habitacion`) REFERENCES `habitaciones` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `reservas`

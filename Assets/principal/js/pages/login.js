@@ -35,6 +35,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 window.location = base_url + "empleado/dashboard";
               } else if (res.rol == 3) {
                 window.location = base_url + "dashboard"; // cliente
+              } else if (res.rol == 4) {
+                window.location = base_url + "Login"; // fallback
+                alertaSW("Usuario inactivo. Contacta al administrador.", "error");
               } else {
                 alertaSW("Rol no reconocido. Contacta al administrador.", "error");
               }

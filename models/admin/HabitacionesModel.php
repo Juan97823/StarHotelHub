@@ -19,7 +19,7 @@ class HabitacionesModel extends Query
         $slug = $this->generateSlug($estilo);
         $sql = "INSERT INTO habitaciones (estilo, capacidad, precio, descripcion, servicios, foto, slug) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $datos = array($estilo, $capacidad, $precio, $descripcion, $servicios, $foto, $slug);
-        return $this->insertar($sql, $datos);
+        return $this->insert($sql, $datos);
     }
 
     public function getHabitacion($id)
@@ -66,7 +66,7 @@ class HabitacionesModel extends Query
     {
         $sql = "INSERT INTO galeria_habitaciones (imagen, id_habitacion) VALUES (?, ?)";
         $datos = array($imagen, $id_habitacion);
-        return $this->insertar($sql, $datos);
+        return $this->insert($sql, $datos);
     }
 
     public function getFoto($id)

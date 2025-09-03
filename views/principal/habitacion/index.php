@@ -89,8 +89,8 @@ include_once 'views/template/portada.php';
                 <div class="col-lg-4 col-sm-6">
                     <div class="single-rooms-three-wrap">
                         <div class="single-rooms-three">
-                            <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/habitaciones/' . $habitacion['foto']; ?>" alt="<?php echo $habitacion['estilo']; ?>">
-                            <div class="single-habitaciones-three-content">
+                            <img src="<?php echo RUTA_PRINCIPAL . 'Assets/img/habitaciones/' . $habitacion['foto']; ?>" alt="<?php echo $habitacion['estilo']; ?>">
+                            <div class="single-rooms-three-content">
                                 <h3><?php echo $habitacion['estilo']; ?></h3>
                                 <ul class="rating">
                                     <!-- Puedes hacer esto dinámico si tienes un sistema de calificación -->

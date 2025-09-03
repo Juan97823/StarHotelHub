@@ -78,7 +78,7 @@ include_once 'views/template/portada.php'; ?>
                                     <ul class="rating">
                                         <span class="price"><?php echo $data['habitacion']['precio']; ?>/noche</span>
                                         <?php if (empty($_SESSION['id_usuario'])) { ?>
-                                        <a href="<?php echo RUTA_PRINCIPAL . 'perfil';?>"class="default-btn">
+                                        <a href="<?php echo RUTA_PRINCIPAL . 'login';?>"class="default-btn">
                                             Procesar
                                             <i class="flaticon-right"></i>
                                         </a>

@@ -3,11 +3,13 @@ class Controller{
     protected $model,$views;
     public function __construct()
         {
+            // Se incluye la clase Query, ya que es la base de todos los modelos
+            // y debe estar disponible ANTES de que cargarModel() intente instanciar un modelo.
+            require_once 'config/app/Query.php';
             $this->views = new Views();
             $this->cargarModel();
         }
     
-
     public function cargarModel($model = null)
     {
         if ($model == null) {
