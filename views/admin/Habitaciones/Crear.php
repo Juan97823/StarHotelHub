@@ -1,43 +1,55 @@
 <?php include_once 'views/template/header-admin.php'; ?>
 
-<div class="container-fluid">
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title fw-semibold mb-4">Nueva Habitación</h5>
-            
-            <form id="formHabitacion" action="<?php echo RUTA_PRINCIPAL; ?>admin/habitaciones/registrar" method="POST" enctype="multipart/form-data">
-                <div class="modal-body">
-                    <div class="form-group mb-3">
-                        <label for="estilo">Estilo</label>
-                        <input type="text" class="form-control" id="estilo" name="estilo" required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="capacidad">Capacidad</label>
-                        <input type="number" class="form-control" id="capacidad" name="capacidad" required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="precio">Precio por Noche</label>
-                        <input type="text" class="form-control" id="precio" name="precio" required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="descripcion">Descripción</label>
-                        <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="servicios">Servicios (separados por comas)</label>
-                        <input type="text" class="form-control" id="servicios" name="servicios">
-                    </div>
-                    <div class="form-group">
-                        <label for="foto">Foto Principal</label>
-                        <input type="file" class="form-control" id="foto" name="foto">
-                    </div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="card-title mb-0"><?php echo $data['title']; ?></h4>
                 </div>
-                <div class="modal-footer">
-                    <a href="<?php echo RUTA_PRINCIPAL; ?>admin/habitaciones" class="btn btn-secondary">Cancelar</a>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                </div>
-            </form>
+                <div class="card-body">
+                    <!-- Corregido: La acción del formulario apunta al método 'guardar' -->
+                    <form action="<?php echo RUTA_PRINCIPAL . 'admin/habitaciones/guardar'; ?>" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value=""> <!-- Campo oculto para la edición -->
 
+                        <div class="mb-3">
+                            <label for="estilo" class="form-label">Estilo de Habitación</label>
+                            <input id="estilo" class="form-control" type="text" name="estilo" placeholder="Ej: Suite, Doble, Individual" required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="capacidad" class="form-label">Capacidad</label>
+                                <input id="capacidad" class="form-control" type="number" name="capacidad" placeholder="Nº de personas" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="precio" class="form-label">Precio por Noche</label>
+                                <input id="precio" class="form-control" type="text" name="precio" placeholder="0.00" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción</label>
+                            <textarea id="descripcion" class="form-control" name="descripcion" rows="3" placeholder="Describe la habitación" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="servicios" class="form-label">Servicios</label>
+                            <textarea id="servicios" class="form-control" name="servicios" rows="3" placeholder="Ej: Wifi, TV Cable, Baño privado" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="foto" class="form-label">Imagen Principal</label>
+                            <input type="file" class="form-control" id="foto" name="foto">
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="<?php echo RUTA_PRINCIPAL . 'admin/habitaciones'; ?>" class="btn btn-secondary">Cancelar</a>
+                            <button class="btn btn-primary" type="submit">Guardar Habitación</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

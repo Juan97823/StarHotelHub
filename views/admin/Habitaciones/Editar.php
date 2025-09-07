@@ -1,104 +1,103 @@
-<?php include_once 'views/template/header-admin.php'; ?>
+<?php 
+include_once 'views/template/header-admin.php'; 
+$habitacion = $data['habitacion'];
+// La galería se cargará desde el controlador
+$galeria = $data['galeria'] ?? [];
+?>
 
-<div class="container-fluid">
-    <!-- Formulario Principal de Edición -->
-    <div class="card mb-4">
-        <div class="card-body">
-            <h5 class="card-title fw-semibold mb-4">Editar Habitación</h5>
-            
-            <form action="<?php echo RUTA_PRINCIPAL; ?>admin/habitaciones/registrar" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="<?php echo $data['habitacion']['id']; ?>">
-                <input type="hidden" name="foto_actual" value="<?php echo $data['habitacion']['foto']; ?>">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="card shadow">
+                <div class="card-header bg-warning">
+                    <h4 class="card-title text-white mb-0"><?php echo $data['title']; ?></h4>
+                </div>
+                <div class="card-body">
+                    <!-- Formulario Principal para Editar Habitación -->
+                    <form action="<?php echo RUTA_PRINCIPAL . 'admin/habitaciones/guardar'; ?>" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="<?php echo $habitacion['id']; ?>">
+                        <input type="hidden" name="foto_actual" value="<?php echo $habitacion['foto']; ?>">
 
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="form-group mb-3">
-                            <label for="estilo">Estilo</label>
-                            <input type="text" class="form-control" id="estilo" name="estilo" value="<?php echo $data['habitacion']['estilo']; ?>" required>
-                        </div>
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group mb-3">
-                                    <label for="capacidad">Capacidad</label>
-                                    <input type="number" class="form-control" id="capacidad" name="capacidad" value="<?php echo $data['habitacion']['capacidad']; ?>" required>
+                            <!-- Columna de Datos -->
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    <label for="estilo" class="form-label">Estilo de Habitación</label>
+                                    <input id="estilo" class="form-control" type="text" name="estilo" value="<?php echo $habitacion['estilo']; ?>" required>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="capacidad" class="form-label">Capacidad</label>
+                                        <input id="capacidad" class="form-control" type="number" name="capacidad" value="<?php echo $habitacion['capacidad']; ?>" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="precio" class="form-label">Precio por Noche</label>
+                                        <!-- Corregido: 'precio' en lugar de 'precio_noche' -->
+                                        <input id="precio" class="form-control" type="text" name="precio" value="<?php echo $habitacion['precio']; ?>" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="descripcion" class="form-label">Descripción</label>
+                                    <textarea id="descripcion" class="form-control" name="descripcion" rows="4" required><?php echo $habitacion['descripcion']; ?></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="servicios" class="form-label">Servicios</label>
+                                    <textarea id="servicios" class="form-control" name="servicios" rows="4" required><?php echo $habitacion['servicios']; ?></textarea>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group mb-3">
-                                    <label for="precio">Precio por Noche</label>
-                                    <input type="text" class="form-control" id="precio" name="precio" value="<?php echo $data['habitacion']['precio']; ?>" required>
+                            <!-- Columna de Imagen Principal -->
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Imagen Principal</label>
+                                    <div class="mb-2">
+                                        <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/habitaciones/' . $habitacion['foto']; ?>" alt="Imagen Principal" class="img-thumbnail">
+                                    </div>
+                                    <label for="foto" class="form-label">Cambiar imagen</label>
+                                    <input type="file" class="form-control" id="foto" name="foto">
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group mb-3">
-                            <label for="descripcion">Descripción</label>
-                            <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required><?php echo $data['habitacion']['descripcion']; ?></textarea>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="<?php echo RUTA_PRINCIPAL . 'admin/habitaciones'; ?>" class="btn btn-secondary">Cancelar</a>
+                            <button class="btn btn-warning" type="submit">Actualizar Habitación</button>
                         </div>
-                        <div class="form-group mb-3">
-                            <label for="servicios">Servicios (separados por comas)</label>
-                            <input type="text" class="form-control" id="servicios" name="servicios" value="<?php echo $data['habitacion']['servicios']; ?>">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="foto">Foto Principal</label>
-                            <input type="file" class="form-control" id="foto" name="foto">
-                        </div>
-                        <?php if (!empty($data['habitacion']['foto'])) : ?>
-                            <div class="mt-3">
-                                <p>Foto Actual:</p>
-                                <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/habitaciones/' . $data['habitacion']['foto']; ?>" class="img-fluid rounded">
+                    </form>
+                </div>
+                
+                <hr>
+
+                <!-- Sección de Galería de Fotos -->
+                <div class="card-body">
+                    <h5 class="card-title">Galería de Imágenes</h5>
+                    <form action="<?php echo RUTA_PRINCIPAL . 'admin/habitaciones/subirFotos'; ?>" method="post" enctype="multipart/form-data" class="mb-4">
+                        <input type="hidden" name="id_habitacion" value="<?php echo $habitacion['id']; ?>">
+                        <div class="mb-3">
+                            <label for="imagenes" class="form-label">Añadir nuevas imágenes a la galería</label>
+                            <div class="input-group">
+                                <input type="file" class="form-control" id="imagenes" name="imagenes[]" multiple>
+                                <button type="submit" class="btn btn-info">Subir Imágenes</button>
                             </div>
+                        </div>
+                    </form>
+                    
+                    <div class="row">
+                        <?php if (empty($galeria)): ?>
+                            <p class="text-muted">No hay imágenes en la galería.</p>
+                        <?php else: ?>
+                            <?php foreach ($galeria as $foto) : ?>
+                                <div class="col-md-3 mb-3" id="foto-<?php echo $foto['id']; ?>">
+                                    <div class="card position-relative">
+                                        <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/habitaciones/' . $foto['imagen']; ?>" class="card-img-top" alt="Foto de galería" style="height: 150px; object-fit: cover;">
+                                        <button class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1" onclick="eliminarFoto(<?php echo $foto['id']; ?>)" style="--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .7rem;"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
                         <?php endif; ?>
                     </div>
                 </div>
-
-                <div class="mt-4">
-                    <a href="<?php echo RUTA_PRINCIPAL; ?>admin/habitaciones" class="btn btn-secondary">Cancelar</a>
-                    <button type="submit" class="btn btn-primary">Actualizar Habitación</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Sección de Galería de Imágenes -->
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title fw-semibold mb-4">Galería de Imágenes</h5>
-
-            <!-- Formulario para subir nuevas imágenes -->
-            <form action="<?php echo RUTA_PRINCIPAL; ?>admin/habitaciones/subirFotos" method="POST" enctype="multipart/form-data" class="mb-4">
-                <input type="hidden" name="id_habitacion" value="<?php echo $data['habitacion']['id']; ?>">
-                <div class="form-group">
-                    <label for="imagenes">Añadir nuevas imágenes a la galería</label>
-                    <div class="input-group">
-                        <input type="file" class="form-control" id="imagenes" name="imagenes[]" multiple required>
-                        <button class="btn btn-outline-primary" type="submit">Subir Imágenes</button>
-                    </div>
-                </div>
-            </form>
-
-            <!-- Galería actual -->
-            <div id="galeria-container" class="row">
-                <?php if (!empty($data['galeria'])) : ?>
-                    <?php foreach ($data['galeria'] as $foto) : ?>
-                        <div class="col-md-3 mb-3" id="foto-<?php echo $foto['id']; ?>">
-                            <div class="card">
-                                <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/habitaciones/' . $foto['imagen']; ?>" class="card-img-top" style="height: 200px; object-fit: cover;">
-                                <div class="card-body p-2 text-center">
-                                    <button class="btn btn-danger btn-sm" onclick="eliminarFoto(<?php echo $foto['id']; ?>)">Eliminar</button>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else : ?>
-                    <p class="text-muted">Esta habitación aún no tiene imágenes en su galería.</p>
-                <?php endif; ?>
             </div>
-
         </div>
     </div>
-
 </div>
 
 <?php include_once 'views/template/footer-admin.php'; ?>
@@ -107,7 +106,7 @@
 function eliminarFoto(id_foto) {
     Swal.fire({
         title: '¿Estás seguro?',
-        text: "¡Esta acción no se puede revertir!",
+        text: "Esta acción eliminará la imagen de la galería.",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',
@@ -116,24 +115,17 @@ function eliminarFoto(id_foto) {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            // Usamos el objeto URL para construir la ruta dinámicamente
-            const url = new URL('admin/habitaciones/eliminarFoto/' + id_foto, '<?php echo RUTA_PRINCIPAL; ?>');
-
-            fetch(url, {
-                method: 'GET'
-            })
-            .then(response => response.json())
-            .then(res => {
-                Swal.fire('Aviso', res.msg, res.icono);
-                if (res.icono == 'success') {
-                    // Eliminar el elemento de la vista
-                    document.getElementById('foto-' + id_foto).remove();
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                Swal.fire('Error', 'Ocurrió un problema al eliminar la foto', 'error');
-            });
+            const url = `<?php echo RUTA_PRINCIPAL; ?>admin/habitaciones/eliminarFoto/${id_foto}`;
+            fetch(url, { method: 'GET' })
+                .then(response => response.json())
+                .then(res => {
+                    if (res.icono === 'success') {
+                        Swal.fire('¡Eliminada!', res.msg, 'success');
+                        document.getElementById('foto-' + id_foto).remove();
+                    } else {
+                        Swal.fire('Error', res.msg, 'error');
+                    }
+                });
         }
     });
 }

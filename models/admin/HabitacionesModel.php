@@ -8,17 +8,16 @@ class HabitacionesModel extends Query
 
     public function getHabitaciones()
     {
-        $sql = "SELECT * FROM habitaciones WHERE estado = 1";
+        $sql = "SELECT * FROM habitaciones";
         $data = $this->selectAll($sql);
-        // Asegurarnos de que siempre devolvemos un array
         return is_array($data) ? $data : [];
     }
 
-    public function registrarHabitacion($estilo, $capacidad, $precio, $descripcion, $servicios, $foto)
+    public function registrarHabitacion($estilo, $numero, $capacidad, $precio, $descripcion, $servicios, $foto)
     {
         $slug = $this->generateSlug($estilo);
-        $sql = "INSERT INTO habitaciones (estilo, capacidad, precio, descripcion, servicios, foto, slug) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $datos = array($estilo, $capacidad, $precio, $descripcion, $servicios, $foto, $slug);
+        $sql = "INSERT INTO habitaciones (estilo, numero, capacidad, precio, descripcion, servicios, foto, slug) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $datos = array($estilo, $numero, $capacidad, $precio, $descripcion, $servicios, $foto, $slug);
         return $this->insert($sql, $datos);
     }
 
@@ -28,17 +27,23 @@ class HabitacionesModel extends Query
         return $this->select($sql, [$id]);
     }
 
-    public function actualizarHabitacion($estilo, $capacidad, $precio, $descripcion, $servicios, $foto, $id)
+    public function actualizarHabitacion($estilo, $numero, $capacidad, $precio, $descripcion, $servicios, $foto, $id)
     {
         $slug = $this->generateSlug($estilo);
-        $sql = "UPDATE habitaciones SET estilo = ?, capacidad = ?, precio = ?, descripcion = ?, servicios = ?, foto = ?, slug = ? WHERE id = ?";
-        $datos = array($estilo, $capacidad, $precio, $descripcion, $servicios, $foto, $slug, $id);
+        $sql = "UPDATE habitaciones SET estilo = ?, numero = ?, capacidad = ?, precio = ?, descripcion = ?, servicios = ?, foto = ?, slug = ? WHERE id = ?";
+        $datos = array($estilo, $numero, $capacidad, $precio, $descripcion, $servicios, $foto, $slug, $id);
         return $this->save($sql, $datos);
     }
 
     public function eliminarHabitacion($id)
     {
         $sql = "UPDATE habitaciones SET estado = 0 WHERE id = ?";
+        return $this->save($sql, [$id]);
+    }
+    
+    public function reingresarHabitacion($id)
+    {
+        $sql = "UPDATE habitaciones SET estado = 1 WHERE id = ?";
         return $this->save($sql, [$id]);
     }
 
@@ -58,7 +63,6 @@ class HabitacionesModel extends Query
     {
         $sql = "SELECT * FROM galeria_habitaciones WHERE id_habitacion = ?";
         $data = $this->selectAll($sql, [$id_habitacion]);
-        // Asegurarnos de que siempre devolvemos un array
         return is_array($data) ? $data : [];
     }
 

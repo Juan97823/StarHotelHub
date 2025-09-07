@@ -44,6 +44,11 @@
             </div>
             <!-- Menú de Navegación -->
             <ul class="metismenu" id="menu">
+                 <li class="mm-active"></li>
+                 <a href="<?php echo RUTA_PRINCIPAL . '';?>">
+                    <div class="parent-icon"><i class='bx bx-arrow-back'></i></div>
+                    <div class="menu-title">Volver al sitio</div>
+                 </a>
                  <li class="mm-active">
                     <a href="<?php echo RUTA_ADMIN . 'dashboard'; ?>">
                         <div class="parent-icon"><i class='bx bx-home-alt'></i></div>

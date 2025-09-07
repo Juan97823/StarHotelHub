@@ -6,67 +6,68 @@ class DashboardModel extends Query
         parent::__construct();
     }
 
-    // -- Métricas para Tarjetas de Resumen --
+    // 1. Total de reservas confirmadas realizadas HOY
+    public function getReservasHoy()
+    {
+        $hoy = date('Y-m-d');
+        $sql = "SELECT COUNT(id) AS total FROM reservas WHERE DATE(fecha_reserva) = ? AND estado = 1";
+        return $this->select($sql, [$hoy]);
+    }
 
-    // Obtener el total de usuarios (clientes)
+    // 2. Total de habitaciones disponibles (considerando habitaciones activas menos las ocupadas hoy)
+    public function getHabitacionesDisponibles()
+    {
+        $hoy = date('Y-m-d');
+        // Primero, contamos el total de habitaciones activas
+        $totalHabitaciones = $this->select("SELECT COUNT(id) AS total FROM habitaciones WHERE estado = 1");
+
+        // Luego, contamos las habitaciones ocupadas hoy
+        $habitacionesOcupadas = $this->select(
+            "SELECT COUNT(DISTINCT id_habitacion) AS total FROM reservas WHERE ? BETWEEN fecha_ingreso AND fecha_salida AND estado = 1",
+            [$hoy]
+        );
+
+        return $totalHabitaciones['total'] - $habitacionesOcupadas['total'];
+    }
+
+    // 3. Suma de los ingresos de las reservas confirmadas en el MES ACTUAL
+    public function getIngresosMes()
+    {
+        $mes_actual = date('Y-m');
+        $sql = "SELECT SUM(monto) AS total FROM reservas WHERE DATE_FORMAT(fecha_reserva, '%Y-%m') = ? AND estado = 1";
+        $result = $this->select($sql, [$mes_actual]);
+        // Si no hay ingresos, devolver 0.00 en lugar de NULL
+        return ($result['total']) ? $result['total'] : 0.00;
+    }
+
+    // 4. Total de clientes registrados y activos
     public function getTotalClientes()
     {
-        $query = "SELECT COUNT(*) AS total FROM usuarios WHERE rol = 3 AND estado = 1";
-        return $this->select($query);
+        $sql = "SELECT COUNT(id) AS total FROM usuarios WHERE rol = 3 AND estado = 1";
+        return $this->select($sql);
     }
 
-    // Obtener el total de habitaciones
-    public function getTotalHabitaciones()
+    // 5. Datos para el gráfico: Conteo de reservas confirmadas de los últimos 7 días
+    public function getReservasUltimaSemana()
     {
-        $query = "SELECT COUNT(*) AS total FROM habitaciones";
-        return $this->select($query);
+        $sql = "SELECT DATE(fecha_reserva) as fecha, COUNT(id) as total 
+                FROM reservas 
+                WHERE fecha_reserva >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND estado = 1
+                GROUP BY DATE(fecha_reserva)
+                ORDER BY fecha ASC";
+        return $this->selectAll($sql);
     }
 
-    // Obtener el total de reservas
-    public function getTotalReservas()
-    {
-        $query = "SELECT COUNT(*) AS total FROM reservas";
-        return $this->select($query);
-    }
-
-    // Obtener los ingresos totales
-    public function getIngresosTotales()
-    {
-        $query = "SELECT SUM(monto) AS total FROM reservas";
-        return $this->select($query);
-    }
-
-    // -- Datos para Gráficos y Tablas --
-
-    // Obtener las reservas de los últimos 12 meses
-    public function getReservasMensuales()
-    {
-        $query = "SELECT DATE_FORMAT(fecha_reserva, '%Y-%m') AS mes, COUNT(id) AS total 
-                  FROM reservas 
-                  WHERE fecha_reserva >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH) 
-                  GROUP BY mes 
-                  ORDER BY mes ASC";
-        return $this->selectAll($query);
-    }
-
-    // Obtener las últimas reservas registradas
+    // 6. Tabla de últimas 5 reservas (uniendo con cliente y habitación)
     public function getUltimasReservas()
     {
-        $query = "SELECT r.*, u.nombre AS cliente, h.estilo AS habitacion 
-                  FROM reservas r 
-                  JOIN usuarios u ON r.id_usuario = u.id 
-                  JOIN habitaciones h ON r.id_habitacion = h.id 
-                  ORDER BY r.fecha_reserva DESC 
-                  LIMIT 5";
-        return $this->selectAll($query);
+        $sql = "SELECT r.fecha_reserva, r.estado, u.nombre AS cliente, h.estilo AS habitacion
+                FROM reservas r
+                INNER JOIN usuarios u ON r.id_usuario = u.id
+                INNER JOIN habitaciones h ON r.id_habitacion = h.id
+                ORDER BY r.fecha_reserva DESC
+                LIMIT 5";
+        return $this->selectAll($sql);
     }
-    
-    // -- NUEVA FUNCIÓN PARA GRÁFICO EN TIEMPO REAL --
-    public function getConteoEstadoReservas()
-    {
-        $query = "SELECT estado, COUNT(*) AS total FROM reservas GROUP BY estado";
-        return $this->selectAll($query);
-    }
-
 }
 ?>
