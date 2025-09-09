@@ -19,6 +19,7 @@
 
             <!-- Formulario de Login -->
             <form id="formulario" autocomplete="off">
+                <input type="hidden" name="csrf_token" value="<?php echo generarCsrfToken(); ?>">
                 
                 <div class="form-group">
                     <label for="usuario">Correo electrónico o usuario</label>

@@ -85,12 +85,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 default: estadoBadge = '<span class="badge bg-secondary">Desconocido</span>';
             }
 
+            // Aquí aplicamos el escape para prevenir XSS en los datos que se insertan en el DOM
             const fila = `<tr>
-                            <td>${reserva.cliente}</td>
-                            <td>${reserva.habitacion}</td>
-                            <td>${fecha}</td>
+                            <td>${e(reserva.cliente)}</td>
+                            <td>${e(reserva.habitacion)}</td>
+                            <td>${e(fecha)}</td>
                             <td>${estadoBadge}</td>
-                          </tr>`;
+                          </tr>`; // estadoBadge ya contiene HTML seguro
             tablaBody.innerHTML += fila;
         });
     }
@@ -105,5 +106,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Función para escapar la salida HTML y prevenir XSS en JavaScript
+    function e(str) {
+        if (typeof str === 'string') {
+            const div = document.createElement('div');
+            div.appendChild(document.createTextNode(str));
+            return div.innerHTML;
+        }
+        return '';
+    }
+
     cargarDatosDashboard();
+    // Podrías añadir setInterval(cargarDatosDashboard, 30000); aquí si quieres refresco automático
 });

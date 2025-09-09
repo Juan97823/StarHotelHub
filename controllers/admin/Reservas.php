@@ -4,8 +4,11 @@ class Reservas extends Controller
     public function __construct()
     {
         parent::__construct();
+        verificarSesion(1); // Asegura que solo administradores accedan
+        $this->cargarModel('admin/ReservasModel');
     }
 
+    
     public function index()
     {
         $data['title'] = 'Reservas';

@@ -47,7 +47,7 @@
                             <div class="col-12 text-center mt-3">
                                 <p class="account-desc">
                                     ¿Ya tienes una cuenta? 
-                                    <a href="<?php echo RUTA_PRINCIPAL . 'login'; ?>">Iniciar sesión</a>
+                                    <a href="<?php echo RUTA_PRINCIPAL . 'Login'; ?>">Iniciar sesión</a>
                                 </p>
                             </div>
                         </div>

@@ -321,3 +321,42 @@ function verificar($valor, $datos = [])
   $existe = array_search($valor, $datos, true);
   return is_numeric($existe);
 }
+//VERIFICAR ROL
+function verificarRol($rolRequerido)
+{
+  // Solo iniciar la sesión si aún no se ha hecho
+  if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+  }
+  if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== $rolRequerido) {
+    header('Location: ' . RUTA_PRINCIPAL . 'login');
+    exit;
+  }
+}
+// Función para escapar la salida HTML y prevenir XSS
+function e($string) {
+    return htmlspecialchars($string ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8');
+}
+
+// Función para generar un token CSRF
+function generarCsrfToken() {
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf_token'];
+}
+
+// Función para validar un token CSRF
+function validarCsrfToken($token) {
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    if (!isset($_SESSION['csrf_token']) || !isset($token) || $_SESSION['csrf_token'] !== $token) {
+        return false;
+    }
+    unset($_SESSION['csrf_token']); // El token es de un solo uso
+    return true;
+}
