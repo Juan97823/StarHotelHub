@@ -23,7 +23,7 @@ class HabitacionesModel extends Query
         $sql = "INSERT INTO habitaciones (estilo, numero, capacidad, precio, descripcion, servicios, foto, slug, estado) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
         $datos = [$estilo, $numero, $capacidad, $precio, $descripcion, $servicios, $foto, $slug];
-        return $this->insert($sql, $datos); // retorna ID insertado o false
+        return $this->insert($sql, $datos);
     }
 
     // Obtener una habitación específica
@@ -41,11 +41,11 @@ class HabitacionesModel extends Query
                 SET estilo = ?, numero = ?, capacidad = ?, precio = ?, descripcion = ?, servicios = ?, foto = ?, slug = ? 
                 WHERE id = ?";
         $datos = [$estilo, $numero, $capacidad, $precio, $descripcion, $servicios, $foto, $slug, $id];
-        return $this->save($sql, $datos); // retorna true/false
+        return $this->save($sql, $datos);
     }
 
-    // Borrado lógico
-    public function eliminarHabitacion($id)
+    // Inhabilitar habitación (no borrar)
+    public function inhabilitarHabitacion($id)
     {
         $sql = "UPDATE habitaciones SET estado = 0 WHERE id = ?";
         return $this->save($sql, [$id]);
@@ -69,15 +69,18 @@ class HabitacionesModel extends Query
 
     // -------------------- GALERÍA --------------------
 
-    public function getGaleria($id_habitacion)
+    public function getGaleria($id_habitacion, $soloActivas = true)
     {
         $sql = "SELECT * FROM galeria_habitaciones WHERE id_habitacion = ?";
+        if ($soloActivas) {
+            $sql .= " AND estado = 1";
+        }
         return $this->selectAll($sql, [$id_habitacion]) ?? [];
     }
 
     public function insertarImagenGaleria($imagen, $id_habitacion)
     {
-        $sql = "INSERT INTO galeria_habitaciones (imagen, id_habitacion) VALUES (?, ?)";
+        $sql = "INSERT INTO galeria_habitaciones (imagen, id_habitacion, estado) VALUES (?, ?, 1)";
         return $this->insert($sql, [$imagen, $id_habitacion]);
     }
 
@@ -87,10 +90,17 @@ class HabitacionesModel extends Query
         return $this->select($sql, [$id]) ?? [];
     }
 
-    public function eliminarFotoGaleria($id)
+    // Inhabilitar foto (no borrar)
+    public function inhabilitarFotoGaleria($id)
     {
-        // Borrado permanente (cuidado con consistencia)
-        $sql = "DELETE FROM galeria_habitaciones WHERE id = ?";
+        $sql = "UPDATE galeria_habitaciones SET estado = 0 WHERE id = ?";
+        return $this->save($sql, [$id]);
+    }
+
+    // Reactivar foto
+    public function reingresarFotoGaleria($id)
+    {
+        $sql = "UPDATE galeria_habitaciones SET estado = 1 WHERE id = ?";
         return $this->save($sql, [$id]);
     }
 }
