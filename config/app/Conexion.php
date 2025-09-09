@@ -3,12 +3,17 @@ class Conexion {
     private $conect;
 
     public function __construct() {
-        $pdo = "mysql:host=" . HOST . ";dbname=" . DATABASE . ";" . CHARSET;
+        $dsn = "mysql:host=" . HOST . ";dbname=" . DATABASE . ";charset=utf8mb4";
         try {
-            $this->conect = new PDO($pdo, USER, PASS);
-            $this->conect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->conect = new PDO($dsn, USER, PASS, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false, // ✅ seguridad contra inyecciones
+            ]);
         } catch (PDOException $e) {
-            echo "Error en la conexion:" . $e->getMessage();
+            // ⚠️ No mostrar detalles en producción
+            error_log("Error de conexión: " . $e->getMessage());
+            die("Error en la conexión a la base de datos.");
         }
     }
 
@@ -16,15 +21,28 @@ class Conexion {
         return $this->conect;
     }
 
+    // Consulta que devuelve solo un registro
     public function select($sql, $params = []) {
         $stmt = $this->conect->prepare($sql);
         $stmt->execute($params);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch();
     }
 
+    // Consulta que devuelve todos los registros
     public function selectAll($sql, $params = []) {
         $stmt = $this->conect->prepare($sql);
         $stmt->execute($params);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
+    }
+
+    // Para INSERT, UPDATE, DELETE
+    public function execute($sql, $params = []) {
+        $stmt = $this->conect->prepare($sql);
+        return $stmt->execute($params);
+    }
+
+    // Último ID insertado
+    public function lastInsertId() {
+        return $this->conect->lastInsertId();
     }
 }

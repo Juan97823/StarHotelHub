@@ -10,71 +10,84 @@ class Admin extends Controller
             session_start();
         }
 
-        // Redirigir si no es un administrador logueado
-        if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] != 1) { 
+        // ✅ Validar acceso solo para administradores
+        if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] != 1) {
             header('Location: ' . RUTA_PRINCIPAL . 'login');
             exit;
         }
+
+        // ✅ Cargar modelo principal del dashboard
+        $this->cargarModel('admin/DashboardModel');
     }
 
-    // Muestra la vista principal del dashboard
+    /**
+     * Vista principal del dashboard de administrador
+     */
     public function dashboard()
     {
         $data['title'] = 'Panel de Administrador';
+        $data['nombre_usuario'] = $_SESSION['usuario']['nombre'] ?? 'Administrador';
         $this->views->getView('admin/dashboard', $data);
     }
 
     /**
-     * Endpoint para obtener todos los datos del dashboard en formato JSON.
+     * Endpoint JSON con los datos del dashboard
      */
     public function getData()
     {
-        // Corrección: Usar el nombre de método correcto del framework
-        $this->cargarModel('admin/DashboardModel');
-        
-        // No es necesario instanciar de nuevo, cargarModel ya lo hace en $this->model
-        $dashboardModel = $this->model;
+        // Solo aceptar si hay sesión válida
+        if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] != 1) {
+            http_response_code(403);
+            echo json_encode(['error' => 'Acceso no autorizado'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
 
         $datos = [];
 
-        // 1. Datos para las tarjetas (KPIs)
-        $datos['reservasHoy'] = $dashboardModel->getReservasHoy()['total'] ?? 0;
-        $datos['habitacionesDisponibles'] = $dashboardModel->getHabitacionesDisponibles();
-        $datos['ingresosMes'] = $dashboardModel->getIngresosMes();
-        $datos['totalClientes'] = $dashboardModel->getTotalClientes()['total'] ?? 0;
+        // 1. KPIs principales
+        $datos['reservasHoy'] = (int) ($this->model->getReservasHoy()['total'] ?? 0);
+        $datos['habitacionesDisponibles'] = (int) ($this->model->getHabitacionesDisponibles()['total'] ?? 0);
+        $datos['ingresosMes'] = number_format((float) ($this->model->getIngresosMes()['total'] ?? 0), 0, ',', '.');
+        $datos['totalClientes'] = (int) ($this->model->getTotalClientes()['total'] ?? 0);
 
-        // 2. Datos para el gráfico de la última semana
-        $reservasSemana = $dashboardModel->getReservasUltimaSemana();
+        // 2. Reservas última semana (para gráfico)
+        $reservasSemana = $this->model->getReservasUltimaSemana() ?? [];
         $reservasPorDia = [];
         for ($i = 6; $i >= 0; $i--) {
             $fecha = date('Y-m-d', strtotime("-$i days"));
             $reservasPorDia[$fecha] = 0;
         }
-        
         foreach ($reservasSemana as $reserva) {
             if (isset($reservasPorDia[$reserva['fecha']])) {
-                $reservasPorDia[$reserva['fecha']] = $reserva['total'];
+                $reservasPorDia[$reserva['fecha']] = (int) $reserva['total'];
             }
         }
-
         $datos['grafico'] = [
             'etiquetas' => array_keys($reservasPorDia),
             'valores' => array_values($reservasPorDia)
         ];
 
-        // 3. Datos para la tabla de últimas reservas
-        $datos['ultimasReservas'] = $dashboardModel->getUltimasReservas();
+        // 3. Reservas mensuales (si está implementado en el modelo)
+        $datos['reservasMensuales'] = $this->model->getReservasMensuales() ?? [];
 
-        // Servir los datos como JSON
+        // 4. Últimas reservas
+        $datos['ultimasReservas'] = $this->model->getUltimasReservas() ?? [];
+
+        // ✅ Respuesta JSON
         header('Content-Type: application/json');
-        echo json_encode($datos, JSON_NUMERIC_CHECK);
-        die();
+        echo json_encode($datos, JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK);
+        exit;
     }
 
+    /**
+     * Cerrar sesión de administrador
+     */
     public function salir()
     {
+        session_unset();
         session_destroy();
-        redirect(RUTA_PRINCIPAL . 'login');
+        session_regenerate_id(true);
+        header('Location: ' . RUTA_PRINCIPAL . 'login');
+        exit;
     }
 }
-?>

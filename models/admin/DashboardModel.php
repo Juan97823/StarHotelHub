@@ -10,9 +10,11 @@ class DashboardModel extends Query
     public function getReservasHoy()
     {
         $hoy = date('Y-m-d');
-        $sql = "SELECT COUNT(id) AS total FROM reservas WHERE DATE(fecha_reserva) = ? AND estado = 1";
+        $sql = "SELECT COUNT(id) AS total 
+                FROM reservas 
+                WHERE DATE(fecha_reserva) = ? AND estado = 1";
         $result = $this->select($sql, [$hoy]);
-        return ($result && isset($result['total'])) ? $result : ['total' => 0];
+        return ['total' => $result['total'] ?? 0];
     }
 
     // 2. Total de habitaciones disponibles
@@ -21,14 +23,16 @@ class DashboardModel extends Query
         $hoy = date('Y-m-d');
         $totalHabitaciones = $this->select("SELECT COUNT(id) AS total FROM habitaciones WHERE estado = 1");
         $habitacionesOcupadas = $this->select(
-            "SELECT COUNT(DISTINCT id_habitacion) AS total FROM reservas WHERE ? BETWEEN fecha_ingreso AND fecha_salida AND estado = 1",
+            "SELECT COUNT(DISTINCT id_habitacion) AS total 
+             FROM reservas 
+             WHERE ? BETWEEN fecha_ingreso AND fecha_salida 
+             AND estado = 1",
             [$hoy]
         );
 
-        $total = ($totalHabitaciones && isset($totalHabitaciones['total'])) ? $totalHabitaciones['total'] : 0;
-        $ocupadas = ($habitacionesOcupadas && isset($habitacionesOcupadas['total'])) ? $habitacionesOcupadas['total'] : 0;
+        $total = $totalHabitaciones['total'] ?? 0;
+        $ocupadas = $habitacionesOcupadas['total'] ?? 0;
 
-        // Devolver un array con la clave 'total' para consistencia con otros métodos
         return ['total' => $total - $ocupadas];
     }
 
@@ -36,30 +40,34 @@ class DashboardModel extends Query
     public function getIngresosMes()
     {
         $mes_actual = date('Y-m');
-        $sql = "SELECT SUM(monto) AS total FROM reservas WHERE DATE_FORMAT(fecha_reserva, '%Y-%m') = ? AND estado = 1";
+        $sql = "SELECT SUM(monto) AS total 
+                FROM reservas 
+                WHERE DATE_FORMAT(fecha_reserva, '%Y-%m') = ? 
+                AND estado = 1";
         $result = $this->select($sql, [$mes_actual]);
-        // Devolver un array con la clave 'total' para consistencia con otros métodos
-        return ['total' => ($result && isset($result['total'])) ? (float) $result['total'] : 0.00];
+        return ['total' => (float) ($result['total'] ?? 0)];
     }
 
     // 4. Total de clientes registrados y activos
     public function getTotalClientes()
     {
-        $sql = "SELECT COUNT(id) AS total FROM usuarios WHERE rol = 3 AND estado = 1";
+        $sql = "SELECT COUNT(id) AS total 
+                FROM usuarios 
+                WHERE rol = 3 AND estado = 1";
         $result = $this->select($sql);
-        return ($result && isset($result['total'])) ? $result : ['total' => 0];
+        return ['total' => $result['total'] ?? 0];
     }
 
     // 5. Datos para el gráfico: Conteo de reservas de los últimos 7 días
     public function getReservasUltimaSemana()
     {
-        $sql = "SELECT DATE(fecha_reserva) as fecha, COUNT(id) as total 
+        $sql = "SELECT DATE(fecha_reserva) AS fecha, COUNT(id) AS total 
                 FROM reservas 
-                WHERE fecha_reserva >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND estado = 1
+                WHERE fecha_reserva >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) 
+                AND estado = 1
                 GROUP BY DATE(fecha_reserva)
                 ORDER BY fecha ASC";
-        $data = $this->selectAll($sql);
-        return is_array($data) ? $data : [];
+        return $this->selectAll($sql) ?? [];
     }
 
     // 6. Tabla de últimas 5 reservas
@@ -71,7 +79,18 @@ class DashboardModel extends Query
                 INNER JOIN habitaciones h ON r.id_habitacion = h.id
                 ORDER BY r.fecha_reserva DESC
                 LIMIT 5";
-        $data = $this->selectAll($sql);
-        return is_array($data) ? $data : [];
+        return $this->selectAll($sql) ?? [];
+    }
+
+    // 7. Reservas por mes del año actual (para gráfico de barras/estadísticas)
+    public function getReservasMensuales()
+    {
+        $sql = "SELECT DATE_FORMAT(fecha_reserva, '%Y-%m') AS mes, COUNT(id) AS total 
+                FROM reservas 
+                WHERE YEAR(fecha_reserva) = YEAR(CURDATE()) 
+                AND estado = 1
+                GROUP BY mes
+                ORDER BY mes ASC";
+        return $this->selectAll($sql) ?? [];
     }
 }
