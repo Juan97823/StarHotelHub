@@ -6,7 +6,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <!-- Habitaciones CSS -->
+    <link rel="stylesheet" href="<?= RUTA_PRINCIPAL ?>assets/principal/css/habitaciones-home.css">
     <!-- Bootstrap Min CSS -->
     <link rel="stylesheet" href="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/css/bootstrap.min.css">
     <!-- Owl Theme Default Min CSS -->
@@ -37,9 +38,6 @@
     <link rel="stylesheet" href="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/css/dark.css">
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/css/responsive.css">
-    <!-- Lightbox2 -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
-
 
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />

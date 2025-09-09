@@ -2,12 +2,19 @@
 require_once 'config/config.php';
 require_once 'helpers/funciones.php';
 
+// ✅ Función para mostrar error 404 controlado
+function error404() {
+    http_response_code(404);
+    require_once 'views/errors/404.php'; // crea este archivo con un mensaje amigable
+    exit;
+}
+
 // ✅ Detectar si es ruta de administrador
 $isAdmin = strpos($_SERVER['REQUEST_URI'], '/' . ADMIN) !== false;
 
-// ✅ Obtener la ruta
-$ruta = empty($_GET['url']) ? 'Principal/index' : $_GET['url'];
-$array = explode('/', $ruta);
+// ✅ Obtener la ruta de manera segura
+$ruta = isset($_GET['url']) ? filter_var($_GET['url'], FILTER_SANITIZE_URL) : 'Principal/index';
+$array = explode('/', trim($ruta, '/'));
 
 // ✅ Resolver controlador y método
 if ($isAdmin && (count($array) == 1 || (count($array) == 2 && empty($array[1]))) && $array[0] == ADMIN) {
@@ -42,6 +49,10 @@ if (!empty($array[$parametroIndice])) {
     $parametro = rtrim($parametro, ',');
 }
 
+// ✅ Sanitizar controlador y método
+$controller = preg_replace('/[^a-zA-Z0-9]/', '', $controller);
+$metodo = preg_replace('/[^a-zA-Z0-9]/', '', $metodo);
+
 // ✅ Cargar clases automáticamente
 require_once 'config/app/Autoload.php';
 
@@ -50,19 +61,28 @@ $dirControllers = $isAdmin
     ? "controllers/admin/{$controller}.php" 
     : "controllers/principal/{$controller}.php";
 
-// 🔎 Mostrar para depuración
- // echo '🔍 Buscando: ' . $dirControllers;
-// exit;
+// ✅ Protección de acceso admin
+if ($isAdmin) {
+    session_start();
+    if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'admin') {
+        header("Location: " . RUTA_PRINCIPAL . ADMIN . "/login");
+        exit;
+    }
+}
 
 // ✅ Cargar controlador
 if (file_exists($dirControllers)) {
     require_once $dirControllers;
-    $controller = new $controller();
-    if (method_exists($controller, $metodo)) {
-        $controller->$metodo($parametro);
+    if (class_exists($controller)) {
+        $controller = new $controller();
+        if (method_exists($controller, $metodo)) {
+            $controller->$metodo($parametro);
+        } else {
+            error404();
+        }
     } else {
-        echo '❌ MÉTODO NO EXISTE';
+        error404();
     }
 } else {
-    echo '❌ CONTROLADOR NO EXISTE';
+    error404();
 }
