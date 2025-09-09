@@ -11,9 +11,12 @@ class Admin extends Controller
         }
 
         // ✅ Validar acceso solo para administradores
-        if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] != 1) {
-            header('Location: ' . RUTA_PRINCIPAL . 'login');
-            exit;
+        $url = $_SERVER['REQUEST_URI'];
+        if (strpos($url, 'admin/login') === false) {
+            if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] != 1) {
+                header('Location: ' . RUTA_PRINCIPAL . 'login');
+                exit;
+            }
         }
 
         // ✅ Cargar modelo principal del dashboard
