@@ -7,43 +7,71 @@ class UsuariosModel extends Query
     }
 
     /**
-     * Obtiene todos los usuarios activos y sus roles.
-     * Excluye al superadministrador (ID = 1).
-     * @param bool $soloActivos Si es true, devuelve solo usuarios con estado=1
-     * @return array
+     * Obtiene todos los usuarios y sus roles, incluyendo activos e inactivos.
+     * Se usa un LEFT JOIN para asegurar que todos los usuarios se listen, incluso si su rol no está definido.
      */
-    public function getUsuarios($soloActivos = true)
+    public function getUsuarios()
     {
-        $sql = "SELECT u.id, u.nombre, u.correo, r.NombreRol AS rol, u.estado
-                FROM usuarios u
-                INNER JOIN roles r ON u.rol = r.id
+        $sql = "SELECT u.id, u.nombre, u.correo, r.NombreRol AS rol, u.estado 
+                FROM usuarios u 
+                LEFT JOIN roles r ON u.rol = r.id 
                 WHERE u.id != 1";
-
-        if ($soloActivos) {
-            $sql .= " AND u.estado = 1";
-        }
-
         return $this->selectAll($sql) ?? [];
     }
 
     /**
-     * Inhabilita un usuario (borrado lógico).
-     * Protege al superadministrador (ID 1).
+     * Obtiene un usuario específico por su ID, incluyendo el nombre del rol.
      */
-    public function inhabilitarUsuario($id)
+    public function getUsuarioPorId($id)
     {
-        $sql = "UPDATE usuarios SET estado = 0 WHERE id = ? AND id != 1";
-        return $this->save($sql, [$id]) ? true : false;
+        $sql = "SELECT u.id, u.nombre, u.correo, r.NombreRol AS rol 
+                FROM usuarios u
+                LEFT JOIN roles r ON u.rol = r.id
+                WHERE u.id = ?";
+        return $this->select($sql, [$id]);
     }
 
     /**
-     * Reactiva un usuario previamente inhabilitado.
-     * Protege al superadministrador (ID 1).
+     * Obtiene el ID de un rol a partir de su nombre.
      */
-    public function reingresarUsuario($id)
+    public function getRolIdPorNombre($nombreRol)
     {
-        $sql = "UPDATE usuarios SET estado = 1 WHERE id = ? AND id != 1";
-        return $this->save($sql, [$id]) ? true : false;
+        $sql = "SELECT id FROM roles WHERE NombreRol = ?";
+        $result = $this->select($sql, [$nombreRol]);
+        return $result ? $result['id'] : null;
+    }
+
+    /**
+     * Registra un nuevo usuario en la base de datos (espera ID de rol).
+     */
+    public function registrarUsuario($nombre, $email, $clave, $rolId)
+    {
+        $sql = "INSERT INTO usuarios (nombre, correo, clave, rol) VALUES (?, ?, ?, ?)";
+        $hash = password_hash($clave, PASSWORD_DEFAULT);
+        return $this->insert($sql, [$nombre, $email, $hash, $rolId]);
+    }
+
+    /**
+     * Actualiza un usuario existente (espera ID de rol).
+     */
+    public function actualizarUsuario($id, $nombre, $email, $rolId, $clave = null)
+    {
+        if ($clave) {
+            $sql = "UPDATE usuarios SET nombre = ?, correo = ?, rol = ?, clave = ? WHERE id = ?";
+            $hash = password_hash($clave, PASSWORD_DEFAULT);
+            return $this->save($sql, [$nombre, $email, $rolId, $hash, $id]);
+        } else {
+            $sql = "UPDATE usuarios SET nombre = ?, correo = ?, rol = ? WHERE id = ?";
+            return $this->save($sql, [$nombre, $email, $rolId, $id]);
+        }
+    }
+
+    /**
+     * Cambia el estado de un usuario (activo/inactivo).
+     */
+    public function cambiarEstadoUsuario($id, $estado)
+    {
+        $sql = "UPDATE usuarios SET estado = ? WHERE id = ? AND id != 1";
+        return $this->save($sql, [$estado, $id]);
     }
 }
-    
