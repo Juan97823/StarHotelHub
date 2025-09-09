@@ -1,64 +1,48 @@
-let tblUsuarios;
-
 document.addEventListener("DOMContentLoaded", function () {
-    tblUsuarios = $('#tableUsuarios').DataTable({
-        "processing": true,
-        "serverSide": false,
-        "ajax": {
-            "url": base_url + "admin/usuarios/listar",
-            "dataSrc": ""
-        },
-        "columns": [
-            { "data": "id" }, { "data": "nombre" }, { "data": "correo" },
-            { "data": "rol" }, { "data": "estado" }, { "data": "acciones" }
-        ],
-        "language": { "url": base_url + "assets/admin/js/Spanish.json" },
-        "order": [],
-        responsive: true,
-        dom: 'Bfrtilp',
-        buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
-    });
+    const tabla = document.getElementById("usuariosTable");
+
+    // Botón agregar
+    const btnAgregar = document.getElementById("btnAgregarUsuario");
+    if (btnAgregar) {
+        btnAgregar.addEventListener("click", () => {
+            alert("Abrir modal de registro de usuario");
+            // aquí puedes abrir modal o redirigir a formulario
+        });
+    }
+
+    // Delegación de eventos para botones de acción
+    if (tabla) {
+        tabla.addEventListener("click", function (e) {
+            const btn = e.target.closest("button");
+            if (!btn) return;
+
+            const id = btn.dataset.id;
+
+            if (btn.classList.contains("btnVer")) {
+                console.log("Ver usuario", id);
+                // AJAX para obtener detalle de usuario
+            }
+
+            if (btn.classList.contains("btnEditar")) {
+                console.log("Editar usuario", id);
+                // AJAX para traer datos al formulario de edición
+            }
+
+            if (btn.classList.contains("btnInhabilitar")) {
+                if (confirm("¿Seguro que quieres inhabilitar este usuario?")) {
+                    fetch(RUTA_PRINCIPAL + "usuarios/inhabilitar/" + id, {
+                        method: "POST"
+                    })
+                        .then((res) => res.json())
+                        .then((data) => {
+                            alert(data.msg);
+                            if (data.tipo === "success") {
+                                location.reload();
+                            }
+                        })
+                        .catch((err) => console.error("Error:", err));
+                }
+            }
+        });
+    }
 });
-
-function btnNuevoUsuario() {
-    Swal.fire('En desarrollo', 'La función para añadir nuevos usuarios se implementará pronto.', 'info');
-}
-
-/**
- * Redirige a la página de edición del usuario.
- * @param {number} id El ID del usuario a editar.
- */
-function btnEditarUsuario(id) {
-    window.location.href = base_url + 'admin/usuarios/editar/' + id;
-}
-
-function btnAccionUsuario(id, estadoActual) {
-    const accion = estadoActual == 1 ? 'inactivar' : 'reactivar';
-    const textoConfirmacion = `¿Estás seguro de que quieres ${accion} a este usuario?`;
-    const textoExito = `¡El usuario ha sido ${accion}do!`;
-
-    Swal.fire({
-        title: 'Confirmar Acción',
-        text: textoConfirmacion,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: `Sí, ¡${accion}!`, 
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            const url = base_url + "admin/usuarios/accion/" + id;
-            fetch(url)
-                .then(response => response.json())
-                .then(res => {
-                    if (res.msg == 'ok') {
-                        Swal.fire('¡Éxito!', textoExito, 'success');
-                        tblUsuarios.ajax.reload();
-                    } else {
-                        Swal.fire('¡Error!', res.msg, 'error');
-                    }
-                });
-        }
-    });
-}

@@ -18,7 +18,7 @@ class Habitaciones extends Controller
 
     public function listar()
     {
-        $data = $this->model->getHabitaciones();
+        $data = $this->model->getHabitaciones(false);
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();
     }
@@ -76,8 +76,7 @@ class Habitaciones extends Controller
     {
         $data['title'] = 'Editar Habitación';
         $data['habitacion'] = $this->model->getHabitacion($id);
-        // AÑADIDO: Cargar la galería de la habitación
-        $data['galeria'] = $this->model->getGaleria($id);
+        $data['galeria'] = $this->model->getGaleria($id, false);
 
         if ($data['habitacion']) {
             $this->views->getView('admin/habitaciones/editar', $data);
@@ -88,7 +87,7 @@ class Habitaciones extends Controller
 
     public function eliminar($id)
     {
-        $data = $this->model->eliminarHabitacion($id);
+        $data = $this->model->inhabilitarHabitacion($id);
         if ($data >= 1) {
             $res = ['msg' => 'Habitación dada de baja', 'icono' => 'success'];
         } else {
@@ -138,18 +137,27 @@ class Habitaciones extends Controller
     {
         $foto = $this->model->getFoto($id_foto);
         if ($foto) {
-            $data = $this->model->eliminarFotoGaleria($id_foto);
+            $data = $this->model->inhabilitarFotoGaleria($id_foto);
             if ($data >= 1) {
-                $ruta_foto = 'assets/img/habitaciones/' . $foto['imagen'];
-                if (file_exists($ruta_foto)) {
-                    unlink($ruta_foto);
-                }
                 $res = ['msg' => 'Foto eliminada de la galería', 'icono' => 'success'];
             } else {
                 $res = ['msg' => 'Error al eliminar la foto', 'icono' => 'error'];
             }
         } else {
             $res = ['msg' => 'La foto no existe', 'icono' => 'error'];
+        }
+        echo json_encode($res, JSON_UNESCAPED_UNICODE);
+        die();
+    }
+
+    //Añadir para reingresar la foto
+    public function reingresarFoto($id)
+    {
+        $data = $this->model->reingresarFotoGaleria($id);
+        if ($data >= 1) {
+            $res = ['msg' => 'Foto reingresada', 'icono' => 'success'];
+        } else {
+            $res = ['msg' => 'Error al reingresar la foto', 'icono' => 'error'];
         }
         echo json_encode($res, JSON_UNESCAPED_UNICODE);
         die();

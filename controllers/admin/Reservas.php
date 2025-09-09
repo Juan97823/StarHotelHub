@@ -1,4 +1,5 @@
 <?php
+require_once 'helpers/seguridad.php';
 class Reservas extends Controller
 {
     public function __construct()

@@ -3,16 +3,17 @@
 <!-- Start Ecorik Slider Area -->
 <section class="eorik-slider-area">
     <div class="eorik-slider owl-carousel owl-theme">
-        <?php foreach ($data['sliders'] as $slider) { ?>
-            <div class="eorik-slider-item" style=" background-image: url(<?php echo RUTA_PRINCIPAL . 'assets/img/sliders/' . $slider['foto']; ?>);">
+        <?php foreach ($data['sliders'] as $slider): ?>
+            <div class="eorik-slider-item"
+                style="background-image: url('<?= htmlspecialchars(RUTA_PRINCIPAL . 'assets/img/sliders/' . $slider['foto'], ENT_QUOTES, 'UTF-8'); ?>');">
                 <div class="d-table">
                     <div class="d-table-cell">
                         <div class="container">
                             <div class="eorik-slider-text overflow-hidden one eorik-slider-text-one">
-                                <h1><?php echo $slider['titulo']; ?> </h1>
-                                <span><?php echo $slider['subtitulo']; ?></span>
+                                <h1><?= htmlspecialchars($slider['titulo']); ?></h1>
+                                <span><?= htmlspecialchars($slider['subtitulo']); ?></span>
                                 <div class="slider-btn">
-                                    <a class="default-btn" href="<?php echo $slider['url']; ?>">
+                                    <a class="default-btn" href="<?= htmlspecialchars($slider['url']); ?>">
                                         Más Información
                                         <i class="flaticon-right"></i>
                                     </a>
@@ -22,10 +23,10 @@
                     </div>
                 </div>
             </div>
-        <?php } ?>
+        <?php endforeach; ?>
     </div>
     <div class="white-shape">
-        <img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/home-one/slider/white-shape.png" alt="Image">
+        <img src="<?= RUTA_PRINCIPAL . 'assets/principal'; ?>/img/home-one/slider/white-shape.png" alt="Image">
     </div>
 </section>
 <!-- End Ecorik Slider Area -->
@@ -33,7 +34,7 @@
 <!-- Start Check Area -->
 <div class="check-area mb-minus-70">
     <div class="container">
-        <form class="check-form" id="formulario" action="<?php echo RUTA_PRINCIPAL . 'reserva/verify'; ?>">
+        <form class="check-form" id="formulario" action="<?= htmlspecialchars(RUTA_PRINCIPAL . 'reserva/verify'); ?>">
             <div class="row align-items-center">
                 <div class="col-lg-3 col-sm-6">
                     <div class="check-content">
@@ -41,7 +42,8 @@
                         <div class="form-group">
                             <div class="input-group date" id="datetimepicker-1">
                                 <i class="flaticon-calendar"></i>
-                                <input type="text" class="form-control" id="f_llegada" name="f_llegada" value="<?php echo date('Y-m-d'); ?>">
+                                <input type="text" class="form-control" id="f_llegada" name="f_llegada"
+                                    value="<?= date('Y-m-d'); ?>">
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-th"></i>
                                 </span>
@@ -56,7 +58,8 @@
                         <div class="form-group">
                             <div class="input-group date" id="datetimepicker-2">
                                 <i class="flaticon-calendar"></i>
-                                <input type="text" class="form-control" id="f_salida" name="f_salida" value="<?php echo date('Y-m-d'); ?>">
+                                <input type="text" class="form-control" id="f_salida" name="f_salida"
+                                    value="<?= date('Y-m-d'); ?>">
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-th"></i>
                                 </span>
@@ -71,9 +74,11 @@
                             <label for="habitacion" class="form-label">Habitaciones</label>
                             <select name="habitacion" class="select-auto" id="habitacion" style="width: 100%;">
                                 <option value="">Seleccionar</option>
-                                <?php foreach ($data['habitaciones'] as $habitacion) { ?>
-                                    <option value="<?php echo $habitacion['id']; ?>"><?php echo $habitacion['estilo']; ?></option>
-                                <?php } ?>
+                                <?php foreach ($data['habitaciones'] as $habitacion): ?>
+                                    <option value="<?= htmlspecialchars($habitacion['id']); ?>">
+                                        <?= htmlspecialchars($habitacion['estilo']); ?>
+                                    </option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
@@ -104,26 +109,36 @@
             <div class="row">
                 <div class="col-lg-4">
                     <ul class="tabs">
-                        <?php foreach ($data['habitaciones'] as $habitacion) { ?>
-                        <li class="single-rooms">
-                            <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/habitaciones/' . $habitacion['foto']; ?>" alt="<?php echo $habitacion['estilo']; ?>">
-                            <div class="room-content">
-                                <h3><?php echo $habitacion['estilo']; ?></h3>
-                                <span class="price">Desde $<?php echo number_format($habitacion['precio']); ?>/noche</span>
-                            </div>
-                        </li>
-                        <?php } ?>
+                        <?php foreach ($data['habitaciones'] as $habitacion): ?>
+                            <li class="single-rooms">
+                                <img loading="lazy"
+                                    src="<?= htmlspecialchars(RUTA_PRINCIPAL . 'assets/img/habitaciones/' . $habitacion['foto']); ?>"
+                                    alt="<?= htmlspecialchars($habitacion['estilo']); ?>">
+                                <div class="room-content">
+                                    <h3><?= htmlspecialchars($habitacion['estilo']); ?></h3>
+                                    <span class="price">Desde $<?= number_format($habitacion['precio']); ?>/noche</span>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
                 <div class="col-lg-8">
                     <div class="tab_content">
-                        <?php foreach ($data['habitaciones'] as $habitacion) { ?>
-                        <div class="tabs_item">
-                            <div class="our-rooms-single-img" style="background-image: url(<?php echo RUTA_PRINCIPAL . 'assets/img/habitaciones/' . $habitacion['foto']; ?>)"></div>
-                        </div>
-                        <?php } ?>
+                        <?php foreach ($data['habitaciones'] as $index => $habitacion): ?>
+                            <div id="tab-<?= $index; ?>" class="tabs_item">
+                                <div class="our-rooms-single-img">
+                                    <a href="<?= htmlspecialchars(RUTA_PRINCIPAL . 'assets/img/habitaciones/' . $habitacion['foto']); ?>"
+                                        data-lightbox="habitaciones"
+                                        data-title="<?= htmlspecialchars($habitacion['estilo']); ?>">
+                                        <img src="<?= htmlspecialchars(RUTA_PRINCIPAL . 'assets/img/habitaciones/' . $habitacion['foto']); ?>"
+                                            alt="<?= htmlspecialchars($habitacion['estilo']); ?>" loading="lazy">
+                                    </a>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -138,32 +153,35 @@
             <h2>Novedades y artículos</h2>
         </div>
         <div class="row">
-            <?php foreach ($data['entradas'] as $entrada) { ?>
+            <?php foreach ($data['entradas'] as $entrada): ?>
                 <div class="col-lg-4 col-md-6">
                     <div class="single-news">
                         <div class="news-img">
-                            <a href="<?php echo RUTA_PRINCIPAL . 'blog/detalle/' . $entrada['slug']; ?>">
-                                <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/entradas/' . $entrada['foto']; ?>" alt="<?php echo $entrada['titulo']; ?>">
+                            <a href="<?= htmlspecialchars(RUTA_PRINCIPAL . 'blog/detalle/' . $entrada['slug']); ?>">
+                                <img loading="lazy"
+                                    src="<?= htmlspecialchars(RUTA_PRINCIPAL . 'assets/img/entradas/' . $entrada['foto']); ?>"
+                                    alt="<?= htmlspecialchars($entrada['titulo']); ?>">
                             </a>
                             <div class="dates">
-                                <span><?php echo $entrada['categorias']; ?></span>
+                                <span><?= htmlspecialchars($entrada['categorias']); ?></span>
                             </div>
                         </div>
                         <div class="news-content-wrap">
                             <ul>
-                                <li><i class="flaticon-user"></i> <?php echo $entrada['autor']; ?></li>
+                                <li><i class="flaticon-user"></i> <?= htmlspecialchars($entrada['autor']); ?></li>
                             </ul>
-                            <a href="<?php echo RUTA_PRINCIPAL . 'blog/detalle/' . $entrada['slug']; ?>">
-                                <h3><?php echo $entrada['titulo']; ?></h3>
+                            <a href="<?= htmlspecialchars(RUTA_PRINCIPAL . 'blog/detalle/' . $entrada['slug']); ?>">
+                                <h3><?= htmlspecialchars($entrada['titulo']); ?></h3>
                             </a>
-                            <p><?php echo substr($entrada['descripcion'], 0, 100) . '...'; ?></p>
-                            <a class="read-more" href="<?php echo RUTA_PRINCIPAL . 'blog/detalle/' . $entrada['slug']; ?>">
+                            <p><?= htmlspecialchars(substr($entrada['descripcion'], 0, 100)) . '...'; ?></p>
+                            <a class="read-more"
+                                href="<?= htmlspecialchars(RUTA_PRINCIPAL . 'blog/detalle/' . $entrada['slug']); ?>">
                                 Leer más <i class="flaticon-right"></i>
                             </a>
                         </div>
                     </div>
                 </div>
-            <?php } ?>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
@@ -173,14 +191,14 @@
 
 <?php include_once 'views/template/footer-principal.php';
 
-if (!empty($_GET['respuesta']) && $_GET['respuesta'] == 'warning') { ?>
+if (!empty($_GET['respuesta']) && $_GET['respuesta'] === 'warning') { ?>
 
     <script>
         alertaSW('TODO LOS CAMPOS SON REQUERIDOS', 'warning');
     </script>
 
 <?php } ?>
-<script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/disponibilidad.js'; ?>"></script>
+<script src="<?= htmlspecialchars(RUTA_PRINCIPAL . 'assets/principal/js/pages/disponibilidad.js'); ?>"></script>
 </body>
 
 </html>

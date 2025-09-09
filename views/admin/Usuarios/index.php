@@ -1,16 +1,18 @@
 <?php include_once 'views/template/header-admin.php'; ?>
 
 <div class="container-fluid px-4">
-    <h1 class="mt-4">User Management</h1>
+    <h1 class="mt-4">Gestión de Usuarios</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="<?php echo RUTA_ADMIN . 'dashboard'; ?>">Dashboard</a></li>
-        <li class="breadcrumb-item active">Users</li>
+        <li class="breadcrumb-item active">Usuarios</li>
     </ol>
 
     <div class="card shadow-sm">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="card-title mb-0"><i class="fas fa-users me-2"></i>All Users</h5>
-            <button class="btn btn-primary"><i class="fas fa-plus me-2"></i>Add User</button>
+            <h5 class="card-title mb-0"><i class="fas fa-users me-2"></i>Lista de Usuarios</h5>
+            <button id="btnAgregarUsuario" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Agregar Usuario
+            </button>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -18,10 +20,10 @@
                     <thead class="table-light">
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
+                            <th>Nombre</th>
                             <th>Email</th>
-                            <th>Role</th>
-                            <th>Actions</th>
+                            <th>Rol</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,9 +43,15 @@
                                     <span class="badge <?php echo $badge_class; ?>"><?php echo $rol; ?></span>
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    <button class="btn btn-sm btn-outline-primary btnVer" data-id="<?php echo $usuario['id']; ?>">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary btnEditar" data-id="<?php echo $usuario['id']; ?>">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger btnInhabilitar" data-id="<?php echo $usuario['id']; ?>">
+                                        <i class="fas fa-ban"></i>
+                                    </button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -53,5 +61,8 @@
         </div>
     </div>
 </div>
+
+<!-- Enlazar el JS externo -->
+ <script src="<?php echo RUTA_PRINCIPAL; ?>Assets/admin/js/Pages/Usuarios.js"></script>
 
 <?php include_once 'views/template/footer-admin.php'; ?>
