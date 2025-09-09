@@ -87,16 +87,20 @@
                                     <td>$<?php echo number_format($reserva['monto_total'], 2); ?></td>
                                     <td>
                                         <?php
-                                        $estado = $reserva['estado'];
-                                        $badge_class = 'bg-secondary';
-                                        $icon = 'bx-question-mark';
-                                        if ($estado == 'pendiente') { $badge_class = 'bg-warning text-dark'; $icon='bx-time-five'; }
-                                        elseif ($estado == 'completada') { $badge_class = 'bg-success'; $icon='bx-check-circle'; }
-                                        elseif ($estado == 'cancelada') { $badge_class = 'bg-danger'; $icon='bx-x-circle'; }
+                                        $estadoNum = $reserva['estado'];
+                                        $estadoInfo = ['texto' => 'Desconocido', 'clase' => 'bg-secondary', 'icono' => 'bx-question-mark'];
+
+                                        if ($estadoNum == 1) { // Pendiente
+                                            $estadoInfo = ['texto' => 'Pendiente', 'clase' => 'bg-warning text-dark', 'icono' => 'bx-time-five'];
+                                        } elseif ($estadoNum == 2) { // Completada
+                                            $estadoInfo = ['texto' => 'Completada', 'clase' => 'bg-success', 'icono' => 'bx-check-circle'];
+                                        } elseif ($estadoNum == 0) { // Cancelada (suponiendo 0 para cancelada)
+                                            $estadoInfo = ['texto' => 'Cancelada', 'clase' => 'bg-danger', 'icono' => 'bx-x-circle'];
+                                        }
                                         ?>
-                                        <span class="badge rounded-pill d-inline-flex align-items-center <?php echo $badge_class; ?>">
-                                            <i class="bx <?php echo $icon; ?> me-1"></i>
-                                            <?php echo ucfirst($estado); ?>
+                                        <span class="badge rounded-pill d-inline-flex align-items-center <?php echo $estadoInfo['clase']; ?>">
+                                            <i class="bx <?php echo $estadoInfo['icono']; ?> me-1"></i>
+                                            <?php echo $estadoInfo['texto']; ?>
                                         </span>
                                     </td>
                                 </tr>

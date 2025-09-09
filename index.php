@@ -9,8 +9,9 @@ function error404() {
     exit;
 }
 
-// ✅ Detectar si es ruta de administrador
+// ✅ Detectar si es ruta de administrador o empleado
 $isAdmin = strpos($_SERVER['REQUEST_URI'], '/' . ADMIN) !== false;
+$isEmpleado = strpos($_SERVER['REQUEST_URI'], '/empleado') !== false;
 
 // ✅ Obtener la ruta de manera segura
 $ruta = isset($_GET['url']) ? filter_var($_GET['url'], FILTER_SANITIZE_URL) : 'Principal/index';
@@ -23,7 +24,6 @@ if ($isAdmin && (count($array) == 1 || (count($array) == 2 && empty($array[1])))
 } else {
     $indiceUrl = $isAdmin ? 1 : 0;
 
-    // Si estamos en ruta admin y la URL es admin/dashboard → usar controlador Admin
     if ($isAdmin && isset($array[1]) && $array[1] === 'dashboard') {
         $controller = 'Admin';
         $metodo = 'dashboard';
@@ -57,9 +57,13 @@ $metodo = preg_replace('/[^a-zA-Z0-9]/', '', $metodo);
 require_once 'config/app/Autoload.php';
 
 // ✅ Ruta de controlador según tipo
-$dirControllers = $isAdmin 
-    ? "controllers/admin/{$controller}.php" 
-    : "controllers/principal/{$controller}.php";
+if ($isAdmin) {
+    $dirControllers = "controllers/admin/{$controller}.php";
+} elseif ($isEmpleado) {
+    $dirControllers = "controllers/empleado/" . strtolower($controller) . ".php";
+} else {
+    $dirControllers = "controllers/principal/{$controller}.php";
+}
 
 // ✅ Protección de acceso admin
 if ($isAdmin) {

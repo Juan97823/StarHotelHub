@@ -8,8 +8,14 @@ class Cliente extends Controller
     public function __construct()
     {
         parent::__construct();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         // Se verifica que el rol sea de cliente (ID 3)
-        verificarSesion(3);
+        if (empty($_SESSION['usuario']) || $_SESSION['usuario']['rol'] != 3) {
+            header('Location: ' . RUTA_PRINCIPAL . 'login');
+            exit;
+        }
         $this->reservaModel = new ReservaModel(); // Instanciar el modelo
     }
 
@@ -20,8 +26,9 @@ class Cliente extends Controller
 
         // Obtener datos usando el modelo
         $totalReservas = $this->reservaModel->getCantidadReservas($idUsuario);
-        $reservasPendientes = $this->reservaModel->getCantidadReservasByEstado($idUsuario, 'pendiente');
-        $reservasCompletadas = $this->reservaModel->getCantidadReservasByEstado($idUsuario, 'completada');
+        // Usar 1 para 'pendiente' y 2 para 'completada'
+        $reservasPendientes = $this->reservaModel->getCantidadReservasByEstado($idUsuario, 1);
+        $reservasCompletadas = $this->reservaModel->getCantidadReservasByEstado($idUsuario, 2);
         $listaReservas = $this->reservaModel->getReservasCliente($idUsuario);
 
         // Pasar datos a la vista

@@ -1,0 +1,113 @@
+/* assets/principal/css/habitaciones-page.css */
+
+/* Estilo general de la sección de habitaciones */
+.rooms-area-three {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background-color: #f9f9f9;
+}
+
+.section-title h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #222;
+}
+
+.section-title p {
+    max-width: 600px;
+    margin: 15px auto 0;
+    color: #666;
+}
+
+/* Estilo de la tarjeta de habitación individual */
+.single-room-card {
+    background-color: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 30px;
+}
+
+.single-room-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Estilo de la imagen de la habitación */
+.room-image {
+    overflow: hidden;
+}
+
+.room-image img {
+    width: 100%;
+    height: 250px; /* Altura fija para consistencia */
+    object-fit: cover; /* Asegura que la imagen cubra el espacio sin distorsionarse */
+    transition: transform 0.5s ease;
+}
+
+.single-room-card:hover .room-image img {
+    transform: scale(1.1);
+}
+
+/* Contenido de la tarjeta de la habitación */
+.room-content {
+    padding: 25px;
+    text-align: center;
+}
+
+.room-content h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.room-content h3 a {
+    color: #222;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.room-content h3 a:hover {
+    color: #0d6efd; /* Azul primario al pasar el cursor */
+}
+
+.room-content p {
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+/* Precio de la habitación */
+.room-content .price {
+    font-size: 18px;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.room-content .price span {
+    font-weight: 700;
+    color: #0d6efd; /* Azul primario para el precio */
+    font-size: 22px;
+}
+
+/* Botón de detalles */
+.btn-details {
+    display: inline-block;
+    background: #0d6efd; /* Azul primario */
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.btn-details:hover {
+    background: #fff;
+    color: #0d6efd;
+    border-color: #0d6efd;
+    transform: translateY(-3px);
+}

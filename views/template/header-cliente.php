@@ -14,6 +14,9 @@
     <link href="<?php echo RUTA_PRINCIPAL . 'assets/admin/css/bootstrap.min.css'; ?>" rel="stylesheet">
     <link href="<?php echo RUTA_PRINCIPAL . 'assets/admin/css/app.css'; ?>" rel="stylesheet">
     <link href="<?php echo RUTA_PRINCIPAL . 'assets/admin/css/icons.css'; ?>" rel="stylesheet">
+
+    <!-- CSS personalizado -->
+    <link href="<?php echo RUTA_PRINCIPAL . 'assets/admin/css/cliente-dashboard.css'; ?>" rel="stylesheet">
 </head>
 
 <body>

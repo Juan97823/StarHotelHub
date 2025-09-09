@@ -19,7 +19,8 @@ class HabitacionesModel extends Query
     // Registrar nueva habitación
     public function registrarHabitacion($estilo, $numero, $capacidad, $precio, $descripcion, $servicios, $foto)
     {
-        $slug = $this->generateSlug($estilo . '-' . $numero);
+        // Se genera el slug solo a partir del estilo
+        $slug = $this->generateSlug($estilo);
         $sql = "INSERT INTO habitaciones (estilo, numero, capacidad, precio, descripcion, servicios, foto, slug, estado) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
         $datos = [$estilo, $numero, $capacidad, $precio, $descripcion, $servicios, $foto, $slug];
@@ -36,7 +37,8 @@ class HabitacionesModel extends Query
     // Actualizar habitación
     public function actualizarHabitacion($estilo, $numero, $capacidad, $precio, $descripcion, $servicios, $foto, $id)
     {
-        $slug = $this->generateSlug($estilo . '-' . $numero);
+        // Se genera el slug a partir del estilo y se pasa el ID para evitar colisiones con el mismo registro
+        $slug = $this->generateSlug($estilo, $id);
         $sql = "UPDATE habitaciones 
                 SET estilo = ?, numero = ?, capacidad = ?, precio = ?, descripcion = ?, servicios = ?, foto = ?, slug = ? 
                 WHERE id = ?";
@@ -44,7 +46,7 @@ class HabitacionesModel extends Query
         return $this->save($sql, $datos);
     }
 
-    // Inhabilitar habitación (no borrar)
+    // Inhabilitar habitación
     public function inhabilitarHabitacion($id)
     {
         $sql = "UPDATE habitaciones SET estado = 0 WHERE id = ?";
@@ -58,13 +60,35 @@ class HabitacionesModel extends Query
         return $this->save($sql, [$id]);
     }
 
-    // Generar slug único
-    private function generateSlug($text)
+    // Generar slug único y robusto
+    private function generateSlug($text, $id_to_ignore = null)
     {
-        $text = preg_replace('~[^\\pL\\d]+~u', '-', $text);
-        $text = trim($text, '-');
-        $text = strtolower($text);
-        return !empty($text) ? $text : 'n-a';
+        $base_slug = preg_replace('~[^\\pL\\d]+~u', '-', $text);
+        $base_slug = trim($base_slug, '-');
+        $base_slug = strtolower($base_slug);
+        $slug = !empty($base_slug) ? $base_slug : 'n-a';
+
+        $counter = 0;
+        $temp_slug = $slug;
+        
+        while (true) {
+            $sql = "SELECT id FROM habitaciones WHERE slug = ?";
+            $params = [$temp_slug];
+            
+            if ($id_to_ignore !== null) {
+                $sql .= " AND id != ?";
+                $params[] = $id_to_ignore;
+            }
+
+            $result = $this->select($sql, $params);
+
+            if (empty($result)) {
+                return $temp_slug; // El slug es único
+            }
+
+            $counter++;
+            $temp_slug = $slug . '-' . $counter;
+        }
     }
 
     // -------------------- GALERÍA --------------------
@@ -90,7 +114,7 @@ class HabitacionesModel extends Query
         return $this->select($sql, [$id]) ?? [];
     }
 
-    // Inhabilitar foto (no borrar)
+    // Inhabilitar foto
     public function inhabilitarFotoGaleria($id)
     {
         $sql = "UPDATE galeria_habitaciones SET estado = 0 WHERE id = ?";

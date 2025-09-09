@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-09-2025 a las 02:09:00
+-- Tiempo de generación: 09-09-2025 a las 19:16:12
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -109,8 +109,15 @@ CREATE TABLE `habitaciones` (
 --
 
 INSERT INTO `habitaciones` (`id`, `estilo`, `numero`, `capacidad`, `slug`, `foto`, `video`, `descripcion`, `servicios`, `precio`, `estado`, `fecha`) VALUES
-(1, 'Habitacion Deluxe', 10, 3, 'habitacion-deluxe', '1.jpg', NULL, 'PRIMERA HABITACION PARA PRUEBAS', '', 130000.00, 1, '2025-09-03 21:35:47'),
-(2, 'Habitacion Doble', 0, 2, 'habitacion-doble', '20250903192424DuoROom', NULL, 'Nuestra cómoda habitación doble, decorada en tonos marrones, es perfecta para parejas o dos huéspedes. Cuenta con una confortable cama doble vestida con sábanas frescas y almohadas mullidas, garantizando un descanso reparador. Disfrute de un baño privado con ducha y artículos de aseo gratuitos, un televisor de pantalla plana con canales por cable y aire acondicionado individual. Amplio espacio de guardarropas para sus pertenencias. Manténgase conectado con nuestro Wi-Fi gratuito.', '', 90000.00, 1, '2025-09-05 22:21:36');
+(1, 'Habitacion Deluxe', 10, 3, 'habitacion-deluxe', '1.jpg', NULL, 'PRIMERA HABITACION PARA PRUEBAS', '', 130000.00, 1, '2025-09-09 14:03:56'),
+(2, 'Habitacion Doble', 0, 2, 'habitacion-doble-0', '20250909172928_Doble.jpg', NULL, 'Nuestra cómoda habitación doble, decorada en tonos marrones, es perfecta para parejas o dos huéspedes. Cuenta con una confortable cama doble vestida con sábanas frescas y almohadas mullidas, garantizando un descanso reparador. Disfrute de un baño privado con ducha y artículos de aseo gratuitos, un televisor de pantalla plana con canales por cable y aire acondicionado individual. Amplio espacio de guardarropas para sus pertenencias. Manténgase conectado con nuestro Wi-Fi gratuito.', 'Baño privado totalmente equipado.\r\n\r\nAire acondicionado y calefacción para tu confort.\r\n\r\nConexión Wi-Fi gratuita y TV de pantalla plana.\r\n\r\nRopa de cama de alta calidad y servicio de limpieza diario.\r\n\r\nDesayuno incluido para empezar el día con energía (según plan).', 90000.00, 1, '2025-09-09 15:29:28'),
+(3, 'Habitacion Triple', 0, 3, 'habitacion-triple-0', '20250909172728_TrheeRoom.jpg', NULL, 'La opción perfecta para viajar en grupo o en familia. Nuestra habitación triple está pensada para ofrecer comodidad y amplitud a tres huéspedes, garantizando una estancia práctica y acogedora.', 'Una cama matrimonial + una cama individual.\r\n\r\nTres camas individuales, según preferencia y disponibilidad.\r\n\r\n???? Incluye:\r\n\r\nBaño privado con todas las comodidades.\r\n\r\nAire acondicionado y calefacción.\r\n\r\nConexión Wi-Fi gratuita y TV de pantalla plana.\r\n\r\nArmario amplio y escritorio auxiliar.\r\n\r\nServicio de limpieza diario y ropa de cama premium.\r\n\r\nDesayuno incluido (dependiendo del plan).\r\n\r\n???? Ideal para familias, amigos o compañeros de viaje que buscan compartir el mismo espacio sin renunciar al confort y la privacidad.', 120000.00, 1, '2025-09-09 15:27:28'),
+(4, '✨ Habitación Doble – 2 Camas Matrimoniales ✨', 0, 4, 'habitación-doble-2-camas-matrimoniales-0', '20250909173257_Doble para 4 personas.jpg', NULL, 'Pensada para quienes viajan en familia o en grupo, esta habitación ofrece dos cómodas camas matrimoniales, garantizando el descanso de hasta cuatro huéspedes en un espacio moderno y acogedor.\r\nLa opción perfecta para familias o amigos que desean compartir la experiencia de viaje con el máximo confort y practicidad.', 'Baño privado totalmente equipado con artículos de cortesía.\r\n\r\nAire acondicionado y calefacción para tu comodidad.\r\n\r\nConexión Wi-Fi gratuita y TV de pantalla plana.\r\n\r\nArmario amplio y escritorio auxiliar.\r\n\r\nRopa de cama de alta calidad y servicio de limpieza diario.\r\n\r\nDesayuno incluido (según plan).', 480000.00, 1, '2025-09-09 15:32:57'),
+(5, '✨ Habitación Sencilla ✨', 0, 1, 'habitación-sencilla-0', '20250909173651_Habitacion Sencilla.jpg', NULL, 'Ideal para quienes viajan solos, nuestra habitación sencilla ofrece un ambiente práctico y confortable, pensado para garantizar el mejor descanso con todos los servicios esenciales. Perfecta para viajes de negocios, escapadas cortas o estancias individuales.', 'Cama individual cómoda y equipada con ropa de cama de calidad.\r\n\r\nBaño privado con artículos de aseo de cortesía.\r\n\r\nAire acondicionado y calefacción regulables.\r\n\r\nConexión Wi-Fi gratuita y TV de pantalla plana.\r\n\r\nEscritorio auxiliar y armario práctico.\r\n\r\nServicio de limpieza diario.\r\n\r\nDesayuno incluido (según plan).', 80000.00, 1, '2025-09-09 15:36:51'),
+(6, 'Habitación Familiar 👨‍👩‍👧‍👦', 0, 5, 'habitación-familiar-0', '20250909174735_Habitacion Familiar.jpg', NULL, 'La opción perfecta para compartir momentos únicos en familia. Nuestra habitación familiar está diseñada para ofrecer amplitud, comodidad y practicidad, con capacidad de hasta 4 o 5 huéspedes, según configuración. Una cama matrimonial + dos camas individuales.', 'Baño privado equipado con artículos de cortesía.\r\n\r\nAire acondicionado y calefacción.\r\n\r\nConexión Wi-Fi de alta velocidad y TV de pantalla plana.\r\n\r\nArmario amplio y escritorio auxiliar.\r\n\r\nRopa de cama premium y servicio de limpieza diario.\r\n\r\nDesayuno incluido (según plan).', 500000.00, 1, '2025-09-09 15:47:35'),
+(7, '✨ Habitación Presidencial ✨', 0, 2, 'habitación-presidencial-0', '20250909175128_Madame-Butterfly-Peralada-Suite.jpg', NULL, 'Capacidad: Hasta 2 personas (ideal para parejas o ejecutivos).\r\nLa máxima expresión de lujo y exclusividad en StarHotelHub. Nuestra Habitación Presidencial está diseñada para huéspedes que buscan vivir una experiencia inigualable, combinando amplitud, elegancia y servicios de categoría premium.', 'Cama King Size con ropa de cama de lujo.\r\n\r\nSala privada con mobiliario elegante y zona de estar.\r\n\r\nJacuzzi o tina de hidromasaje para momentos de relajación.\r\n\r\nBaño de lujo equipado con amenidades exclusivas.\r\n\r\nMinibar, cafetera premium y detalles VIP.\r\n\r\nWi-Fi de alta velocidad y múltiples pantallas de TV.\r\n\r\nServicio de limpieza preferencial y atención personalizada.', 1400000.00, 1, '2025-09-09 15:51:28'),
+(8, '✨ Junior Suite ✨', 0, 2, 'junior-suite-0', '20250909180017_vincci-resort-costa-golf_1000_560_1679_1440149927.jpg', NULL, 'Nuestra Junior Suite es el equilibrio perfecto entre elegancia y comodidad. Ofrece un espacio más amplio que una habitación estándar, con detalles modernos y un ambiente acogedor para garantizar una experiencia superior.', '🛏️ Distribución:\r\n\r\n1 cama King Size o Queen Size.\r\n\r\nSala pequeña con zona de estar.\r\n\r\n🌟 Servicios incluidos:\r\n\r\nBaño privado con detalles exclusivos.\r\n\r\nMinibar y cafetera.\r\n\r\nAire acondicionado y calefacción.\r\n\r\nWi-Fi de alta velocidad.\r\n\r\nTV de pantalla plana.\r\n\r\nEscritorio auxiliar y armario amplio.\r\n\r\nDesayuno incluido.\r\n\r\n💫 Descripción:', 720000.00, 1, '2025-09-09 16:00:17'),
+(9, '✨ Suite Ejecutiva ✨', 0, 2, 'suite-ejecutiva-0', '20250909180256_Suite ejecutiva.jpg', NULL, 'La Suite Ejecutiva está diseñada para quienes buscan comodidad y eficiencia en sus viajes de negocios o escapadas en pareja. Ofrece un espacio elegante, con todas las facilidades para combinar descanso y productividad.', '🛏️ Distribución:\r\n\r\n1 cama King Size.\r\n\r\nSala privada con zona de estar y escritorio amplio.\r\n\r\n🌟 Servicios incluidos:\r\n\r\nBaño privado de lujo con artículos exclusivos.\r\n\r\nEscritorio ergonómico y espacio de trabajo.\r\n\r\nMinibar y cafetera premium.\r\n\r\nAire acondicionado y calefacción.\r\n\r\nWi-Fi de alta velocidad.\r\n\r\nTV de pantalla plana.\r\n\r\nServicio de limpieza preferencial.\r\n\r\nDesayuno incluido y servicio a la habitación.', 880000.00, 1, '2025-09-09 16:02:56');
 
 -- --------------------------------------------------------
 
@@ -213,7 +220,8 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `clave`, `token`, `verify`, `rol`, `foto`, `estado`, `fecha`) VALUES
 (23, 'Juan', 'Juanesab423@gmail.com', '$2y$10$le84w2Y0t5zYH8BTJ7zmFu/nLppj7ugkwopl/o/6s4KjJWXFQh6dq', NULL, 0, 1, NULL, 1, '2025-07-07 04:00:24'),
 (25, 'Empleado', 'Empleado@gmail.com', '$2y$10$13KGtawbenSpE81bbt3S..MRqB.0pjrb78JVY9UzUTMLrc/LaZn16', NULL, 0, 2, NULL, 1, '2025-09-03 00:55:49'),
-(26, 'Sofia Salamanca', 'Salamancas648@gmail.com', '$2y$10$hEjwn2u5zkqjw.gOPYpD9etgUVMAl2jySl.Od0.6Apbb85E7TbKw.', NULL, 0, 3, NULL, 1, '2025-09-05 20:14:18');
+(26, 'Sofia Salamanca', 'Salamancas648@gmail.com', '$2y$10$hEjwn2u5zkqjw.gOPYpD9etgUVMAl2jySl.Od0.6Apbb85E7TbKw.', NULL, 0, 3, NULL, 1, '2025-09-05 20:14:18'),
+(27, 'William Alfonso', 'Hwilliamac@gmail.com', '$2y$10$ruCR//vCKHBe0xv6MizxGuFBT/F6ZfOhdtxuT.0NR9o8tX3MFkSjO', NULL, 0, 3, NULL, 1, '2025-09-07 05:06:18');
 
 --
 -- Índices para tablas volcadas
@@ -309,7 +317,7 @@ ALTER TABLE `galeria_habitaciones`
 -- AUTO_INCREMENT de la tabla `habitaciones`
 --
 ALTER TABLE `habitaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `reservas`
@@ -333,7 +341,7 @@ ALTER TABLE `sliders`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Restricciones para tablas volcadas

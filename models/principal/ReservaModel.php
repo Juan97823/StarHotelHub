@@ -56,7 +56,10 @@ class ReservaModel extends Query
     // Obtener todas las reservas de un cliente
     public function getReservasCliente($id_usuario)
     {
-        $query = "SELECT r.*, h.estilo AS habitacion_estilo FROM reservas r JOIN habitaciones h ON r.id_habitacion = h.id WHERE r.id_usuario = :id_usuario";
+        $query = "SELECT r.*, h.estilo AS tipo, r.monto AS monto_total
+                  FROM reservas r
+                  JOIN habitaciones h ON r.id_habitacion = h.id
+                  WHERE r.id_usuario = :id_usuario";
         $params = [':id_usuario' => $id_usuario];
         return $this->selectAll($query, $params);
     }
