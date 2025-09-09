@@ -24,7 +24,7 @@ class UsuariosModel extends Query
      */
     public function getUsuarioPorId($id)
     {
-        $sql = "SELECT u.id, u.nombre, u.correo, r.NombreRol AS rol 
+        $sql = "SELECT u.id, u.nombre, u.correo, u.rol as rol_id, r.NombreRol AS rol 
                 FROM usuarios u
                 LEFT JOIN roles r ON u.rol = r.id
                 WHERE u.id = ?";

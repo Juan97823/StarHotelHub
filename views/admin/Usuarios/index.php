@@ -28,43 +28,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($data['usuarios'] as $usuario) : ?>
-                            <tr>
-                                <td><?php echo $usuario['id']; ?></td>
-                                <td><?php echo $usuario['nombre']; ?></td>
-                                <td><?php echo $usuario['correo']; ?></td>
-                                <td>
-                                    <?php
-                                    $rol = $usuario['rol'];
-                                    $badge_class = ($rol == 'Administrador') ? 'bg-success' : (($rol == 'Empleado') ? 'bg-info' : 'bg-secondary');
-                                    ?>
-                                    <span class="badge <?php echo $badge_class; ?>"><?php echo $rol; ?></span>
-                                </td>
-                                <td>
-                                    <?php
-                                    $estado = $usuario['estado'] == 1 ? '<span class="badge bg-success">Activo</span>' : '<span class="badge bg-danger">Inactivo</span>';
-                                    echo $estado;
-                                    ?>
-                                </td>
-                                <td>
-                                    <button class="btn btn-sm btn-outline-primary btnVer">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-secondary btnEditar">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <?php if ($usuario['estado'] == 1) : ?>
-                                        <button class="btn btn-sm btn-outline-danger btnInhabilitar" data-id="<?php echo $usuario['id']; ?>">
-                                            <i class="fas fa-ban"></i>
-                                        </button>
-                                    <?php else : ?>
-                                        <button class="btn btn-sm btn-outline-success btnHabilitar" data-id="<?php echo $usuario['id']; ?>">
-                                            <i class="fas fa-check"></i>
-                                        </button>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
+                        <!-- Los datos se cargarán dinámicamente -->
                     </tbody>
                 </table>
             </div>
@@ -114,7 +78,10 @@
     </div>
 </div>
 
-<!-- Enlazar el JS externo -->
-<script src="<?php echo RUTA_PRINCIPAL; ?>Assets/admin/js/Pages/Usuarios.js"></script>
-
 <?php include_once 'views/template/footer-admin.php'; ?>
+
+<!-- ** IMPORTANTE: Cargar el JS de la página DESPUÉS del footer ** -->
+<script>
+    const ADMIN_ID = <?php echo $_SESSION['usuario']['id'] ?? 0; ?>;
+</script>
+<script src="<?php echo RUTA_PRINCIPAL; ?>Assets/admin/js/Pages/Usuarios.js"></script>

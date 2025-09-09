@@ -1,123 +1,142 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // 1. Inicialización de DataTables
-    const table = new DataTable("#usuariosTable", {
-        language: {
-            url: "https://cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json"
-        },
-        responsive: true,
-        columnDefs: [
-            { "targets": 0, "visible": false } // Ocultar columna ID
-        ]
-    });
+(function($) {
+    let table;
 
-    // 2. Referencias a elementos del DOM
-    const btnAgregar = document.getElementById("btnAgregarUsuario");
-    const modalElement = document.getElementById("usuarioModal");
-    const modal = new bootstrap.Modal(modalElement);
-    const modalLabel = document.getElementById("modalLabel");
-    const form = document.getElementById("usuarioForm");
-    const idField = document.getElementById("idUsuario");
-    const claveField = document.getElementById("clave");
+    $(document).ready(function() {
 
-    // 3. Abrir modal para agregar usuario
-    if (btnAgregar) {
-        btnAgregar.addEventListener("click", () => {
-            modalLabel.textContent = "Agregar Usuario";
-            form.reset();
-            idField.value = '';
-            claveField.setAttribute('required', 'true');
-            modal.show();
+        // 1. INICIALIZACIÓN DE DATATABLE
+        table = $("#usuariosTable").DataTable({
+            language: {
+                url: base_url + "Assets/admin/js/spanish.json"
+            },
+            responsive: true,
+            ajax: {
+                url: `${base_url}admin/usuarios/listar`,
+                dataSrc: 'data'
+            },
+            columns: [
+                { 'data': 'id' },
+                { 'data': 'nombre' },
+                { 'data': 'email' }, // <-- ESTANDARIZADO
+                { 'data': 'rol' },
+                { 'data': 'estado' },
+                { 'data': 'acciones', orderable: false, searchable: false }
+            ],
+            columnDefs: [
+                { "targets": 0, "visible": false }
+            ]
         });
-    }
 
-    // 4. Manejo del envío del formulario (Agregar/Editar)
-    form.addEventListener("submit", function(e) {
-        e.preventDefault();
-        const url = idField.value ? `${base_url}admin/usuarios/editar/${idField.value}` : `${base_url}admin/usuarios/registrar`;
-        const formData = new FormData(form);
+        const modalElement = document.getElementById("usuarioModal");
+        const modal = new bootstrap.Modal(modalElement);
 
-        fetch(url, { method: "POST", body: formData })
-        .then(res => res.json())
-        .then(data => {
-            if (data.tipo === "success") {
-                modal.hide();
-                Swal.fire('Éxito', data.msg, 'success').then(() => location.reload());
-            } else {
-                Swal.fire('Error', data.msg, 'error');
+        // 2. MANEJO DE EVENTOS CON DELEGACIÓN
+        $("#usuariosTable tbody").on("click", "button", function () {
+            const action = $(this).data("action");
+            const id = $(this).data("id");
+
+            if (action === "edit") {
+                openEditModal(id);
+            } else if (action === "toggle-state") {
+                handleStateChange(id, this);
             }
         });
-    });
-
-    // 5. Delegación de eventos para botones de acción
-    document.getElementById("usuariosTable").addEventListener("click", function(e) {
-        const btn = e.target.closest("button.btn");
-        if (!btn) return;
-
-        const rowNode = btn.closest("tr");
-        if (!rowNode || !table.row(rowNode).any()) return;
         
-        const row = table.row(rowNode);
-        const id = row.data()[0]; // Obtener ID de la data de la fila (columna oculta)
+        // 3. ABRIR MODAL PARA AGREGAR USUARIO
+        $("#btnAgregarUsuario").on("click", function() {
+            $("#usuarioForm")[0].reset();
+            $("#modalLabel").text("Agregar Usuario");
+            $("#idUsuario").val('');
+            $("#clave").attr('required', 'true'); 
+            modal.show();
+        });
 
-        // Acción para HABILITAR o INHABILITAR
-        if (btn.classList.contains("btnInhabilitar") || btn.classList.contains("btnHabilitar")) {
-            const esInhabilitar = btn.classList.contains("btnInhabilitar");
-            const nuevoEstado = esInhabilitar ? 0 : 1;
-            const textoConfirmacion = esInhabilitar ? "El usuario será desactivado." : "El usuario será activado.";
-            const botonConfirmacion = esInhabilitar ? "Sí, inhabilitar" : "Sí, habilitar";
+        // 4. GUARDAR (SUBMIT DEL FORMULARIO DE AGREGAR/EDITAR)
+        $("#usuarioForm").on("submit", function(e) {
+            e.preventDefault();
+            const id = $("#idUsuario").val();
+            const url = id ? `${base_url}admin/usuarios/editar/${id}` : `${base_url}admin/usuarios/registrar`;
+            
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    if (response.tipo === 'success') {
+                        modal.hide();
+                        Swal.fire('Éxito', response.msg, 'success');
+                        table.ajax.reload();
+                    } else {
+                        Swal.fire('Error', response.msg, 'error');
+                    }
+                },
+                error: function() {
+                     Swal.fire('Error', 'No se pudo conectar al servidor.', 'error');
+                }
+            });
+        });
 
-            Swal.fire({ title: '¿Estás seguro?', text: textoConfirmacion, icon: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6', cancelButtonColor: '#d33', confirmButtonText: botonConfirmacion, cancelButtonText: 'Cancelar' })
-            .then(result => {
+        // ----- FUNCIONES AUXILIARES -----
+
+        function openEditModal(id) {
+            // Usar .fail() para un mejor manejo de errores de red/servidor
+            $.getJSON(`${base_url}admin/usuarios/obtener/${id}`)
+                .done(function(data) {
+                    if (data.tipo === 'error') {
+                        Swal.fire('Error', data.msg, 'error');
+                        return;
+                    }
+                    $("#modalLabel").text("Editar Usuario");
+                    $("#idUsuario").val(data.id);
+                    $("#nombre").val(data.nombre);
+                    $("#email").val(data.email); // <-- ESTANDARIZADO
+                    $("#rol").val(data.rol);
+                    $("#clave").removeAttr('required');
+                    modal.show();
+                })
+                .fail(function() {
+                    Swal.fire('Error', 'No se pudo obtener la información del usuario.', 'error');
+                });
+        }
+
+        function handleStateChange(id, btn) {
+            const isDisabling = $(btn).hasClass("btn-danger");
+            const newState = isDisabling ? 0 : 1;
+
+            const confirmText = isDisabling ? "inhabilitar" : "habilitar";
+            Swal.fire({
+                title: `¿Estás seguro?`,
+                text: `Se va a ${confirmText} el usuario.`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: `Sí, ${confirmText}`,
+                cancelButtonText: 'Cancelar'
+            }).then(result => {
                 if (result.isConfirmed) {
-                    fetch(`${base_url}admin/usuarios/cambiarEstado/${id}/${nuevoEstado}`, { method: "GET" })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.tipo === "success") {
-                            // **SOLUCIÓN DEFINITIVA con API de DataTables**
-                            const currentData = row.data(); // Obtener datos actuales de la fila
-                            
-                            // Modificar la celda de estado (índice 4)
-                            currentData[4] = nuevoEstado === 1 
-                                ? '<span class="badge bg-success">Activo</span>' 
-                                : '<span class="badge bg-danger">Inactivo</span>';
+                    const originalHtml = btn.innerHTML;
+                    btn.disabled = true;
+                    btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
 
-                            // Reconstruir los botones de acción (índice 5)
-                            const viewButton = `<button class="btn btn-sm btn-outline-primary btnVer"><i class="fas fa-eye"></i></button>`;
-                            const editButton = `<button class="btn btn-sm btn-outline-secondary btnEditar"><i class="fas fa-edit"></i></button>`;
-                            const toggleButton = nuevoEstado === 1 
-                                ? `<button class="btn btn-sm btn-outline-danger btnInhabilitar" data-id="${id}"><i class="fas fa-ban"></i></button>`
-                                : `<button class="btn btn-sm btn-outline-success btnHabilitar" data-id="${id}"><i class="fas fa-check"></i></button>`;
-                            currentData[5] = `${viewButton} ${editButton} ${toggleButton}`;
-                            
-                            // Aplicar los nuevos datos a la fila y redibujar
-                            row.data(currentData).draw(false);
-
-                            Swal.fire('Actualizado', data.msg, 'success');
-                        } else {
-                            Swal.fire('Error', data.msg, 'error');
-                        }
-                    });
+                    $.getJSON(`${base_url}admin/usuarios/cambiarEstado/${id}/${newState}`)
+                        .done(function(data) {
+                            if (data.tipo === 'success') {
+                                Swal.fire("Éxito", data.msg, "success");
+                                table.ajax.reload(null, false);
+                            } else {
+                                Swal.fire("Error", data.msg, "error");
+                            }
+                        })
+                        .fail(function() {
+                            Swal.fire("Error", "No se pudo conectar al servidor.", "error");
+                        })
+                        .always(function() {
+                            btn.innerHTML = originalHtml;
+                            btn.disabled = false;
+                        });
                 }
             });
         }
-
-        // Acción para EDITAR
-        if (btn.classList.contains("btnEditar")) {
-            fetch(`${base_url}admin/usuarios/obtener/${id}`)
-                .then(res => res.json())
-                .then(data => {
-                    if (data) {
-                        modalLabel.textContent = "Editar Usuario";
-                        idField.value = data.id;
-                        document.getElementById('nombre').value = data.nombre;
-                        document.getElementById('email').value = data.correo;
-                        document.getElementById('rol').value = data.rol;
-                        claveField.removeAttribute('required');
-                        modal.show();
-                    } else {
-                        Swal.fire('Error', 'No se encontraron datos', 'error');
-                    }
-                });
-        }
     });
-});
+})(jQuery);
