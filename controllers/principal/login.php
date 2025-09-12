@@ -5,7 +5,7 @@ class Login extends Controller
     {
         parent::__construct();
         if (session_status() === PHP_SESSION_NONE) {
-            // ✅ Configurar parámetros seguros de sesión
+            //  Configurar parámetros seguros de sesión
             session_set_cookie_params([
                 'lifetime' => 0,         // Expira al cerrar navegador
                 'httponly' => true,      // Previene acceso por JS
@@ -48,7 +48,7 @@ class Login extends Controller
             die();
         }
 
-        // ✅ Validar campos obligatorios
+        //  Validar campos obligatorios
         if (!validarCampos(['usuario', 'clave'])) {
             $res = ['tipo' => 'warning', 'msg' => 'TODOS LOS CAMPOS SON OBLIGATORIOS'];
             echo json_encode($res, JSON_UNESCAPED_UNICODE);
@@ -64,7 +64,7 @@ class Login extends Controller
             $res = ['tipo' => 'warning', 'msg' => 'EL USUARIO O CORREO NO EXISTE'];
         } else {
             if (password_verify($clave, $verificar['clave'])) {
-                // ✅ Regenerar ID de sesión en cada login exitoso
+                //  Regenerar ID de sesión en cada login exitoso
                 session_regenerate_id(true);
 
                 $rol = (int)$verificar['rol'];
@@ -93,7 +93,7 @@ class Login extends Controller
 
     public function salir()
     {
-        // ✅ Cerrar sesión de forma segura
+        //  Cerrar sesión de forma segura
         session_unset();
         session_destroy();
         session_regenerate_id(true);

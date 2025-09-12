@@ -10,7 +10,7 @@ class Admin extends Controller
             session_start();
         }
 
-        // ✅ Validar acceso solo para administradores
+        // Validar acceso solo para administradores
         $url = $_SERVER['REQUEST_URI'];
         if (strpos($url, 'admin/login') === false) {
             if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] != 1) {
@@ -19,12 +19,16 @@ class Admin extends Controller
             }
         }
 
-        // ✅ Cargar modelo principal del dashboard
-        $this->cargarModel('admin/DashboardModel');
+        // Cargar modelo del dashboard
+        $this->cargarModel('DashboardModel');
+
+        if (!$this->model) {
+            die("Error: DashboardModel no se pudo cargar.");
+        }
     }
 
     /**
-     * Vista principal del dashboard de administrador
+     * Vista principal del dashboard
      */
     public function dashboard()
     {
@@ -38,22 +42,20 @@ class Admin extends Controller
      */
     public function getData()
     {
-        // Solo aceptar si hay sesión válida
         if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] != 1) {
             http_response_code(403);
             echo json_encode(['error' => 'Acceso no autorizado'], JSON_UNESCAPED_UNICODE);
             exit;
         }
 
-        $datos = [];
+        $datos = [
+            'reservasHoy' => (int) ($this->model->getReservasHoy()['total'] ?? 0),
+            'habitacionesDisponibles' => (int) ($this->model->getHabitacionesDisponibles()['total'] ?? 0),
+            'ingresosMes' => number_format((float) ($this->model->getIngresosMes()['total'] ?? 0), 0, ',', '.'),
+            'totalClientes' => (int) ($this->model->getTotalClientes()['total'] ?? 0),
+        ];
 
-        // 1. KPIs principales
-        $datos['reservasHoy'] = (int) ($this->model->getReservasHoy()['total'] ?? 0);
-        $datos['habitacionesDisponibles'] = (int) ($this->model->getHabitacionesDisponibles()['total'] ?? 0);
-        $datos['ingresosMes'] = number_format((float) ($this->model->getIngresosMes()['total'] ?? 0), 0, ',', '.');
-        $datos['totalClientes'] = (int) ($this->model->getTotalClientes()['total'] ?? 0);
-
-        // 2. Reservas última semana (para gráfico)
+        // Gráfico últimas 7 reservas
         $reservasSemana = $this->model->getReservasUltimaSemana() ?? [];
         $reservasPorDia = [];
         for ($i = 6; $i >= 0; $i--) {
@@ -70,20 +72,17 @@ class Admin extends Controller
             'valores' => array_values($reservasPorDia)
         ];
 
-        // 3. Reservas mensuales (si está implementado en el modelo)
-        $datos['reservasMensuales'] = $this->model->getReservasMensuales() ?? [];
-
-        // 4. Últimas reservas
+        // Últimas reservas
         $datos['ultimasReservas'] = $this->model->getUltimasReservas() ?? [];
 
-        // ✅ Respuesta JSON
+        // Respuesta JSON
         header('Content-Type: application/json');
         echo json_encode($datos, JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK);
         exit;
     }
 
     /**
-     * Cerrar sesión de administrador
+     * Cerrar sesión
      */
     public function salir()
     {

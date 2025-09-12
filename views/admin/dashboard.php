@@ -1,82 +1,93 @@
 <?php include_once 'views/template/header-admin.php'; ?>
 
-<div class="container py-4">
-  <h2 class="mb-4">Panel de Administración</h2>
+<div class="container py-5">
+  <h2 class="mb-5 fw-bold text-dark">Panel de Administración</h2>
 
   <!-- Indicadores -->
-  <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+  <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-xl-4">
+    <!-- Reservas Hoy -->
     <div class="col">
-      <div class="card radius-10 border-start border-0 border-3 border-info">
-        <div class="card-body">
-          <div class="d-flex align-items-center">
-            <div>
-              <p class="mb-0 text-secondary">Total Reservas Hoy</p>
-              <h4 class="my-1 text-info" id="reservasHoy">0</h4>
-              <p class="mb-0 font-13">+2.5% desde la semana pasada</p>
-            </div>
-            <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i class='bx bxs-bed'></i></div>
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body d-flex align-items-center">
+          <div>
+            <p class="text-muted mb-1">Reservas Hoy</p>
+            <h3 class="fw-bold text-primary" id="reservasHoy">0</h3>
+            <small class="text-success">+2.5% desde la semana pasada</small>
+          </div>
+          <div class="ms-auto bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
+            style="width:60px; height:60px;">
+            <i class='bx bxs-bed fs-3'></i>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Habitaciones Disponibles -->
     <div class="col">
-      <div class="card radius-10 border-start border-0 border-3 border-success">
-        <div class="card-body">
-          <div class="d-flex align-items-center">
-            <div>
-              <p class="mb-0 text-secondary">Habitaciones Disponibles</p>
-              <h4 class="my-1 text-success" id="habitacionesDisponibles">0</h4>
-              <p class="mb-0 font-13">+3.2% desde la semana pasada</p>
-            </div>
-            <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"><i class='bx bxs-hotel'></i></div>
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body d-flex align-items-center">
+          <div>
+            <p class="text-muted mb-1">Habitaciones Disponibles</p>
+            <h3 class="fw-bold text-success" id="habitacionesDisponibles">0</h3>
+            <small class="text-success">+3.2% desde la semana pasada</small>
+          </div>
+          <div class="ms-auto bg-success text-white rounded-circle d-flex align-items-center justify-content-center"
+            style="width:60px; height:60px;">
+            <i class='bx bxs-hotel fs-3'></i>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Ingresos del Mes -->
     <div class="col">
-      <div class="card radius-10 border-start border-0 border-3 border-warning">
-        <div class="card-body">
-          <div class="d-flex align-items-center">
-            <div>
-              <p class="mb-0 text-secondary">Ingresos del Mes</p>
-              <h4 class="my-1 text-warning" id="ingresosMes">$0</h4>
-              <p class="mb-0 font-13">+5.4% desde la semana pasada</p>
-            </div>
-            <div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"><i class='bx bxs-wallet'></i></div>
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body d-flex align-items-center">
+          <div>
+            <p class="text-muted mb-1">Ingresos del Mes</p>
+            <h3 class="fw-bold text-warning" id="ingresosMes">$0</h3>
+            <small class="text-success">+5.4% desde la semana pasada</small>
+          </div>
+          <div class="ms-auto bg-warning text-white rounded-circle d-flex align-items-center justify-content-center"
+            style="width:60px; height:60px;">
+            <i class='bx bxs-wallet fs-3'></i>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Total Clientes -->
     <div class="col">
-      <div class="card radius-10 border-start border-0 border-3 border-info">
-        <div class="card-body">
-          <div class="d-flex align-items-center">
-            <div>
-              <p class="mb-0 text-secondary">Total Clientes</p>
-              <h4 class="my-1 text-info" id="totalClientes">0</h4>
-              <p class="mb-0 font-13">+8.4% desde la semana pasada</p>
-            </div>
-            <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i class='bx bxs-group'></i></div>
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body d-flex align-items-center">
+          <div>
+            <p class="text-muted mb-1">Total Clientes</p>
+            <h3 class="fw-bold text-info" id="totalClientes">0</h3>
+            <small class="text-success">+8.4% desde la semana pasada</small>
+          </div>
+          <div class="ms-auto bg-info text-white rounded-circle d-flex align-items-center justify-content-center"
+            style="width:60px; height:60px;">
+            <i class='bx bxs-group fs-3'></i>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Gráfico -->
-  <div class="card mb-4">
-    <div class="card-header">Reservas de la Última Semana</div>
+  <!-- Gráfico Reservas -->
+  <div class="card shadow-sm mt-5">
+    <div class="card-header bg-light fw-bold">Reservas Última Semana</div>
     <div class="card-body">
-      <canvas id="graficoReservas"></canvas>
+      <canvas id="graficoReservas" height="120"></canvas>
     </div>
   </div>
 
   <!-- Últimas Reservas -->
-  <div class="card">
-    <div class="card-header">Últimas 5 Reservas</div>
+  <div class="card shadow-sm mt-4">
+    <div class="card-header bg-light fw-bold">Últimas 5 Reservas</div>
     <div class="card-body p-0">
       <div class="table-responsive">
-        <table class="table table-striped table-hover mb-0">
+        <table class="table table-hover mb-0 align-middle">
           <thead class="table-dark">
             <tr>
               <th>Cliente</th>
@@ -86,7 +97,7 @@
             </tr>
           </thead>
           <tbody id="ultimasReservas">
-            <!-- El contenido se cargará dinámicamente con JavaScript -->
+            <!-- Contenido cargado dinámicamente -->
           </tbody>
         </table>
       </div>
@@ -94,7 +105,7 @@
   </div>
 </div>
 
-<!-- Scripts del Dashboard -->
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="<?php echo RUTA_PRINCIPAL; ?>assets/admin/js/dashboard.js"></script>
 

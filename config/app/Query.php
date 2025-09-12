@@ -1,9 +1,18 @@
-<?php
+<?php 
+/**
+  * Clase base para modelos de base de datos
+  *
+  * @method array|null select(string $sql, array $params = [])
+  * @method array|null selectAll(string $sql, array $params = [])
+  * @method int insert(string $sql, array $params = [])
+  * @method int save(string $sql, array $params = [])
+  */
 class Query extends Conexion
 {
     private $con, $pdo;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->con = new Conexion();
         $this->pdo = $this->con->conectar();
     }
@@ -39,5 +48,5 @@ class Query extends Conexion
         $data = $result->execute($array);
         return $data ? 1 : 0;
     }
-    
+
 }

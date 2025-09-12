@@ -15,7 +15,7 @@ define('LOCKOUT_TIME', 300); // 5 minutos en segundos
 
 // Iniciar sesión segura
 session_start([
-    'cookie_lifetime' => 86400, // 1 día
+    'cookie_lifetime' => 5400, // 2 horas
     'cookie_secure' => true,
     'cookie_httponly' => true,
     'use_strict_mode' => true

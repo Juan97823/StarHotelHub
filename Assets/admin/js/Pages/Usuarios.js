@@ -1,7 +1,7 @@
-(function($) {
+(function ($) {
     let table;
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         // 1. INICIALIZACIÓN DE DATATABLE
         table = $("#usuariosTable").DataTable({
@@ -40,28 +40,28 @@
                 handleStateChange(id, this);
             }
         });
-        
+
         // 3. ABRIR MODAL PARA AGREGAR USUARIO
-        $("#btnAgregarUsuario").on("click", function() {
+        $("#btnAgregarUsuario").on("click", function () {
             $("#usuarioForm")[0].reset();
             $("#modalLabel").text("Agregar Usuario");
             $("#idUsuario").val('');
-            $("#clave").attr('required', 'true'); 
+            $("#clave").attr('required', 'true');
             modal.show();
         });
 
         // 4. GUARDAR (SUBMIT DEL FORMULARIO DE AGREGAR/EDITAR)
-        $("#usuarioForm").on("submit", function(e) {
+        $("#usuarioForm").on("submit", function (e) {
             e.preventDefault();
             const id = $("#idUsuario").val();
             const url = id ? `${base_url}admin/usuarios/editar/${id}` : `${base_url}admin/usuarios/registrar`;
-            
+
             $.ajax({
                 url: url,
                 type: 'POST',
                 data: $(this).serialize(),
                 dataType: 'json',
-                success: function(response) {
+                success: function (response) {
                     if (response.tipo === 'success') {
                         modal.hide();
                         Swal.fire('Éxito', response.msg, 'success');
@@ -70,8 +70,8 @@
                         Swal.fire('Error', response.msg, 'error');
                     }
                 },
-                error: function() {
-                     Swal.fire('Error', 'No se pudo conectar al servidor.', 'error');
+                error: function () {
+                    Swal.fire('Error', 'No se pudo conectar al servidor 1.', 'error');
                 }
             });
         });
@@ -81,7 +81,7 @@
         function openEditModal(id) {
             // Usar .fail() para un mejor manejo de errores de red/servidor
             $.getJSON(`${base_url}admin/usuarios/obtener/${id}`)
-                .done(function(data) {
+                .done(function (data) {
                     if (data.tipo === 'error') {
                         Swal.fire('Error', data.msg, 'error');
                         return;
@@ -94,7 +94,7 @@
                     $("#clave").removeAttr('required');
                     modal.show();
                 })
-                .fail(function() {
+                .fail(function () {
                     Swal.fire('Error', 'No se pudo obtener la información del usuario.', 'error');
                 });
         }
@@ -120,7 +120,7 @@
                     btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
 
                     $.getJSON(`${base_url}admin/usuarios/cambiarEstado/${id}/${newState}`)
-                        .done(function(data) {
+                        .done(function (data) {
                             if (data.tipo === 'success') {
                                 Swal.fire("Éxito", data.msg, "success");
                                 table.ajax.reload(null, false);
@@ -128,10 +128,17 @@
                                 Swal.fire("Error", data.msg, "error");
                             }
                         })
-                        .fail(function() {
-                            Swal.fire("Error", "No se pudo conectar al servidor.", "error");
+                        .fail(function (jqXHR, textStatus, errorThrown) {
+                            let errorMsg = `
+                             Estado: ${textStatus}
+                                Error: ${errorThrown}
+                                Respuesta del servidor: ${jqXHR.responseText}
+                                            `;
+                            Swal.fire("Error", errorMsg, "error");
+
+
                         })
-                        .always(function() {
+                        .always(function () {
                             btn.innerHTML = originalHtml;
                             btn.disabled = false;
                         });

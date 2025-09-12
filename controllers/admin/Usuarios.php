@@ -1,4 +1,5 @@
 <?php
+
 class Usuarios extends Controller
 {
     public function __construct()
@@ -33,13 +34,13 @@ class Usuarios extends Controller
                 $rol_badge = '<span class="badge bg-secondary">Cliente</span>';
             }
 
-            $estado_badge = $usuario['estado'] == 1 
-                ? '<span class="badge bg-success">Activo</span>' 
+            $estado_badge = $usuario['estado'] == 1
+                ? '<span class="badge bg-success">Activo</span>'
                 : '<span class="badge bg-danger">Inactivo</span>';
 
             $acciones = '<div class="d-flex justify-content-center">' .
-                        '<button class="btn btn-sm btn-outline-primary me-1" data-action="edit" data-id="' . $usuario['id'] . '" title="Editar"><i class="fas fa-edit"></i></button>';
-            
+                '<button class="btn btn-sm btn-outline-primary me-1" data-action="edit" data-id="' . $usuario['id'] . '" title="Editar"><i class="fas fa-edit"></i></button>';
+
             if ($usuario['estado'] == 1) {
                 $acciones .= '<button class="btn btn-sm btn-danger" data-action="toggle-state" data-id="' . $usuario['id'] . '" title="Inhabilitar"><i class="fas fa-ban"></i></button>';
             } else {
@@ -50,7 +51,7 @@ class Usuarios extends Controller
             $data[] = [
                 'id' => $usuario['id'],
                 'nombre' => $usuario['nombre'],
-                'email' => $usuario['correo'], 
+                'email' => $usuario['correo'],
                 'rol' => $rol_badge,
                 'estado' => $estado_badge,
                 'acciones' => $acciones
@@ -158,7 +159,7 @@ class Usuarios extends Controller
             echo json_encode(['tipo' => 'error', 'msg' => 'No puedes inhabilitar a tu propio usuario.']);
             die();
         }
-        
+
         $usuario = $this->model->getUsuarioPorId($idUsuario);
         if ($usuario && isset($usuario['rol_id']) && $usuario['rol_id'] == 4 && $nuevoEstado == 0) {
             echo json_encode(['tipo' => 'error', 'msg' => 'No se puede inhabilitar a un usuario con este rol.']);
@@ -167,8 +168,11 @@ class Usuarios extends Controller
 
         // *** CORREGIDO: Usar una comprobación robusta (> 0) ***
         $resultado = $this->model->cambiarEstadoUsuario($idUsuario, $nuevoEstado);
-        if ($resultado > 0) {
-            $mensaje = ($nuevoEstado == 1) ? 'Usuario habilitado correctamente.' : 'Usuario inhabilitado correctamente.';
+
+        if ($resultado) {
+            $mensaje = ($nuevoEstado == 1)
+                ? 'Usuario habilitado correctamente.'
+                : 'Usuario inhabilitado correctamente.';
             echo json_encode(['tipo' => 'success', 'msg' => $mensaje]);
         } else {
             echo json_encode(['tipo' => 'error', 'msg' => 'Error al cambiar el estado del usuario.']);

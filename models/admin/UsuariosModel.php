@@ -68,10 +68,12 @@ class UsuariosModel extends Query
 
     /**
      * Cambia el estado de un usuario (activo/inactivo).
-     */
-    public function cambiarEstadoUsuario($id, $estado)
-    {
-        $sql = "UPDATE usuarios SET estado = ? WHERE id = ? AND id != 1";
-        return $this->save($sql, [$estado, $id]);
-    }
+     */public function cambiarEstadoUsuario($id, $estado)
+{
+    $sql = "UPDATE usuarios SET estado = ? WHERE id = ? AND id != 1";
+    $res = $this->save($sql, [$estado, $id]);
+    // devuelve true si la consulta se ejecutó correctamente
+    return $res !== false;
+}
+
 }

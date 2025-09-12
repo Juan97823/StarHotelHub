@@ -7,7 +7,7 @@ class Habitaciones extends Controller
     {
         parent::__construct();
         verificarSesion(1); // Asegura que solo administradores accedan
-        $this->cargarModel('admin/HabitacionesModel');
+        // $this->cargarModel('admin/HabitacionesModel');
     }
 
     public function index()
