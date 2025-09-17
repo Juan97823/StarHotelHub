@@ -1,0 +1,122 @@
+/* === Estilos Generales para StarHotel Hub === */
+
+:root {
+    --primary-color: #ffbd33; /* Amarillo/Dorado característico */
+    --body-bg: #f8f9fe; /* Fondo gris muy claro */
+    --card-bg: #ffffff; /* Fondo de las tarjetas */
+    --text-primary: #333333;
+    --text-secondary: #777777;
+    --sidebar-bg: #ffffff;
+    --sidebar-active-bg: #ffbd33;
+    --sidebar-active-text: #ffffff;
+}
+
+body {
+    background-color: var(--body-bg) !important;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* === Contenedor Principal === */
+.page-wrapper {
+    background-color: var(--body-bg) !important;
+}
+
+.page-content {
+    padding: 2rem;
+}
+
+.topbar {
+    background: var(--card-bg) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* === Barra Lateral (Sidebar) === */
+.sidebar-wrapper {
+    background: var(--sidebar-bg) !important;
+    border-right: none !important;
+}
+
+.sidebar-header {
+    background: var(--sidebar-bg) !important;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.sidebar-header .logo-text {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.metismenu a {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.metismenu a:hover {
+    background-color: #f5f5f5;
+}
+
+.metismenu .mm-active > a {
+    background-color: var(--sidebar-active-bg) !important;
+    color: var(--sidebar-active-text) !important;
+    border-radius: 8px;
+    margin: 5px 10px;
+    box-shadow: 0 4px 10px rgba(255, 189, 51, 0.4);
+}
+
+.metismenu .mm-active > a *, .metismenu .mm-active > a .parent-icon {
+    color: var(--sidebar-active-text) !important;
+}
+
+/* === Tarjetas (Cards) === */
+.card {
+    border: none !important;
+    border-radius: 16px !important;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05) !important;
+    margin-bottom: 1.5rem;
+    background-color: var(--card-bg);
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-title, h2, h4, h6, .welcome-text {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* === Tarjetas de Resumen (Dashboard) === */
+.widgets-icons-2 {
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bg-light-yellow { background: #fff8e1 !important; color: #ffab00 !important; }
+.bg-light-green { background: #e8f5e9 !important; color: #4caf50 !important; }
+.bg-light-blue { background: #e3f2fd !important; color: #2196f3 !important; }
+
+.card-body p.text-secondary {
+    font-size: 0.95rem;
+    color: var(--text-secondary) !important;
+    margin-bottom: 0.2rem !important;
+}
+
+.card-body h4.my-1 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* Eliminar elementos no deseados del diseño original */
+.toggle-icon, .mobile-toggle-menu, .search-bar, .dropdown-toggle-nocaret::after {
+    display: none !important;
+}
+
+.user-box .d-flex {
+    cursor: pointer;
+}
+

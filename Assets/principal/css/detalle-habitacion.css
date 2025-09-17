@@ -1,0 +1,154 @@
+/* assets/principal/css/detalle-habitacion.css */
+
+.room-details-area-modern {
+    padding: 100px 0;
+    background-color: #f9f9f9;
+}
+
+/* Columna de la Galería */
+.room-gallery .main-image img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenido de la derecha */
+.room-details-content-modern {
+    background: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    height: 100%;
+}
+
+.room-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 15px;
+}
+
+.room-description {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+/* Características de la habitación */
+.room-features h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.features-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    background: #f9f9f9;
+    padding: 10px 15px;
+    border-radius: 8px;
+    flex-basis: calc(50% - 8px); /* Dos columnas */
+}
+
+.feature-item i {
+    font-size: 24px;
+    color: #0d6efd;
+    margin-right: 12px;
+}
+
+.feature-item span {
+    font-size: 15px;
+    color: #555;
+}
+
+/* Precio de la habitación */
+.room-price {
+    background: linear-gradient(135deg, #0d6efd, #0558c3);
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.room-price span {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+.room-price p {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Formulario de Reserva */
+.booking-form h3 {
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #444;
+}
+
+.form-control {
+    height: 50px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.btn-booking {
+    width: 100%;
+    padding: 15px;
+    background: #28a745; /* Verde para la acción de reservar */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-booking:hover {
+    background: #218838;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .room-details-content-modern {
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .feature-item {
+        flex-basis: 100%; /* Una columna en móviles */
+    }
+
+    .room-details-content-modern {
+        padding: 25px;
+    }
+}

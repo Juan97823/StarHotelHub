@@ -1,0 +1,163 @@
+/* Estilos generales del cuerpo y del layout */
+body {
+    background-color: #f4f6fc;
+    font-family: 'Poppins', sans-serif;
+}
+
+.wrapper {
+    background-color: #f4f6fc;
+}
+
+/* Estilos de la barra lateral (Sidebar) */
+.sidebar-wrapper {
+    background: #ffffff;
+    border-right: 1px solid #e0e0e0;
+}
+
+.sidebar-header .logo-text {
+    color: #0d6efd; /* Azul primario para el logo */
+    font-weight: bold;
+}
+
+.metismenu ul {
+    background: transparent;
+}
+
+.metismenu a {
+    color: #555;
+    font-weight: 500;
+}
+
+.metismenu .parent-icon {
+    font-size: 20px;
+}
+
+.metismenu .mm-active > a, .metismenu a:hover, .metismenu a:focus, .metismenu a:active {
+    background: #eaf3ff; /* Fondo celeste para el ítem activo */
+    color: #0d6efd; /* Color azul para el texto e ícono */
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.metismenu .mm-active > a i, .metismenu a:hover i {
+    color: #0d6efd;
+}
+
+/* Perfil de usuario en la barra lateral */
+.user-profile-section {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+    border-top: 1px solid #e0e0e0;
+    background: #fff;
+}
+
+.user-profile-section .user-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.user-profile-section .designattion {
+    color: #777;
+    font-size: 12px;
+}
+
+/* Estilos del Topbar */
+.topbar {
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Contenido principal de la página */
+.page-content {
+    padding: 2rem;
+}
+
+/* Encabezado de bienvenida */
+.profile-header .card-body {
+    background-color: #ffffff;
+    border-radius: 12px;
+}
+
+/* Tarjetas de resumen (Total, Pendiente, Completado) */
+.radius-10 {
+    border-radius: 12px !important;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.widgets-icons-2 {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    border-radius: 50%;
+    background-color: #f0f0f0 !important; /* Fondo gris claro para íconos */
+    color: #333;
+}
+
+.card-body .my-0 {
+    color: #333;
+}
+
+/* Tabla de historial de reservas */
+.table-responsive .card-title {
+    color: #333;
+}
+
+.table > thead {
+    vertical-align: middle;
+}
+
+.table thead th {
+    border-bottom: 2px solid #dee2e6;
+    font-weight: 600;
+    color: #333;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.table tbody tr {
+    vertical-align: middle;
+}
+
+.table tbody td {
+    padding: 1rem;
+}
+
+.table-hover > tbody > tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Estilo de los badges de estado */
+.badge {
+    padding: 0.5em 0.8em;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge.bg-warning {
+    background-color: #ffc107 !important;
+    color: #212529 !important;
+}
+
+.badge.bg-success {
+    background-color: #198754 !important;
+    color: #fff !important;
+}
+
+.badge.bg-danger {
+    background-color: #dc3545 !important;
+    color: #fff !important;
+}
+
+.badge.bg-secondary {
+    background-color: #6c757d !important;
+    color: #fff !important;
+}
