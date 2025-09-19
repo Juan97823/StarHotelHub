@@ -1,95 +1,121 @@
 <?php include_once 'views/template/header-empleado.php'; ?>
 
-<div class="container py-5">
-  <h2 class="mb-5 fw-bold text-dark">Panel de Empleado</h2>
+<div class="container-fluid py-4">
 
-  <!-- Indicadores -->
-  <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
-    <!-- Reservas Hoy -->
-    <div class="col">
-      <div class="card shadow-sm border-0 h-100">
+  <!-- Encabezado de Perfil de Empleado -->
+  <div class="card border-0 shadow-lg rounded-4 mb-4" style="background: linear-gradient(135deg, #6f42c1, #20c997);">
+    <div class="card-body p-4 d-flex flex-column flex-md-row align-items-center text-white">
+      <div class="me-md-4 mb-3 mb-md-0 text-center">
+        <i class="bx bxs-user-circle fs-1"></i>
+      </div>
+      <div class="text-center text-md-start">
+        <h2 class="fw-bold mb-1">¡Hola, <?php echo $_SESSION['usuario']['nombre'] ?? 'Empleado'; ?>!</h2>
+        <p class="mb-0 opacity-75">Este es tu centro de control para la gestión diaria del hotel.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tarjetas de Resumen Operativo -->
+  <div class="row g-4">
+    <div class="col-12 col-md-4">
+      <div class="card h-100 border-0 shadow-sm rounded-4">
         <div class="card-body d-flex align-items-center">
-          <div>
-            <p class="text-muted mb-1">Reservas Hoy</p>
-            <h3 class="fw-bold text-primary" id="reservasHoy">0</h3>
-            <small class="text-success">+2.5% desde la semana pasada</small>
+          <div class="rounded-circle p-3 me-3 bg-light-primary text-primary">
+            <i class='bx bx-log-in fs-4'></i>
           </div>
-          <div class="ms-auto bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
-            style="width:60px; height:60px;">
-            <i class='bx bxs-bed fs-3'></i>
+          <div>
+            <p class="mb-1 text-muted">Check-Ins para Hoy</p>
+            <h4 class="fw-bold mb-0"><?php echo $data['checkins_hoy'] ?? 0; ?></h4>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Habitaciones Disponibles -->
-    <div class="col">
-      <div class="card shadow-sm border-0 h-100">
+    <div class="col-12 col-md-4">
+      <div class="card h-100 border-0 shadow-sm rounded-4">
         <div class="card-body d-flex align-items-center">
-          <div>
-            <p class="text-muted mb-1">Habitaciones Disponibles</p>
-            <h3 class="fw-bold text-success" id="habitacionesDisponibles">0</h3>
-            <small class="text-success">+3.2% desde la semana pasada</small>
+          <div class="rounded-circle p-3 me-3 bg-light-warning text-warning">
+            <i class='bx bx-log-out fs-4'></i>
           </div>
-          <div class="ms-auto bg-success text-white rounded-circle d-flex align-items-center justify-content-center"
-            style="width:60px; height:60px;">
-            <i class='bx bxs-hotel fs-3'></i>
+          <div>
+            <p class="mb-1 text-muted">Check-Outs para Hoy</p>
+            <h4 class="fw-bold mb-0"><?php echo $data['checkouts_hoy'] ?? 0; ?></h4>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Total Clientes -->
-    <div class="col">
-      <div class="card shadow-sm border-0 h-100">
+    <div class="col-12 col-md-4">
+      <div class="card h-100 border-0 shadow-sm rounded-4">
         <div class="card-body d-flex align-items-center">
-          <div>
-            <p class="text-muted mb-1">Total Clientes</p>
-            <h3 class="fw-bold text-info" id="totalClientes">0</h3>
-            <small class="text-success">+8.4% desde la semana pasada</small>
+          <div class="rounded-circle p-3 me-3 bg-light-success text-success">
+            <i class='bx bxs-bed fs-4'></i>
           </div>
-          <div class="ms-auto bg-info text-white rounded-circle d-flex align-items-center justify-content-center"
-            style="width:60px; height:60px;">
-            <i class='bx bxs-group fs-3'></i>
+          <div>
+            <p class="mb-1 text-muted">Habitaciones Ocupadas</p>
+            <h4 class="fw-bold mb-0"><?php echo $data['habitaciones_ocupadas'] ?? 0; ?></h4>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Gráfico Reservas -->
-  <div class="card shadow-sm mt-5">
-    <div class="card-header bg-light fw-bold">Mis Reservas Última Semana</div>
+  <!-- Actividad del Día (Llegadas y Salidas) -->
+  <div class="card mt-5 border-0 shadow-sm rounded-4">
     <div class="card-body">
-      <canvas id="graficoReservas" height="120"></canvas>
-    </div>
-  </div>
-
-  <!-- Últimas Reservas -->
-  <div class="card shadow-sm mt-4">
-    <div class="card-header bg-light fw-bold">Últimas 5 Reservas Asignadas</div>
-    <div class="card-body p-0">
+      <h5 class="fw-bold mb-4 d-flex align-items-center">
+        <i class='bx bx-calendar-event fs-5 me-2 text-primary'></i> Actividad del Día
+      </h5>
       <div class="table-responsive">
-        <table class="table table-hover mb-0 align-middle">
-          <thead class="table-dark">
-            <tr>
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr class="text-uppercase small text-muted">
               <th>Cliente</th>
-              <th>Habitación</th>
-              <th>Fecha</th>
-              <th>Estado</th>
+              <th><i class='bx bxs-hotel me-1'></i>Habitación</th>
+              <th><i class='bx bxs-info-circle me-1'></i>Tipo</th>
+              <th><i class='bx bxs-time me-1'></i>Hora</th>
+              <th><i class='bx bx-key me-1'></i>Acciones</th>
             </tr>
           </thead>
-          <tbody id="ultimasReservas">
-            <!-- Contenido cargado dinámicamente -->
+          <tbody>
+            <?php if (empty($data['actividad_dia'])) : ?>
+              <tr>
+                <td colspan="5" class="text-center py-5">
+                  <i class='bx bx-wind fs-2 text-primary'></i>
+                  <h5 class="mt-2 fw-bold">No hay llegadas ni salidas para hoy.</h5>
+                  <p class="text-muted">Todo tranquilo por ahora.</p>
+                </td>
+              </tr>
+            <?php else : ?>
+              <?php foreach ($data['actividad_dia'] as $actividad) : ?>
+                <tr>
+                  <td class="fw-semibold"><?php echo $actividad['nombre_cliente']; ?></td>
+                  <td><?php echo $actividad['nombre_habitacion']; ?></td>
+                  <td>
+                    <?php
+                    $esLlegada = ($actividad['tipo'] == 'llegada');
+                    $claseBadge = $esLlegada ? 'bg-light-success text-success' : 'bg-light-warning text-warning';
+                    $icono = $esLlegada ? 'bx-log-in' : 'bx-log-out';
+                    $texto = $esLlegada ? 'Llegada' : 'Salida';
+                    ?>
+                    <span class="badge fs-6 rounded-pill <?php echo $claseBadge; ?> d-inline-flex align-items-center">
+                      <i class="bx <?php echo $icono; ?> me-1"></i>
+                      <?php echo $texto; ?>
+                    </span>
+                  </td>
+                  <td><?php echo date("h:i A", strtotime($esLlegada ? $actividad['fecha_ingreso'] : $actividad['fecha_salida'])); ?></td>
+                  <td>
+                    <a href="#" class="btn btn-sm btn-outline-primary me-1" title="Ver Reserva"><i class="fas fa-eye"></i></a>
+                    <?php if ($esLlegada && $actividad['estado'] == 1) : // 1 es Confirmada ?>
+                      <a href="#" class="btn btn-sm btn-primary" title="Hacer Check-In">Check-In</a>
+                    <?php endif; ?>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            <?php endif; ?>
           </tbody>
         </table>
       </div>
     </div>
   </div>
 </div>
-
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="<?php echo RUTA_PRINCIPAL; ?>assets/empleado/js/pages/dashboard.js"></script>
 
 <?php include_once 'views/template/footer-empleado.php'; ?>

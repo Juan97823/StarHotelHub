@@ -5,7 +5,7 @@ session_start();
 // Example user data (replace with actual data source)
 $user = [
     'name' => 'Admin User',
-    'email' => 'admin@starhotelhub.com',
+    'correo' => 'admin@starhotelhub.com',
     'role' => 'Administrator',
     'profile_pic' => '/assets/images/admin_profile.png'
 ];
@@ -40,7 +40,7 @@ $user = [
             </div>
         </div>
         <div class="perfil-info">
-            <p><strong>Email:</strong> <?= htmlspecialchars($user['email']) ?></p>
+            <p><strong>correo:</strong> <?= htmlspecialchars($user['correo']) ?></p>
             <!-- Puedes agregar más información aquí -->
         </div>
         <div class="perfil-actions">

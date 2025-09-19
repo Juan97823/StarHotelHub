@@ -3,29 +3,34 @@ const f_salida = document.querySelector("#f_salida");
 const habitacion = document.querySelector("#habitacion");
 
 document.addEventListener("DOMContentLoaded", function () {
-  var calendarEl = document.getElementById("calendar");
+  const calendarEl = document.getElementById("calendar");
 
-  var calendar = new FullCalendar.Calendar(calendarEl, {
+  const calendar = new FullCalendar.Calendar(calendarEl, {
     headerToolbar: {
       left: "prev,next today",
       center: "title",
-      right: "dayGridMonth", // Solo muestra el botón "Mes"
+      right: "dayGridMonth",
     },
-    initialView: "dayGridMonth", // Vista inicial en "Mes"
-    locale: "es", // Idioma español
+    initialView: "dayGridMonth",
+    locale: "es",
     navLinks: true,
     businessHours: true,
-    editable: true,
+    editable: false,
     selectable: true,
-    events:
-      base_url +
-      "reserva/listar/" +
-      f_llegada.value +
-      "/" +
-      f_salida.value +
-      "/" +
-      habitacion.value,
+    events: fetchEvents(), // carga inicial
   });
 
   calendar.render();
+
+  // Actualizar calendario cuando cambie alguna fecha o habitación
+  [f_llegada, f_salida, habitacion].forEach((input) => {
+    input.addEventListener("change", () => {
+      calendar.removeAllEvents();
+      calendar.addEventSource(fetchEvents());
+    });
+  });
+
+  function fetchEvents() {
+    return base_url + "reserva/listar/" + f_llegada.value + "/" + f_salida.value + "/" + habitacion.value;
+  }
 });

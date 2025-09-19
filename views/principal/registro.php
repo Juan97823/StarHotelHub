@@ -23,7 +23,7 @@
                                 <input class="form-control" type="text" name="nombre" placeholder="Nombre completo" required>
                             </div>
                             <div class="col-12 mb-3">
-                                <input class="form-control" type="email" name="correo" placeholder="Correo electrónico" required>
+                                <input class="form-control" type="correo" name="correo" placeholder="Correo electrónico" required>
                             </div>
                             
                             <div class="col-12 mb-3">

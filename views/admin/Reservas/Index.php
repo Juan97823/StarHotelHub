@@ -48,7 +48,7 @@
                 <select class="form-control" id="habitacion" name="habitacion" required>
                     <option value="">Seleccionar Habitación</option>
                     <?php foreach ($data['habitaciones'] as $habitacion): ?>
-                        <option value="<?=$habitacion['id']?>"><?=$habitacion['estilo']?></option>
+                        <option value="<?=$habitacion['id']?>" data-precio="<?=$habitacion['precio']?>"><?=$habitacion['estilo']?></option>
                     <?php endforeach;?>
                 </select>
             </div>
@@ -57,6 +57,9 @@
                 <label for="cliente" class="form-label">Cliente</label>
                 <select class="form-control" id="cliente" name="cliente" required>
                     <option value="">Seleccionar Cliente</option>
+                    <?php foreach ($data['clientes'] as $cliente): ?>
+                        <option value="<?=$cliente['id']?>"><?=$cliente['nombre']?></option>
+                    <?php endforeach;?>
                 </select>
             </div>
 
@@ -73,7 +76,7 @@
 
             <div class="mb-3">
                 <label for="monto" class="form-label">Monto</label>
-                <input type="number" step="0.01" class="form-control" id="monto" name="monto" required>
+                <input type="number" step="0.01" class="form-control" id="monto" name="monto" readonly required>
             </div>
         </div>
         <div class="modal-footer">
@@ -88,4 +91,4 @@
 <?php require_once 'views/template/footer-admin.php'; ?>
 
 <!-- Script externo de Reservas -->
-<script src="<?php echo RUTA_PRINCIPAL; ?>assets/admin/js/pages/reservas.js"></script>
+<script src="<?php echo RUTA_PRINCIPAL; ?>assets/admin/js/Pages/reservas.js"></script>

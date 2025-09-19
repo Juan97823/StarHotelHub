@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-09-2025 a las 15:57:08
+-- Tiempo de generación: 19-09-2025 a las 07:19:36
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -47,6 +47,52 @@ INSERT INTO `categorias` (`id`, `categoria`, `estado`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `entradas`
+--
+
+CREATE TABLE `entradas` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(200) NOT NULL,
+  `descripcion` text NOT NULL,
+  `foto` varchar(100) DEFAULT NULL,
+  `slug` varchar(200) NOT NULL,
+  `categorias` varchar(100) DEFAULT NULL,
+  `id_categoria` int(11) NOT NULL,
+  `estado` int(11) NOT NULL DEFAULT 1,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `id_usuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `entradas`
+--
+
+INSERT INTO `entradas` (`id`, `titulo`, `descripcion`, `foto`, `slug`, `categorias`, `id_categoria`, `estado`, `fecha`, `id_usuario`) VALUES
+(1, 'Bienvenidos al Blog de StarHotelHub', 'Primer post de prueba para verificar integraciones.', 'blog1.jpg', 'bienvenidos-blog', NULL, 5, 1, '2025-09-19 05:07:07', 23),
+(2, '5 destinos imperdibles para tus próximas vacaciones', 'Descubre los lugares más espectaculares para visitar este año. Desde playas paradisíacas hasta ciudades llenas de historia, ¡prepara tus maletas y vive experiencias únicas!', 'turismo1.jpg', '5-destinos-imperdibles-para-tus-pr-ximas-vacaciones', '1', 1, 1, '2025-09-18 01:07:38', 23),
+(3, 'Top 10 platillos que debes probar en nuestro hotel', 'Una guía de los sabores que no puedes perderte en StarHotelHub: ensaladas frescas, platos fuertes exquisitos y postres que harán vibrar tu paladar.', 'gastronomia1.jpg', 'top-10-platillos-que-debes-probar-en-nuestro-hotel', '2', 2, 1, '2025-09-18 01:08:47', 23),
+(4, 'Organiza tu boda soñada en StarHotelHub', 'Conoce nuestros paquetes de bodas y eventos especiales. Disfruta de un lugar exclusivo, atención personalizada y servicios de lujo para que ese día sea inolvidable.', 'eventos1.jpg', 'organiza-tu-boda-soñada', NULL, 3, 1, '2025-09-18 00:44:27', 23),
+(5, '10 tips para viajar ligero y cómodo', 'Aprende a empacar eficientemente y disfrutar al máximo tus viajes sin preocuparte por el exceso de equipaje. Consejos prácticos para ahorrar tiempo y estrés en tus vacaciones.', 'consejos1.jpg', '10-tips-viajar-ligero', NULL, 4, 1, '2025-09-18 00:44:27', 23),
+(6, 'Renovación de la piscina y área de spa', 'Estamos felices de anunciar la renovación completa de nuestra piscina y área de spa. Disfruta de un espacio moderno, cómodo y lleno de relajación y bienestar.', 'novedades1.jpg', 'renovacion-piscina-spa', NULL, 5, 1, '2025-09-18 00:44:27', 23),
+(7, 'Cómo elegir la habitación perfecta para tu estancia', 'Te damos los mejores consejos para seleccionar la habitación que se adapte a tus necesidades: vistas, comodidad, servicios adicionales y ubicación dentro del hotel.', 'turismo2.jpg', 'elegir-habitacion-perfecta', NULL, 1, 1, '2025-09-18 00:44:27', 23),
+(8, 'Bebidas exóticas que debes probar en nuestro bar', 'Descubre cocteles únicos y bebidas refrescantes creadas por nuestros expertos bartenders. Cada sorbo es una experiencia inolvidable de sabor y creatividad.', 'gastronomia2.jpg', 'bebidas-exoticas-bar', NULL, 2, 1, '2025-09-18 00:44:27', 23),
+(9, 'Cómo organizar un evento corporativo exitoso', 'Aprende a planear tu evento empresarial en nuestro hotel: desde salas equipadas hasta catering personalizado y atención profesional en cada detalle.', 'eventos2.jpg', 'organizar-evento-corporativo', NULL, 3, 1, '2025-09-18 00:44:27', 23),
+(10, 'Guía para viajar con niños sin estrés', 'Tips esenciales para disfrutar de tus vacaciones en familia. Actividades para niños, recomendaciones de seguridad y consejos para mantener a todos felices.', 'consejos2.jpg', 'viajar-con-ninos', NULL, 4, 1, '2025-09-18 00:44:27', 23),
+(11, 'Nuevos menús de temporada en nuestro restaurante', 'Presentamos platos frescos y creativos inspirados en la temporada actual. Ingredientes locales y de alta calidad para una experiencia gastronómica única.', 'novedades2.jpg', 'nuevos-menus-temporada', NULL, 5, 1, '2025-09-18 00:44:27', 23),
+(12, 'Escapadas románticas para parejas', 'Descubre nuestros paquetes especiales para parejas, con cenas privadas, habitaciones con vista y actividades pensadas para momentos románticos inolvidables.', 'turismo3.jpg', 'escapadas-romanticas', NULL, 1, 1, '2025-09-18 00:44:27', 23),
+(13, 'Postres que te harán volver por más', 'Dulces y postres artesanales que combinan sabor y presentación. Desde tortas hasta helados gourmet, cada opción es un deleite para los sentidos.', 'gastronomia3.jpg', 'postres-para-volver', NULL, 2, 1, '2025-09-18 00:44:27', 23),
+(14, 'Celebra tu cumpleaños con nosotros', 'Hacemos que tu día especial sea único: decoración personalizada, catering exclusivo y sorpresas que harán de tu cumpleaños un recuerdo imborrable.', 'eventos3.jpg', 'celebra-cumpleanos', NULL, 3, 1, '2025-09-18 00:44:27', 23),
+(15, 'Consejos para descansar mejor durante tu viaje', 'Descubre técnicas y recomendaciones para dormir mejor, aprovechar al máximo tu estancia y regresar a casa renovado y relajado.', 'consejos3.jpg', 'dormir-mejor-viaje', NULL, 4, 1, '2025-09-18 00:44:27', 23),
+(16, 'Ampliación de nuestras instalaciones de gimnasio', '¡Entrena sin límites! Presentamos nuestras nuevas áreas de gimnasio con equipos de última generación para mantener tu rutina durante tus vacaciones.', 'novedades3.jpg', 'ampliacion-gimnasio', NULL, 5, 1, '2025-09-18 00:44:27', 23),
+(17, 'Rutas turísticas cerca del hotel', 'Explora los alrededores de StarHotelHub con rutas a pie, en bici o excursiones cortas que te permitirán conocer la cultura y naturaleza local.', 'turismo4.jpg', 'rutas-turisticas-cerca', NULL, 1, 1, '2025-09-18 00:44:27', 23),
+(18, 'Cenas temáticas para disfrutar en familia', 'Cada semana presentamos cenas especiales con temáticas divertidas, menús variados y actividades para toda la familia. ¡Una experiencia gastronómica única!', 'gastronomia4.jpg', 'cenas-tematicas-familia', NULL, 2, 1, '2025-09-18 00:44:27', 23),
+(19, 'Organiza un retiro de bienestar en nuestro hotel', 'Ideal para empresas o grupos de amigos que buscan relajación y crecimiento personal. Actividades de mindfulness, yoga y alimentación saludable garantizan un retiro inolvidable.', 'eventos4.jpg', 'retiro-bienestar-hotel', NULL, 3, 1, '2025-09-18 00:44:27', 23),
+(20, 'Consejos para evitar el jet lag', 'Aprende a minimizar los efectos del cambio de horario con recomendaciones de alimentación, sueño y actividades para mantener tu energía durante el viaje.', 'consejos4.jpg', 'evitar-jet-lag', NULL, 4, 1, '2025-09-18 00:44:27', 23),
+(21, 'Nueva terraza panorámica con vista al atardecer', 'Disfruta de nuestra renovada terraza con vistas espectaculares y un ambiente único para relajarte, tomar fotos y disfrutar de bebidas al atardecer.', 'novedades4.jpg', 'nueva-terrace-panoramica', NULL, 5, 1, '2025-09-18 00:44:27', 23);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `galeria_habitaciones`
 --
 
@@ -84,13 +130,44 @@ CREATE TABLE `habitaciones` (
 INSERT INTO `habitaciones` (`id`, `estilo`, `numero`, `capacidad`, `slug`, `foto`, `video`, `descripcion`, `servicios`, `precio`, `estado`, `fecha`) VALUES
 (1, 'Habitacion Deluxe', 10, 3, 'habitacion-deluxe', '1.jpg', NULL, 'PRIMERA HABITACION PARA PRUEBAS', '', 130000.00, 1, '2025-09-12 04:58:23'),
 (2, 'Habitacion Doble', 0, 2, 'habitacion-doble', '20250909172928_Doble.jpg', NULL, 'Nuestra cómoda habitación doble, decorada en tonos marrones, es perfecta para parejas o dos huéspedes. Cuenta con una confortable cama doble vestida con sábanas frescas y almohadas mullidas, garantizando un descanso reparador. Disfrute de un baño privado con ducha y artículos de aseo gratuitos, un televisor de pantalla plana con canales por cable y aire acondicionado individual. Amplio espacio de guardarropas para sus pertenencias. Manténgase conectado con nuestro Wi-Fi gratuito.', 'Baño privado totalmente equipado.\r\n\r\nAire acondicionado y calefacción para tu confort.\r\n\r\nConexión Wi-Fi gratuita y TV de pantalla plana.\r\n\r\nRopa de cama de alta calidad y servicio de limpieza diario.\r\n\r\nDesayuno incluido para empezar el día con energía (según plan).', 90000.00, 1, '2025-09-13 01:53:40'),
-(3, 'Habitacion Triple', 0, 3, 'habitacion-triple-0', '20250909172728_TrheeRoom.jpg', NULL, 'La opción perfecta para viajar en grupo o en familia. Nuestra habitación triple está pensada para ofrecer comodidad y amplitud a tres huéspedes, garantizando una estancia práctica y acogedora.', 'Una cama matrimonial + una cama individual.\r\n\r\nTres camas individuales, según preferencia y disponibilidad.\r\n\r\n???? Incluye:\r\n\r\nBaño privado con todas las comodidades.\r\n\r\nAire acondicionado y calefacción.\r\n\r\nConexión Wi-Fi gratuita y TV de pantalla plana.\r\n\r\nArmario amplio y escritorio auxiliar.\r\n\r\nServicio de limpieza diario y ropa de cama premium.\r\n\r\nDesayuno incluido (dependiendo del plan).\r\n\r\n???? Ideal para familias, amigos o compañeros de viaje que buscan compartir el mismo espacio sin renunciar al confort y la privacidad.', 120000.00, 1, '2025-09-09 15:27:28'),
-(4, '✨ Habitación Doble – 2 Camas Matrimoniales ✨', 0, 4, 'habitación-doble-2-camas-matrimoniales-0', '20250909173257_Doble para 4 personas.jpg', NULL, 'Pensada para quienes viajan en familia o en grupo, esta habitación ofrece dos cómodas camas matrimoniales, garantizando el descanso de hasta cuatro huéspedes en un espacio moderno y acogedor.\r\nLa opción perfecta para familias o amigos que desean compartir la experiencia de viaje con el máximo confort y practicidad.', 'Baño privado totalmente equipado con artículos de cortesía.\r\n\r\nAire acondicionado y calefacción para tu comodidad.\r\n\r\nConexión Wi-Fi gratuita y TV de pantalla plana.\r\n\r\nArmario amplio y escritorio auxiliar.\r\n\r\nRopa de cama de alta calidad y servicio de limpieza diario.\r\n\r\nDesayuno incluido (según plan).', 480000.00, 1, '2025-09-09 15:32:57'),
-(5, '✨ Habitación Sencilla ✨', 0, 1, 'habitación-sencilla-0', '20250909173651_Habitacion Sencilla.jpg', NULL, 'Ideal para quienes viajan solos, nuestra habitación sencilla ofrece un ambiente práctico y confortable, pensado para garantizar el mejor descanso con todos los servicios esenciales. Perfecta para viajes de negocios, escapadas cortas o estancias individuales.', 'Cama individual cómoda y equipada con ropa de cama de calidad.\r\n\r\nBaño privado con artículos de aseo de cortesía.\r\n\r\nAire acondicionado y calefacción regulables.\r\n\r\nConexión Wi-Fi gratuita y TV de pantalla plana.\r\n\r\nEscritorio auxiliar y armario práctico.\r\n\r\nServicio de limpieza diario.\r\n\r\nDesayuno incluido (según plan).', 80000.00, 1, '2025-09-09 15:36:51'),
-(6, 'Habitación Familiar 👨‍👩‍👧‍👦', 0, 5, 'habitación-familiar-0', '20250909174735_Habitacion Familiar.jpg', NULL, 'La opción perfecta para compartir momentos únicos en familia. Nuestra habitación familiar está diseñada para ofrecer amplitud, comodidad y practicidad, con capacidad de hasta 4 o 5 huéspedes, según configuración. Una cama matrimonial + dos camas individuales.', 'Baño privado equipado con artículos de cortesía.\r\n\r\nAire acondicionado y calefacción.\r\n\r\nConexión Wi-Fi de alta velocidad y TV de pantalla plana.\r\n\r\nArmario amplio y escritorio auxiliar.\r\n\r\nRopa de cama premium y servicio de limpieza diario.\r\n\r\nDesayuno incluido (según plan).', 500000.00, 1, '2025-09-09 15:47:35'),
-(7, '✨ Habitación Presidencial ✨', 0, 2, 'habitación-presidencial-0', '20250909175128_Madame-Butterfly-Peralada-Suite.jpg', NULL, 'Capacidad: Hasta 2 personas (ideal para parejas o ejecutivos).\r\nLa máxima expresión de lujo y exclusividad en StarHotelHub. Nuestra Habitación Presidencial está diseñada para huéspedes que buscan vivir una experiencia inigualable, combinando amplitud, elegancia y servicios de categoría premium.', 'Cama King Size con ropa de cama de lujo.\r\n\r\nSala privada con mobiliario elegante y zona de estar.\r\n\r\nJacuzzi o tina de hidromasaje para momentos de relajación.\r\n\r\nBaño de lujo equipado con amenidades exclusivas.\r\n\r\nMinibar, cafetera premium y detalles VIP.\r\n\r\nWi-Fi de alta velocidad y múltiples pantallas de TV.\r\n\r\nServicio de limpieza preferencial y atención personalizada.', 1400000.00, 1, '2025-09-09 15:51:28'),
-(8, '✨ Junior Suite ✨', 0, 2, 'junior-suite-0', '20250909180017_vincci-resort-costa-golf_1000_560_1679_1440149927.jpg', NULL, 'Nuestra Junior Suite es el equilibrio perfecto entre elegancia y comodidad. Ofrece un espacio más amplio que una habitación estándar, con detalles modernos y un ambiente acogedor para garantizar una experiencia superior.', '🛏️ Distribución:\r\n\r\n1 cama King Size o Queen Size.\r\n\r\nSala pequeña con zona de estar.\r\n\r\n🌟 Servicios incluidos:\r\n\r\nBaño privado con detalles exclusivos.\r\n\r\nMinibar y cafetera.\r\n\r\nAire acondicionado y calefacción.\r\n\r\nWi-Fi de alta velocidad.\r\n\r\nTV de pantalla plana.\r\n\r\nEscritorio auxiliar y armario amplio.\r\n\r\nDesayuno incluido.\r\n\r\n💫 Descripción:', 720000.00, 1, '2025-09-09 16:00:17'),
-(9, '✨ Suite Ejecutiva ✨', 0, 2, 'suite-ejecutiva-0', '20250909180256_Suite ejecutiva.jpg', NULL, 'La Suite Ejecutiva está diseñada para quienes buscan comodidad y eficiencia en sus viajes de negocios o escapadas en pareja. Ofrece un espacio elegante, con todas las facilidades para combinar descanso y productividad.', '🛏️ Distribución:\r\n\r\n1 cama King Size.\r\n\r\nSala privada con zona de estar y escritorio amplio.\r\n\r\n🌟 Servicios incluidos:\r\n\r\nBaño privado de lujo con artículos exclusivos.\r\n\r\nEscritorio ergonómico y espacio de trabajo.\r\n\r\nMinibar y cafetera premium.\r\n\r\nAire acondicionado y calefacción.\r\n\r\nWi-Fi de alta velocidad.\r\n\r\nTV de pantalla plana.\r\n\r\nServicio de limpieza preferencial.\r\n\r\nDesayuno incluido y servicio a la habitación.', 880000.00, 1, '2025-09-12 02:52:45');
+(3, 'Habitacion Triple', 0, 3, 'habitacion-triple-0', '20250909172728_TrheeRoom.jpg', NULL, 'La opción perfecta para viajar en grupo o en familia. Nuestra habitación triple está pensada para ofrecer comodidad y amplitud a tres huéspedes, garantizando una estancia práctica y acogedora.', 'Una cama matrimonial + una cama individual.\n\nTres camas individuales, según preferencia y disponibilidad.\n\n???? Incluye:\n\nBaño privado con todas las comodidades.\n\nAire acondicionado y calefacción.\n\nConexión Wi-Fi gratuita y TV de pantalla plana.\n\nArmario amplio y escritorio auxiliar.\n\nServicio de limpieza diario y ropa de cama premium.\n\nDesayuno incluido (dependiendo del plan).\n\n???? Ideal para familias, amigos o compañeros de viaje que buscan compartir el mismo espacio sin renunciar al confort y la privacidad.', 120000.00, 1, '2025-09-17 16:39:16'),
+(4, 'Habitación Doble – 2 Camas Matrimoniales\r\n', 0, 4, 'habitación-doble-2-camas-matrimoniales-0', '20250909173257_Doble para 4 personas.jpg', NULL, 'Pensada para quienes viajan en familia o en grupo, esta habitación ofrece dos cómodas camas matrimoniales, garantizando el descanso de hasta cuatro huéspedes en un espacio moderno y acogedor.\r\nLa opción perfecta para familias o amigos que desean compartir la experiencia de viaje con el máximo confort y practicidad.', 'Baño privado totalmente equipado con artículos de cortesía.\r\n\r\nAire acondicionado y calefacción para tu comodidad.\r\n\r\nConexión Wi-Fi gratuita y TV de pantalla plana.\r\n\r\nArmario amplio y escritorio auxiliar.\r\n\r\nRopa de cama de alta calidad y servicio de limpieza diario.\r\n\r\nDesayuno incluido (según plan).', 480000.00, 1, '2025-09-14 15:53:36'),
+(5, ' Habitación Sencilla ', 0, 1, 'habitación-sencilla-0', '20250909173651_Habitacion Sencilla.jpg', NULL, 'Ideal para quienes viajan solos, nuestra habitación sencilla ofrece un ambiente práctico y confortable, pensado para garantizar el mejor descanso con todos los servicios esenciales. Perfecta para viajes de negocios, escapadas cortas o estancias individuales.', 'Cama individual cómoda y equipada con ropa de cama de calidad.\r\n\r\nBaño privado con artículos de aseo de cortesía.\r\n\r\nAire acondicionado y calefacción regulables.\r\n\r\nConexión Wi-Fi gratuita y TV de pantalla plana.\r\n\r\nEscritorio auxiliar y armario práctico.\r\n\r\nServicio de limpieza diario.\r\n\r\nDesayuno incluido (según plan).', 80000.00, 1, '2025-09-14 15:53:44'),
+(6, 'Habitación Familiar ', 0, 5, 'habitación-familiar-0', '20250909174735_Habitacion Familiar.jpg', NULL, 'La opción perfecta para compartir momentos únicos en familia. Nuestra habitación familiar está diseñada para ofrecer amplitud, comodidad y practicidad, con capacidad de hasta 4 o 5 huéspedes, según configuración. Una cama matrimonial + dos camas individuales.', 'Baño privado equipado con artículos de cortesía.\r\n\r\nAire acondicionado y calefacción.\r\n\r\nConexión Wi-Fi de alta velocidad y TV de pantalla plana.\r\n\r\nArmario amplio y escritorio auxiliar.\r\n\r\nRopa de cama premium y servicio de limpieza diario.\r\n\r\nDesayuno incluido (según plan).', 500000.00, 1, '2025-09-14 15:53:48'),
+(7, ' Habitación Presidencial', 0, 2, 'habitación-presidencial-0', '20250909175128_Madame-Butterfly-Peralada-Suite.jpg', NULL, 'Capacidad: Hasta 2 personas (ideal para parejas o ejecutivos).\r\nLa máxima expresión de lujo y exclusividad en StarHotelHub. Nuestra Habitación Presidencial está diseñada para huéspedes que buscan vivir una experiencia inigualable, combinando amplitud, elegancia y servicios de categoría premium.', 'Cama King Size con ropa de cama de lujo.\r\n\r\nSala privada con mobiliario elegante y zona de estar.\r\n\r\nJacuzzi o tina de hidromasaje para momentos de relajación.\r\n\r\nBaño de lujo equipado con amenidades exclusivas.\r\n\r\nMinibar, cafetera premium y detalles VIP.\r\n\r\nWi-Fi de alta velocidad y múltiples pantallas de TV.\r\n\r\nServicio de limpieza preferencial y atención personalizada.', 1400000.00, 1, '2025-09-14 15:53:54'),
+(8, ' Junior Suite ', 0, 2, 'junior-suite', '20250909180017_vincci-resort-costa-golf_1000_560_1679_1440149927.jpg', NULL, 'Nuestra Junior Suite es el equilibrio perfecto entre elegancia y comodidad. Ofrece un espacio más amplio que una habitación estándar, con detalles modernos y un ambiente acogedor para garantizar una experiencia superior.', ' Distribución:\r\n\r\n1 cama King Size o Queen Size.\r\n\r\nSala pequeña con zona de estar.\r\n\r\n Servicios incluidos:\r\n\r\nBaño privado con detalles exclusivos.\r\n\r\nMinibar y cafetera.\r\n\r\nAire acondicionado y calefacción.\r\n\r\nWi-Fi de alta velocidad.\r\n\r\nTV de pantalla plana.\r\n\r\nEscritorio auxiliar y armario amplio.\r\n\r\nDesayuno incluido.\r\n\r\n Descripción:', 720000.00, 1, '2025-09-17 16:40:46'),
+(9, ' Suite Ejecutiva ', 0, 2, 'suite-ejecutiva', '20250909180256_Suite ejecutiva.jpg', NULL, 'La Suite Ejecutiva está diseñada para quienes buscan comodidad y eficiencia en sus viajes de negocios o escapadas en pareja. Ofrece un espacio elegante, con todas las facilidades para combinar descanso y productividad.', ' Distribución:\r\n\r\n1 cama King Size.\r\n\r\nSala privada con zona de estar y escritorio amplio.\r\n\r\n Servicios incluidos:\r\n\r\nBaño privado de lujo con artículos exclusivos.\r\n\r\nEscritorio ergonómico y espacio de trabajo.\r\n\r\nMinibar y cafetera premium.\r\n\r\nAire acondicionado y calefacción.\r\n\r\nWi-Fi de alta velocidad.\r\n\r\nTV de pantalla plana.\r\n\r\nServicio de limpieza preferencial.\r\n\r\nDesayuno incluido y servicio a la habitación.', 880000.00, 1, '2025-09-17 16:39:40');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `incidencias`
+--
+
+CREATE TABLE `incidencias` (
+  `id` int(11) NOT NULL,
+  `asunto` varchar(255) NOT NULL,
+  `descripcion` text NOT NULL,
+  `estado` varchar(50) NOT NULL DEFAULT 'abierta',
+  `fecha_reporte` timestamp NOT NULL DEFAULT current_timestamp(),
+  `id_empleado` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `incidencias`
+--
+
+INSERT INTO `incidencias` (`id`, `asunto`, `descripcion`, `estado`, `fecha_reporte`, `id_empleado`) VALUES
+(21, 'Error en sistema de reservas', 'Al intentar guardar una reserva, el sistema devuelve error 500.', 'abierta', '2025-09-17 14:15:00', 25),
+(22, 'Fallo en impresión de facturas', 'Las facturas no se imprimen correctamente desde la impresora térmica.', 'abierta', '2025-09-16 19:30:00', 25),
+(23, 'Error de login de usuario', 'Algunos clientes no pueden iniciar sesión, aparece mensaje de credenciales inválidas.', 'resuelta', '2025-09-15 15:00:00', 25),
+(24, 'Habitación ocupada marcada como disponible', 'El sistema marca algunas habitaciones como disponibles cuando ya están ocupadas.', 'abierta', '2025-09-16 23:45:00', 25),
+(25, 'Retraso en notificaciones de reserva', 'Los correos de confirmación tardan más de 2 horas en llegar a los clientes.', 'abierta', '2025-09-17 13:50:00', 25),
+(26, 'Pago con tarjeta fallido', 'Al procesar pagos con tarjeta, algunas transacciones se rechazan sin razón aparente.', 'abierta', '2025-09-16 16:20:00', 25),
+(27, 'Reporte de limpieza incompleto', 'Al generar el reporte diario de limpieza algunas habitaciones no aparecen.', 'resuelta', '2025-09-14 21:10:00', 25),
+(28, 'Error en cambio de contraseña de usuario', 'Usuarios no pueden cambiar su contraseña desde el perfil.', 'abierta', '2025-09-17 17:05:00', 25),
+(29, 'Caída temporal del servidor', 'El servidor principal estuvo fuera de línea por 30 minutos, afectando reservas y pagos.', 'resuelta', '2025-09-14 01:00:00', 25),
+(30, 'Inventario de minibar no actualizado', 'El sistema no actualiza correctamente el stock del minibar en las habitaciones.', 'abierta', '2025-09-17 12:30:00', 25);
 
 -- --------------------------------------------------------
 
@@ -111,25 +188,55 @@ CREATE TABLE `reservas` (
   `metodo` int(11) NOT NULL,
   `facturacion` text NOT NULL,
   `id_habitacion` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL
+  `id_usuario` int(11) NOT NULL,
+  `id_empleado` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `reservas`
 --
 
-INSERT INTO `reservas` (`id`, `monto`, `num_transaccion`, `cod_reserva`, `fecha_ingreso`, `fecha_salida`, `fecha_reserva`, `descripcion`, `estado`, `metodo`, `facturacion`, `id_habitacion`, `id_usuario`) VALUES
-(3, 300000.00, '451231', '254778', '2025-09-01', '2025-09-24', '2025-09-12 05:33:28', 'Reserva con llegada a las 8 pm', 1, 1, '1', 1, 26),
-(4, 300000.00, '5161200', '213215', '2025-07-01', '2025-09-01', '2025-09-12 05:15:07', '', 1, 1, '', 1, 26),
-(5, 300000.00, '5161266', '213219', '2025-04-01', '2025-04-16', '2025-09-12 05:15:15', '', 1, 1, '', 2, 26),
-(100, 200000.00, 'TX100', 'RES100', '2025-09-10', '2025-09-11', '2025-09-10 05:00:00', 'Reserva de prueba hoy', 1, 1, '', 1, 26),
-(101, 150000.00, 'TX101', 'RES101', '2025-09-09', '2025-09-10', '2025-09-09 05:00:00', 'Reserva prueba -1 día', 1, 1, '', 2, 26),
-(102, 180000.00, 'TX102', 'RES102', '2025-09-08', '2025-09-09', '2025-09-08 05:00:00', 'Reserva prueba -2 días', 1, 1, '', 3, 26),
-(103, 220000.00, 'TX103', 'RES103', '2025-09-07', '2025-09-08', '2025-09-07 05:00:00', 'Reserva prueba -3 días', 1, 1, '', 4, 26),
-(104, 250000.00, 'TX104', 'RES104', '2025-09-06', '2025-09-07', '2025-09-06 05:00:00', 'Reserva prueba -4 días', 1, 1, '', 5, 26),
-(105, 300000.00, 'TX105', 'RES105', '2025-09-05', '2025-09-06', '2025-09-05 05:00:00', 'Reserva prueba -5 días', 1, 1, '', 6, 26),
-(106, 350000.00, 'TX106', 'RES106', '2025-09-04', '2025-09-05', '2025-09-04 05:00:00', 'Reserva prueba -6 días', 1, 1, '', 7, 26),
-(107, 400000.00, 'TX107', 'RES107', '2025-09-03', '2025-09-04', '2025-09-03 05:00:00', 'Reserva prueba -7 días', 1, 1, '', 8, 26);
+INSERT INTO `reservas` (`id`, `monto`, `num_transaccion`, `cod_reserva`, `fecha_ingreso`, `fecha_salida`, `fecha_reserva`, `descripcion`, `estado`, `metodo`, `facturacion`, `id_habitacion`, `id_usuario`, `id_empleado`) VALUES
+(3, 2990000.00, '451231', '254778', '2025-09-01', '2025-09-24', '2025-09-19 04:11:03', 'Reserva con llegada a las 8 pm', 1, 1, '1', 1, 26, NULL),
+(4, 8060000.00, '5161200', '213215', '2025-07-01', '2025-09-01', '2025-09-19 04:11:15', '', 1, 1, '', 1, 26, NULL),
+(5, 1350000.00, '5161266', '213219', '2025-04-01', '2025-04-16', '2025-09-19 04:11:27', '', 1, 1, '', 2, 26, NULL),
+(6, 90000.00, 'TX101', 'RES101', '2025-09-09', '2025-09-10', '2025-09-19 04:11:39', 'Reserva prueba -1 día', 1, 1, '', 2, 26, NULL),
+(7, 120000.00, 'TX102', 'RES102', '2025-09-08', '2025-09-09', '2025-09-19 04:11:54', 'Reserva prueba -2 días', 1, 1, '', 3, 26, NULL),
+(8, 480000.00, 'TX103', 'RES103', '2025-09-07', '2025-09-08', '2025-09-19 04:12:08', 'Reserva prueba -3 días', 1, 1, '', 4, 26, NULL),
+(9, 80000.00, 'TX104', 'RES104', '2025-09-06', '2025-09-07', '2025-09-19 04:12:19', 'Reserva prueba -4 días', 1, 1, '', 5, 26, NULL),
+(10, 500000.00, 'TX105', 'RES105', '2025-09-05', '2025-09-06', '2025-09-19 04:12:27', 'Reserva prueba -5 días', 1, 1, '', 6, 26, NULL),
+(11, 1400000.00, 'TX106', 'RES106', '2025-09-04', '2025-09-05', '2025-09-19 04:12:50', 'Reserva prueba -6 días', 1, 1, '', 7, 26, NULL),
+(12, 400000.00, 'TX107', 'RES107', '2025-09-03', '2025-09-04', '2025-09-19 04:10:14', 'Reserva prueba -7 días', 0, 1, '', 8, 26, NULL),
+(13, 130000.00, 'TX100', 'RES100', '2025-09-10', '2025-09-11', '2025-09-19 04:13:01', 'Reserva de prueba hoy', 1, 1, '', 1, 26, NULL),
+(108, 960000.00, '', '', '2025-09-18', '2025-09-20', '2025-09-19 04:13:22', '', 1, 0, '', 4, 28, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `restaurantes`
+--
+
+CREATE TABLE `restaurantes` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(150) NOT NULL,
+  `descripcion` text NOT NULL,
+  `categoria` varchar(100) NOT NULL,
+  `precio` decimal(10,2) NOT NULL,
+  `disponibilidad` int(11) NOT NULL DEFAULT 1,
+  `imagen` varchar(100) DEFAULT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `restaurantes`
+--
+
+INSERT INTO `restaurantes` (`id`, `nombre`, `descripcion`, `categoria`, `precio`, `disponibilidad`, `imagen`, `fecha`) VALUES
+(1, 'Ensalada César', 'Fresca ensalada con lechuga, pollo a la parrilla, crutones y aderezo César.', 'Ensaladas', 25000.00, 1, 'ensalada_cesar.jpg', '2025-09-14 16:00:00'),
+(2, 'Pizza Margherita', 'Deliciosa pizza con salsa de tomate, mozzarella y albahaca fresca.', 'Pizzas', 35000.00, 1, 'pizza_margherita.jpg', '2025-09-14 16:05:00'),
+(3, 'Sopa de Tomate', 'Sopa casera de tomate con un toque de crema y albahaca.', 'Sopas', 18000.00, 1, 'sopa_tomate.jpg', '2025-09-14 16:10:00'),
+(4, 'Filete de Salmón', 'Filete de salmón a la plancha con puré de papas y vegetales al vapor.', 'Platos Fuertes', 60000.00, 1, 'filete_salmón.jpg', '2025-09-14 16:15:00'),
+(5, 'Helado de Vainilla', 'Helado artesanal de vainilla con topping de chocolate o frutas.', 'Postres', 12000.00, 1, 'helado_vainilla.jpg', '2025-09-14 16:20:00');
 
 -- --------------------------------------------------------
 
@@ -178,6 +285,34 @@ INSERT INTO `sliders` (`id`, `titulo`, `subtitulo`, `url`, `foto`, `estado`) VAL
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `spa`
+--
+
+CREATE TABLE `spa` (
+  `id` int(11) NOT NULL,
+  `servicio` varchar(150) NOT NULL,
+  `descripcion` text NOT NULL,
+  `duracion` varchar(50) NOT NULL,
+  `precio` decimal(10,2) NOT NULL,
+  `disponibilidad` int(11) NOT NULL DEFAULT 1,
+  `imagen` varchar(100) DEFAULT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `spa`
+--
+
+INSERT INTO `spa` (`id`, `servicio`, `descripcion`, `duracion`, `precio`, `disponibilidad`, `imagen`, `fecha`) VALUES
+(1, 'Masaje Relajante', 'Masaje completo para liberar tensiones y estrés, usando técnicas suaves y aromaterapia.', '60 min', 80000.00, 1, 'masaje_relajante.jpg', '2025-09-14 16:40:00'),
+(2, 'Masaje Deportivo', 'Ideal para recuperación muscular después de actividad física intensa.', '45 min', 70000.00, 1, 'masaje_deportivo.jpg', '2025-09-14 16:42:00'),
+(3, 'Facial Hidratante', 'Tratamiento facial para hidratar y revitalizar la piel.', '50 min', 60000.00, 1, 'facial_hidratante.jpg', '2025-09-14 16:44:00'),
+(4, 'Sauna', 'Sesión de sauna seco para eliminar toxinas y relajar músculos.', '30 min', 40000.00, 1, 'sauna.jpg', '2025-09-14 16:46:00'),
+(5, 'Tratamiento de Aromaterapia', 'Experiencia sensorial con aceites esenciales para relajar cuerpo y mente.', '60 min', 85000.00, 1, 'aromaterapia.jpg', '2025-09-14 16:48:00');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuarios`
 --
 
@@ -187,6 +322,7 @@ CREATE TABLE `usuarios` (
   `correo` varchar(150) NOT NULL,
   `clave` varchar(150) NOT NULL,
   `token` varchar(100) DEFAULT NULL,
+  `registrado_por` int(11) DEFAULT NULL,
   `verify` int(11) NOT NULL DEFAULT 0,
   `rol` int(11) NOT NULL,
   `foto` varchar(100) DEFAULT NULL,
@@ -198,15 +334,15 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `clave`, `token`, `verify`, `rol`, `foto`, `estado`, `fecha`) VALUES
-(23, 'Juan', 'Juanesab423@gmail.com', '$2y$10$le84w2Y0t5zYH8BTJ7zmFu/nLppj7ugkwopl/o/6s4KjJWXFQh6dq', NULL, 0, 1, NULL, 1, '2025-09-09 22:37:13'),
-(25, 'Empleado', 'Empleado@gmail.com', '$2y$10$13KGtawbenSpE81bbt3S..MRqB.0pjrb78JVY9UzUTMLrc/LaZn16', NULL, 0, 2, NULL, 1, '2025-09-03 00:55:49'),
-(26, 'Sofia Salamanca', 'Salamancas648@gmail.com', '$2y$10$hEjwn2u5zkqjw.gOPYpD9etgUVMAl2jySl.Od0.6Apbb85E7TbKw.', NULL, 0, 3, NULL, 1, '2025-09-05 20:14:18'),
-(27, 'William Alfonso', 'Hwilliamac@gmail.com', '$2y$10$ruCR//vCKHBe0xv6MizxGuFBT/F6ZfOhdtxuT.0NR9o8tX3MFkSjO', NULL, 0, 3, NULL, 1, '2025-09-09 23:39:13'),
-(28, 'Sebastian', 'Sebastian@gmail.com', '$2y$10$pEiGczFoVj5lPv2.yTsCsu0WaLg6KNE0RpDYPaciakdOBh02n9cuO', NULL, 0, 3, NULL, 1, '2025-09-10 16:23:19'),
-(29, 'Cliente ', 'Cliente@gmail.com', '$2y$10$jCDwEZ0NdVHcH9etSGvVSezN6wkFnojMkyGoJUdeyjZ1bDvsB6SD6', NULL, 0, 3, NULL, 1, '2025-09-12 03:09:55'),
-(30, 'Juan Bernal', 'Juanestebanalfonsobernal@gmail.com', '$2y$10$m4MR553aJpWUEtQihY6DJuqjOBW.XfOMIrnmwwShxNtYz9nJuB1ky', NULL, 0, 1, NULL, 1, '2025-09-12 23:30:02'),
-(31, 'Juan', 'Juanesab230403@gmail.com', '$2y$10$IpwnQ1ImUmybbBzCMAGEle/LgUk.2aywbY7GrQMRT..PFSGhd0VVi', NULL, 0, 3, NULL, 1, '2025-09-12 04:58:36');
+INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `clave`, `token`, `registrado_por`, `verify`, `rol`, `foto`, `estado`, `fecha`) VALUES
+(23, 'Juan', 'Juanesab423@gmail.com', '$2y$10$le84w2Y0t5zYH8BTJ7zmFu/nLppj7ugkwopl/o/6s4KjJWXFQh6dq', NULL, NULL, 0, 1, NULL, 1, '2025-09-09 22:37:13'),
+(25, 'Empleado', 'Empleado@gmail.com', '$2y$10$13KGtawbenSpE81bbt3S..MRqB.0pjrb78JVY9UzUTMLrc/LaZn16', NULL, NULL, 0, 2, NULL, 1, '2025-09-03 00:55:49'),
+(26, 'Sofia Salamanca', 'Salamancas648@gmail.com', '$2y$10$hEjwn2u5zkqjw.gOPYpD9etgUVMAl2jySl.Od0.6Apbb85E7TbKw.', NULL, NULL, 0, 3, NULL, 1, '2025-09-05 20:14:18'),
+(27, 'William Alfonso', 'Hwilliamac@gmail.com', '$2y$10$ruCR//vCKHBe0xv6MizxGuFBT/F6ZfOhdtxuT.0NR9o8tX3MFkSjO', NULL, 25, 0, 3, NULL, 1, '2025-09-17 12:19:40'),
+(28, 'Sebastian', 'Sebastian@gmail.com', '$2y$10$pEiGczFoVj5lPv2.yTsCsu0WaLg6KNE0RpDYPaciakdOBh02n9cuO', NULL, 25, 0, 3, NULL, 1, '2025-09-17 12:19:40'),
+(29, 'Cliente ', 'Cliente@gmail.com', '$2y$10$2CzvZA9gpQGXcjNuzJ6V1.q2ycvJwDKc8qBEIvwwF/3ggShMVnZ3q', NULL, 25, 0, 3, NULL, 1, '2025-09-17 12:19:40'),
+(30, 'Juan Bernal', 'Juanestebanalfonsobernal@gmail.com', '$2y$10$m4MR553aJpWUEtQihY6DJuqjOBW.XfOMIrnmwwShxNtYz9nJuB1ky', NULL, NULL, 0, 1, NULL, 1, '2025-09-12 23:30:02'),
+(31, 'Juan', 'Juanesab230403@gmail.com', '$2y$10$IpwnQ1ImUmybbBzCMAGEle/LgUk.2aywbY7GrQMRT..PFSGhd0VVi', NULL, NULL, 0, 3, NULL, 1, '2025-09-12 04:58:36');
 
 --
 -- Índices para tablas volcadas
@@ -217,6 +353,14 @@ INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `clave`, `token`, `verify`, `r
 --
 ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `entradas`
+--
+ALTER TABLE `entradas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_categoria` (`id_categoria`),
+  ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- Indices de la tabla `galeria_habitaciones`
@@ -232,12 +376,26 @@ ALTER TABLE `habitaciones`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `incidencias`
+--
+ALTER TABLE `incidencias`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_empleado` (`id_empleado`);
+
+--
 -- Indices de la tabla `reservas`
 --
 ALTER TABLE `reservas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_habitacion` (`id_habitacion`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `reservas_ibfk_3` (`id_empleado`);
+
+--
+-- Indices de la tabla `restaurantes`
+--
+ALTER TABLE `restaurantes`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `roles`
@@ -252,11 +410,18 @@ ALTER TABLE `sliders`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `spa`
+--
+ALTER TABLE `spa`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `usuarios_ibfk_1` (`rol`);
+  ADD KEY `usuarios_ibfk_1` (`rol`),
+  ADD KEY `usuarios_ibfk_2` (`registrado_por`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -267,6 +432,12 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `categorias`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `entradas`
+--
+ALTER TABLE `entradas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `galeria_habitaciones`
@@ -281,10 +452,22 @@ ALTER TABLE `habitaciones`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT de la tabla `incidencias`
+--
+ALTER TABLE `incidencias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
 -- AUTO_INCREMENT de la tabla `reservas`
 --
 ALTER TABLE `reservas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+
+--
+-- AUTO_INCREMENT de la tabla `restaurantes`
+--
+ALTER TABLE `restaurantes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -299,6 +482,12 @@ ALTER TABLE `sliders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de la tabla `spa`
+--
+ALTER TABLE `spa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -309,23 +498,38 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- Filtros para la tabla `entradas`
+--
+ALTER TABLE `entradas`
+  ADD CONSTRAINT `entradas_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `entradas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `galeria_habitaciones`
 --
 ALTER TABLE `galeria_habitaciones`
   ADD CONSTRAINT `galeria_habitaciones_ibfk_1` FOREIGN KEY (`id_habitacion`) REFERENCES `habitaciones` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `incidencias`
+--
+ALTER TABLE `incidencias`
+  ADD CONSTRAINT `incidencias_ibfk_1` FOREIGN KEY (`id_empleado`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `reservas`
 --
 ALTER TABLE `reservas`
   ADD CONSTRAINT `reservas_ibfk_1` FOREIGN KEY (`id_habitacion`) REFERENCES `habitaciones` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `reservas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `reservas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reservas_ibfk_3` FOREIGN KEY (`id_empleado`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`rol`) REFERENCES `roles` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`rol`) REFERENCES `roles` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `usuarios_ibfk_2` FOREIGN KEY (`registrado_por`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

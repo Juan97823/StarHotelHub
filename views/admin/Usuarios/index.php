@@ -21,7 +21,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
-                            <th>Email</th>
+                            <th>correo</th>
                             <th>Rol</th>
                             <th>Estado</th>
                             <th>Acciones</th>
@@ -52,8 +52,8 @@
                         <input type="text" class="form-control" id="nombre" name="nombre" required>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
+                        <label for="correo" class="form-label">correo</label>
+                        <input type="correo" class="form-control" id="correo" name="correo" required>
                     </div>
                     <div class="mb-3">
                         <label for="clave" class="form-label">Contraseña</label>

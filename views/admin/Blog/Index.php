@@ -11,12 +11,13 @@
             </a>
             
             <?php 
+            // Manejo de alertas de sesión
             if (isset($_SESSION['alerta'])) {
                 $alerta = $_SESSION['alerta'];
-                echo '<div class="alert alert-' . $alerta['tipo'] . ' alert-dismissible fade show" role="alert">
-                        ' . $alerta['mensaje'] . '
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>';
+                echo '<div class="alert alert-' . htmlspecialchars($alerta['tipo']) . ' alert-dismissible fade show" role="alert">'
+                     . htmlspecialchars($alerta['mensaje']) . '
+                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                     </div>';
                 unset($_SESSION['alerta']);
             }
             ?>
@@ -34,7 +35,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- DataTables cargará los registros vía AJAX -->
+                        <!-- El contenido será cargado dinámicamente por DataTables -->
                     </tbody>
                 </table>
             </div>
@@ -43,4 +44,3 @@
 </div>
 
 <?php include_once 'views/template/footer-admin.php'; ?>
-<script src="<?php echo RUTA_PRINCIPAL; ?>assets/admin/js/Pages/Blog.js"></script>

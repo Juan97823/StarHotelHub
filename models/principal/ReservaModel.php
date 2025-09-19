@@ -7,6 +7,8 @@ class ReservaModel extends Query
         parent::__construct();
     }
 
+    // ... (todos los métodos existentes de getDisponible a crearFactura) ...
+
     // Obtener reservas disponibles para una habitación específica entre fechas
     public function getDisponible($f_llegada, $f_salida, $habitacion)
     {
@@ -52,6 +54,21 @@ class ReservaModel extends Query
         $params = [':slug' => $slug];
         return $this->select($query, $params);
     }
+    public function getReservaById($id)
+    {
+        return $this->select("SELECT * FROM reservas WHERE id = :id", [':id' => $id]);
+    }
+
+    public function getUsuarioById($id)
+    {
+        return $this->select("SELECT * FROM usuarios WHERE id = :id", [':id' => $id]);
+    }
+
+    public function getFacturaByReserva($idReserva)
+    {
+        return $this->select("SELECT * FROM facturas WHERE reserva_id = :id", [':id' => $idReserva]);
+    }
+
 
     // Obtener todas las reservas de un cliente
     public function getReservasCliente($id_usuario)
@@ -79,4 +96,93 @@ class ReservaModel extends Query
         $params = [':id_usuario' => $id_usuario, ':estado' => $estado];
         return $this->select($query, $params);
     }
+    // Verifica si existe un usuario por su correo
+    public function getUsuarioBycorreo($correo)
+    {
+        $query = "SELECT * FROM usuarios WHERE correo = :correo";
+        $params = [':correo' => $correo];
+        return $this->select($query, $params);
+    }
+    // Crea un usuario nuevo automáticamente
+    public function crearUsuario($nombre, $correo, $clave)
+    {
+        $sql = "INSERT INTO usuarios (nombre, correo, clave, rol) VALUES (?, ?, ?, ?)";
+        // Suponiendo que rol 1 = cliente
+        $params = [$nombre, $correo, $clave, 3];
+        return $this->insert($sql, $params);
+    }
+
+
+    // Inserta la reserva asociada al usuario
+    public function insertReservaPublica($data)
+    {
+        $sql = "INSERT INTO reservas (id_habitacion, id_usuario, fecha_ingreso, fecha_salida, observaciones, estado)
+            VALUES (:id_habitacion, :id_usuario, :fecha_ingreso, :fecha_salida, :observaciones, :estado)";
+        $params = [
+            ':id_habitacion' => $data['habitacion_id'],
+            ':id_usuario' => $data['usuario_id'],
+            ':fecha_ingreso' => $data['fecha_entrada'],
+            ':fecha_salida' => $data['fecha_salida'],
+            ':observaciones' => $data['observaciones'],
+            ':estado' => $data['estado']
+        ];
+        return $this->insert($sql, $params);
+    }
+
+
+    // Genera la factura de la reserva
+    public function crearFactura($idReserva)
+    {
+        // Obtener datos de la reserva y habitación
+        $reserva = $this->select("SELECT r.*, h.precio, h.estilo 
+                              FROM reservas r 
+                              JOIN habitaciones h ON r.id_habitacion = h.id
+                              WHERE r.id = :id", [':id' => $idReserva]);
+
+        if (!$reserva)
+            return false;
+
+        // Calcular número de noches
+        $fechaEntrada = new DateTime($reserva['fecha_ingreso']);
+        $fechaSalida = new DateTime($reserva['fecha_salida']);
+        $noches = $fechaEntrada->diff($fechaSalida)->days;
+
+        $subtotal = $noches * $reserva['precio'];
+        $impuestos = $subtotal * 0.19; // IVA 19%
+        $total = $subtotal + $impuestos;
+
+        $numeroFactura = "FAC-" . date("Ymd") . "-" . rand(1000, 9999);
+
+        $sql = "INSERT INTO facturas (numero_factura, reserva_id, subtotal, impuestos, total, estado)
+            VALUES (:numero, :reserva_id, :subtotal, :impuestos, :total, 'Pendiente')";
+        $params = [
+            ':numero' => $numeroFactura,
+            ':reserva_id' => $idReserva,
+            ':subtotal' => $subtotal,
+            ':impuestos' => $impuestos,
+            ':total' => $total
+        ];
+        return $this->insert($sql, $params);
+    }
+
+    /**
+     * NUEVO MÉTODO: Actualiza el estado de la reserva y la factura después de un pago exitoso.
+     */
+    public function actualizarPago($id_reserva, $id_transaccion)
+    {
+        // 1. Actualizar el estado de la reserva a 'Completada' (estado = 2)
+        $sqlReserva = "UPDATE reservas SET estado = ?, id_transaccion = ? WHERE id = ?";
+        $paramsReserva = [2, $id_transaccion, $id_reserva];
+        $reservaUpdated = $this->save($sqlReserva, $paramsReserva);
+
+        // 2. Actualizar el estado de la factura a 'Pagada'
+        $sqlFactura = "UPDATE facturas SET estado = ? WHERE reserva_id = ?";
+        $paramsFactura = ['Pagada', $id_reserva];
+        $facturaUpdated = $this->save($sqlFactura, $paramsFactura);
+
+        // Devuelve true solo si ambas actualizaciones fueron exitosas
+        return $reservaUpdated && $facturaUpdated;
+    }
+
 }
+?>

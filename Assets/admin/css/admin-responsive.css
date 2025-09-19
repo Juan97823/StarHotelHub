@@ -1,0 +1,49 @@
+/* admin-responsive.css */
+
+/* Ajustes para que el sidebar se oculte en móvil */
+@media (max-width: 991.98px) {
+    .sidebar-wrapper {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        width: 250px;
+        height: 100%;
+        background: #343a40;
+        transition: left 0.3s ease;
+        z-index: 1050;
+        overflow-y: auto;
+    }
+    .sidebar-wrapper.active {
+        left: 0;
+    }
+    .page-wrapper {
+        margin-left: 0 !important;
+        transition: margin-left 0.3s ease;
+    }
+    .page-wrapper.shifted {
+        margin-left: 250px !important;
+    }
+    /* Fondo oscuro cuando el sidebar está activo */
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.5);
+        z-index: 1040;
+        display: none;
+    }
+    .overlay.active {
+        display: block;
+    }
+}
+
+/* Opcional: estilos para el botón cerrar sidebar */
+#sidebarCloseBtn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}

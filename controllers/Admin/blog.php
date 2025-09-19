@@ -10,121 +10,103 @@ class Blog extends Controller
             session_start();
         }
 
-        // Restringir acceso solo a administradores
+        // Solo administradores
         if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] != 1) {
             header('Location: ' . RUTA_PRINCIPAL . 'admin/login');
             exit;
         }
     }
 
-    // Listado de entradas
+    // Listado
     public function index()
     {
         $data['title'] = 'Entradas del Blog';
-        $data['entradas'] = $this->model->getEntradasAdmin();
         $this->views->getView('admin/blog/index', $data);
     }
 
-    // Formulario nueva entrada
+    // Nueva entrada
     public function crear()
     {
         $data['title'] = 'Nueva Entrada';
         $this->views->getView('admin/blog/crear', $data);
     }
-    // Listar entradas en formato JSON (para DataTables)
+
+    // Listar en JSON (DataTables)
     public function listarEntradas()
     {
+        header('Content-Type: application/json; charset=utf-8');
         $data = $this->model->getEntradasAdmin();
-
-        // Ajusta el formato según DataTables (usa "data")
         echo json_encode(['data' => $data], JSON_UNESCAPED_UNICODE);
-        die();
+        exit;
     }
 
+    // Cambiar estado
+    public function estado($param)
+    {
+        header('Content-Type: application/json; charset=utf-8');
 
-    // Guardar nueva entrada
-    public function guardar()
+        $parts = explode(",", $param);
+        $id = $parts[0] ?? null;
+        $nuevoEstado = $parts[1] ?? null;
+
+        if ($id && ($nuevoEstado == 0 || $nuevoEstado == 1)) {
+            $result = $this->model->estado($nuevoEstado, $id);
+            if ($result) {
+                $mensaje = $nuevoEstado == 1
+                    ? 'Entrada habilitada correctamente'
+                    : 'Entrada inhabilitada correctamente';
+                echo json_encode(['status' => 'success', 'mensaje' => $mensaje]);
+            } else {
+                echo json_encode(['status' => 'error', 'mensaje' => 'No se pudo cambiar el estado en la base de datos.']);
+            }
+        } else {
+            echo json_encode(['status' => 'error', 'mensaje' => 'Parámetros no válidos.']);
+        }
+        exit;
+    }
+
+    // Guardar (crear o actualizar)
+    public function Actualizar()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            header('Content-Type: application/json; charset=utf-8');
+
+            $esEdicion = !empty($_POST['id']);
             $titulo = trim($_POST['titulo']);
             $contenido = trim($_POST['contenido']);
             $id_usuario = $_SESSION['usuario']['id'];
-
-            // Generar slug simple
             $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $titulo)));
+            $imagen = ($esEdicion && isset($_POST['imagen_actual'])) ? $_POST['imagen_actual'] : null;
 
-            // Manejo de categorías (ajusta según tu formulario)
-            $categorias = isset($_POST['categorias']) ? trim($_POST['categorias']) : '';
-
-            $imagen = null;
             if (!empty($_FILES['imagen']['name'])) {
                 $nombreImg = time() . "_" . basename($_FILES['imagen']['name']);
                 $destino = 'uploads/blog/' . $nombreImg;
-
                 if (move_uploaded_file($_FILES['imagen']['tmp_name'], $destino)) {
                     $imagen = $nombreImg;
                 }
             }
 
-            $this->model->insertar($titulo, $contenido, $imagen, $slug, $categorias, $id_usuario);
-        }
+            if ($esEdicion) {
+                $id = $_POST['id'];
+                $result = $this->model->actualizar($titulo, $contenido, $imagen, $slug, $id_usuario, $id);
+            } else {
+                $result = $this->model->insertar($titulo, $contenido, $imagen, $slug, $id_usuario);
+            }
 
-        header('Location: ' . RUTA_ADMIN . 'blog');
-        exit;
+            echo json_encode(
+                $result
+                ? ['status' => 'success']
+                : ['status' => 'error', 'mensaje' => 'Error al guardar en la base de datos.']
+            );
+            exit;
+        }
     }
 
-    // Editar entrada
+    // Editar
     public function editar($id)
     {
         $data['title'] = 'Editar Entrada';
         $data['entrada'] = $this->model->getEntrada($id);
         $this->views->getView('admin/blog/editar', $data);
     }
-
-    // Actualizar entrada
-    public function actualizar()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id = $_POST['id'];
-            $titulo = trim($_POST['titulo']);
-            $contenido = trim($_POST['contenido']);
-            $imagen = $_POST['imagen_actual'];
-            $id_usuario = $_SESSION['usuario']['id'];
-
-            // Generar slug simple
-            $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $titulo)));
-
-            // Manejo de categorías (ajusta según tu formulario)
-            $categorias = isset($_POST['categorias']) ? trim($_POST['categorias']) : '';
-
-            if (!empty($_FILES['imagen']['name'])) {
-                $nombreImg = time() . "_" . basename($_FILES['imagen']['name']);
-                $destino = 'uploads/blog/' . $nombreImg;
-
-                if (move_uploaded_file($_FILES['imagen']['tmp_name'], $destino)) {
-                    $imagen = $nombreImg;
-                }
-            }
-
-            $this->model->actualizar($titulo, $contenido, $imagen, $slug, $categorias, $id_usuario, $id);
-        }
-
-        header('Location: ' . RUTA_ADMIN . 'blog');
-        exit;
-    }
-
-    // Eliminar entrada (cambia estado a inactiva)
-    // Eliminar entrada (AJAX)
-    public function eliminar($id)
-    {
-        $result = $this->model->estado(0, $id);
-
-        if ($result) {
-            echo json_encode(['status' => 'success']);
-        } else {
-            echo json_encode(['status' => 'error']);
-        }
-        die();
-    }
-
 }

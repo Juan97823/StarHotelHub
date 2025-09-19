@@ -13,7 +13,7 @@
 			<div class="row">
 				<div class="subscribe-wrap">
 					<form class="newsletter-form" data-toggle="validator">
-						<input type="email" class="input-tracking" placeholder="Tu correo electrónico" name="EMAIL" required autocomplete="off">
+						<input type="correo" class="input-tracking" placeholder="Tu correo electrónico" name="correo" required autocomplete="off">
 						<button class="default-btn active" type="submit">
 							Suscribirse
 							<i class="flaticon-right"></i>
@@ -136,11 +136,10 @@
 <!-- End Go Top Area -->
 
 
-
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/disponibilidad.js'; ?>"></script>
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/reservas.js'; ?>"></script>
 <!-- Jquery Min JS -->
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/js/jquery.min.js"></script>
-<!-- Bootstrap Bundle Min JS -->
-<script src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/js/bootstrap.bundle.min.js"></script>
 <!-- Meanmenu Min JS -->
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/js/meanmenu.min.js"></script>
 <!-- Owl Carousel Min JS -->

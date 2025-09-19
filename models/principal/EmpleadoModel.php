@@ -1,0 +1,117 @@
+<?php
+class EmpleadoModel extends Query
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    // ... (métodos existentes de getDatos, getReservas, etc.) ...
+    // Método genérico para obtener datos de una tabla (usado para habitaciones y clientes)
+    public function getDatos($table)
+    {
+        if ($table == 'clientes') {
+            // Los clientes son usuarios con rol 3
+            $sql = "SELECT id, nombre FROM usuarios WHERE rol = 3 AND estado = 1";
+        } else {
+            // Obtener habitaciones activas
+            $sql = "SELECT id, estilo, numero FROM $table WHERE estado = 1";
+        }
+        return $this->selectAll($sql);
+    }
+
+    // Obtener todas las reservas para el DataTable del empleado
+    public function getReservas()
+    {
+        $sql = "SELECT r.id, h.estilo as estilo_habitacion, u.nombre as nombre_cliente, r.fecha_ingreso, r.fecha_salida, r.monto, 
+                CASE r.estado
+                    WHEN 0 THEN 'Cancelada'
+                    WHEN 1 THEN 'Confirmada'
+                    WHEN 2 THEN 'Activa'
+                    WHEN 3 THEN 'Completada'
+                    ELSE 'Desconocido'
+                END as estado
+                FROM reservas r
+                INNER JOIN habitaciones h ON r.id_habitacion = h.id
+                INNER JOIN usuarios u ON r.id_usuario = u.id";
+        return $this->selectAll($sql);
+    }
+
+    // Obtener una única reserva por su ID
+    public function getReserva($idReserva)
+    {
+        $sql = "SELECT * FROM reservas WHERE id = ?";
+        return $this->select($sql, [$idReserva]);
+    }
+
+    // Crear una nueva reserva
+    public function crearReserva($idHabitacion, $idCliente, $fechaIngreso, $fechaSalida, $monto, $estadoStr)
+    {
+        $estadoInt = $this->mapEstadoToInt($estadoStr);
+        $sql = "INSERT INTO reservas (id_habitacion, id_usuario, fecha_ingreso, fecha_salida, monto, estado, num_transaccion, cod_reserva, metodo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        // Generar valores temporales para campos no nulos
+        $num_transaccion = 'EMP-' . time();
+        $cod_reserva = 'EMP-' . rand(1000, 9999);
+        $metodo = 3; // 3 = Manual/Empleado
+        $datos = [$idHabitacion, $idCliente, $fechaIngreso, $fechaSalida, $monto, $estadoInt, $num_transaccion, $cod_reserva, $metodo];
+        return $this->save($sql, $datos);
+    }
+
+    // Actualizar una reserva existente
+    public function actualizarReserva($idReserva, $idHabitacion, $idCliente, $fechaIngreso, $fechaSalida, $monto)
+    {
+        $sql = "UPDATE reservas SET id_habitacion = ?, id_usuario = ?, fecha_ingreso = ?, fecha_salida = ?, monto = ? WHERE id = ?";
+        $datos = [$idHabitacion, $idCliente, $fechaIngreso, $fechaSalida, $monto, $idReserva];
+        return $this->save($sql, $datos);
+    }
+
+    // Cambiar el estado de una reserva (Check-In, Check-Out, Cancelar)
+    public function cambiarEstadoReserva($idReserva, $nuevoEstadoStr)
+    {
+        $nuevoEstadoInt = $this->mapEstadoToInt($nuevoEstadoStr);
+        $sql = "UPDATE reservas SET estado = ? WHERE id = ?";
+        $datos = [$nuevoEstadoInt, $idReserva];
+        return $this->save($sql, $datos);
+    }
+    
+    // --- MÉTODOS PARA EL DASHBOARD DEL EMPLEADO ---
+
+    // Contar reservas según fecha y estado
+    public function contarReservasPorFecha($campoFecha, $estado)
+    {
+        $sql = "SELECT COUNT(id) AS total FROM reservas WHERE DATE($campoFecha) = CURDATE() AND estado = ?";
+        return $this->select($sql, [$estado]);
+    }
+
+    // Contar habitaciones ocupadas (estado = Activa)
+    public function contarHabitacionesOcupadas()
+    {
+        $sql = "SELECT COUNT(id) AS total FROM reservas WHERE estado = 2"; // 2 = Activa
+        return $this->select($sql);
+    }
+
+    // Obtener la actividad del día (llegadas y salidas)
+    public function getActividadDia()
+    {
+        $sql = "SELECT r.*, u.nombre as nombre_cliente, h.estilo as nombre_habitacion, 
+                (CASE WHEN r.fecha_ingreso = CURDATE() THEN 'llegada' ELSE 'salida' END) as tipo
+                FROM reservas r 
+                INNER JOIN usuarios u ON r.id_usuario = u.id
+                INNER JOIN habitaciones h ON r.id_habitacion = h.id
+                WHERE (r.fecha_ingreso = CURDATE() AND r.estado = 1) OR (r.fecha_salida = CURDATE() AND r.estado = 2)";
+        return $this->selectAll($sql);
+    }
+
+    // Función auxiliar para mapear el estado de string a entero
+    private function mapEstadoToInt($estadoStr)
+    {
+        $map = [
+            'Cancelada' => 0,
+            'Confirmada' => 1,
+            'Activa' => 2,
+            'Completada' => 3
+        ];
+        return $map[$estadoStr] ?? 1; // Por defecto, 'Confirmada'
+    }
+}
+?>

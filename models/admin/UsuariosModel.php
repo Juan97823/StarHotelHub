@@ -18,6 +18,13 @@ class UsuariosModel extends Query
                 WHERE u.id != 1";
         return $this->selectAll($sql) ?? [];
     }
+    public function getClientes()
+    {
+        $sql = "SELECT id, nombre FROM usuarios WHERE rol = 'cliente' AND estado = 1";
+        return $this->selectAll($sql);
+    }
+
+
 
     /**
      * Obtiene un usuario específico por su ID, incluyendo el nombre del rol.
@@ -44,36 +51,37 @@ class UsuariosModel extends Query
     /**
      * Registra un nuevo usuario en la base de datos (espera ID de rol).
      */
-    public function registrarUsuario($nombre, $email, $clave, $rolId)
+    public function registrarUsuario($nombre, $correo, $clave, $rolId)
     {
         $sql = "INSERT INTO usuarios (nombre, correo, clave, rol) VALUES (?, ?, ?, ?)";
         $hash = password_hash($clave, PASSWORD_DEFAULT);
-        return $this->insert($sql, [$nombre, $email, $hash, $rolId]);
+        return $this->insert($sql, [$nombre, $correo, $hash, $rolId]);
     }
 
     /**
      * Actualiza un usuario existente (espera ID de rol).
      */
-    public function actualizarUsuario($id, $nombre, $email, $rolId, $clave = null)
+    public function actualizarUsuario($id, $nombre, $correo, $rolId, $clave = null)
     {
         if ($clave) {
             $sql = "UPDATE usuarios SET nombre = ?, correo = ?, rol = ?, clave = ? WHERE id = ?";
             $hash = password_hash($clave, PASSWORD_DEFAULT);
-            return $this->save($sql, [$nombre, $email, $rolId, $hash, $id]);
+            return $this->save($sql, [$nombre, $correo, $rolId, $hash, $id]);
         } else {
             $sql = "UPDATE usuarios SET nombre = ?, correo = ?, rol = ? WHERE id = ?";
-            return $this->save($sql, [$nombre, $email, $rolId, $id]);
+            return $this->save($sql, [$nombre, $correo, $rolId, $id]);
         }
     }
 
     /**
      * Cambia el estado de un usuario (activo/inactivo).
-     */public function cambiarEstadoUsuario($id, $estado)
-{
-    $sql = "UPDATE usuarios SET estado = ? WHERE id = ? AND id != 1";
-    $res = $this->save($sql, [$estado, $id]);
-    // devuelve true si la consulta se ejecutó correctamente
-    return $res !== false;
-}
+     */
+    public function cambiarEstadoUsuario($id, $estado)
+    {
+        $sql = "UPDATE usuarios SET estado = ? WHERE id = ? AND id != 1";
+        $res = $this->save($sql, [$estado, $id]);
+        // devuelve true si la consulta se ejecutó correctamente
+        return $res !== false;
+    }
 
 }

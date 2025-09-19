@@ -23,7 +23,6 @@ class ReservasModel extends Query
         return $this->selectAll($sql) ?? [];
     }
 
-
     // Obtener una reserva por ID
     public function getReserva($id)
     {
@@ -64,13 +63,6 @@ class ReservasModel extends Query
     public function inhabilitarReserva($id)
     {
         $sql = "UPDATE reservas SET estado = 0 WHERE id = ?";
-        return $this->save($sql, [$id]);
-    }
-
-    // Eliminar reserva permanentemente
-    public function eliminarReserva($id)
-    {
-        $sql = "DELETE FROM reservas WHERE id = ?";
         return $this->save($sql, [$id]);
     }
 }

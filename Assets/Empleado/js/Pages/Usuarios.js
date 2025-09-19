@@ -16,7 +16,7 @@
             columns: [
                 { 'data': 'id' },
                 { 'data': 'nombre' },
-                { 'data': 'email' }, // <-- ESTANDARIZADO
+                { 'data': 'correo' }, // <-- ESTANDARIZADO
                 { 'data': 'rol' },
                 { 'data': 'estado' },
                 { 'data': 'acciones', orderable: false, searchable: false }
@@ -89,7 +89,7 @@
                     $("#modalLabel").text("Editar Usuario");
                     $("#idUsuario").val(data.id);
                     $("#nombre").val(data.nombre);
-                    $("#email").val(data.email); // <-- ESTANDARIZADO
+                    $("#correo").val(data.correo); // <-- ESTANDARIZADO
                     $("#rol").val(data.rol);
                     $("#clave").removeAttr('required');
                     modal.show();

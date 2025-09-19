@@ -51,7 +51,7 @@ class Usuarios extends Controller
             $data[] = [
                 'id' => $usuario['id'],
                 'nombre' => $usuario['nombre'],
-                'email' => $usuario['correo'],
+                'correo' => $usuario['correo'],
                 'rol' => $rol_badge,
                 'estado' => $estado_badge,
                 'acciones' => $acciones
@@ -67,18 +67,18 @@ class Usuarios extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nombre = filter_var($_POST['nombre'], FILTER_SANITIZE_STRING);
-            $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+            $correo = filter_var($_POST['correo'], FILTER_VALIDATE_EMAIL);
             $clave = $_POST['clave'];
             $rolNombre = filter_var($_POST['rol'], FILTER_SANITIZE_STRING);
 
-            if (empty($nombre) || !$email || empty($rolNombre) || empty($clave)) {
+            if (empty($nombre) || !$correo || empty($rolNombre) || empty($clave)) {
                 $response = ['tipo' => 'error', 'msg' => 'Todos los campos son obligatorios.'];
             } else {
                 $rolId = $this->model->getRolIdPorNombre($rolNombre);
                 if (!$rolId) {
                     $response = ['tipo' => 'error', 'msg' => 'El rol especificado no es válido.'];
                 } else {
-                    $resultado = $this->model->registrarUsuario($nombre, $email, $clave, $rolId);
+                    $resultado = $this->model->registrarUsuario($nombre, $correo, $clave, $rolId);
                     if ($resultado > 0) {
                         $response = ['tipo' => 'success', 'msg' => 'Usuario registrado con éxito.'];
                     } elseif ($resultado == "existe") {
@@ -100,18 +100,18 @@ class Usuarios extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $id = intval($id);
             $nombre = filter_var($_POST['nombre'], FILTER_SANITIZE_STRING);
-            $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+            $correo = filter_var($_POST['correo'], FILTER_VALIDATE_EMAIL);
             $rolNombre = filter_var($_POST['rol'], FILTER_SANITIZE_STRING);
             $clave = $_POST['clave'];
 
-            if (empty($nombre) || !$email || empty($rolNombre)) {
+            if (empty($nombre) || !$correo || empty($rolNombre)) {
                 $response = ['tipo' => 'error', 'msg' => 'Todos los campos son obligatorios (excepto contraseña).'];
             } else {
                 $rolId = $this->model->getRolIdPorNombre($rolNombre);
                 if (!$rolId) {
                     $response = ['tipo' => 'error', 'msg' => 'El rol especificado no es válido.'];
                 } else {
-                    $resultado = $this->model->actualizarUsuario($id, $nombre, $email, $rolId, $clave);
+                    $resultado = $this->model->actualizarUsuario($id, $nombre, $correo, $rolId, $clave);
                     if ($resultado > 0) {
                         $response = ['tipo' => 'success', 'msg' => 'Usuario actualizado con éxito.'];
                     } elseif ($resultado == "existe") {
@@ -135,7 +135,7 @@ class Usuarios extends Controller
             $response = [
                 'id' => $usuario['id'],
                 'nombre' => $usuario['nombre'],
-                'email' => $usuario['correo'],
+                'correo' => $usuario['correo'],
                 'rol' => $usuario['rol']
             ];
             echo json_encode($response, JSON_UNESCAPED_UNICODE);

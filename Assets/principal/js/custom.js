@@ -507,7 +507,7 @@
       if (event.isDefaultPrevented()) {
         // handle the invalid form...
         formErrorSub();
-        submitMSGSub(false, "Please enter your email correctly.");
+        submitMSGSub(false, "Please enter your correo correctly.");
       } else {
         // everything looks good!
         event.preventDefault();

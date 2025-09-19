@@ -89,11 +89,7 @@
                                         Habitaciones
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="<?php echo RUTA_PRINCIPAL . 'Servicio'; ?>" class="nav-link">
-                                        Servicios
-                                    </a>
-                                </li>
+
                                 <li class="nav-item">
                                     <a href="<?php echo RUTA_PRINCIPAL . 'Blog'; ?>" class="nav-link">
                                         Blog

@@ -6,6 +6,7 @@ spl_autoload_register(function ($class) {
         'models/',
         'models/principal/',
         'models/admin/',
+        'models/empleado/' // <- Añadido para el dashboard de empleado
     ];
 
     foreach ($paths as $path) {

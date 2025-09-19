@@ -117,7 +117,6 @@
 <!-- Jquery Min JS -->
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/js/jquery.min.js"></script>
 <!-- Bootstrap Bundle Min JS -->
-<script src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/js/bootstrap.bundle.min.js"></script>
 <!-- Meanmenu Min JS -->
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/js/meanmenu.min.js"></script>
 <!-- Owl Carousel Min JS -->

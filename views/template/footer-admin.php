@@ -11,10 +11,14 @@
 </footer>
 </div> <!-- Fin de .wrapper -->
 
-<!-- Scripts JS -->
+<!-- Scripts JS ESENCIALES -->
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/js/jquery.min.js'; ?>"></script>
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/js/bootstrap.bundle.min.js'; ?>"></script>
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/plugins/simplebar/js/simplebar.min.js'; ?>"></script>
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/plugins/metismenu/js/metisMenu.min.js'; ?>"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- Scripts de DataTables y sus botones -->
+<!-- Scripts de PLUGINS (DataTables, Gráficos, etc.) -->
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
@@ -24,23 +28,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
-
-<!-- ⚡ Scripts personalizados (rutas corregidas) -->
-<script src="<?= RUTA_PRINCIPAL ?>assets/admin/js/Pages/reservas.js"></script>
-<script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/js/bootstrap.bundle.min.js'; ?>"></script>
-<script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/plugins/simplebar/js/simplebar.min.js'; ?>"></script>
-<script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/plugins/metismenu/js/metisMenu.min.js'; ?>"></script>
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/plugins/chartjs/js/Chart.min.js'; ?>"></script>
+
+<!-- Scripts de la APLICACIÓN -->
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/js/app.js'; ?>"></script>
-<script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/js/Pages/Blog.js'; ?>"></script>
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/js/custom.js'; ?>"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<!-- Variables Globales JS -->
 <script>
     const base_url = '<?php echo RUTA_PRINCIPAL; ?>';
-    function cerrarSesion() { /* ... */ }
 </script>
 
-<script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/js/custom.js'; ?>"></script>
+<!-- Scripts específicos de la PÁGINA -->
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/js/Pages/reservas.js'; ?>"></script>
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/js/Pages/Blog.js'; ?>"></script>
+
 </body>
 </html>

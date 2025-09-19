@@ -71,8 +71,93 @@ class Reserva extends Controller
         }
         die();
     }
-    public function pendiente(){
-         $data['title'] = 'Reserva Pendiente';
+    public function guardarPublica()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nombre = trim($_POST['nombre']);
+            $correo = trim($_POST['correo']);
+            $f_llegada = trim($_POST['f_llegada']);
+            $f_salida = trim($_POST['f_salida']);
+            $habitacion_id = intval($_POST['habitacion']);
+
+            // Validar campos requeridos
+            if (empty($nombre) || empty($correo) || empty($f_llegada) || empty($f_salida) || empty($habitacion_id)) {
+                $res = ['tipo' => 'danger', 'mensaje' => 'Todos los campos son requeridos'];
+                $this->views->getView($this, "publica", $res);
+                return;
+            }
+
+            // Verificar si el usuario ya existe
+            $usuario = $this->model->getUsuarioBycorreo($correo);
+            if (!$usuario) {
+                $clave = password_hash("123456", PASSWORD_DEFAULT); // clave por defecto
+                $idUsuario = $this->model->crearUsuario($nombre, $correo, $clave);
+            } else {
+                $idUsuario = $usuario['id'];
+            }
+
+            // Insertar reserva
+            $data = [
+                'habitacion_id' => $habitacion_id,
+                'usuario_id' => $idUsuario,
+                'fecha_ingreso' => $f_llegada,
+                'fecha_salida' => $f_salida,
+                'estado' => 1 // Activa por defecto
+            ];
+
+            $idReserva = $this->model->insertReservaPublica($data);
+
+            if ($idReserva) {
+                // Crear factura
+                $this->model->crearFactura($idReserva);
+
+                $res = [
+                    'tipo' => 'success',
+                    'mensaje' => 'Reserva creada correctamente. Revisa tu correo electrónico.'
+                ];
+            } else {
+                $res = [
+                    'tipo' => 'danger',
+                    'mensaje' => 'Error al registrar la reserva.'
+                ];
+            }
+
+            $this->views->getView($this, "publica", $res);
+        } else {
+            header('Location: ' . RUTA_PRINCIPAL);
+            exit;
+        }
+
+
+    }
+    public function confirmacion()
+    {
+        // Suponemos que guardaste el ID de la última reserva en sesión
+        $idReserva = $_SESSION['ultima_reserva'] ?? null;
+        if (!$idReserva) {
+            header("Location: " . RUTA_PRINCIPAL);
+            exit;
+        }
+
+        // Datos de la reserva
+        $reserva = $this->model->getReservaById($idReserva);
+        $usuario = $this->model->getUsuarioById($reserva['id_usuario']);
+        $habitacion = $this->model->getHabitacion($reserva['id_habitacion']);
+        $factura = $this->model->getFacturaByReserva($idReserva);
+
+        $data = [
+            'reserva' => $reserva,
+            'usuario' => $usuario,
+            'habitacion' => $habitacion,
+            'factura' => $factura
+        ];
+
+        $this->views->getView('principal/reservas/confirmacion', $data);
+    }
+
+    public function pendiente()
+    {
+        $data['title'] = 'Reserva Pendiente';
         $this->views->getView('principal/clientes/reservas/pendiente', $data);
         $this->views->getView('admin/reservas/pendiente', $data);
     }

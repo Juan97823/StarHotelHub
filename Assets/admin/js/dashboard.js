@@ -1,73 +1,71 @@
-// dashboard.js (Vanilla JS)
-document.addEventListener("DOMContentLoaded", function () {
-    const reservasHoyEl = document.getElementById("reservasHoy");
-    const habitacionesDisponiblesEl = document.getElementById("habitacionesDisponibles");
-    const ingresosMesEl = document.getElementById("ingresosMes");
-    const totalClientesEl = document.getElementById("totalClientes");
-    const ultimasReservasEl = document.getElementById("ultimasReservas");
-    const graficoCtx = document.getElementById("graficoReservas").getContext("2d");
-    let grafico;
+document.addEventListener('DOMContentLoaded', function () {
+    const url = base_url + 'admin/dashboard/getData';
 
-    async function cargarDatosDashboard() {
-        try {
-            const response = await fetch(`${base_url}admin/dashboard/getData`);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const data = await response.json();
-
-            // Actualizar indicadores
-            reservasHoyEl.textContent = data.reservasHoy ?? 0;
-            habitacionesDisponiblesEl.textContent = data.habitacionesDisponibles ?? 0;
-            ingresosMesEl.textContent = `$${data.ingresosMes ?? 0}`;
-            totalClientesEl.textContent = data.totalClientes ?? 0;
-
-            // Actualizar gráfico
-            if (grafico) grafico.destroy();
-            grafico = new Chart(graficoCtx, {
-                type: "bar",
-                data: {
-                    labels: data.grafico.etiquetas,
-                    datasets: [{
-                        label: "Reservas",
-                        data: data.grafico.valores,
-                        backgroundColor: "rgba(54, 162, 235, 0.7)",
-                        borderColor: "rgba(54, 162, 235, 1)",
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { mode: 'index', intersect: false }
-                    },
-                    scales: {
-                        y: { beginAtZero: true, precision: 0 }
-                    }
-                }
-            });
-
-            // Actualizar últimas reservas
-            ultimasReservasEl.innerHTML = "";
-            data.ultimasReservas.forEach(reserva => {
-                const tr = document.createElement("tr");
-                tr.innerHTML = `
-                    <td>${reserva.cliente}</td>
-                    <td>${reserva.habitacion}</td>
-                    <td>${reserva.fecha_reserva}</td>
-                    <td>${reserva.estado}</td>
-                `;
-                ultimasReservasEl.appendChild(tr);
-            });
-
-        } catch (error) {
-            console.error("Error al cargar el dashboard:", error);
-            alert("Error al cargar el dashboard. Revisa la consola para más detalles.");
+    // --- GRÁFICO DE RESERVAS ---
+    const ctx = document.getElementById('graficoReservas').getContext('2d');
+    const graficoReservas = new Chart(ctx, {
+        type: 'bar',
+        data: { labels: [], datasets: [{ label: 'Reservas por Día', data: [], backgroundColor: 'rgba(54, 162, 235, 0.5)', borderColor: 'rgba(54, 162, 235, 1)', borderWidth: 1 }] },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
         }
+    });
+
+    // --- FUNCIONES DE ACTUALIZACIÓN ---
+    function actualizarIndicadores(data) {
+        document.getElementById('reservasHoy').textContent = data.reservasHoy ?? '0';
+        document.getElementById('habitacionesDisponibles').textContent = data.habitacionesDisponibles ?? '0';
+        document.getElementById('ingresosMes').textContent = `$${data.ingresosMes ?? '0.00'}`;
+        document.getElementById('totalClientes').textContent = data.totalClientes ?? '0';
     }
 
-    // Cargar datos al iniciar
-    cargarDatosDashboard();
+    function actualizarGrafico(graficoData) {
+        if (!graficoData) return;
+        graficoReservas.data.labels = graficoData.etiquetas;
+        graficoReservas.data.datasets[0].data = graficoData.valores;
+        graficoReservas.update();
+    }
 
-    // Recarga automática cada 30 segundos
-    setInterval(cargarDatosDashboard, 30000);
+    function actualizarUltimasReservas(ultimasReservas) {
+        const tbody = document.getElementById('ultimasReservas');
+        tbody.innerHTML = '';
+
+        if (!ultimasReservas || ultimasReservas.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" class="text-center">No hay reservas recientes.</td></tr>';
+            return;
+        }
+
+        ultimasReservas.forEach(reserva => {
+            const estado = reserva.estado == 1 ? '<span class="badge bg-success">Confirmada</span>' : '<span class="badge bg-warning">Pendiente</span>';
+            tbody.innerHTML += `<tr><td>${reserva.cliente}</td><td>${reserva.habitacion}</td><td>${reserva.fecha_reserva}</td><td>${estado}</td></tr>`;
+        });
+    }
+
+    // --- CARGA DE DATOS ---
+    function cargarDatosDashboard() {
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Los datos se pasan directamente a las funciones, asumiendo una estructura plana.
+                actualizarIndicadores(data);
+                actualizarGrafico(data.grafico); // El controlador original usaba la clave 'grafico'
+                actualizarUltimasReservas(data.ultimasReservas);
+            })
+            .catch(error => {
+                console.error('Error al cargar los datos del dashboard:', error);
+                const dashboardContainer = document.querySelector('.container.py-5');
+                if (dashboardContainer) {
+                    dashboardContainer.innerHTML = '<div class="alert alert-danger">No se pudieron cargar los datos del dashboard. Por favor, intente más tarde.</div>';
+                }
+            });
+    }
+
+    cargarDatosDashboard();
 });

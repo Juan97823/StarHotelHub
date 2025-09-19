@@ -21,7 +21,7 @@
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="correo" name="correo" type="email" value="<?php echo htmlspecialchars($data['usuario']['correo']); ?>" placeholder="name@example.com" />
+                            <input class="form-control" id="correo" name="correo" type="correo" value="<?php echo htmlspecialchars($data['usuario']['correo']); ?>" placeholder="name@example.com" />
                             <label for="correo">Correo Electrónico</label>
                         </div>
 
