@@ -21,27 +21,30 @@ class BlogModel extends Query
     }
 
     // Insertar nueva entrada
-    public function insertar($titulo, $contenido, $imagen, $slug, $id_usuario)
+    public function insertar($titulo, $descripcion, $imagen, $slug, $id_usuario, $id_categorias)
     {
-        $sql = "INSERT INTO entradas (titulo, contenido, imagen, slug, estado, fecha, id_usuario) 
-                VALUES (?, ?, ?, ?, 1, NOW(), ?)";
-        return $this->insert($sql, [$titulo, $contenido, $imagen, $slug, $id_usuario]);
+        $sql = "INSERT INTO entradas (titulo, descripcion, foto, slug, estado, fecha, id_usuario, id_categorias) 
+            VALUES (?, ?, ?, ?, 1, NOW(), ?, ?)";
+        return $this->insert($sql, [$titulo, $descripcion, $imagen, $slug, $id_usuario, $id_categorias]);
     }
 
+
     // Actualizar entrada existente
-    public function actualizar($titulo, $contenido, $imagen, $slug, $id_usuario, $id)
+    public function actualizar($titulo, $descripcion, $imagen, $slug, $id_usuario, $id_categorias, $id)
     {
         if ($imagen) {
             $sql = "UPDATE entradas 
-                    SET titulo = ?, contenido = ?, imagen = ?, slug = ?, id_usuario = ?, fecha = NOW() 
-                    WHERE id = ?";
-            return $this->save($sql, [$titulo, $contenido, $imagen, $slug, $id_usuario, $id]);
+            SET titulo = ?, descripcion = ?, foto = ?, slug = ?, id_usuario = ?, id_categorias = ?, fecha = NOW() 
+            WHERE id = ?";
+            return $this->save($sql, [$titulo, $descripcion, $imagen, $slug, $id_usuario, $id_categorias, $id]);
         } else {
             $sql = "UPDATE entradas 
-                    SET titulo = ?, contenido = ?, slug = ?, id_usuario = ?, fecha = NOW() 
-                    WHERE id = ?";
-            return $this->save($sql, [$titulo, $contenido, $slug, $id_usuario, $id]);
+            SET titulo = ?, descripcion = ?, slug = ?, id_usuario = ?, id_categorias = ?, fecha = NOW() 
+            WHERE id = ?";
+            return $this->save($sql, [$titulo, $descripcion, $slug, $id_usuario, $id_categorias, $id]);
         }
+
+
     }
 
     // Cambiar estado (activar/inactivar)

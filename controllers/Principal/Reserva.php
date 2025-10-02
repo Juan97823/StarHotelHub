@@ -4,48 +4,59 @@ class Reserva extends Controller
     public function __construct()
     {
         parent::__construct();
+        // Mostrar errores para depuración (puedes quitar en producción)
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
     }
+
+    // Verifica disponibilidad de la habitación
     public function verify()
     {
-        if (isset($_GET['f_llegada']) && isset($_GET['f_salida']) && isset($_GET['habitacion'])) {
-            $f_llegada = strClean($_GET['f_llegada']);
-            $f_salida = strClean($_GET['f_salida']);
-            $habitacion = strClean($_GET['habitacion']);
-            if (empty($f_llegada) || empty($f_salida) || empty($habitacion)) {
-                header('Location:' . RUTA_PRINCIPAL . '?respuesta=warning');
-            } else {
-                $reserva = $this->model->getDisponible($f_llegada, $f_salida, $habitacion);
-                $data['title'] = 'Reservas';
-                $data['subtitle'] = 'Verificar Disponibilidad';
-                $data['disponible'] = [
-                    'f_llegada' => $f_llegada,
-                    'f_salida' => $f_salida,
-                    'habitacion' => $habitacion
-                ];
-                if (empty($reserva)) {
-                    $data['mensaje'] = 'La habitacion esta disponible';
-                    $data['tipo'] = 'success';
-                } else {
-                    $data['mensaje'] = 'La habitacion no esta disponible';
-                    $data['tipo'] = 'danger';
-                }
-                $data['habitaciones'] = $this->model->getHabitaciones();
-                $data['habitacion'] = $this->model->getHabitacion($habitacion);
-                $this->views->getView('principal/reservas', $data);
-            }
+        $f_llegada = $_GET['f_llegada'] ?? null;
+        $f_salida = $_GET['f_salida'] ?? null;
+        $habitacion = $_GET['habitacion'] ?? null;
+
+        if (!$f_llegada || !$f_salida || !$habitacion) {
+            header('Location:' . RUTA_PRINCIPAL . '?respuesta=warning');
+            exit;
         }
+
+        $f_llegada = strClean($f_llegada);
+        $f_salida = strClean($f_salida);
+        $habitacion = strClean($habitacion);
+
+        $reserva = $this->model->getDisponible($f_llegada, $f_salida, $habitacion);
+
+        $data = [
+            'title' => 'Reservas',
+            'subtitle' => 'Verificar Disponibilidad',
+            'disponible' => [
+                'f_llegada' => $f_llegada,
+                'f_salida' => $f_salida,
+                'habitacion' => $habitacion
+            ],
+            'mensaje' => empty($reserva) ? 'La habitación está disponible' : 'La habitación no está disponible',
+            'tipo' => empty($reserva) ? 'success' : 'danger',
+            'habitaciones' => $this->model->getHabitaciones(),
+            'habitacion' => $this->model->getHabitacion($habitacion)
+        ];
+
+        $this->views->getView('principal/reservas', $data);
     }
-    public function listar($parametros)
+
+    // Devuelve reservas de la habitación en formato JSON para FullCalendar
+    public function listar($parametros = '')
     {
         $array = explode(',', $parametros);
-        $f_llegada = (!empty($array[0])) ? $array[0] : null;
-        $f_salida = (!empty($array[1])) ? $array[1] : null;
-        $habitacion = (!empty($array[2])) ? $array[2] : null;
+        $f_llegada = $array[0] ?? null;
+        $f_salida = $array[1] ?? null;
+        $habitacion = $array[2] ?? null;
+
         $results = [];
 
-        if ($f_llegada != null && $f_salida != null && $habitacion != null) {
-            // OBTENER RESERVAS DE LA HABITACIÓN
-            $reservas = $this->model->getReservasHabitacion($habitacion);
+        if ($habitacion) {
+            $reservas = $this->model->getReservasHabitacion($habitacion) ?? [];
 
             foreach ($reservas as $reserva) {
                 $results[] = [
@@ -57,99 +68,124 @@ class Reserva extends Controller
                 ];
             }
 
-            // RANGO DE FECHAS SELECCIONADO
-            $results[] = [
-                'id' => 'seleccion',
-                'title' => 'COMPROBANDO',
-                'start' => $f_llegada,
-                'end' => $f_salida,
-                'color' => '#00ff00'
-            ];
-
-            header('Content-Type: application/json');
-            echo json_encode($results, JSON_UNESCAPED_UNICODE);
+            if ($f_llegada && $f_salida) {
+                $results[] = [
+                    'id' => 'seleccion',
+                    'title' => 'SELECCIÓN',
+                    'start' => $f_llegada,
+                    'end' => $f_salida,
+                    'color' => '#00ff00'
+                ];
+            }
         }
-        die();
+
+        header('Content-Type: application/json');
+        echo json_encode($results, JSON_UNESCAPED_UNICODE);
+        exit;
     }
+
+    // Guarda reserva desde la página pública
     public function guardarPublica()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nombre = trim($_POST['nombre']);
-            $correo = trim($_POST['correo']);
-            $f_llegada = trim($_POST['f_llegada']);
-            $f_salida = trim($_POST['f_salida']);
-            $habitacion_id = intval($_POST['habitacion']);
-
-            // Validar campos requeridos
-            if (empty($nombre) || empty($correo) || empty($f_llegada) || empty($f_salida) || empty($habitacion_id)) {
-                $res = ['tipo' => 'danger', 'mensaje' => 'Todos los campos son requeridos'];
-                $this->views->getView($this, "publica", $res);
-                return;
-            }
-
-            // Verificar si el usuario ya existe
-            $usuario = $this->model->getUsuarioBycorreo($correo);
-            if (!$usuario) {
-                $clave = password_hash("123456", PASSWORD_DEFAULT); // clave por defecto
-                $idUsuario = $this->model->crearUsuario($nombre, $correo, $clave);
-            } else {
-                $idUsuario = $usuario['id'];
-            }
-
-            // Insertar reserva
-            $data = [
-                'habitacion_id' => $habitacion_id,
-                'usuario_id' => $idUsuario,
-                'fecha_ingreso' => $f_llegada,
-                'fecha_salida' => $f_salida,
-                'estado' => 1 // Activa por defecto
-            ];
-
-            $idReserva = $this->model->insertReservaPublica($data);
-
-            if ($idReserva) {
-                // Crear factura
-                $this->model->crearFactura($idReserva);
-
-                $res = [
-                    'tipo' => 'success',
-                    'mensaje' => 'Reserva creada correctamente. Revisa tu correo electrónico.'
-                ];
-            } else {
-                $res = [
-                    'tipo' => 'danger',
-                    'mensaje' => 'Error al registrar la reserva.'
-                ];
-            }
-
-            $this->views->getView($this, "publica", $res);
-        } else {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header('Location: ' . RUTA_PRINCIPAL);
             exit;
         }
 
+        $nombre = trim($_POST['nombre'] ?? '');
+        $correo = trim($_POST['correo'] ?? '');
+        $f_llegada = trim($_POST['f_llegada'] ?? '');
+        $f_salida = trim($_POST['f_salida'] ?? '');
+        $habitacion_id = intval($_POST['habitacion'] ?? 0);
+        $metodo = intval($_POST['metodo'] ?? 0);
+        $descripcion = trim($_POST['descripcion'] ?? '');
 
+        if (!$nombre || !$correo || !$f_llegada || !$f_salida || !$habitacion_id) {
+            $res = ['tipo' => 'danger', 'mensaje' => 'Todos los campos son requeridos'];
+            $this->views->getView($this, "publica", $res);
+            return;
+        }
+
+        if (new DateTime($f_salida) <= new DateTime($f_llegada)) {
+            $res = ['tipo' => 'danger', 'mensaje' => 'La fecha de salida debe ser posterior a la llegada.'];
+            $this->views->getView($this, "publica", $res);
+            return;
+        }
+
+        // Verificar usuario existente o crear
+        $usuario = $this->model->getUsuarioBycorreo($correo);
+        $idUsuario = $usuario['id'] ?? $this->model->crearUsuario($nombre, $correo, password_hash("123456", PASSWORD_DEFAULT));
+
+        // Insertar reserva
+        $dataReserva = [
+            'habitacion_id' => $habitacion_id,
+            'usuario_id' => $idUsuario,
+            'fecha_ingreso' => $f_llegada,
+            'fecha_salida' => $f_salida,
+            'descripcion' => $descripcion ?: 'Reserva pública',
+            'estado' => 1
+        ];
+
+        $idReserva = $this->model->insertReservaPublica($dataReserva);
+
+        if (!$idReserva) {
+            $res = ['tipo' => 'danger', 'mensaje' => 'Error al registrar la reserva.'];
+            $this->views->getView($this, "publica", $res);
+            return;
+        }
+
+        // Calcular monto
+        $habitacion = $this->model->getHabitacion($habitacion_id);
+        $noches = max(1, (new DateTime($f_llegada))->diff(new DateTime($f_salida))->days);
+        $monto = $habitacion['precio'] * $noches;
+
+        // Generar códigos
+        $codigoReserva = "RES-" . str_pad($idReserva, 6, "0", STR_PAD_LEFT);
+        $numTransaccion = "TRX-" . date("YmdHis") . "-" . rand(100, 999);
+
+        // Registrar pago
+        $dataPago = [
+            'monto' => $monto,
+            'num_transaccion' => $numTransaccion,
+            'cod_reserva' => $codigoReserva,
+            'fecha_ingreso' => $f_llegada,
+            'fecha_salida' => $f_salida,
+            'descripcion' => $descripcion ?: 'Pago reserva',
+            'estado' => 1,
+            'metodo' => $metodo,
+            'facturacion' => "Pago sin factura",
+            'id_habitacion' => $habitacion_id,
+            'id_usuario' => $idUsuario,
+            'id_empleado' => null
+        ];
+        $this->model->registrarPago($dataPago);
+
+        $_SESSION['ultima_reserva'] = $idReserva;
+
+        $res = ['tipo' => 'success', 'mensaje' => 'Reserva y pago registrados correctamente. Revisa tu correo electrónico.'];
+        $this->views->getView($this, "publica", $res);
     }
+
+    // Confirmación de reserva
     public function confirmacion()
     {
-        // Suponemos que guardaste el ID de la última reserva en sesión
         $idReserva = $_SESSION['ultima_reserva'] ?? null;
         if (!$idReserva) {
             header("Location: " . RUTA_PRINCIPAL);
             exit;
         }
 
-        // Datos de la reserva
         $reserva = $this->model->getReservaById($idReserva);
         $usuario = $this->model->getUsuarioById($reserva['id_usuario']);
         $habitacion = $this->model->getHabitacion($reserva['id_habitacion']);
-        $factura = $this->model->getFacturaByReserva($idReserva);
+
+        $codigoReserva = "RES-" . str_pad($idReserva, 6, "0", STR_PAD_LEFT);
 
         $data = [
             'reserva' => $reserva,
             'usuario' => $usuario,
             'habitacion' => $habitacion,
-            'factura' => $factura
+            'codigo_reserva' => $codigoReserva
         ];
 
         $this->views->getView('principal/reservas/confirmacion', $data);

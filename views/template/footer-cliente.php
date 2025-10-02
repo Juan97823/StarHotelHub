@@ -1,4 +1,4 @@
-    </div> <!-- Fin de .page-content -->
+</div> <!-- Fin de .page-content -->
 </div> <!-- Fin de .page-wrapper -->
 
 <!-- Overlay de fondo y botón volver arriba -->
@@ -26,4 +26,5 @@
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/js/app.js'; ?>"></script>
 
 </body>
+
 </html>

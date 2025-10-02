@@ -11,7 +11,12 @@
 						<a href="<?php echo RUTA_PRINCIPAL; ?>">
 							<img src="<?php echo RUTA_PRINCIPAL . 'assets'; ?>/img/Logo.png" alt="Logo Starhotelhub">
 						</a>
-						<p>Starhotelhub es una plataforma digital diseñada para conectar hoteles, huéspedes y proveedores de servicios en un ecosistema inteligente y eficiente. Más que una simple central de reservas, es un hub tecnológico que centraliza operaciones, optimiza la experiencia del usuario y digitaliza la gestión del hospedaje. Con enfoque en automatización, análisis de datos y personalización, Starhotelhub es el puente entre el hospedaje tradicional y su evolución digital.</p>
+						<p>Starhotelhub es una plataforma digital diseñada para conectar hoteles, huéspedes y
+							proveedores de servicios en un ecosistema inteligente y eficiente. Más que una simple
+							central de reservas, es un hub tecnológico que centraliza operaciones, optimiza la
+							experiencia del usuario y digitaliza la gestión del hospedaje. Con enfoque en
+							automatización, análisis de datos y personalización, Starhotelhub es el puente entre el
+							hospedaje tradicional y su evolución digital.</p>
 						<ul class="social-icon">
 							<li><a href="#"><i class="bx bxl-facebook"></i></a></li>
 							<li><a href="#"><i class="bx bxl-twitter"></i></a></li>
@@ -31,7 +36,8 @@
 							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Bienestar</a></li>
 							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Galería de Spa</a></li>
 							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Reservas</a></li>
-							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Preguntas frecuentes</a></li>
+							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Preguntas frecuentes</a>
+							</li>
 							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Contacto</a></li>
 						</ul>
 					</div>
@@ -45,9 +51,11 @@
 							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Restaurante</a></li>
 							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Piscina</a></li>
 							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Spa y Bienestar</a></li>
-							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Sala de conferencias</a></li>
+							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Sala de conferencias</a>
+							</li>
 							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Eventos</a></li>
-							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Habitación solo adultos</a></li>
+							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Habitación solo adultos</a>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -84,12 +92,14 @@
 			<div class="row align-items-center">
 				<div class="col-lg-6">
 					<div class="copy-right">
-						<p>&copy; 2025 <a href="<?php echo RUTA_PRINCIPAL; ?>">DevStock</a>. Todos los derechos reservados.</p>
+						<p>&copy; 2025 <a href="<?php echo RUTA_PRINCIPAL; ?>">DevStock</a>. Todos los derechos
+							reservados.</p>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<div class="designed">
-						<p>Diseñado con <i class='bx bx-heart'></i> por <a href="https://envytheme.com/" target="_blank">DevStock</a></p>
+						<p>Diseñado con <i class='bx bx-heart'></i> por <a href="https://envytheme.com/"
+								target="_blank">DevStock</a></p>
 					</div>
 				</div>
 			</div>
@@ -97,12 +107,7 @@
 
 	</div>
 
-	<!-- Forma decorativa -->
-	<div class="footer-shape">
-		<img src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/img/shape/white-shape-bottom.png" alt="Decoración">
-	</div>
-</footer>
-<!-- Fin del Área de Footer -->
+	
 
 
 <!-- Start Go Top Area -->

@@ -7,18 +7,19 @@
     <title>StarHotelHub - Panel de Empleado</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo RUTA_PRINCIPAL . 'Assets/img/Logo.png'; ?>">
+    <link rel="icon" type="image/png" href="<?php echo RUTA_PRINCIPAL . 'assets/img/Logo.png'; ?>">
 
     <!-- Estilos principales -->
-    <link href="<?php echo RUTA_PRINCIPAL . 'Assets/admin/plugins/simplebar/css/simplebar.css'; ?>" rel="stylesheet" />
-    <link href="<?php echo RUTA_PRINCIPAL . 'Assets/admin/plugins/metismenu/css/metisMenu.min.css'; ?>" rel="stylesheet" />
-    <link href="<?php echo RUTA_PRINCIPAL . 'Assets/admin/css/pace.min.css'; ?>" rel="stylesheet" />
-    <script src="<?php echo RUTA_PRINCIPAL . 'Assets/admin/js/pace.min.js'; ?>"></script>
-    <link href="<?php echo RUTA_PRINCIPAL . 'Assets/admin/css/bootstrap.min.css'; ?>" rel="stylesheet">
-    <link href="<?php echo RUTA_PRINCIPAL . 'Assets/admin/css/bootstrap-extended.css'; ?>" rel="stylesheet">
+    <link href="<?php echo RUTA_PRINCIPAL . 'assets/admin/plugins/simplebar/css/simplebar.css'; ?>" rel="stylesheet" />
+    <link href="<?php echo RUTA_PRINCIPAL . 'assets/admin/plugins/metismenu/css/metisMenu.min.css'; ?>"
+        rel="stylesheet" />
+    <link href="<?php echo RUTA_PRINCIPAL . 'assets/admin/css/pace.min.css'; ?>" rel="stylesheet" />
+    <script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/js/pace.min.js'; ?>"></script>
+    <link href="<?php echo RUTA_PRINCIPAL . 'assets/admin/css/bootstrap.min.css'; ?>" rel="stylesheet">
+    <link href="<?php echo RUTA_PRINCIPAL . 'assets/admin/css/bootstrap-extended.css'; ?>" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link href="<?php echo RUTA_PRINCIPAL . 'Assets/admin/css/app.css'; ?>" rel="stylesheet">
-    <link href="<?php echo RUTA_PRINCIPAL . 'Assets/admin/css/icons.css'; ?>" rel="stylesheet">
+    <link href="<?php echo RUTA_PRINCIPAL . 'assets/admin/css/app.css'; ?>" rel="stylesheet">
+    <link href="<?php echo RUTA_PRINCIPAL . 'assets/admin/css/icons.css'; ?>" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
     <!-- Estilos de DataTables -->
@@ -32,7 +33,7 @@
         <div class="sidebar-wrapper" data-simplebar="true">
             <div class="sidebar-header">
                 <div>
-                    <img src="<?php echo RUTA_PRINCIPAL . 'Assets/img/Logo.png'; ?>" class="logo-icon" alt="logo">
+                    <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/Logo.png'; ?>" class="logo-icon" alt="logo">
                 </div>
                 <div>
                     <h4 class="logo-text">StarHotelHub</h4>
@@ -40,11 +41,11 @@
             </div>
             <!-- Menú de Navegación del Empleado -->
             <ul class="metismenu" id="menu">
-                <a href="<?php echo RUTA_PRINCIPAL . '';?>">
+                <a href="<?php echo RUTA_PRINCIPAL . ''; ?>">
                     <div class="parent-icon"><i class='bx bx-arrow-back'></i></div>
                     <div class="menu-title">Volver al sitio</div>
-                 </a>
-                 <li class="mm-active">
+                </a>
+                <li class="mm-active">
                     <a href="<?php echo RUTA_PRINCIPAL . 'empleado/dashboard'; ?>">
                         <div class="parent-icon"><i class='bx bx-home-alt'></i></div>
                         <div class="menu-title">Dashboard</div>
@@ -61,8 +62,9 @@
 
             <!-- Bloque de Perfil de Usuario -->
             <div class="user-profile-section dropdown">
-                 <a class="d-flex align-items-center nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="<?php echo RUTA_PRINCIPAL . 'Assets/img/logo.png'; ?>" class="user-img" alt="avatar">
+                <a class="d-flex align-items-center nav-link dropdown-toggle" href="#" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/logo.png'; ?>" class="user-img" alt="avatar">
                     <div class="user-info ps-3">
                         <p class="user-name mb-0"><?php echo $_SESSION['usuario']['nombre'] ?? 'Empleado'; ?></p>
                         <p class="designattion mb-0">Ver Perfil</p>
@@ -70,8 +72,11 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="#"><i class="bx bx-user"></i><span>Mi Perfil</span></a></li>
-                    <li><div class="dropdown-divider mb-0"></div></li>
-                    <li><a class="dropdown-item" href="<?php echo RUTA_PRINCIPAL; ?>logout"><i class='bx bx-log-out-circle'></i><span>Cerrar Sesión</span></a></li>
+                    <li>
+                        <div class="dropdown-divider mb-0"></div>
+                    </li>
+                    <li><a class="dropdown-item" href="<?php echo RUTA_PRINCIPAL; ?>logout"><i
+                                class='bx bx-log-out-circle'></i><span>Cerrar Sesión</span></a></li>
                 </ul>
             </div>
         </div>

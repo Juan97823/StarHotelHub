@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 { data: "acciones" }
             ],
             language: {
-                url: base_url + "assets/admin/js/es-ES.json"
+                url: base_url + "assets/admin/js/i18n/es-ES.json"
             },
             responsive: true,
             dom: 'Bfrtilp',
@@ -93,7 +93,7 @@ function btnEditarReserva(id) {
             // Rellenar el formulario con los datos obtenidos
             document.getElementById('idReserva').value = res.id;
             document.getElementById('habitacion').value = res.id_habitacion;
-            document.getElementById('cliente').value = res.id_usuario; // CORREGIDO
+            document.getElementById('cliente').value = res.id_usuario;
             document.getElementById('fecha_ingreso').value = res.fecha_ingreso;
             document.getElementById('fecha_salida').value = res.fecha_salida;
             document.getElementById('monto').value = res.monto;
@@ -133,7 +133,7 @@ function guardarReserva(event) {
 }
 
 // Función para eliminar (inhabilitar) reserva
-function btnEliminarReserva(id) {
+function btnInhabilitarReserva(id) {
     Swal.fire({
         title: '¿Estás seguro?',
         text: "¡La reserva se inhabilitará!",

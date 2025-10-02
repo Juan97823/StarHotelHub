@@ -6,7 +6,7 @@
         // 1. INICIALIZACIÓN DE DATATABLE
         table = $("#usuariosTable").DataTable({
             language: {
-                url: base_url + "Assets/admin/js/es-ES.json"
+                url: base_url + "assets/admin/js/es-ES.json"
             },
             responsive: true,
             ajax: {

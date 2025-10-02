@@ -84,4 +84,4 @@
 <script>
     const ADMIN_ID = <?php echo $_SESSION['usuario']['id'] ?? 0; ?>;
 </script>
-<script src="<?php echo RUTA_PRINCIPAL; ?>Assets/admin/js/Pages/Usuarios.js"></script>
+<script src="<?php echo RUTA_PRINCIPAL; ?>assets/admin/js/Pages/Usuarios.js"></script>

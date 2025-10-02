@@ -9,13 +9,13 @@
             <a href="<?php echo RUTA_PRINCIPAL; ?>admin/blog/crear" class="btn btn-primary mb-3">
                 <i class="fas fa-plus"></i> Nueva Entrada
             </a>
-            
-            <?php 
+
+            <?php
             // Manejo de alertas de sesión
             if (isset($_SESSION['alerta'])) {
                 $alerta = $_SESSION['alerta'];
                 echo '<div class="alert alert-' . htmlspecialchars($alerta['tipo']) . ' alert-dismissible fade show" role="alert">'
-                     . htmlspecialchars($alerta['mensaje']) . '
+                    . htmlspecialchars($alerta['mensaje']) . '
                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                      </div>';
                 unset($_SESSION['alerta']);

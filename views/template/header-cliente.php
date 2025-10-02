@@ -11,6 +11,7 @@ $urlCliente = $urlBase . 'cliente/';
 ?>
 <!doctype html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,65 +37,68 @@ $urlCliente = $urlBase . 'cliente/';
 </head>
 
 <body>
-<div class="wrapper">
-    <!-- Sidebar cliente -->
-    <div class="sidebar-wrapper" data-simplebar="true">
-        <div class="sidebar-header">
-            <a href="<?php echo $urlBase; ?>" class="d-flex align-items-center">
-                <img src="<?php echo $urlBase . 'assets/img/Logo.png'; ?>" class="logo-icon" alt="StarHotelHub Logo" style="width: 40px; height: auto;">
-                <h4 class="logo-text ms-2">StarHotelHub</h4>
-            </a>
-        </div>
+    <div class="wrapper">
+        <!-- Sidebar cliente -->
+        <div class="sidebar-wrapper" data-simplebar="true">
+            <div class="sidebar-header">
+                <a href="<?php echo $urlBase; ?>" class="d-flex align-items-center">
+                    <img src="<?php echo $urlBase . 'assets/img/Logo.png'; ?>" class="logo-icon" alt="StarHotelHub Logo"
+                        style="width: 40px; height: auto;">
+                    <h4 class="logo-text ms-2">StarHotelHub</h4>
+                </a>
+            </div>
 
-        <!-- Menú de cliente -->
-        <ul class="metismenu" id="menu">
-            <li>
-                <a href="<?php echo $urlCliente . 'dashboard'; ?>">
-                    <div class="parent-icon"><i class='bx bx-home-alt'></i></div>
-                    <div class="menu-title">Dashboard</div>
-                </a>
-            </li>
-            <li>
-                <a href="<?php echo $urlCliente . 'reservas'; ?>">
-                    <div class="parent-icon"><i class='bx bx-calendar'></i></div>
-                    <div class="menu-title">Mis Reservas</div>
-                </a>
-            </li>
-            <li>
-                <a href="<?php echo $urlCliente . 'perfil'; ?>">
-                    <div class="parent-icon"><i class='bx bx-user'></i></div>
-                    <div class="menu-title">Mi Perfil</div>
-                </a>
-            </li>
-        </ul>
-
-        <!-- Perfil de usuario -->
-        <div class="user-profile-section dropdown">
-            <a class="d-flex align-items-center nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="user-info ps-3">
-                    <p class="user-name mb-0"><?php echo $nombreUsuario; ?></p>
-                    <p class="designattion mb-0">Panel de Cliente</p>
-                </div>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="<?php echo $urlBase . 'logout'; ?>"><i class='bx bx-log-out-circle'></i><span>Cerrar Sesión</span></a></li>
+            <!-- Menú de cliente -->
+            <ul class="metismenu" id="menu">
+                <li>
+                    <a href="<?php echo $urlCliente . 'dashboard'; ?>">
+                        <div class="parent-icon"><i class='bx bx-home-alt'></i></div>
+                        <div class="menu-title">Dashboard</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo $urlCliente . 'reservas'; ?>">
+                        <div class="parent-icon"><i class='bx bx-calendar'></i></div>
+                        <div class="menu-title">Mis Reservas</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo $urlCliente . 'perfil'; ?>">
+                        <div class="parent-icon"><i class='bx bx-user'></i></div>
+                        <div class="menu-title">Mi Perfil</div>
+                    </a>
+                </li>
             </ul>
-        </div>
-    </div>
-    <!-- Fin Sidebar -->
-    
-    <!-- Topbar cliente -->
-    <header>
-        <div class="topbar d-flex align-items-center">
-            <nav class="navbar navbar-expand">
-                <div class="mobile-toggle-menu"><i class='bx bx-menu'></i></div>
-            </nav>
-        </div>
-    </header>
-    <!-- Fin Topbar -->
 
-    <!-- ** INICIO DE LA CORRECCIÓN ** -->
-    <!-- Contenedor de la página (Estas etiquetas faltaban) -->
-    <div class="page-wrapper">
-        <div class="page-content">
-    <!-- ** FIN DE LA CORRECCIÓN ** -->
+            <!-- Perfil de usuario -->
+            <div class="user-profile-section dropdown">
+                <a class="d-flex align-items-center nav-link dropdown-toggle" href="#" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="user-info ps-3">
+                        <p class="user-name mb-0"><?php echo $nombreUsuario; ?></p>
+                        <p class="designattion mb-0">Panel de Cliente</p>
+                    </div>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="<?php echo $urlBase . 'logout'; ?>"><i
+                                class='bx bx-log-out-circle'></i><span>Cerrar Sesión</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Fin Sidebar -->
+
+        <!-- Topbar cliente -->
+        <header>
+            <div class="topbar d-flex align-items-center">
+                <nav class="navbar navbar-expand">
+                    <div class="mobile-toggle-menu"><i class='bx bx-menu'></i></div>
+                </nav>
+            </div>
+        </header>
+        <!-- Fin Topbar -->
+
+        <!-- ** INICIO DE LA CORRECCIÓN ** -->
+        <!-- Contenedor de la página (Estas etiquetas faltaban) -->
+        <div class="page-wrapper">
+            <div class="page-content">
+                <!-- ** FIN DE LA CORRECCIÓN ** -->

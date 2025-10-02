@@ -44,4 +44,5 @@
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/js/Pages/Blog.js'; ?>"></script>
 
 </body>
+
 </html>

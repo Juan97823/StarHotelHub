@@ -2,7 +2,7 @@
 
 <style>
     .our-rooms-area .single-rooms-item .rooms-img {
-        height: 250px; /* Ajusta esta altura según tus necesidades */
+        height: 250px;
         overflow: hidden;
     }
 
@@ -18,7 +18,8 @@
 <section class="eorik-slider-area">
     <div class="eorik-slider owl-carousel owl-theme">
         <?php foreach ($data['sliders'] as $slider): ?>
-            <div class="eorik-slider-item" style="background-image: url('<?= htmlspecialchars(RUTA_PRINCIPAL . 'assets/img/sliders/' . $slider['foto'], ENT_QUOTES, 'UTF-8'); ?>');">
+            <div class="eorik-slider-item"
+                style="background-image: url('<?= htmlspecialchars(RUTA_PRINCIPAL . 'assets/img/sliders/' . $slider['foto'], ENT_QUOTES, 'UTF-8'); ?>');">
                 <div class="d-table">
                     <div class="d-table-cell">
                         <div class="container">
@@ -55,7 +56,8 @@
                         <div class="form-group">
                             <div class="input-group date" id="datetimepicker-1">
                                 <i class="flaticon-calendar"></i>
-                                <input type="text" class="form-control" id="f_llegada" name="f_llegada" value="<?= date('Y-m-d'); ?>">
+                                <input type="text" class="form-control" id="f_llegada" name="f_llegada"
+                                    value="<?= date('Y-m-d'); ?>">
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-th"></i>
                                 </span>
@@ -70,7 +72,8 @@
                         <div class="form-group">
                             <div class="input-group date" id="datetimepicker-2">
                                 <i class="flaticon-calendar"></i>
-                                <input type="text" class="form-control" id="f_salida" name="f_salida" value="<?= date('Y-m-d'); ?>">
+                                <input type="text" class="form-control" id="f_salida" name="f_salida"
+                                    value="<?= date('Y-m-d'); ?>">
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-th"></i>
                                 </span>
@@ -86,7 +89,8 @@
                             <select name="habitacion" class="select-auto" id="habitacion" style="width: 100%;">
                                 <option value="">Seleccionar</option>
                                 <?php foreach ($data['habitaciones'] as $habitacion): ?>
-                                    <option value="<?= htmlspecialchars($habitacion['id']); ?>"><?= htmlspecialchars($habitacion['estilo']); ?></option>
+                                    <option value="<?= htmlspecialchars($habitacion['id']); ?>">
+                                        <?= htmlspecialchars($habitacion['estilo']); ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -119,7 +123,9 @@
                 <div class="single-rooms-item">
                     <div class="rooms-img">
                         <a href="room-details.html">
-                             <img loading="lazy" src="<?= htmlspecialchars(RUTA_PRINCIPAL . 'assets/img/habitaciones/' . $habitacion['foto']); ?>" alt="<?= htmlspecialchars($habitacion['estilo']); ?>">
+                            <img loading="lazy"
+                                src="<?= htmlspecialchars(RUTA_PRINCIPAL . 'assets/img/habitaciones/' . $habitacion['foto']); ?>"
+                                alt="<?= htmlspecialchars($habitacion['estilo']); ?>">
                         </a>
                     </div>
                     <div class="rooms-content">
@@ -147,10 +153,12 @@
                     <div class="single-news">
                         <div class="news-img">
                             <a href="<?= htmlspecialchars(RUTA_PRINCIPAL . 'blog/detalle/' . $entrada['slug']); ?>">
-                                <img loading="lazy" src="<?= htmlspecialchars(RUTA_PRINCIPAL . 'assets/img/entradas/' . $entrada['foto']); ?>" alt="<?= htmlspecialchars($entrada['titulo']); ?>">
+                                <img loading="lazy"
+                                    src="<?= htmlspecialchars(RUTA_PRINCIPAL . 'assets/img/entradas/' . $entrada['foto']); ?>"
+                                    alt="<?= htmlspecialchars($entrada['titulo']); ?>">
                             </a>
                             <div class="dates">
-                                <span><?= htmlspecialchars($entrada['categorias']); ?></span>
+                                <span><?= htmlspecialchars($entrada['categoriass']); ?></span>
                             </div>
                         </div>
                         <div class="news-content-wrap">
@@ -161,7 +169,8 @@
                                 <h3><?= htmlspecialchars($entrada['titulo']); ?></h3>
                             </a>
                             <p><?= htmlspecialchars(substr($entrada['descripcion'], 0, 100)) . '...'; ?></p>
-                            <a class="read-more" href="<?= htmlspecialchars(RUTA_PRINCIPAL . 'blog/detalle/' . $entrada['slug']); ?>">
+                            <a class="read-more"
+                                href="<?= htmlspecialchars(RUTA_PRINCIPAL . 'blog/detalle/' . $entrada['slug']); ?>">
                                 Leer más <i class="flaticon-right"></i>
                             </a>
                         </div>
@@ -187,20 +196,20 @@ if (!empty($_GET['respuesta']) && $_GET['respuesta'] === 'warning') { ?>
 <script src="<?= htmlspecialchars(RUTA_PRINCIPAL . 'assets/principal/js/pages/disponibilidad.js'); ?>"></script>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('.rooms-slider').owlCarousel({
-            loop:true,
-            margin:10,
-            nav:true,
-            responsive:{
-                0:{
-                    items:1
+            loop: true,
+            margin: 10,
+            nav: true,
+            responsive: {
+                0: {
+                    items: 1
                 },
-                600:{
-                    items:2
+                600: {
+                    items: 2
                 },
-                1000:{
-                    items:3
+                1000: {
+                    items: 3
                 }
             }
         });

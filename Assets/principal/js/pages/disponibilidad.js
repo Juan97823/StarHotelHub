@@ -6,49 +6,57 @@ const frm = document.querySelector("#formulario");
 document.addEventListener("DOMContentLoaded", function () {
     const calendarEl = document.getElementById("calendar");
 
-    // Inicializar calendario
     const calendar = new FullCalendar.Calendar(calendarEl, {
-        headerToolbar: {
-            left: "prev,next today",
-            center: "title",
-            right: "dayGridMonth"
-        },
+        headerToolbar: { left: "prev,next today", center: "title", right: "dayGridMonth" },
         initialView: "dayGridMonth",
         locale: "es",
         navLinks: true,
         businessHours: true,
         editable: false,
         selectable: true,
-        events: fetchEvents() // carga inicial
+        events: async function(info, successCallback, failureCallback) {
+            try {
+                const llegada = f_llegada.value || "";
+                const salida = f_salida.value || "";
+                const hab = habitacion.value || "";
+                const response = await fetch(`${base_url}reserva/listar/${llegada}/${salida}/${hab}`);
+                const data = await response.json();
+
+                // Mapeamos los eventos para FullCalendar
+                const eventos = data.map(ev => ({
+                    id: ev.id,
+                    title: ev.title,
+                    start: ev.start,
+                    end: ev.end,
+                    color: ev.color
+                }));
+
+                successCallback(eventos);
+            } catch (error) {
+                console.error("Error al cargar eventos:", error);
+                failureCallback(error);
+            }
+        }
     });
 
     calendar.render();
 
     // Actualizar calendario al cambiar fechas o habitación
-    [f_llegada, f_salida, habitacion].forEach((input) => {
+    [f_llegada, f_salida, habitacion].forEach(input => {
         input.addEventListener("change", () => {
-            calendar.removeAllEvents();
-            calendar.addEventSource(fetchEvents());
+            calendar.refetchEvents(); // recarga los eventos correctamente
         });
     });
-
-    // Función para obtener eventos
-    function fetchEvents() {
-        const llegada = f_llegada.value || "";
-        const salida = f_salida.value || "";
-        const hab = habitacion.value || "";
-        return base_url + "reserva/listar/" + llegada + "/" + salida + "/" + hab;
-    }
 
     // VALIDAR CAMPOS AL ENVIAR FORMULARIO
     frm.addEventListener("submit", function (e) {
         e.preventDefault();
         if (
-            frm.nombre.value == "" ||
-            frm.correo.value == "" ||
-            frm.f_llegada.value == "" ||
-            frm.f_salida.value == "" ||
-            frm.habitacion.value == ""
+            frm.nombre.value.trim() === "" ||
+            frm.correo.value.trim() === "" ||
+            frm.f_llegada.value.trim() === "" ||
+            frm.f_salida.value.trim() === "" ||
+            frm.habitacion.value.trim() === ""
         ) {
             alertaSW("TODOS LOS CAMPOS SON REQUERIDOS", "warning");
         } else {

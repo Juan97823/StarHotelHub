@@ -82,7 +82,6 @@ class Login extends Controller
                     'rol'  => $rol
                 ];
             } else {
-                // Opcional: aquí puedes contar intentos de login fallidos
                 $res = ['tipo' => 'warning', 'msg' => 'LA CONTRASEÑA ES INCORRECTA'];
             }
         }

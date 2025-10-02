@@ -72,12 +72,14 @@ class Blog extends Controller
             header('Content-Type: application/json; charset=utf-8');
 
             $esEdicion = !empty($_POST['id']);
-            $titulo = trim($_POST['titulo']);
-            $contenido = trim($_POST['contenido']);
+            $titulo = trim($_POST['titulo'] ?? '');
+            $descripcion = trim($_POST['descripcion'] ?? '');
+            $id_categorias = $_POST['id_categorias'] ?? null;
             $id_usuario = $_SESSION['usuario']['id'];
             $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $titulo)));
             $imagen = ($esEdicion && isset($_POST['imagen_actual'])) ? $_POST['imagen_actual'] : null;
 
+            // Subida de imagen
             if (!empty($_FILES['imagen']['name'])) {
                 $nombreImg = time() . "_" . basename($_FILES['imagen']['name']);
                 $destino = 'uploads/blog/' . $nombreImg;
@@ -88,9 +90,9 @@ class Blog extends Controller
 
             if ($esEdicion) {
                 $id = $_POST['id'];
-                $result = $this->model->actualizar($titulo, $contenido, $imagen, $slug, $id_usuario, $id);
+                $result = $this->model->actualizar($titulo, $descripcion, $imagen, $slug, $id_usuario, $id_categorias, $id);
             } else {
-                $result = $this->model->insertar($titulo, $contenido, $imagen, $slug, $id_usuario);
+                $result = $this->model->insertar($titulo, $descripcion, $imagen, $slug, $id_usuario, $id_categorias);
             }
 
             echo json_encode(
@@ -101,6 +103,8 @@ class Blog extends Controller
             exit;
         }
     }
+
+
 
     // Editar
     public function editar($id)

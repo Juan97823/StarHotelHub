@@ -24,7 +24,7 @@ class Dashboard extends Controller
     public function getData()
     {
         $this->cargarModel('DashboardModel');
-
+-
         $reservasHoy = $this->model->getReservasHoy()['total'] ?? 0;
         $habitacionesDisponibles = $this->model->getHabitacionesDisponibles()['total'] ?? 0;
         $ingresosMes = $this->model->getIngresosMes()['total'] ?? 0.00;

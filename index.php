@@ -16,7 +16,7 @@ function error404()
 }
 
 //  Detectar si es ruta de administrador
-$isAdmin = strpos($_SERVER['REQUEST_URI'], '/' . ADMIN) !== false;
+$isAdmin = strpos($_SERVER['REQUEST_URI'], '/' . ADMIN) !== false; 
 
 //  Obtener la ruta
 $ruta = empty($_GET['url']) ? 'Principal/index' : $_GET['url'];

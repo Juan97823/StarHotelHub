@@ -6,7 +6,7 @@
         // 1. INICIALIZACIÓN DE DATATABLE
         table = $("#usuariosTable").DataTable({
             language: {
-                url: base_url + "Assets/admin/js/es-ES.json"
+                url: base_url + "assets/admin/js/es-ES.json"
             },
             responsive: true,
             ajax: {
@@ -16,7 +16,7 @@
             columns: [
                 { 'data': 'id' },
                 { 'data': 'nombre' },
-                { 'data': 'correo' }, // <-- ESTANDARIZADO
+                { 'data': 'correo' },
                 { 'data': 'rol' },
                 { 'data': 'estado' },
                 { 'data': 'acciones', orderable: false, searchable: false }
@@ -89,7 +89,7 @@
                     $("#modalLabel").text("Editar Usuario");
                     $("#idUsuario").val(data.id);
                     $("#nombre").val(data.nombre);
-                    $("#correo").val(data.correo); // <-- ESTANDARIZADO
+                    $("#correo").val(data.correo); 
                     $("#rol").val(data.rol);
                     $("#clave").removeAttr('required');
                     modal.show();

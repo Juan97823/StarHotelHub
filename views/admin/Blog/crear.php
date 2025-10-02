@@ -12,41 +12,45 @@
         </div>
 
         <div class="card-body">
-            <form action="<?php echo RUTA_ADMIN; ?>blog/guardar" method="POST" enctype="multipart/form-data" autocomplete="off">
-                
+            <form action="<?php echo RUTA_ADMIN; ?>blog/guardar" method="POST" enctype="multipart/form-data"
+                autocomplete="off">
+
                 <!-- Título -->
                 <div class="mb-3">
                     <label for="titulo" class="form-label fw-semibold">Título <span class="text-danger">*</span></label>
-                    <input type="text" 
-                           name="titulo" 
-                           id="titulo" 
-                           class="form-control" 
-                           placeholder="Ej: Oferta especial en el restaurante del hotel" 
-                           minlength="5" 
-                           maxlength="150" 
-                           required>
+                    <input type="text" name="titulo" id="titulo" class="form-control"
+                        placeholder="Ej: Oferta especial en el restaurante del hotel" minlength="5" maxlength="150"
+                        required>
                 </div>
 
                 <!-- Contenido -->
                 <div class="mb-3">
-                    <label for="contenido" class="form-label fw-semibold">Contenido / Descripción <span class="text-danger">*</span></label>
-                    <textarea name="contenido" 
-                              id="contenido" 
-                              rows="6" 
-                              class="form-control" 
-                              placeholder="Escribe aquí la descripción completa de la entrada..." 
-                              minlength="20" 
-                              required></textarea>
+                    <label for="contenido" class="form-label fw-semibold">Contenido / Descripción <span
+                            class="text-danger">*</span></label>
+                    <textarea name="contenido" id="contenido" rows="6" class="form-control"
+                        placeholder="Escribe aquí la descripción completa de la entrada..." minlength="20"
+                        required></textarea>
                 </div>
+
+                <!-- Categoría -->
+                <div class="mb-3">
+                    <label for="id_categorias" class="form-label fw-semibold">Categoría <span
+                            class="text-danger">*</span></label>
+                    <select name="categoriass" id="id_categorias" class="form-select" required>
+                        <option value="" disabled selected>Selecciona una categoría</option>
+                        <?php foreach ($this->model->getcategoriass() as $cat): ?>
+                            <option value="<?php echo $cat['id']; ?>">
+                                <?php echo htmlspecialchars($cat['nombre']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
                 <!-- Imagen -->
                 <div class="mb-3">
                     <label for="imagen" class="form-label fw-semibold">Imagen destacada</label>
-                    <input type="file" 
-                           name="imagen" 
-                           id="imagen" 
-                           class="form-control" 
-                           accept="image/*"
-                           onchange="mostrarPreview(event)">
+                    <input type="file" name="imagen" id="imagen" class="form-control" accept="image/*"
+                        onchange="mostrarPreview(event)">
                     <small class="text-muted">Opcional. Si no subes imagen, se usará una por defecto.</small>
 
                     <!-- Preview -->

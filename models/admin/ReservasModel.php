@@ -29,6 +29,7 @@ class ReservasModel extends Query
         $sql = "SELECT * FROM reservas WHERE id = ?";
         return $this->select($sql, [$id]);
     }
+    
 
     // Guardar o actualizar reserva
     public function guardarReserva($datos)

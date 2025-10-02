@@ -38,26 +38,28 @@ document.addEventListener("DOMContentLoaded", function () {
                         : '<span class="badge bg-danger">Inhabilitado</span>';
                 }
             },
+
             {
-                data: null,
-                orderable: false, // No permitir ordenar por esta columna
+                data: "id",
                 render: function (data, type, row) {
-                    // Botón para cambiar el estado
+                    let btnEditar = `
+            <a href="blog/editar/${row.id}" class="btn btn-primary btn-sm">
+                <i class="fas fa-edit"></i>
+            </a>`;
+
                     let btnEstado = row.estado == 1
-                        ? `<button class="btn btn-warning btn-sm" onclick="cambiarEstado(${row.id}, 0, this)">
-                       <i class="fas fa-ban"></i>
-                   </button>`
-                        : `<button class="btn btn-success btn-sm" onclick="cambiarEstado(${row.id}, 1, this)">
-                       <i class="fas fa-check"></i>
-                   </button>`;
+                        ? `<button class="btn btn-warning btn-sm" onclick="handleStateChange(${row.id}, this)">
+                   <i class="fas fa-ban"></i>
+               </button>`
+                        : `<button class="btn btn-success btn-sm" onclick="handleStateChange(${row.id}, this)">
+                   <i class="fas fa-check"></i>
+               </button>`;
 
-                    // Botón para editar
-                    let btnEditar = `<a href="${RUTA_PRINCIPAL}admin/blog/editar/${row.id}" class="btn btn-info btn-sm">
-                               <i class="fas fa-edit"></i>
-                             </a>`;
-
-                    return `<div class="d-flex justify-content-center">${btnEstado} ${btnEditar}</div>`;
+                    return `${btnEditar} ${btnEstado}`;
                 }
+
+
+
             }
         ],
         language: {
@@ -91,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         form.addEventListener("submit", function (e) {
             const titulo = document.getElementById("titulo").value.trim();
-            const contenido = document.getElementById("contenido").value.trim(); {
+            const descripcion = document.getElementById("descripcion").value.trim(); {
                 e.preventDefault(); // detener envío
 
                 Swal.fire({
@@ -163,41 +165,56 @@ document.addEventListener("DOMContentLoaded", () => {
  * @param {number} nuevoEstado - El nuevo estado (0 para inhabilitado, 1 para habilitado).
  * @param {HTMLElement} boton - El botón que activó la función.
  */
-function cambiarEstado(id, nuevoEstado, boton) {
-    // Deshabilitar el botón para evitar clics múltiples
-    boton.disabled = true;
+function handleStateChange(id, btn) {
+    const row = $(btn).closest("tr");
+    const estadoActual = row.find("td:eq(4)").text().trim();
+    const nuevoEstado = estadoActual === "Habilitado" ? 0 : 1;
 
-    fetch(`${RUTA_PRINCIPAL}admin/blog/estado/${id}/${nuevoEstado}`, {
-        method: "GET",
-        headers: {
-            "X-Requested-With": "XMLHttpRequest"
-        }
-    })
-        .then(res => {
-            if (!res.ok) {
-                throw new Error('Error en la respuesta del servidor');
-            }
-            return res.json();
-        })
-        .then(data => {
+    // Guardar contenido original del botón
+    const originalHtml = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+    fetch(`${RUTA_PRINCIPAL}admin/blog/estado/${id},${nuevoEstado}`, { method: "GET" })
+        .then((res) => res.json())
+        .then((data) => {
             if (data.status === "success") {
-                // Recargar la tabla para mostrar el nuevo estado, sin resetear la paginación
-                tblBlog.ajax.reload(null, false);
-                // Opcional: Mostrar una notificación de éxito con SweetAlert2
-                Swal.fire('¡Éxito!', data.mensaje, 'success');
+                // Actualizar badge en la tabla
+                let badgeHtml = nuevoEstado === 1
+                    ? '<span class="badge bg-success">Habilitado</span>'
+                    : '<span class="badge bg-danger">Inhabilitado</span>';
+                row.find("td:eq(4)").html(badgeHtml);
+
+                // Cambiar el botón según nuevo estado
+                btn.className = nuevoEstado === 1
+                    ? "btn btn-warning btn-sm"
+                    : "btn btn-success btn-sm";
+                btn.innerHTML = nuevoEstado === 1
+                    ? '<i class="fas fa-ban"></i>'
+                    : '<i class="fas fa-check"></i>';
             } else {
-                // Mostrar una alerta de error si la operación falló
-                Swal.fire('Error', data.mensaje, 'error');
+                btn.innerHTML = originalHtml; // Restaurar si falla
+                Swal.fire("Error", data.mensaje, "error");
             }
         })
-        .catch(err => {
-            console.error("Error en la petición fetch:", err);
-            Swal.fire('Error de Conexión', 'No se pudo comunicar con el servidor.', 'error');
-        })
-        .finally(() => {
-            // Volver a habilitar el botón después de que la operación termine
-            if (boton) {
-                boton.disabled = false;
+    fetch(`${RUTA_PRINCIPAL}admin/blog/estado/${id},${nuevoEstado}`, { method: "GET" })
+        .then(async (res) => {
+            const raw = await res.text();
+            console.log("Respuesta cruda del servidor:", raw); // 🔍 Debug
+            try {
+                return JSON.parse(raw);
+            } catch (e) {
+                throw new Error("Respuesta no es JSON válido: " + raw);
             }
+        })
+        .then((data) => {
+            console.log("JSON parseado:", data);
+            // ... aquí tu lógica de actualización
+        })
+        .catch((err) => {
+            console.error("Error:", err);
+            Swal.fire("Error", err.message, "error");
+            btn.innerHTML = originalHtml;
+
         });
 }
+

@@ -13,9 +13,9 @@ class ReservaModel extends Query
     public function getDisponible($f_llegada, $f_salida, $habitacion)
     {
         $query = "SELECT * FROM reservas 
-                  WHERE fecha_ingreso <= :f_salida
-                  AND fecha_salida >= :f_llegada 
-                  AND id_habitacion = :habitacion";
+                WHERE fecha_ingreso <= :f_salida
+                AND fecha_salida >= :f_llegada 
+                AND id_habitacion = :habitacion";
         $params = [
             ':f_llegada' => $f_llegada,
             ':f_salida' => $f_salida,
@@ -28,7 +28,7 @@ class ReservaModel extends Query
     public function getReservasHabitacion($habitacion)
     {
         $query = "SELECT * FROM reservas 
-                  WHERE id_habitacion = :habitacion";
+                WHERE id_habitacion = :habitacion";
         $params = [':habitacion' => $habitacion];
         return $this->selectAll($query, $params);
     }
@@ -74,9 +74,9 @@ class ReservaModel extends Query
     public function getReservasCliente($id_usuario)
     {
         $query = "SELECT r.*, h.estilo AS tipo, r.monto AS monto_total
-                  FROM reservas r
-                  JOIN habitaciones h ON r.id_habitacion = h.id
-                  WHERE r.id_usuario = :id_usuario";
+                FROM reservas r
+                JOIN habitaciones h ON r.id_habitacion = h.id
+                WHERE r.id_usuario = :id_usuario";
         $params = [':id_usuario' => $id_usuario];
         return $this->selectAll($query, $params);
     }
@@ -116,18 +116,24 @@ class ReservaModel extends Query
     // Inserta la reserva asociada al usuario
     public function insertReservaPublica($data)
     {
-        $sql = "INSERT INTO reservas (id_habitacion, id_usuario, fecha_ingreso, fecha_salida, observaciones, estado)
-            VALUES (:id_habitacion, :id_usuario, :fecha_ingreso, :fecha_salida, :observaciones, :estado)";
+        $sql = "INSERT INTO reservas 
+        (id_habitacion, id_usuario, fecha_ingreso, fecha_salida, descripcion, estado, metodo)
+        VALUES 
+        (:id_habitacion, :id_usuario, :fecha_ingreso, :fecha_salida, :descripcion, :estado, :metodo)";
+
         $params = [
             ':id_habitacion' => $data['habitacion_id'],
             ':id_usuario' => $data['usuario_id'],
-            ':fecha_ingreso' => $data['fecha_entrada'],
+            ':fecha_ingreso' => $data['fecha_ingreso'],
             ':fecha_salida' => $data['fecha_salida'],
-            ':observaciones' => $data['observaciones'],
-            ':estado' => $data['estado']
+            ':descripcion' => $data['descripcion'] ?? '',
+            ':estado' => $data['estado'],
+            ':metodo' => $data['metodo'] ?? 1
         ];
+
         return $this->insert($sql, $params);
     }
+
 
 
     // Genera la factura de la reserva
@@ -135,9 +141,9 @@ class ReservaModel extends Query
     {
         // Obtener datos de la reserva y habitación
         $reserva = $this->select("SELECT r.*, h.precio, h.estilo 
-                              FROM reservas r 
-                              JOIN habitaciones h ON r.id_habitacion = h.id
-                              WHERE r.id = :id", [':id' => $idReserva]);
+                        FROM reservas r 
+                        JOIN habitaciones h ON r.id_habitacion = h.id
+                        WHERE r.id = :id", [':id' => $idReserva]);
 
         if (!$reserva)
             return false;
@@ -164,6 +170,34 @@ class ReservaModel extends Query
         ];
         return $this->insert($sql, $params);
     }
+    public function registrarPago($data)
+    {
+        $sql = "INSERT INTO pagos (
+                monto, num_transaccion, cod_reserva, fecha_ingreso, fecha_salida,
+                descripcion, estado, metodo, facturacion, id_habitacion, id_usuario, id_empleado
+            ) VALUES (
+                :monto, :num_transaccion, :cod_reserva, :fecha_ingreso, :fecha_salida,
+                :descripcion, :estado, :metodo, :facturacion, :id_habitacion, :id_usuario, :id_empleado
+            )";
+
+        $params = [
+            ':monto' => $data['monto'],
+            ':num_transaccion' => $data['num_transaccion'],
+            ':cod_reserva' => $data['cod_reserva'],
+            ':fecha_ingreso' => $data['fecha_ingreso'],
+            ':fecha_salida' => $data['fecha_salida'],
+            ':descripcion' => $data['descripcion'],
+            ':estado' => $data['estado'] ?? 1, // por defecto activo
+            ':metodo' => $data['metodo'],
+            ':facturacion' => $data['facturacion'],
+            ':id_habitacion' => $data['id_habitacion'],
+            ':id_usuario' => $data['id_usuario'],
+            ':id_empleado' => $data['id_empleado'] ?? null
+        ];
+
+        return $this->insert($sql, $params);
+    }
+
 
     /**
      * NUEVO MÉTODO: Actualiza el estado de la reserva y la factura después de un pago exitoso.

@@ -17,29 +17,29 @@ $nombreUsuario = htmlspecialchars($nombreUsuario, ENT_QUOTES, 'UTF-8');
     <title>StarHotelHub - Panel de Administración</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo $urlBase . 'Assets/img/Logo.png'; ?>">
+    <link rel="icon" type="image/png" href="<?php echo $urlBase . 'assets/img/Logo.png'; ?>">
 
     <!-- Fuentes -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
     <!-- Estilos de Plugins -->
-    <link href="<?php echo $urlBase . 'Assets/admin/plugins/simplebar/css/simplebar.css'; ?>" rel="stylesheet" />
-    <link href="<?php echo $urlBase . 'Assets/admin/plugins/metismenu/css/metisMenu.min.css'; ?>" rel="stylesheet" />
+    <link href="<?php echo $urlBase . 'assets/admin/plugins/simplebar/css/simplebar.css'; ?>" rel="stylesheet" />
+    <link href="<?php echo $urlBase . 'assets/admin/plugins/metismenu/css/metisMenu.min.css'; ?>" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
 
     <!-- Estilos Principales de la Plantilla -->
-    <link href="<?php echo $urlBase . 'Assets/admin/css/pace.min.css'; ?>" rel="stylesheet" />
-    <link href="<?php echo $urlBase . 'Assets/admin/css/bootstrap.min.css'; ?>" rel="stylesheet">
-    <link href="<?php echo $urlBase . 'Assets/admin/css/bootstrap-extended.css'; ?>" rel="stylesheet">
-    <link href="<?php echo $urlBase . 'Assets/admin/css/app.css'; ?>" rel="stylesheet">
-    <link href="<?php echo $urlBase . 'Assets/admin/css/icons.css'; ?>" rel="stylesheet">
-    
+    <link href="<?php echo $urlBase . 'assets/admin/css/pace.min.css'; ?>" rel="stylesheet" />
+    <link href="<?php echo $urlBase . 'assets/admin/css/bootstrap.min.css'; ?>" rel="stylesheet">
+    <link href="<?php echo $urlBase . 'assets/admin/css/bootstrap-extended.css'; ?>" rel="stylesheet">
+    <link href="<?php echo $urlBase . 'assets/admin/css/app.css'; ?>" rel="stylesheet">
+    <link href="<?php echo $urlBase . 'assets/admin/css/icons.css'; ?>" rel="stylesheet">
+
     <!-- Estilos Personalizados -->
-    <link rel="stylesheet" href="<?php echo $urlBase . 'Assets/admin/css/custom-dashboard.css'; ?>" />
-    
-    <script src="<?php echo $urlBase . 'Assets/admin/js/pace.min.js'; ?>"></script>
+    <link rel="stylesheet" href="<?php echo $urlBase . 'assets/admin/css/custom-dashboard.css'; ?>" />
+
+    <script src="<?php echo $urlBase . 'assets/admin/js/pace.min.js'; ?>"></script>
 
     <!-- ** INICIO DE LA CORRECCIÓN ** -->
     <!-- Definir la constante RUTA_PRINCIPAL como una variable global de JavaScript -->
@@ -56,7 +56,8 @@ $nombreUsuario = htmlspecialchars($nombreUsuario, ENT_QUOTES, 'UTF-8');
         <div class="sidebar-wrapper" data-simplebar="true">
             <div class="sidebar-header">
                 <a href="<?php echo $urlAdmin . 'dashboard'; ?>" class="d-flex align-items-center">
-                    <img src="<?php echo $urlBase . 'Assets/img/Logo.png'; ?>" class="logo-icon" alt="StarHotelHub Logo">
+                    <img src="<?php echo $urlBase . 'assets/img/Logo.png'; ?>" class="logo-icon"
+                        alt="StarHotelHub Logo">
                     <h4 class="logo-text ms-2">StarHotelHub</h4>
                 </a>
             </div>
@@ -111,8 +112,9 @@ $nombreUsuario = htmlspecialchars($nombreUsuario, ENT_QUOTES, 'UTF-8');
 
             <!-- Perfil de Usuario -->
             <div class="user-profile-section dropdown">
-                 <a class="d-flex align-items-center nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="<?php echo $urlBase . 'Assets/img/logo.png'; ?>" class="user-img" alt="Avatar de Usuario">
+                <a class="d-flex align-items-center nav-link dropdown-toggle" href="#" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="<?php echo $urlBase . 'assets/img/logo.png'; ?>" class="user-img" alt="Avatar de Usuario">
                     <div class="user-info ps-3">
                         <p class="user-name mb-0"><?php echo $nombreUsuario; ?></p>
                         <p class="designattion mb-0">Ver Perfil</p>
@@ -124,7 +126,9 @@ $nombreUsuario = htmlspecialchars($nombreUsuario, ENT_QUOTES, 'UTF-8');
                             <i class="bx bx-user"></i><span>Mi Perfil</span>
                         </a>
                     </li>
-                    <li><div class="dropdown-divider mb-0"></div></li>
+                    <li>
+                        <div class="dropdown-divider mb-0"></div>
+                    </li>
                     <li>
                         <a class="dropdown-item" href="<?php echo $urlBase . 'logout'; ?>">
                             <i class='bx bx-log-out-circle'></i><span>Cerrar Sesión</span>
