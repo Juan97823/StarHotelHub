@@ -44,8 +44,8 @@ if ($isAdmin && (count($array) == 1 || (count($array) == 2 && empty($array[1])))
 
     if ($isAdmin && isset($array[1]) && $array[1] === 'dashboard') {
         // Caso especial: /admin/dashboard
-        $controller = 'Admin';
-        $metodo = 'dashboard';
+        $controller = 'Dashboard';
+        $metodo = 'index';
     } else {
         $controller = ucfirst($array[$indiceUrl]);
         $metodo = 'index';
@@ -69,8 +69,8 @@ require_once 'config/app/Autoload.php';
 
 //  Ruta de controlador según tipo
 $dirControllers = $isAdmin
-    ? "controllers/admin/{$controller}.php"
-    : "controllers/principal/{$controller}.php";
+    ? "controllers/Admin/{$controller}.php"
+    : "controllers/Principal/{$controller}.php";
 
 //  Cargar controlador
 if (file_exists($dirControllers)) {

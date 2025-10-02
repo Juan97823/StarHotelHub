@@ -36,9 +36,9 @@
                 <div class="mb-3">
                     <label for="id_categorias" class="form-label fw-semibold">Categoría <span
                             class="text-danger">*</span></label>
-                    <select name="categoriass" id="id_categorias" class="form-select" required>
+                    <select name="categorias" id="id_categorias" class="form-select" required>
                         <option value="" disabled selected>Selecciona una categoría</option>
-                        <?php foreach ($this->model->getcategoriass() as $cat): ?>
+                        <?php foreach ($this->model->getcategorias() as $cat): ?>
                             <option value="<?php echo $cat['id']; ?>">
                                 <?php echo htmlspecialchars($cat['nombre']); ?>
                             </option>

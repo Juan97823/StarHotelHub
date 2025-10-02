@@ -25,7 +25,7 @@
                 <label for="id_categorias" class="form-label">Categoría</label>
                 <select class="form-control" id="id_categorias" name="id_categorias" required>
                     <option value="">Seleccione categoría</option>
-                    <?php foreach ($categoriass as $cat) { ?>
+                    <?php foreach ($categorias as $cat) { ?>
                         <option value="<?php echo $cat['id']; ?>" <?php echo ($entrada['id_categorias'] == $cat['id']) ? 'selected' : ''; ?>>
                             <?php echo htmlspecialchars($cat['nombre']); ?>
                         </option>

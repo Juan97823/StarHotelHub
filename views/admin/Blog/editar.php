@@ -39,7 +39,7 @@
                     <label for="categorias" class="form-label fw-bold">Categoría</label>
                     <select name="id_categorias" id="categorias" class="form-select" required>
                         <option value="">Selecciona una categoría</option>
-                        <?php foreach ($data['categoriass'] as $cat): ?>
+                        <?php foreach ($data['categorias'] as $cat): ?>
                             <option value="<?php echo $cat['id']; ?>" <?php echo $cat['id'] == $data['entrada']['id_categorias'] ? 'selected' : ''; ?>>
                                 <?php echo htmlspecialchars($cat['nombre']); ?>
                             </option>
