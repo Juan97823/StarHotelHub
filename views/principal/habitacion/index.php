@@ -16,15 +16,15 @@ include_once 'views/template/portada.php';
                 <div class="col-lg-4 col-md-6">
                     <div class="single-room-card">
                         <div class="room-image">
-                            <a href="<?php echo RUTA_PRINCIPAL . 'habitacion/detalle/' . $habitacion['slug']; ?>">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#reservationModal" data-id="<?php echo $habitacion['id']; ?>">
                                 <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/habitaciones/' . $habitacion['foto']; ?>" alt="<?php echo $habitacion['estilo']; ?>">
                             </a>
                         </div>
                         <div class="room-content">
-                            <h3><a href="<?php echo RUTA_PRINCIPAL . 'habitacion/detalle/' . $habitacion['slug']; ?>"><?php echo $habitacion['estilo']; ?></a></h3>
+                            <h3><a href="#" data-bs-toggle="modal" data-bs-target="#reservationModal" data-id="<?php echo $habitacion['id']; ?>"><?php echo $habitacion['estilo']; ?></a></h3>
                             <p>Capacidad para <?php echo $habitacion['capacidad']; ?> personas.</p>
                             <div class="price">Desde <span>$<?php echo number_format($habitacion['precio']); ?></span> / noche</div>
-                            <a href="<?php echo RUTA_PRINCIPAL . 'habitacion/detalle/' . $habitacion['slug']; ?>" class="btn-details">Ver Detalles</a>
+                            <a href="#" class="btn-details" data-bs-toggle="modal" data-bs-target="#reservationModal" data-id="<?php echo $habitacion['id']; ?>">Reservar</a>
                         </div>
                     </div>
                 </div>

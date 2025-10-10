@@ -44,6 +44,26 @@ class Reserva extends Controller
         $this->views->getView('principal/reservas', $data);
     }
 
+    public function verificar()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $f_llegada = strClean($_POST['f_llegada'] ?? '');
+            $f_salida = strClean($_POST['f_salida'] ?? '');
+            $habitacion = strClean($_POST['habitacion'] ?? '');
+
+            if (empty($f_llegada) || empty($f_salida) || empty($habitacion)) {
+                echo json_encode(['disponible' => false]);
+                exit;
+            }
+
+            $reserva = $this->model->getDisponible($f_llegada, $f_salida, $habitacion);
+            
+            header('Content-Type: application/json');
+            echo json_encode(['disponible' => empty($reserva)]);
+            exit;
+        }
+    }
+
     // Devuelve reservas de la habitación en formato JSON para FullCalendar
     public function listar($parametros = '')
     {
@@ -115,15 +135,14 @@ class Reserva extends Controller
 
         // 4. Insertar reserva
         $dataReserva = [
-            ':id_habitacion' => $habitacion_id,
-            ':id_usuario' => $idUsuario,
-            ':fecha_ingreso' => $f_llegada,
-            ':fecha_salida' => $f_salida,
-            ':descripcion' => $descripcion,
-            ':estado' => 1,
-            ':metodo' => $metodo
+            'habitacion_id' => $habitacion_id,
+            'usuario_id' => $idUsuario,
+            'fecha_ingreso' => $f_llegada,
+            'fecha_salida' => $f_salida,
+            'descripcion' => $descripcion,
+            'estado' => 1,
+            'metodo' => $metodo
         ];
-
 
         $idReserva = $this->model->insertReservaPublica($dataReserva);
 
@@ -134,7 +153,7 @@ class Reserva extends Controller
 
         // 5. Calcular monto según habitación y noches
         $habitacion = $this->model->getHabitacion($habitacion_id);
-        if (!$habitacion) {$idReserva = $this->model->insertReservaPublica($dataReserva);
+        if (!$habitacion) {
             echo json_encode(['status' => 'error', 'msg' => 'Habitación no encontrada']);
             exit;
         }

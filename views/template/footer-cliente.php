@@ -25,6 +25,11 @@
 <!-- Script principal de la aplicación -->
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/js/app.js'; ?>"></script>
 
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/clientes.js'; ?>"></script>
+
 </body>
 
 </html>

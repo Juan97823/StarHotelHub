@@ -11,14 +11,15 @@ class ReservaModel extends Query
     // Obtener reservas disponibles para una habitación específica entre fechas
     public function getDisponible($f_llegada, $f_salida, $habitacion)
     {
+        $id_habitacion = intval($habitacion);
         $query = "SELECT * FROM reservas 
-                WHERE fecha_ingreso <= :f_salida
-                AND fecha_salida >= :f_llegada 
+                WHERE fecha_ingreso < :f_salida
+                AND fecha_salida > :f_llegada 
                 AND id_habitacion = :habitacion";
         $params = [
             ':f_llegada' => $f_llegada,
             ':f_salida' => $f_salida,
-            ':habitacion' => $habitacion
+            ':habitacion' => $id_habitacion
         ];
         return $this->selectAll($query, $params);
     }
@@ -26,9 +27,10 @@ class ReservaModel extends Query
     // Obtener todas las reservas de una habitación
     public function getReservasHabitacion($habitacion)
     {
+        $id_habitacion = intval($habitacion);
         $query = "SELECT * FROM reservas 
                 WHERE id_habitacion = :habitacion";
-        $params = [':habitacion' => $habitacion];
+        $params = [':habitacion' => $id_habitacion];
         return $this->selectAll($query, $params);
     }
 
@@ -42,7 +44,7 @@ class ReservaModel extends Query
     public function getHabitacion($id_habitacion)
     {
         $query = "SELECT * FROM habitaciones WHERE id = :id_habitacion";
-        $params = [':id_habitacion' => $id_habitacion];
+        $params = [':id_habitacion' => intval($id_habitacion)];
         return $this->select($query, $params);
     }
 
@@ -72,7 +74,7 @@ class ReservaModel extends Query
     // Obtener todas las reservas de un cliente
     public function getReservasCliente($id_usuario)
     {
-        $query = "SELECT r.*, h.estilo AS tipo, r.monto AS monto_total
+        $query = "SELECT r.*, h.estilo AS tipo, h.foto, r.monto AS monto_total
                 FROM reservas r
                 JOIN habitaciones h ON r.id_habitacion = h.id
                 WHERE r.id_usuario = :id_usuario";
@@ -121,16 +123,18 @@ class ReservaModel extends Query
                 fecha_ingreso,
                 fecha_salida,
                 descripcion,
+                metodo,
                 estado,
-                metodo
+                monto
             ) VALUES (
                 :id_habitacion,
                 :id_usuario,
                 :fecha_ingreso,
                 :fecha_salida,
                 :descripcion,
+                :metodo,
                 :estado,
-                :metodo
+                :monto
             )";
 
         return $this->insert($sql, $data);
@@ -238,6 +242,13 @@ class ReservaModel extends Query
 
         // Devuelve true solo si ambas actualizaciones fueron exitosas
         return $reservaUpdated && $facturaUpdated;
+    }
+
+    public function cancelarReserva($idReserva)
+    {
+        $sql = "UPDATE reservas SET estado = ? WHERE id = ?";
+        $params = [3, $idReserva]; // 3 = cancelado
+        return $this->save($sql, $params);
     }
 
 }

@@ -26,9 +26,8 @@ class Cliente extends Controller
 
         // Obtener datos usando el modelo
         $totalReservas = $this->reservaModel->getCantidadReservas($idUsuario);
-        // Usar 1 para 'pendiente' y 2 para 'completada'
-        $reservasPendientes = $this->reservaModel->getCantidadReservasByEstado($idUsuario, 1);
-        $reservasCompletadas = $this->reservaModel->getCantidadReservasByEstado($idUsuario, 2);
+        $reservasPendientes = $this->reservaModel->getCantidadReservasByEstado($idUsuario, 1); // 1 para pendiente
+        $reservasCompletadas = $this->reservaModel->getCantidadReservasByEstado($idUsuario, 2); // 2 para completada
         $listaReservas = $this->reservaModel->getReservasCliente($idUsuario);
 
         // Pasar datos a la vista
@@ -39,6 +38,42 @@ class Cliente extends Controller
         $data['reservas'] = $listaReservas;
 
         $this->views->getView('principal/clientes/index', $data);
+    }
+
+    public function reservas()
+    {
+        $data['title'] = 'Gestionar Mis Reservas';
+        $idUsuario = $_SESSION['usuario']['id'];
+        
+        // Obtener todas las reservas del cliente
+        $listaReservas = $this->reservaModel->getReservasCliente($idUsuario);
+        $data['reservas'] = $listaReservas;
+
+        // Cargar la nueva vista de gestión de reservas
+        $this->views->getView('principal/clientes/Reservas', $data);
+    }
+
+    public function cancelar($idReserva)
+    {
+        $reserva = $this->reservaModel->getReservaById($idReserva);
+
+        if (!$reserva || $reserva['id_usuario'] != $_SESSION['usuario']['id']) {
+            echo json_encode(['estado' => false, 'msg' => 'No tienes permiso para cancelar esta reserva.']);
+            exit;
+        }
+
+        if ($reserva['estado'] != 1) { // 1 = pendiente
+            echo json_encode(['estado' => false, 'msg' => 'Solo puedes cancelar reservas pendientes.']);
+            exit;
+        }
+
+        $result = $this->reservaModel->cancelarReserva($idReserva);
+
+        if ($result) {
+            echo json_encode(['estado' => true, 'msg' => 'Reserva cancelada con éxito.']);
+        } else {
+            echo json_encode(['estado' => false, 'msg' => 'Error al cancelar la reserva.']);
+        }
     }
 }
 ?>

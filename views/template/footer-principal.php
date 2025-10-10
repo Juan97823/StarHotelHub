@@ -89,8 +89,8 @@
 		</div>
 
 	</div>
-
-	
+</footer>
+<!-- Fin del Área de Footer -->
 
 <!-- Start Go Top Area -->
 <div class="go-top">
@@ -99,11 +99,10 @@
 </div>
 <!-- End Go Top Area -->
 
-
-<script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/disponibilidad.js'; ?>"></script>
-<script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/reservas.js'; ?>"></script>
 <!-- Jquery Min JS -->
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/js/jquery.min.js"></script>
+<!-- Bootstrap Min JS -->
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/js/bootstrap.bundle.min.js"></script>
 <!-- Meanmenu Min JS -->
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/js/meanmenu.min.js"></script>
 <!-- Owl Carousel Min JS -->
@@ -136,6 +135,7 @@
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/fullcalendar/es.global.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
 	const base_url = '<?php echo RUTA_PRINCIPAL; ?>';
 
@@ -150,5 +150,13 @@
 		});
 	}
 </script>
+
 <!-- Custom JS -->
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/js/custom.js"></script>
+
+<!-- Page specific scripts -->
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/disponibilidad.js'; ?>"></script>
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/reservas.js'; ?>"></script>
+
+</body>
+</html>

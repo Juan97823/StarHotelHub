@@ -15,7 +15,6 @@ $habitacion = $data['habitacion'];
                     <div class="main-image">
                         <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/habitaciones/' . $habitacion['foto']; ?>" alt="<?php echo $habitacion['estilo']; ?>">
                     </div>
-                    <!-- Puedes agregar miniaturas aquí si tienes más imágenes -->
                 </div>
             </div>
 
@@ -32,7 +31,6 @@ $habitacion = $data['habitacion'];
                                 <i class="bx bx-group"></i>
                                 <span>Capacidad: <strong><?php echo $habitacion['capacidad']; ?> Personas</strong></span>
                             </div>
-                            <!-- Agrega más características con iconos según los datos que tengas -->
                             <?php
                             if (!empty($habitacion['servicios'])) {
                                 $servicios = explode(',', $habitacion['servicios']);
@@ -49,20 +47,10 @@ $habitacion = $data['habitacion'];
                         <p>$<?php echo number_format($habitacion['precio']); ?> / noche</p>
                     </div>
 
-                    <div class="booking-form">
-                        <h3>Reservar esta Habitación</h3>
-                        <form action="<?php echo RUTA_PRINCIPAL . 'reserva'; ?>" method="get">
-                            <input type="hidden" name="id" value="<?php echo $habitacion['id']; ?>">
-                            <div class="form-group">
-                                <label for="checkin">Fecha de Entrada</label>
-                                <input type="date" id="checkin" name="checkin" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="checkout">Fecha de Salida</label>
-                                <input type="date" id="checkout" name="checkout" class="form-control" required>
-                            </div>
-                            <button type="submit" class="btn-booking">Reservar Ahora</button>
-                        </form>
+                    <div class="booking-action text-center mt-4">
+                        <a href="#" class="btn-booking" data-bs-toggle="modal" data-bs-target="#reservationModal" data-id="<?php echo $habitacion['id']; ?>">
+                            Reservar Ahora
+                        </a>
                     </div>
                 </div>
             </div>

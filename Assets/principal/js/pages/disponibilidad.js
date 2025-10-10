@@ -1,11 +1,14 @@
-const f_llegada = document.querySelector("#f_llegada");
-const f_salida = document.querySelector("#f_salida");
-const habitacion = document.querySelector("#habitacion");
-const frm = document.querySelector("#formulario");
-
 document.addEventListener("DOMContentLoaded", function () {
+    // --- SELECTORES (dentro de DOMContentLoaded para evitar duplicados) ---
+    const f_llegada = document.querySelector("#f_llegada");
+    const f_salida = document.querySelector("#f_salida");
+    const habitacion = document.querySelector("#habitacion");
+    const frm = document.querySelector("#formulario");
     const calendarEl = document.getElementById("calendar");
 
+    if (!calendarEl) return; // salir si no existe el calendario
+
+    // --- FULLCALENDAR ---
     const calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: { left: "prev,next today", center: "title", right: "dayGridMonth" },
         initialView: "dayGridMonth",
@@ -16,13 +19,12 @@ document.addEventListener("DOMContentLoaded", function () {
         selectable: true,
         events: async function(info, successCallback, failureCallback) {
             try {
-                const llegada = f_llegada.value || "";
-                const salida = f_salida.value || "";
-                const hab = habitacion.value || "";
+                const llegada = f_llegada?.value || "";
+                const salida = f_salida?.value || "";
+                const hab = habitacion?.value || "";
                 const response = await fetch(`${base_url}reserva/listar/${llegada}/${salida}/${hab}`);
                 const data = await response.json();
 
-                // Mapeamos los eventos para FullCalendar
                 const eventos = data.map(ev => ({
                     id: ev.id,
                     title: ev.title,
@@ -41,22 +43,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     calendar.render();
 
-    // Actualizar calendario al cambiar fechas o habitación
+    // --- Actualizar calendario al cambiar fechas o habitación ---
     [f_llegada, f_salida, habitacion].forEach(input => {
-        input.addEventListener("change", () => {
-            calendar.refetchEvents(); // recarga los eventos correctamente
+        input?.addEventListener("change", () => {
+            calendar.refetchEvents();
         });
     });
 
-    // VALIDAR CAMPOS AL ENVIAR FORMULARIO
-    frm.addEventListener("submit", function (e) {
+    // --- Validar campos al enviar formulario ---
+    frm?.addEventListener("submit", function (e) {
         e.preventDefault();
         if (
-            frm.nombre.value.trim() === "" ||
-            frm.correo.value.trim() === "" ||
-            frm.f_llegada.value.trim() === "" ||
-            frm.f_salida.value.trim() === "" ||
-            frm.habitacion.value.trim() === ""
+            !frm.nombre?.value.trim() ||
+            !frm.correo?.value.trim() ||
+            !frm.f_llegada?.value.trim() ||
+            !frm.f_salida?.value.trim() ||
+            !frm.habitacion?.value.trim()
         ) {
             alertaSW("TODOS LOS CAMPOS SON REQUERIDOS", "warning");
         } else {

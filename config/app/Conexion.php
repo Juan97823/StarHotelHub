@@ -11,7 +11,7 @@ class Conexion {
                 PDO::ATTR_EMULATE_PREPARES => false, //  seguridad contra inyecciones
             ]);
         } catch (PDOException $e) {
-            // ⚠️ No mostrar detalles en producción
+            // No mostrar detalles en producción
             error_log("Error de conexión: " . $e->getMessage());
             die("Error en la conexión a la base de datos.");
         }

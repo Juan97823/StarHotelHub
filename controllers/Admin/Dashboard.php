@@ -1,81 +1,102 @@
 <?php
-
 class Dashboard extends Controller
 {
     public function __construct()
     {
         parent::__construct();
-        verificarRol(1);
+        verificarRol(1); // Solo administradores
+        $this->cargarModel('DashboardModel');
+
+        if (!$this->model) {
+            die("Error: DashboardModel no se pudo cargar.");
+        }
     }
 
     /**
-     * Muestra la página principal del panel de administración.
+     * Vista principal del panel de administración
      */
     public function index()
     {
         $data['title'] = 'Panel de Administración';
+        $data['nombre_usuario'] = $_SESSION['usuario']['nombre'] ?? 'Administrador';
         $this->views->getView('admin/dashboard', $data);
     }
 
     /**
-     * Endpoint para obtener los datos del dashboard vía AJAX.
-     * Retorna un JSON con todas las estadísticas necesarias.
+     * Endpoint JSON para AJAX: devuelve todos los datos del dashboard
      */
     public function getData()
     {
         $this->cargarModel('DashboardModel');
--
+
+        // --- Indicadores ---
         $reservasHoy = $this->model->getReservasHoy()['total'] ?? 0;
         $habitacionesDisponibles = $this->model->getHabitacionesDisponibles()['total'] ?? 0;
         $ingresosMes = $this->model->getIngresosMes()['total'] ?? 0.00;
         $totalClientes = $this->model->getTotalClientes()['total'] ?? 0;
-        $ultimasReservas = $this->model->getUltimasReservas(5);
 
-        $reservasSemana = $this->model->getReservasUltimaSemana();
-        $graficoReservas = $this->prepararDatosGrafico($reservasSemana);
+        // --- Últimas reservas ---
+        $ultimasReservasRaw = $this->model->getUltimasReservas(5);
+        $ultimasReservas = [];
 
+        foreach ($ultimasReservasRaw as $reserva) {
+            // Convertir estado numérico a texto
+            switch ($reserva['estado']) {
+                case 1:
+                    $estado_texto = 'Pendiente';
+                    break;
+                case 2:
+                    $estado_texto = 'Confirmado';
+                    break;
+                case 3:
+                    $estado_texto = 'Cancelado';
+                    break;
+                default:
+                    $estado_texto = 'Desconocido';
+            }
+
+            $ultimasReservas[] = [
+                'cliente' => $reserva['nombre_usuario'],    // Ajusta al campo real en tu BD
+                'habitacion' => $reserva['habitacion'],    // Ajusta al campo real en tu BD
+                'fecha_reserva' => $reserva['fecha_ingreso'], // Ajusta al campo real
+                'estado_texto' => $estado_texto
+            ];
+        }
+
+        // --- Gráfico últimas 7 reservas ---
+        $reservasSemanaRaw = $this->model->getReservasUltimaSemana();
+        $graficoReservas = ['labels' => [], 'data' => []];
+
+        // Inicializar últimos 7 días con 0 reservas
+        for ($i = 6; $i >= 0; $i--) {
+            $fecha = date('Y-m-d', strtotime("-$i days"));
+            $graficoReservas['labels'][] = $fecha;
+            $graficoReservas['data'][] = 0;
+        }
+
+        // Llenar datos reales
+        foreach ($reservasSemanaRaw as $reserva) {
+            $fecha = $reserva['fecha']; // Ajusta según tu campo real
+            $index = array_search($fecha, $graficoReservas['labels']);
+            if ($index !== false) {
+                $graficoReservas['data'][$index] = (int) $reserva['total'];
+            }
+        }
+
+        // --- Preparar JSON final ---
         $data = [
             'indicadores' => [
                 'reservasHoy' => $reservasHoy,
                 'habitacionesDisponibles' => $habitacionesDisponibles,
-                'ingresosMes' => number_format($ingresosMes, 2),
-                'totalClientes' => $totalClientes,
+                'ingresosMes' => number_format($ingresosMes, 0, ',', '.'),
+                'totalClientes' => $totalClientes
             ],
             'graficoReservas' => $graficoReservas,
             'ultimasReservas' => $ultimasReservas
         ];
 
         header('Content-Type: application/json');
-        echo json_encode($data, JSON_NUMERIC_CHECK);
-        die();
-    }
-
-    /**
-     * Prepara los datos para el gráfico de Chart.js.
-     * @param array $datosReservas - Datos de las reservas de la última semana.
-     * @return array - Array con etiquetas y valores para el gráfico.
-     */
-    private function prepararDatosGrafico($datosReservas)
-    {
-        $dias = [];
-        // Inicializar los últimos 7 días con 0 reservas.
-        for ($i = 6; $i >= 0; $i--) {
-            $fecha = date('Y-m-d', strtotime("-$i days"));
-            $dias[date('D', strtotime($fecha))] = 0; // 'Mon', 'Tue', etc.
-        }
-
-        // Llenar los días con los totales de las reservas.
-        foreach ($datosReservas as $reserva) {
-            $diaSemana = date('D', strtotime($reserva['fecha']));
-            if (isset($dias[$diaSemana])) {
-                $dias[$diaSemana] = (int)$reserva['total'];
-            }
-        }
-
-        return [
-            'labels' => array_keys($dias),
-            'data' => array_values($dias)
-        ];
+        echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK);
+        exit;
     }
 }
-?>

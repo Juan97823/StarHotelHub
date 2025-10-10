@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-10-2025 a las 07:11:13
+-- Tiempo de generación: 10-10-2025 a las 06:43:27
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -149,11 +149,44 @@ CREATE TABLE `pagos` (
   `id_reserva` int(11) NOT NULL,
   `monto` decimal(10,2) NOT NULL,
   `num_transaccion` varchar(100) NOT NULL,
+  `cod_reserva` varchar(100) DEFAULT NULL,
+  `fecha_ingreso` date DEFAULT NULL,
+  `fecha_salida` date DEFAULT NULL,
+  `descripcion` text DEFAULT NULL,
   `metodo` varchar(50) NOT NULL,
   `facturacion` varchar(100) NOT NULL,
+  `id_habitacion` int(11) DEFAULT NULL,
+  `id_usuario` int(11) DEFAULT NULL,
+  `id_empleado` int(11) DEFAULT NULL,
   `estado` int(11) DEFAULT 1,
   `fecha_pago` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pagos`
+--
+
+INSERT INTO `pagos` (`id`, `id_reserva`, `monto`, `num_transaccion`, `cod_reserva`, `fecha_ingreso`, `fecha_salida`, `descripcion`, `metodo`, `facturacion`, `id_habitacion`, `id_usuario`, `id_empleado`, `estado`, `fecha_pago`) VALUES
+(0, 127, 1440000.00, 'TRX-20251005071932-763', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', NULL, NULL, NULL, 1, '2025-10-05 05:19:32'),
+(0, 128, 1440000.00, 'TRX-20251005072154-377', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', NULL, NULL, NULL, 1, '2025-10-05 05:21:54'),
+(0, 129, 180000.00, 'TRX-20251005072225-260', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', NULL, NULL, NULL, 1, '2025-10-05 05:22:25'),
+(0, 132, 480000.00, 'TRX-20251009173241-648', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', 4, 39, NULL, 1, '2025-10-09 15:32:41'),
+(0, 133, 80000.00, 'TRX-20251009173550-968', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', 5, 36, NULL, 1, '2025-10-09 15:35:50'),
+(0, 134, 240000.00, 'TRX-20251009213454-144', NULL, NULL, NULL, NULL, 'pendiente', 'Sofia Salamanca', NULL, NULL, NULL, 1, '2025-10-09 19:34:54'),
+(0, 135, 240000.00, 'TRX-20251009215854-259', 'RES-000135', '2025-10-09', '2025-10-11', '', 'pendiente', 'Sofia Salamanca', 3, 26, NULL, 1, '2025-10-09 19:58:54'),
+(0, 136, 240000.00, 'TRX-20251009235047-972', 'RES-000136', '2025-10-09', '2025-10-11', '', 'pendiente', 'Sofia Salamanca', 3, 26, NULL, 1, '2025-10-09 21:50:47'),
+(0, 137, 240000.00, 'TRX-20251009235617-435', 'RES-000137', '2025-10-09', '2025-10-11', '', 'pendiente', 'Sofia Salamanca', 3, 26, NULL, 1, '2025-10-09 21:56:17'),
+(0, 138, 1400000.00, 'TRX-20251010012625-195', 'RES-000138', '2025-10-10', '2025-10-11', '', 'pendiente', 'Sofia Salamanca', 7, 26, NULL, 1, '2025-10-09 23:26:25'),
+(0, 139, 1400000.00, 'TRX-20251010012625-993', 'RES-000139', '2025-10-10', '2025-10-11', '', 'pendiente', 'Sofia Salamanca', 7, 26, NULL, 1, '2025-10-09 23:26:25'),
+(0, 140, 1400000.00, 'TRX-20251010012625-105', 'RES-000140', '2025-10-10', '2025-10-11', '', 'pendiente', 'Sofia Salamanca', 7, 26, NULL, 1, '2025-10-09 23:26:25'),
+(0, 17, 0.00, '', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', NULL, NULL, NULL, 1, '2025-10-09 23:58:24'),
+(0, 143, 90000.00, 'TRX-20251010032236-621', 'RES-000143', '2025-10-17', '2025-10-18', '', 'pendiente', 'Sofia Salamanca', 2, 26, NULL, 1, '2025-10-10 01:22:36'),
+(0, 144, 90000.00, 'TRX-20251010032236-617', 'RES-000144', '2025-10-17', '2025-10-18', '', 'pendiente', 'Sofia Salamanca', 2, 26, NULL, 1, '2025-10-10 01:22:36'),
+(0, 145, 90000.00, 'TRX-20251010032236-449', 'RES-000145', '2025-10-17', '2025-10-18', '', 'pendiente', 'Sofia Salamanca', 2, 26, NULL, 1, '2025-10-10 01:22:36'),
+(0, 146, 90000.00, 'TRX-20251010033046-522', 'RES-000146', '2025-10-17', '2025-10-18', '', 'pendiente', 'Sofia Salamanca', 2, 26, NULL, 1, '2025-10-10 01:30:46'),
+(0, 13, 0.00, '', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', NULL, NULL, NULL, 1, '2025-10-10 04:07:16'),
+(0, 8, 0.00, '', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', NULL, NULL, NULL, 1, '2025-10-10 04:08:21'),
+(0, 7, 0.00, '', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', NULL, NULL, NULL, 1, '2025-10-10 04:08:45');
 
 -- --------------------------------------------------------
 
@@ -183,8 +216,8 @@ CREATE TABLE `reservas` (
 --
 
 INSERT INTO `reservas` (`id`, `monto`, `num_transaccion`, `cod_reserva`, `fecha_ingreso`, `fecha_salida`, `fecha_reserva`, `descripcion`, `estado`, `metodo`, `facturacion`, `id_habitacion`, `id_usuario`, `id_empleado`) VALUES
-(3, 2990000.00, '451231', '254778', '2025-09-01', '2025-09-24', '2025-09-28 15:35:43', 'Reserva con llegada a las 8 pm', 1, 1, '1', 1, 26, NULL),
-(4, 8060000.00, '5161200', '213215', '2025-07-01', '2025-09-01', '2025-09-19 04:11:15', '', 1, 1, '', 1, 26, NULL),
+(3, 2990000.00, '451231', '254778', '2025-09-01', '2025-09-24', '2025-10-10 03:59:50', 'Reserva con llegada a las 8 pm', 3, 1, '1', 1, 26, NULL),
+(4, 8060000.00, '5161200', '213215', '2025-07-01', '2025-09-01', '2025-10-10 04:03:24', '', 3, 1, '', 1, 26, NULL),
 (5, 1350000.00, '5161266', '213219', '2025-04-01', '2025-04-16', '2025-09-19 04:11:27', '', 1, 1, '', 2, 26, NULL),
 (6, 90000.00, 'TX101', 'RES101', '2025-09-09', '2025-09-10', '2025-09-19 04:11:39', 'Reserva prueba -1 día', 1, 1, '', 2, 26, NULL),
 (7, 120000.00, 'TX102', 'RES102', '2025-09-08', '2025-09-09', '2025-09-19 04:11:54', 'Reserva prueba -2 días', 1, 1, '', 3, 26, NULL),
@@ -195,7 +228,7 @@ INSERT INTO `reservas` (`id`, `monto`, `num_transaccion`, `cod_reserva`, `fecha_
 (12, 400000.00, 'TX107', 'RES107', '2025-09-03', '2025-09-04', '2025-09-28 15:35:39', 'Reserva prueba -7 días', 1, 1, '', 8, 26, NULL),
 (13, 130000.00, 'TX100', 'RES100', '2025-09-10', '2025-09-11', '2025-09-19 04:13:01', 'Reserva de prueba hoy', 1, 1, '', 1, 26, NULL),
 (14, 960000.00, '', '', '2025-09-18', '2025-09-20', '2025-09-28 15:34:56', '', 1, 0, '', 4, 28, NULL),
-(15, 0.00, '', '', '2025-09-19', '2025-09-18', '2025-09-28 15:34:59', '', 1, 0, '', 1, 26, NULL),
+(15, 0.00, '', '', '2025-09-19', '2025-09-18', '2025-10-10 03:58:33', '', 3, 0, '', 1, 26, NULL),
 (16, 8800000.00, '', '', '2025-09-20', '2025-09-30', '2025-09-28 15:35:04', '', 1, 0, '', 9, 31, NULL),
 (17, 6160000.00, '', '', '2025-09-23', '2025-09-30', '2025-09-28 15:35:09', '', 1, 0, '', 9, 28, NULL),
 (18, 1760000.00, '', '', '2025-09-24', '2025-09-26', '2025-09-28 15:35:18', '', 1, 0, '', 9, 26, NULL),
@@ -211,7 +244,28 @@ INSERT INTO `reservas` (`id`, `monto`, `num_transaccion`, `cod_reserva`, `fecha_
 (122, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:01:14', 'Reserva pública', 1, 1, '', 4, 26, NULL),
 (123, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:01:59', 'Reserva pública', 1, 1, '', 4, 26, NULL),
 (124, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:02:36', 'Reserva pública', 1, 1, '', 4, 26, NULL),
-(125, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:07:49', 'Reserva pública', 1, 1, '', 4, 26, NULL);
+(125, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:07:49', 'Reserva pública', 1, 1, '', 4, 26, NULL),
+(126, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:12:16', 'Reserva pública', 1, 1, '', 4, 26, NULL),
+(127, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-10 04:02:28', 'Reserva pública', 3, 1, '', 4, 26, NULL),
+(128, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:21:54', '', 1, 0, '', 4, 26, NULL),
+(129, 0.00, '', '', '2025-10-05', '2025-10-07', '2025-10-10 04:08:18', '', 3, 0, '', 2, 26, NULL),
+(130, 0.00, '', '', '2025-10-05', '2025-10-07', '2025-10-10 04:08:14', '', 3, 0, '', 2, 26, NULL),
+(131, 0.00, '', '', '2025-10-09', '2025-10-10', '2025-10-09 15:18:46', '', 1, 0, '', 4, 39, NULL),
+(132, 0.00, '', '', '2025-10-09', '2025-10-10', '2025-10-09 15:32:41', '', 1, 0, '', 4, 39, NULL),
+(133, 0.00, '', '', '2025-10-09', '2025-10-10', '2025-10-09 15:35:50', '', 1, 0, '', 5, 36, NULL),
+(134, 0.00, '', '', '2025-10-09', '2025-10-11', '2025-10-10 04:07:52', '', 3, 0, '', 3, 26, NULL),
+(135, 0.00, '', '', '2025-10-09', '2025-10-11', '2025-10-10 04:07:48', '', 3, 0, '', 3, 26, NULL),
+(136, 0.00, '', '', '2025-10-09', '2025-10-11', '2025-10-10 04:07:45', '', 3, 0, '', 3, 26, NULL),
+(137, 0.00, '', '', '2025-10-09', '2025-10-11', '2025-10-10 04:07:34', '', 3, 0, '', 3, 26, NULL),
+(138, 0.00, '', '', '2025-10-10', '2025-10-11', '2025-10-10 04:02:17', '', 3, 0, '', 7, 26, NULL),
+(139, 0.00, '', '', '2025-10-10', '2025-10-11', '2025-10-10 04:01:55', '', 3, 0, '', 7, 26, NULL),
+(140, 0.00, '', '', '2025-10-10', '2025-10-11', '2025-10-10 04:02:05', '', 3, 0, '', 7, 26, NULL),
+(141, 180000.00, '', '', '2025-10-13', '2025-10-15', '2025-10-09 23:38:54', '', 1, 0, '', 2, 27, NULL),
+(142, 1760000.00, '', '', '2025-10-09', '2025-10-11', '2025-10-09 23:39:50', '', 1, 0, '', 9, 26, NULL),
+(143, 0.00, '', '', '2025-10-17', '2025-10-18', '2025-10-10 04:08:11', '', 3, 0, '', 2, 26, NULL),
+(144, 0.00, '', '', '2025-10-17', '2025-10-18', '2025-10-10 04:08:07', '', 3, 0, '', 2, 26, NULL),
+(145, 0.00, '', '', '2025-10-17', '2025-10-18', '2025-10-10 04:08:04', '', 3, 0, '', 2, 26, NULL),
+(146, 0.00, '', '', '2025-10-17', '2025-10-18', '2025-10-10 04:07:59', '', 3, 0, '', 2, 26, NULL);
 
 -- --------------------------------------------------------
 
@@ -295,7 +349,8 @@ INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `clave`, `token`, `registrado_
 (35, 'Juan', 'Juanesab42322@gmail.com', '$2y$10$h4kuZkBylzFsSXafy9JwxO5Fivo8jnuM1UUCYn15Vb.TuaxpWiJz6', NULL, NULL, 0, 3, NULL, 1, '2025-09-19 14:56:16'),
 (36, 'William Alfonso', 'Hwliiam@gmail.com', '$2y$10$OwpFV3HpqQpaRym06Mvf8.t2cZK8LUvKRdstL3v1x1DO9h.IZOz4.', NULL, NULL, 0, 3, NULL, 1, '2025-09-19 19:11:12'),
 (37, 'William Alfonso', '1234@gmail.com', '$2y$10$0PVwPFBT4Bi1KxgRx30aR.2WQ7M2XcLBLqqN2pQZRIqjcil5dBgXe', NULL, NULL, 0, 3, NULL, 0, '2025-09-24 15:56:44'),
-(38, 'Juan', 'juan123@gmail.com', '$2y$10$G5JWF6femdJl4OIO29do1uWF7/Otw.CTm3zV3RPi7LxYYewMFKXBy', NULL, NULL, 0, 3, NULL, 1, '2025-09-28 15:41:09');
+(38, 'Juan', 'juan123@gmail.com', '$2y$10$G5JWF6femdJl4OIO29do1uWF7/Otw.CTm3zV3RPi7LxYYewMFKXBy', NULL, NULL, 0, 3, NULL, 1, '2025-09-28 15:41:09'),
+(39, 'William Alfonso', 'Hwliiamac@gmail.com', '$2y$10$8R9lr.jbddieRtrtFK2NoeCNyZxNN0ZZberoI1woGM99JoK9N0cHG', NULL, NULL, 0, 3, NULL, 1, '2025-10-09 15:18:46');
 
 --
 -- Índices para tablas volcadas
@@ -332,8 +387,9 @@ ALTER TABLE `habitaciones`
 -- Indices de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_reserva` (`id_reserva`);
+  ADD KEY `fk_pago_reserva` (`id_reserva`),
+  ADD KEY `fk_pago_usuario` (`id_usuario`),
+  ADD KEY `fk_pago_habitacion` (`id_habitacion`);
 
 --
 -- Indices de la tabla `reservas`
@@ -393,16 +449,10 @@ ALTER TABLE `habitaciones`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT de la tabla `pagos`
---
-ALTER TABLE `pagos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `reservas`
 --
 ALTER TABLE `reservas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -420,7 +470,7 @@ ALTER TABLE `sliders`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- Restricciones para tablas volcadas
@@ -443,7 +493,9 @@ ALTER TABLE `galeria_habitaciones`
 -- Filtros para la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  ADD CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`id_reserva`) REFERENCES `reservas` (`id`);
+  ADD CONSTRAINT `fk_pago_habitacion` FOREIGN KEY (`id_habitacion`) REFERENCES `habitaciones` (`id`),
+  ADD CONSTRAINT `fk_pago_reserva` FOREIGN KEY (`id_reserva`) REFERENCES `reservas` (`id`),
+  ADD CONSTRAINT `fk_pago_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
 
 --
 -- Filtros para la tabla `reservas`
