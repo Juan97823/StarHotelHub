@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-09-2025 a las 17:51:44
+-- Tiempo de generación: 05-10-2025 a las 07:11:13
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -88,7 +88,7 @@ INSERT INTO `entradas` (`id`, `titulo`, `descripcion`, `foto`, `slug`, `categori
 (18, 'Cenas temáticas para disfrutar en familia', 'Cada semana presentamos cenas especiales con temáticas divertidas, menús variados y actividades para toda la familia. ¡Una experiencia gastronómica única!', 'gastronomia4.jpg', 'cenas-tematicas-familia', NULL, 2, 1, '2025-09-18 00:44:27', 23),
 (19, 'Organiza un retiro de bienestar en nuestro hotel', 'Ideal para empresas o grupos de amigos que buscan relajación y crecimiento personal. Actividades de mindfulness, yoga y alimentación saludable garantizan un retiro inolvidable.', 'eventos4.jpg', 'retiro-bienestar-hotel', NULL, 3, 1, '2025-09-18 00:44:27', 23),
 (20, 'Consejos para evitar el jet lag', 'Aprende a minimizar los efectos del cambio de horario con recomendaciones de alimentación, sueño y actividades para mantener tu energía durante el viaje.', 'consejos4.jpg', 'evitar-jet-lag', NULL, 4, 1, '2025-09-18 00:44:27', 23),
-(21, 'Nueva terraza panorámica con vista al atardecer', 'Disfruta de nuestra renovada terraza con vistas espectaculares y un ambiente único para relajarte, tomar fotos y disfrutar de bebidas al atardecer.', 'novedades4.jpg', 'nueva-terrace-panoramica', NULL, 5, 1, '2025-09-18 00:44:27', 23);
+(21, 'Nueva terraza panorámica con vista al atardecer', 'Disfruta de nuestra renovada terraza con vistas espectaculares y un ambiente único para relajarte, tomar fotos y disfrutar de bebidas al atardecer.', 'novedades4.jpg', 'nueva-terrace-panoramica', NULL, 5, 1, '2025-09-30 22:58:00', 23);
 
 -- --------------------------------------------------------
 
@@ -141,6 +141,23 @@ INSERT INTO `habitaciones` (`id`, `estilo`, `numero`, `capacidad`, `slug`, `foto
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `pagos`
+--
+
+CREATE TABLE `pagos` (
+  `id` int(11) NOT NULL,
+  `id_reserva` int(11) NOT NULL,
+  `monto` decimal(10,2) NOT NULL,
+  `num_transaccion` varchar(100) NOT NULL,
+  `metodo` varchar(50) NOT NULL,
+  `facturacion` varchar(100) NOT NULL,
+  `estado` int(11) DEFAULT 1,
+  `fecha_pago` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `reservas`
 --
 
@@ -183,7 +200,18 @@ INSERT INTO `reservas` (`id`, `monto`, `num_transaccion`, `cod_reserva`, `fecha_
 (17, 6160000.00, '', '', '2025-09-23', '2025-09-30', '2025-09-28 15:35:09', '', 1, 0, '', 9, 28, NULL),
 (18, 1760000.00, '', '', '2025-09-24', '2025-09-26', '2025-09-28 15:35:18', '', 1, 0, '', 9, 26, NULL),
 (19, 1500000.00, '', '', '2025-09-24', '2025-09-27', '2025-09-28 15:35:23', '', 1, 0, '', 6, 26, NULL),
-(20, 80000.00, '', '', '2025-09-24', '2025-09-25', '2025-09-28 15:35:27', '', 1, 0, '', 5, 26, NULL);
+(20, 80000.00, '', '', '2025-09-24', '2025-09-25', '2025-09-28 15:35:27', '', 1, 0, '', 5, 26, NULL),
+(115, 500000.00, '', '', '2025-09-28', '2025-09-29', '2025-09-28 17:23:31', '12', 1, 0, '', 6, 36, NULL),
+(116, 0.00, '', '', '2025-09-30', '2025-10-03', '2025-09-30 22:57:10', 'Reserva pública', 0, 1, '', 2, 36, NULL),
+(117, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 04:55:48', 'Reserva pública', 1, 1, '', 4, 26, NULL),
+(118, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 04:58:01', 'Reserva pública', 1, 1, '', 4, 26, NULL),
+(119, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 04:58:56', 'Reserva pública', 1, 1, '', 4, 26, NULL),
+(120, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 04:59:40', 'Reserva pública', 1, 1, '', 4, 26, NULL),
+(121, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:00:11', 'Reserva pública', 1, 1, '', 4, 26, NULL),
+(122, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:01:14', 'Reserva pública', 1, 1, '', 4, 26, NULL),
+(123, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:01:59', 'Reserva pública', 1, 1, '', 4, 26, NULL),
+(124, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:02:36', 'Reserva pública', 1, 1, '', 4, 26, NULL),
+(125, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:07:49', 'Reserva pública', 1, 1, '', 4, 26, NULL);
 
 -- --------------------------------------------------------
 
@@ -258,7 +286,7 @@ INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `clave`, `token`, `registrado_
 (25, 'Empleado', 'Empleado@gmail.com', '$2y$10$13KGtawbenSpE81bbt3S..MRqB.0pjrb78JVY9UzUTMLrc/LaZn16', NULL, NULL, 0, 2, NULL, 1, '2025-09-23 21:33:17'),
 (26, 'Sofia Salamanca', 'Salamancas648@gmail.com', '$2y$10$hEjwn2u5zkqjw.gOPYpD9etgUVMAl2jySl.Od0.6Apbb85E7TbKw.', NULL, NULL, 0, 3, NULL, 1, '2025-09-05 20:14:18'),
 (27, 'William Alfonso', 'Hwilliamac@gmail.com', '$2y$10$ruCR//vCKHBe0xv6MizxGuFBT/F6ZfOhdtxuT.0NR9o8tX3MFkSjO', NULL, 25, 0, 3, NULL, 1, '2025-09-24 20:18:49'),
-(28, 'Sebastian', 'Sebastian@gmail.com', '$2y$10$pEiGczFoVj5lPv2.yTsCsu0WaLg6KNE0RpDYPaciakdOBh02n9cuO', NULL, 25, 0, 3, NULL, 1, '2025-09-17 12:19:40'),
+(28, 'Sebastian', 'Sebastian@gmail.com', '$2y$10$pEiGczFoVj5lPv2.yTsCsu0WaLg6KNE0RpDYPaciakdOBh02n9cuO', NULL, 25, 0, 3, NULL, 1, '2025-09-30 22:57:46'),
 (29, 'Cliente ', 'Cliente@gmail.com', '$2y$10$2CzvZA9gpQGXcjNuzJ6V1.q2ycvJwDKc8qBEIvwwF/3ggShMVnZ3q', NULL, 25, 0, 3, NULL, 1, '2025-09-17 12:19:40'),
 (30, 'Juan Bernal', 'Juanestebanalfonsobernal@gmail.com', '$2y$10$m4MR553aJpWUEtQihY6DJuqjOBW.XfOMIrnmwwShxNtYz9nJuB1ky', NULL, NULL, 0, 3, NULL, 1, '2025-09-24 19:24:00'),
 (31, 'Juan', 'Juanesab230403@gmail.com', '$2y$10$IpwnQ1ImUmybbBzCMAGEle/LgUk.2aywbY7GrQMRT..PFSGhd0VVi', NULL, NULL, 0, 3, NULL, 1, '2025-09-24 18:47:47'),
@@ -299,6 +327,13 @@ ALTER TABLE `galeria_habitaciones`
 --
 ALTER TABLE `habitaciones`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `pagos`
+--
+ALTER TABLE `pagos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_reserva` (`id_reserva`);
 
 --
 -- Indices de la tabla `reservas`
@@ -358,10 +393,16 @@ ALTER TABLE `habitaciones`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT de la tabla `pagos`
+--
+ALTER TABLE `pagos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `reservas`
 --
 ALTER TABLE `reservas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -397,6 +438,12 @@ ALTER TABLE `entradas`
 --
 ALTER TABLE `galeria_habitaciones`
   ADD CONSTRAINT `galeria_habitaciones_ibfk_1` FOREIGN KEY (`id_habitacion`) REFERENCES `habitaciones` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `pagos`
+--
+ALTER TABLE `pagos`
+  ADD CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`id_reserva`) REFERENCES `reservas` (`id`);
 
 --
 -- Filtros para la tabla `reservas`

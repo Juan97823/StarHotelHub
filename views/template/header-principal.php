@@ -70,11 +70,7 @@
     <div class="eorik-nav-style fixed-top">
         <div class="navbar-area">
             <!-- Menu For Mobile Device -->
-            <div class="mobile-nav">
-                <a href=<?php echo RUTA_PRINCIPAL; ?> class="Logo">
-                    <img src="<?php echo RUTA_PRINCIPAL . 'assets'; ?>/img/Logo.png" alt="Logo">
-                </a>
-            </div>
+            <div class="mobile-nav"> </div>
             <!-- Menu For Desktop Device -->
             <div class="main-nav">
                 <nav class="navbar navbar-expand-md navbar-light">

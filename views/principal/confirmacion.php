@@ -1,34 +1,34 @@
 <?php include_once 'views/template/header-principal.php'; ?>
 
-<section class="confirmation-area ptb-100">
-    <div class="container">
-        <div class="section-title text-center">
-            <span>¡Reserva Exitosa!</span>
-            <h2>Gracias por confiar en StarHotelHub</h2>
-        </div>
+<main class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold text-success">✅ Pago Completado</h1>
+        <p>Gracias por tu pago. Tu reserva ha sido confirmada exitosamente.</p>
+    </div>
 
-        <div class="card mx-auto" style="max-width:600px;">
-            <div class="card-body">
-                <h5 class="card-title">Resumen de tu Reserva</h5>
-                <p><strong>Nombre:</strong> <?php echo $data['usuario']['nombre']; ?></p>
-                <p><strong>correo:</strong> <?php echo $data['usuario']['correo']; ?></p>
-                <hr>
-                <p><strong>Habitación:</strong> <?php echo $data['habitacion']['estilo']; ?></p>
-                <p><strong>Fecha Llegada:</strong> <?php echo $data['reserva']['fecha_ingreso']; ?></p>
-                <p><strong>Fecha Salida:</strong> <?php echo $data['reserva']['fecha_salida']; ?></p>
-                <hr>
-                <h5>Factura</h5>
-                <p><strong>Número de Factura:</strong> <?php echo $data['factura']['numero_factura']; ?></p>
-                <p><strong>Subtotal:</strong> $<?php echo number_format($data['factura']['subtotal'], 0, ',', '.'); ?></p>
-                <p><strong>Impuestos (IVA 19%):</strong> $<?php echo number_format($data['factura']['impuestos'], 0, ',', '.'); ?></p>
-                <p><strong>Total:</strong> $<?php echo number_format($data['factura']['total'], 0, ',', '.'); ?></p>
-
-                <div class="mt-3 text-center">
-                    <a href="<?php echo RUTA_PRINCIPAL; ?>" class="btn btn-primary">Volver al Inicio</a>
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h4 class="mb-3">Detalles de la Reserva</h4>
+                    <p><strong>Habitación:</strong> <?= $data['habitacion']['nombre']; ?></p>
+                    <p><strong>Fecha de ingreso:</strong> <?= $data['reserva']['fecha_ingreso']; ?></p>
+                    <p><strong>Fecha de salida:</strong> <?= $data['reserva']['fecha_salida']; ?></p>
+                    <p><strong>Total pagado:</strong> $<?= number_format($data['factura']['total'], 0, ',', '.'); ?></p>
+                    <p><strong>ID de Transacción:</strong> <?= $data['factura']['id_transaccion']; ?></p>
+                    <hr>
+                    <p>Recibirás un correo de confirmación con todos los detalles de tu reserva.  
+                       Si deseas imprimir tu factura, puedes hacerlo desde tu perfil.</p>
                 </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="<?= RUTA_PRINCIPAL ?>cliente/reservas" class="btn btn-primary">
+                    Volver a mis reservas
+                </a>
             </div>
         </div>
     </div>
-</section>
+</main>
 
 <?php include_once 'views/template/footer-principal.php'; ?>

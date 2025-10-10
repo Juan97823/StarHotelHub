@@ -82,8 +82,6 @@ include_once 'views/template/portada.php'; ?>
                                 <select name="metodo" id="metodo" class="form-select form-select-lg" required>
                                     <option value="">Seleccionar</option>
                                     <option value="1">Efectivo</option>
-                                    <option value="2">Tarjeta</option>
-                                    <option value="3">Transferencia</option>
                                 </select>
                             </div>
 

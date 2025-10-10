@@ -1,4 +1,6 @@
 <?php
+// Al inicio de tu archivo index.php o config.php
+error_reporting(E_ALL ^ E_DEPRECATED);
 require_once 'config/config.php';
 require_once 'helpers/funciones.php';
 
@@ -15,8 +17,9 @@ function error404()
     exit;
 }
 
+
 //  Detectar si es ruta de administrador
-$isAdmin = strpos($_SERVER['REQUEST_URI'], '/' . ADMIN) !== false; 
+$isAdmin = strpos($_SERVER['REQUEST_URI'], '/' . ADMIN) !== false;
 
 //  Obtener la ruta
 $ruta = empty($_GET['url']) ? 'Principal/index' : $_GET['url'];
@@ -44,8 +47,8 @@ if ($isAdmin && (count($array) == 1 || (count($array) == 2 && empty($array[1])))
 
     if ($isAdmin && isset($array[1]) && $array[1] === 'dashboard') {
         // Caso especial: /admin/dashboard
-        $controller = 'Dashboard';
-        $metodo = 'index';
+        $controller = 'Admin';
+        $metodo = 'dashboard';
     } else {
         $controller = ucfirst($array[$indiceUrl]);
         $metodo = 'index';
@@ -59,9 +62,10 @@ if (!empty($array[$metodoIndice])) {
 }
 
 //  Resolver parámetros (mejorado con implode)
+$parametro = '';
 $parametroIndice = $isAdmin ? 3 : 2;
-$parametros = array_slice($array, $parametroIndice); {
-
+if (!empty($array[$parametroIndice])) {
+    $parametro = implode(',', array_slice($array, $parametroIndice));
 }
 
 //  Autoload
@@ -69,19 +73,17 @@ require_once 'config/app/Autoload.php';
 
 //  Ruta de controlador según tipo
 $dirControllers = $isAdmin
-    ? "controllers/Admin/{$controller}.php"
-    : "controllers/Principal/{$controller}.php";
+    ? "controllers/admin/{$controller}.php"
+    : "controllers/principal/{$controller}.php";
 
 //  Cargar controlador
 if (file_exists($dirControllers)) {
     require_once $dirControllers;
     $controller = new $controller();
     if (method_exists($controller, $metodo)) {
-        call_user_func_array([$controller, $metodo], $parametros);
+        $parametro = array_slice($array, $parametroIndice);
+        $controller->$metodo(...$parametro);
     } else {
         error404();
-        ;
     }
-} else {
-    error404();
 }
