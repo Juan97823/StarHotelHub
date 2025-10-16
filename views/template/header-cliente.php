@@ -63,7 +63,7 @@ $urlCliente = $urlBase . 'cliente/';
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo $urlCliente . 'perfil'; ?>">
+                    <a href="<?php echo $urlBase . 'perfil'; ?>">
                         <div class="parent-icon"><i class='bx bx-user'></i></div>
                         <div class="menu-title">Mi Perfil</div>
                     </a>
@@ -74,12 +74,19 @@ $urlCliente = $urlBase . 'cliente/';
             <div class="user-profile-section dropdown">
                 <a class="d-flex align-items-center nav-link dropdown-toggle" href="#" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="<?php echo $urlBase . 'assets/img/default.png'; ?>" class="user-img" alt="user avatar"
+                        style="width: 40px; height: 40px; border-radius: 50%;">
                     <div class="user-info ps-3">
                         <p class="user-name mb-0"><?php echo $nombreUsuario; ?></p>
                         <p class="designattion mb-0">Panel de Cliente</p>
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="<?php echo $urlBase . 'perfil'; ?>"><i
+                                class='bx bx-user-circle'></i><span>Mi Perfil</span></a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
                     <li><a class="dropdown-item" href="<?php echo $urlBase . 'logout'; ?>"><i
                                 class='bx bx-log-out-circle'></i><span>Cerrar Sesión</span></a></li>
                 </ul>
@@ -97,8 +104,5 @@ $urlCliente = $urlBase . 'cliente/';
         </header>
         <!-- Fin Topbar -->
 
-        <!-- ** INICIO DE LA CORRECCIÓN ** -->
-        <!-- Contenedor de la página (Estas etiquetas faltaban) -->
         <div class="page-wrapper">
             <div class="page-content">
-                <!-- ** FIN DE LA CORRECCIÓN ** -->

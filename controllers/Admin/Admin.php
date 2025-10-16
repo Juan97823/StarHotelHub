@@ -51,7 +51,7 @@ class Admin extends Controller
         $datos = [
             'reservasHoy' => (int) ($this->model->getReservasHoy()['total'] ?? 0),
             'habitacionesDisponibles' => (int) ($this->model->getHabitacionesDisponibles()['total'] ?? 0),
-            'ingresosMes' => number_format((float) ($this->model->getIngresosMes()['total'] ?? 0), 0, ',', '.'),
+            'ingresosMes' => (float)($this->model->getIngresosMes()['total'] ?? 0),
             'totalClientes' => (int) ($this->model->getTotalClientes()['total'] ?? 0),
         ];
 

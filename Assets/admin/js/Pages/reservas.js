@@ -132,17 +132,17 @@ function guardarReserva(event) {
         });
 }
 
-// Función para eliminar (inhabilitar) reserva
-function btnInhabilitarReserva(id) {
+// Función para cancelar una reserva
+function btnCancelarReserva(id) {
     Swal.fire({
         title: '¿Estás seguro?',
-        text: "¡La reserva se inhabilitará!",
+        text: "¡La reserva se cancelará!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',
         cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Sí, ¡inhabilitar!',
-        cancelButtonText: 'Cancelar'
+        confirmButtonText: 'Sí, ¡cancelar!',
+        cancelButtonText: 'No, mantener'
     }).then((result) => {
         if (result.isConfirmed) {
             const url = base_url + "admin/reservas/eliminar/" + id;
@@ -150,14 +150,67 @@ function btnInhabilitarReserva(id) {
                 .then(response => response.json())
                 .then(res => {
                     if (res.msg == 'ok') {
-                        Swal.fire('¡Inhabilitado!', 'La reserva ha sido inhabilitada.', 'success');
+                        Swal.fire('¡Cancelada!', 'La reserva ha sido cancelada.', 'success');
                         tblReservas.ajax.reload();
                     } else {
                         Swal.fire('¡Error!', res.msg, 'error');
                     }
-                })
-                .catch(err => {
-                    Swal.fire('¡Error de Conexión!', 'No se pudo comunicar con el servidor.', 'error');
+                });
+        }
+    });
+}
+
+// Función para confirmar una reserva
+function btnConfirmarReserva(id) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡Se confirmará la reserva!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#28a745',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, ¡confirmar!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const url = base_url + "admin/reservas/confirmar/" + id;
+            fetch(url, { method: 'GET' })
+                .then(response => response.json())
+                .then(res => {
+                    if (res.msg == 'ok') {
+                        Swal.fire('¡Confirmada!', 'La reserva ha sido confirmada.', 'success');
+                        tblReservas.ajax.reload();
+                    } else {
+                        Swal.fire('¡Error!', res.msg, 'error');
+                    }
+                });
+        }
+    });
+}
+
+// Función para reactivar una reserva
+function btnActivarReserva(id) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡La reserva se reactivará como pendiente!",
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, ¡reactivar!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const url = base_url + "admin/reservas/activar/" + id;
+            fetch(url, { method: 'GET' })
+                .then(response => response.json())
+                .then(res => {
+                    if (res.msg == 'ok') {
+                        Swal.fire('¡Reactivada!', 'La reserva ha sido reactivada.', 'success');
+                        tblReservas.ajax.reload();
+                    } else {
+                        Swal.fire('¡Error!', res.msg, 'error');
+                    }
                 });
         }
     });

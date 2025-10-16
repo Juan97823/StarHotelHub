@@ -1,74 +1,107 @@
-<?php include_once 'views/template/header-admin.php'; ?>
+<?php require_once 'views/template/header-admin.php'; ?>
 
 <div class="container-fluid">
-    <div class="card shadow border-0">
-        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-            <h5 class="card-title fw-semibold mb-0">
-                <i class="fas fa-blog me-2"></i>Nueva Entrada del Blog
-            </h5>
-            <a href="<?php echo RUTA_ADMIN; ?>blog" class="btn btn-light btn-sm">
-                <i class="fas fa-arrow-left"></i> Volver al listado
-            </a>
-        </div>
-
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800"><?php echo $data['title']; ?></h1>
+    </div>
+    <div class="card">
         <div class="card-body">
-            <form action="<?php echo RUTA_ADMIN; ?>blog/guardar" method="POST" enctype="multipart/form-data"
-                autocomplete="off">
+            <form id="blogForm" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group mb-3">
+                            <label for="titulo">Título</label>
+                            <input type="text" class="form-control" id="titulo" name="titulo" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="descripcion">Descripción</label>
+                            <div id="editor" style="height: 300px;"></div>
+                            <input type="hidden" name="descripcion" id="descripcion">
+                        </div>
+                    </div>
 
-                <!-- Título -->
-                <div class="mb-3">
-                    <label for="titulo" class="form-label fw-semibold">Título <span class="text-danger">*</span></label>
-                    <input type="text" name="titulo" id="titulo" class="form-control"
-                        placeholder="Ej: Oferta especial en el restaurante del hotel" minlength="5" maxlength="150"
-                        required>
-                </div>
-
-                <!-- Contenido -->
-                <div class="mb-3">
-                    <label for="contenido" class="form-label fw-semibold">Contenido / Descripción <span
-                            class="text-danger">*</span></label>
-                    <textarea name="contenido" id="contenido" rows="6" class="form-control"
-                        placeholder="Escribe aquí la descripción completa de la entrada..." minlength="20"
-                        required></textarea>
-                </div>
-
-                <!-- Categoría -->
-                <div class="mb-3">
-                    <label for="id_categorias" class="form-label fw-semibold">Categoría <span
-                            class="text-danger">*</span></label>
-                    <select name="categorias" id="id_categorias" class="form-select" required>
-                        <option value="" disabled selected>Selecciona una categoría</option>
-                        <?php foreach ($this->model->getcategorias() as $cat): ?>
-                            <option value="<?php echo $cat['id']; ?>">
-                                <?php echo htmlspecialchars($cat['nombre']); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <!-- Imagen -->
-                <div class="mb-3">
-                    <label for="imagen" class="form-label fw-semibold">Imagen destacada</label>
-                    <input type="file" name="imagen" id="imagen" class="form-control" accept="image/*"
-                        onchange="mostrarPreview(event)">
-                    <small class="text-muted">Opcional. Si no subes imagen, se usará una por defecto.</small>
-
-                    <!-- Preview -->
-                    <div class="mt-3">
-                        <img id="previewImg" src="" alt="Vista previa" class="img-thumbnail d-none" width="200">
+                    <div class="form-group mb-3">
+                        <label for="imagen">Imagen Destacada</label>
+                        <input type="file" class="form-control-file" id="imagen" name="imagen" accept="image/*"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <img id="imagen-preview" src="" alt="Vista previa de la imagen" class="img-thumbnail"
+                            style="display: none; max-height: 200px;">
                     </div>
                 </div>
-
-                <!-- Botón Guardar -->
-                <div class="text-end">
-                    <button type="submit" class="btn btn-primary px-4">
-                        <i class="fas fa-save me-2"></i> Guardar Entrada
-                    </button>
-                </div>
-            </form>
         </div>
+        <div class="text-end">
+            <button type="submit" class="btn btn-primary">Crear Entrada</button>
+        </div>
+        </form>
     </div>
 </div>
+</div>
 
+<?php require_once 'views/template/footer-admin.php'; ?>
 
-<?php include_once 'views/template/footer-admin.php'; ?>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Inicializar Quill
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+
+        // Sincronizar Quill con el campo oculto
+        quill.on('text-change', function () {
+            document.getElementById('descripcion').value = quill.root.innerHTML;
+        });
+
+        // Vista previa de la imagen
+        const inputImagen = document.getElementById('imagen');
+        const imagenPreview = document.getElementById('imagen-preview');
+        inputImagen.addEventListener('change', function (e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    imagenPreview.src = event.target.result;
+                    imagenPreview.style.display = 'block';
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+
+        // Enviar formulario
+        const form = document.getElementById('blogForm');
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Asegurarse de que la descripción no esté vacía
+            if (quill.getLength() <= 1) {
+                Swal.fire('Error', 'La descripción no puede estar vacía.', 'error');
+                return;
+            }
+
+            const url = base_url + 'admin/blog/actualizar';
+            const formData = new FormData(form);
+
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(res => {
+                    if (res.status === 'success') {
+                        Swal.fire('¡Éxito!', 'Entrada creada correctamente.', 'success').then(() => {
+                            window.location.href = base_url + 'admin/blog';
+                        });
+                    } else {
+                        Swal.fire('Error', res.mensaje || 'No se pudo crear la entrada.', 'error');
+                    }
+                })
+                .catch(err => {
+                    console.error('Error en la solicitud:', err);
+                    Swal.fire('Error', 'No se pudo comunicar con el servidor.', 'error');
+                });
+        });
+    });
+</script>

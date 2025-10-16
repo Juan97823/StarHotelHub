@@ -53,9 +53,6 @@
                                     </td>
                                     <td class="text-center">
                                         <?php if ($reserva['estado'] == 1) : //  1 es PENDIENTE ?>
-                                            <a href="<?php echo RUTA_PRINCIPAL . 'pago/reserva/' . $reserva['id']; ?>" class="btn btn-success btn-sm me-1">
-                                                <i class="bx bx-credit-card me-1"></i>Pagar ahora
-                                            </a>
                                             <button class="btn btn-danger btn-sm btn-cancelar" data-id="<?php echo $reserva['id']; ?>">
                                                 <i class="bx bx-x-circle me-1"></i>Cancelar
                                             </button>

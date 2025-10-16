@@ -30,9 +30,9 @@ document.addEventListener("DOMContentLoaded", function () {
       data.reservasHoy ?? "0";
     document.getElementById("habitacionesDisponibles").textContent =
       data.habitacionesDisponibles ?? "0";
-    document.getElementById("ingresosMes").textContent = `$${
-      data.ingresosMes ?? "0.00"
-    }`;
+    document.getElementById("ingresosMes").textContent = `$${Number(
+      data.ingresosMes ?? 0
+    ).toLocaleString("es-ES")}`;
     document.getElementById("totalClientes").textContent =
       data.totalClientes ?? "0";
   }

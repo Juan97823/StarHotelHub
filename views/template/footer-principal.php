@@ -92,6 +92,49 @@
 </footer>
 <!-- Fin del Área de Footer -->
 
+<!-- Modal de Reserva -->
+<div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reservationModalLabel">Completa tu Reserva</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="modalReservationForm" method="POST" action="<?php echo RUTA_PRINCIPAL . 'reserva/guardarPublica'; ?>">
+                    <input type="hidden" name="metodo" value="1">
+                    <input type="hidden" id="modalHabitacionId" name="habitacion">
+                    
+                    <div class="mb-3">
+                        <label for="modalNombre" class="form-label">Nombre Completo</label>
+                        <input type="text" class="form-control" id="modalNombre" name="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="modalCorreo" class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="modalCorreo" name="correo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="modalLlegada" class="form-label">Fecha de Llegada</label>
+                        <input type="date" class="form-control" id="modalLlegada" name="f_llegada" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="modalSalida" class="form-label">Fecha de Salida</label>
+                        <input type="date" class="form-control" id="modalSalida" name="f_salida" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="modalDescripcion" class="form-label">Observaciones</label>
+                        <textarea class="form-control" id="modalDescripcion" name="descripcion" rows="2"></textarea>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" id="btnProcesar" class="btn btn-primary">Procesar Reserva</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Start Go Top Area -->
 <div class="go-top">
 	<i class='bx bx-chevrons-up bx-fade-up'></i>

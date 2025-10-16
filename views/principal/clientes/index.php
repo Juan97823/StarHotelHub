@@ -4,12 +4,7 @@
 
     <!-- Perfil del Cliente y Resumen -->
     <div class="row align-items-center mb-5">
-        <div class="col-md-3 text-center mb-4 mb-md-0">
-            <img src="https://i.pravatar.cc/150?u=<?php echo $_SESSION['usuario']['id']; ?>" alt="Avatar"
-                class="rounded-circle border border-4 border-primary shadow-lg mx-auto d-block"
-                style="width: 120px; height: 120px;">
-        </div>
-        <div class="col-md-9">
+        <div class="col-md-12">
             <div class="bg-white p-4 rounded-4 shadow-sm">
                 <h1 class="fw-bolder mb-2">¡Hola, <?php echo $_SESSION['usuario']['nombre'] ?? 'Cliente'; ?>!</h1>
                 <p class="text-muted fs-5">Bienvenido a tu centro de control en <b>StarHotel Hub</b>.</p>

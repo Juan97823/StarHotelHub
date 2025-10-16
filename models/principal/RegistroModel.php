@@ -27,4 +27,22 @@ class RegistroModel extends Query
         $sql = "SELECT id FROM usuarios WHERE correo = '$correo'";
         return $this->select($sql);
     }
+
+    public function getUsuarioById($id)
+    {
+        $sql = "SELECT id, nombre, correo, clave FROM usuarios WHERE id = ?";
+        return $this->select($sql, [$id]);
+    }
+
+    public function actualizarUsuario($id, $nombre, $correo, $hash = null)
+    {
+        if ($hash) {
+            $sql = "UPDATE usuarios SET nombre = ?, correo = ?, clave = ? WHERE id = ?";
+            $datos = [$nombre, $correo, $hash, $id];
+        } else {
+            $sql = "UPDATE usuarios SET nombre = ?, correo = ? WHERE id = ?";
+            $datos = [$nombre, $correo, $id];
+        }
+        return $this->save($sql, $datos);
+    }
 }

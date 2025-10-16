@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // --- LOGICA PARA LA PÁGINA DE RESERVA DETALLADA (CON CALENDARIO) ---
   const calendarEl = document.getElementById("calendar");
 
-  // Solo ejecutar el script si el calendario existe en la página.
   if (calendarEl) {
     const f_llegada = document.querySelector("#f_llegada");
     const f_salida = document.querySelector("#f_salida");
@@ -47,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function calcularTotal() {
+      if (!totalReserva) return;
       if (!f_llegada.value || !f_salida.value || !habitacionSelect.value) {
         totalReserva.value = "$0";
         return;
@@ -57,8 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
         totalReserva.value = "$0";
         return;
       }
-      const diffTime = salidaDate - llegadaDate;
-      const noches = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const diffTime = salidaDate.getTime() - llegadaDate.getTime();
+      const noches = Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
       const precio = precios[habitacionSelect.value] || 0;
       const total = noches * precio;
       totalReserva.value = `$${total.toLocaleString("es-CO")}`;
@@ -103,11 +103,11 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       events: function (fetchInfo, successCallback, failureCallback) {
         const habitacion_id = habitacionSelect ? habitacionSelect.value : '';
-        if (!habitacion_id || !f_llegada.value || !f_salida.value) {
+        if (!habitacion_id) {
           successCallback([]);
           return;
         }
-        const url = `${base_url}reserva/listar/${f_llegada.value},${f_salida.value},${habitacion_id}`;
+        const url = `${base_url}reserva/listar/,,${habitacion_id}`;
         fetch(url).then(response => response.json()).then(data => successCallback(data)).catch(error => failureCallback(error));
       },
       dayCellDidMount: function (info) {
@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
           const response = await fetch(frm.action, { method: "POST", body: new FormData(frm) });
           const data = await response.json();
-          if (data.status === "success") {
+          if (data.status === "success" && data.redirect) {
             window.location.href = data.redirect;
           } else {
             alertaSW(data.msg || "Error al registrar la reserva", "error");
@@ -150,42 +150,50 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.addEventListener("load", () => {
       if (habitacionSelect && habitacionSelect.value) {
-        if(calendar) calendar.refetchEvents();
+        if (calendar) calendar.refetchEvents();
       }
       calcularTotal();
       verificarDisponibilidad();
     });
   }
 
-  // --- LOGICA PARA EL MODAL DE RESERVA (EN PAGINAS DE LISTADO Y DETALLE) ---
+  // --- LOGICA PARA EL MODAL DE VERIFICACIÓN ---
   const reservationModalEl = document.getElementById('reservationModal');
-
   if (reservationModalEl) {
-      const modalHabitacionId = document.getElementById('modalHabitacionId');
-      const modalTriggers = document.querySelectorAll('[data-bs-target="#reservationModal"]');
+    const modalHabitacionIdInput = document.getElementById('modalHabitacionId');
+    const verificarBtn = document.getElementById('verificarDisponibilidadBtn');
 
-      modalTriggers.forEach(trigger => {
-          trigger.addEventListener('click', function() {
-              const habitacionId = this.getAttribute('data-id');
-              modalHabitacionId.value = habitacionId;
-          });
+    // Evento para abrir el modal y setear el ID de la habitación
+    document.querySelectorAll('[data-bs-target="#reservationModal"]').forEach(trigger => {
+      trigger.addEventListener('click', function () {
+        const habitacionId = this.getAttribute('data-id');
+        if (modalHabitacionIdInput) {
+          modalHabitacionIdInput.value = habitacionId;
+        }
       });
+    });
 
-      const verificarBtn = document.getElementById('verificarDisponibilidadBtn');
-      if (verificarBtn) {
-          verificarBtn.addEventListener('click', function () {
-              const habitacionId = modalHabitacionId.value;
-              const fechaLlegada = document.getElementById('modalLlegada').value;
-              const fechaSalida = document.getElementById('modalSalida').value;
+    // Evento para el botón "Verificar" del modal
+    if (verificarBtn) {
+      verificarBtn.addEventListener('click', function() {
+        const modalLlegada = document.getElementById('modalLlegada').value;
+        const modalSalida = document.getElementById('modalSalida').value;
+        const modalHabitacionId = modalHabitacionIdInput.value;
 
-              if (!fechaLlegada || !fechaSalida) {
-                  Swal.fire('Error', 'Por favor, selecciona ambas fechas.', 'error');
-                  return;
-              }
+        if (!modalLlegada || !modalSalida) {
+          alertaSW("Por favor, seleccione las fechas de llegada y salida.", "warning");
+          return;
+        }
 
-              const url = `${base_url}reserva/verify?f_llegada=${fechaLlegada}&f_salida=${fechaSalida}&habitacion=${habitacionId}`;
-              window.location.href = url;
-          });
-      }
+        if (!modalHabitacionId) {
+          alertaSW("No se ha especificado una habitación. Cierre este modal y seleccione una habitación.", "warning");
+          return;
+        }
+        
+        // Construir la URL y redirigir a la página de reservas para la verificación final y el llenado de datos
+        const url = `${base_url}reserva/verify?f_llegada=${modalLlegada}&f_salida=${modalSalida}&habitacion=${modalHabitacionId}`;
+        window.location.href = url;
+      });
+    }
   }
 });

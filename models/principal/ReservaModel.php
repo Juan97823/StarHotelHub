@@ -105,11 +105,11 @@ class ReservaModel extends Query
         return $this->select($query, $params);
     }
     // Crea un usuario nuevo automáticamente
-    public function crearUsuario($nombre, $correo, $clave)
+    public function crearUsuario($nombre, $correo, $clave, $telefono)
     {
-        $sql = "INSERT INTO usuarios (nombre, correo, clave, rol) VALUES (?, ?, ?, ?)";
-        // Suponiendo que rol 1 = cliente
-        $params = [$nombre, $correo, $clave, 3];
+        $sql = "INSERT INTO usuarios (nombre, correo, clave, telefono, rol) VALUES (?, ?, ?, ?, ?)";
+        // Suponiendo que rol 3 = cliente
+        $params = [$nombre, $correo, $clave, $telefono, 3];
         return $this->insert($sql, $params);
     }
 

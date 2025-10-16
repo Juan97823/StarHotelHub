@@ -1,29 +1,29 @@
 <?php
 require_once 'helpers/seguridad.php';
 require 'models/admin/HabitacionesModel.php';
-require 'models/admin/UsuariosModel.php'; // CORREGIDO: Se usa el modelo de Usuarios
+require 'models/admin/UsuariosModel.php';
 
 class Reservas extends Controller
 {
     private $HabitacionModel;
-    private $UsuariosModel; // CORREGIDO: Propiedad para el modelo de Usuarios
+    private $UsuariosModel;
 
     public function __construct()
     {
         parent::__construct();
         verificarSesion(1); // Solo administradores
         $this->HabitacionModel = new HabitacionesModel();
-        $this->UsuariosModel = new UsuariosModel(); // CORREGIDO: Se instancia el modelo correcto
+        $this->UsuariosModel = new UsuariosModel();
     }
 
     public function index()
     {
         $habitaciones = $this->HabitacionModel->getHabitaciones(false);
-        $usuarios = $this->UsuariosModel->getUsuarios(); // CORREGIDO: Se obtienen los usuarios
+        $usuarios = $this->UsuariosModel->getUsuarios();
 
         $data['title'] = 'Reservas';
         $data['habitaciones'] = $habitaciones;
-        $data['clientes'] = $usuarios; // Se pasan los usuarios a la vista bajo la clave 'clientes'
+        $data['clientes'] = $usuarios;
         $this->views->getView('admin/Reservas/index', $data);
     }
 
@@ -33,19 +33,29 @@ class Reservas extends Controller
         $reservas = $this->model->getReservas(true);
 
         foreach ($reservas as $key => $res) {
-            if ($res['estado'] == 1) {
-                $reservas[$key]['estado'] = '<span class="badge bg-success">Activo</span>';
-                $reservas[$key]['acciones'] = '
-                    <div>
-                        <button class="btn btn-primary btn-sm" onclick="btnEditarReserva(' . $res['id'] . ')" title="Editar"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-warning btn-sm" onclick="btnInhabilitarReserva(' . $res['id'] . ')" title="Inhabilitar"><i class="fas fa-ban"></i></button>
-                    </div>';
-            } else {
-                $reservas[$key]['estado'] = '<span class="badge bg-danger">Inactivo</span>';
-                $reservas[$key]['acciones'] = '
-                    <div>
-                         <button class="btn btn-success btn-sm" onclick="btnActivarReserva(' . $res['id'] . ')" title="Activar"><i class="fas fa-check-circle"></i></button>
-                    </div>';
+            switch ($res['estado']) {
+                case 1: // Pendiente
+                    $reservas[$key]['estado'] = '<span class="badge bg-warning">Pendiente</span>';
+                    $reservas[$key]['acciones'] = '
+                        <div>
+                            <button class="btn btn-success btn-sm" onclick="btnConfirmarReserva(' . $res['id'] . ')" title="Confirmar"><i class="fas fa-check"></i></button>
+                            <button class="btn btn-danger btn-sm" onclick="btnCancelarReserva(' . $res['id'] . ')" title="Cancelar"><i class="fas fa-times"></i></button>
+                        </div>';
+                    break;
+                case 2: // Confirmado
+                    $reservas[$key]['estado'] = '<span class="badge bg-success">Confirmado</span>';
+                    $reservas[$key]['acciones'] = '
+                        <div>
+                            <button class="btn btn-danger btn-sm" onclick="btnCancelarReserva(' . $res['id'] . ')" title="Cancelar"><i class="fas fa-times"></i></button>
+                        </div>';
+                    break;
+                case 0: // Cancelado
+                    $reservas[$key]['estado'] = '<span class="badge bg-danger">Cancelado</span>';
+                    $reservas[$key]['acciones'] = '
+                        <div>
+                            <button class="btn btn-info btn-sm" onclick="btnActivarReserva(' . $res['id'] . ')" title="Reactivar"><i class="fas fa-sync-alt"></i></button>
+                        </div>';
+                    break;
             }
         }
 
@@ -86,30 +96,44 @@ class Reservas extends Controller
         die();
     }
 
-    // Borrado lógico (inhabilitar)
+    // Cancelar reserva (Borrado lógico)
     public function eliminar($id)
     {
         $id = intval($id);
-        $res = $this->model->inhabilitarReserva($id);
+        $res = $this->model->cambiarEstadoReserva($id, 0); // 0 = Cancelado
 
         if ($res) {
             echo json_encode(['msg' => 'ok']);
         } else {
-            echo json_encode(['msg' => 'No se pudo inhabilitar la reserva.']);
+            echo json_encode(['msg' => 'No se pudo cancelar la reserva.']);
         }
         die();
     }
 
-    // Activar reserva
+    // Reactivar reserva
     public function activar($id)
     {
         $id = intval($id);
-        $res = $this->model->activarReserva($id);
+        $res = $this->model->cambiarEstadoReserva($id, 1); // 1 = Pendiente
 
         if ($res) {
             echo json_encode(['msg' => 'ok']);
         } else {
-            echo json_encode(['msg' => 'No se pudo activar la reserva.']);
+            echo json_encode(['msg' => 'No se pudo reactivar la reserva.']);
+        }
+        die();
+    }
+
+    // Confirmar reserva
+    public function confirmar($id)
+    {
+        $id = intval($id);
+        $res = $this->model->cambiarEstadoReserva($id, 2); // 2 = Confirmado
+
+        if ($res) {
+            echo json_encode(['msg' => 'ok']);
+        } else {
+            echo json_encode(['msg' => 'No se pudo confirmar la reserva.']);
         }
         die();
     }
