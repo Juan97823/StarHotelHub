@@ -5,6 +5,7 @@ class Empleado extends Controller
     public function __construct()
     {
         parent::__construct();
+
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -17,10 +18,11 @@ class Empleado extends Controller
         }
 
         if (!$this->model) {
-            die("Error: EmpleadoModel no se pudo cargar.");
+            die("Error: No se pudo cargar el modelo EmpleadoModel.");
         }
     }
 
+    /** DASHBOARD **/
     public function dashboard()
     {
         $data['title'] = 'Panel de Empleado';
@@ -31,30 +33,49 @@ class Empleado extends Controller
         $this->views->getView('empleado/dashboard', $data);
     }
 
-    public function reservas($params = 'reservas')
+    /** VISTA PRINCIPAL DE RESERVAS **/
+    public function reservas($params = '')
     {
-        if ($params == 'reservas') {
-            $data['title'] = 'Gestión de Reservas';
-            $data['habitaciones'] = $this->model->getDatos('habitaciones');
-            $data['clientes'] = $this->model->getDatos('clientes');
-            $this->views->getView('empleado/Reservas', $data);
-        } elseif ($params == 'listar') {
-            $this->listar();
-        } elseif ($params == 'crear') {
-            $this->crear();
-        } elseif (strpos($params, 'actualizar/') === 0) {
-            $id = str_replace('actualizar/', '', $params);
-            $this->actualizar($id);
+        switch ($params) {
+            case '':
+            case 'reservas':
+                $data['title'] = 'Gestión de Reservas';
+                $data['habitaciones'] = $this->model->getDatos('habitaciones');
+                $data['clientes'] = $this->model->getDatos('clientes');
+                $this->views->getView('empleado/Reservas', $data);
+                break;
+
+            case 'listar':
+                $this->listar();
+                break;
+
+            case 'crear':
+                $this->crear();
+                break;
+
+            default:
+                if (strpos($params, 'actualizar/') === 0) {
+                    $id = str_replace('actualizar/', '', $params);
+                    $this->actualizar($id);
+                }
+                break;
         }
     }
 
+    /** LISTAR RESERVAS PARA DATATABLES **/
     public function listar()
     {
-        $reservas = $this->model->getReservas();
-        $data = [];
+        $data = $this->model->getReservas();
+        $result = [];
 
-        foreach ($reservas as $r) {
-            $data[] = [
+        foreach ($data as $r) {
+            $botones = '
+            <button class="btn btn-sm btn-success" onclick="actualizarEstado(' . $r['id'] . ', \'Activa\')">Dar Ingreso</button>
+            <button class="btn btn-sm btn-danger" onclick="actualizarEstado(' . $r['id'] . ', \'Cancelada\')">Cancelar</button>
+            <button class="btn btn-sm btn-secondary" onclick="actualizarEstado(' . $r['id'] . ', \'Completada\')">Finalizar</button>
+        ';
+
+            $result[] = [
                 $r['id'],
                 $r['estilo_habitacion'],
                 $r['nombre_cliente'],
@@ -62,14 +83,29 @@ class Empleado extends Controller
                 $r['fecha_salida'],
                 '$' . number_format($r['monto'], 0, ',', '.'),
                 $r['estado'],
-                '<button class="btn btn-sm btn-info">Ver</button>
-             <button class="btn btn-sm btn-warning">Editar</button>'
+                $botones
             ];
         }
 
-        echo json_encode(['data' => $data], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        echo json_encode(['data' => $result], JSON_UNESCAPED_UNICODE);
         die();
     }
+
+
+    /** COLOR SEGÚN ESTADO **/
+    private function getColorEstado($estado)
+    {
+        return match ($estado) {
+            'Activa' => 'success',
+            'Confirmada' => 'primary',
+            'Pendiente de Pago' => 'warning',
+            'Cancelada' => 'danger',
+            'Completada' => 'secondary',
+            default => 'light'
+        };
+    }
+
+    /** CREAR RESERVA **/
     private function crear()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -92,6 +128,7 @@ class Empleado extends Controller
         die();
     }
 
+    /** ACTUALIZAR RESERVA **/
     private function actualizar($id)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $id > 0) {
@@ -114,28 +151,26 @@ class Empleado extends Controller
         die();
     }
 
-    public function getReserva($idReserva)
+    /** CAMBIAR ESTADO **/
+    public function actualizarEstadoReserva()
     {
-        $id = intval($idReserva);
-        $data = $this->model->getReserva($id);
-        echo json_encode($data, JSON_UNESCAPED_UNICODE);
-        die();
-    }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = intval($_POST['id']);
+            $nuevoEstado = trim($_POST['estado']);
 
-    public function actualizarEstadoReserva($idReserva, $nuevoEstado)
-    {
-        $id = intval($idReserva);
-        $estadosPermitidos = ['Activa', 'Completada', 'Cancelada'];
-        if (in_array($nuevoEstado, $estadosPermitidos)) {
-            $data = $this->model->cambiarEstadoReserva($id, $nuevoEstado);
-            $res = ($data == 1)
-                ? ['status' => true, 'msg' => 'Estado de la reserva actualizado']
-                : ['status' => false, 'msg' => 'Error al actualizar el estado'];
-        } else {
-            $res = ['status' => false, 'msg' => 'Estado no válido'];
+            $estadosPermitidos = ['Activa', 'Completada', 'Cancelada'];
+
+            if (in_array($nuevoEstado, $estadosPermitidos)) {
+                $data = $this->model->cambiarEstadoReserva($id, $nuevoEstado);
+                $res = ($data > 0)
+                    ? ['status' => true, 'msg' => 'Estado de la reserva actualizado correctamente.']
+                    : ['status' => false, 'msg' => 'No se pudo actualizar el estado.'];
+            } else {
+                $res = ['status' => false, 'msg' => 'Estado no válido.'];
+            }
+
+            echo json_encode($res, JSON_UNESCAPED_UNICODE);
+            die();
         }
-        echo json_encode($res, JSON_UNESCAPED_UNICODE);
-        die();
     }
 }
-?>

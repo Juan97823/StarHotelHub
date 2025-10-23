@@ -22,9 +22,9 @@ class EmpleadoModel extends Query
 
     // Obtener todas las reservas para el DataTable del empleado
 // Obtener todas las reservas para el DataTable del empleado
-    public function getReservas()
-    {
-        $sql = "SELECT 
+public function getReservas()
+{
+    $sql = "SELECT 
                 r.id,
                 h.estilo AS estilo_habitacion,
                 u.nombre AS nombre_cliente,
@@ -42,13 +42,9 @@ class EmpleadoModel extends Query
             INNER JOIN habitaciones h ON r.id_habitacion = h.id
             INNER JOIN usuarios u ON r.id_usuario = u.id
             ORDER BY r.id DESC";
+    return $this->selectAll($sql);
+}
 
-        $data = $this->selectAll($sql);
-        // 👇 prueba temporal
-        // print_r($data);
-        // exit;
-        return $data;
-    }
 
     // Crear una nueva reserva
     public function crearReserva($idHabitacion, $idCliente, $fechaIngreso, $fechaSalida, $monto, $estadoStr)
@@ -79,7 +75,7 @@ class EmpleadoModel extends Query
         $datos = [$nuevoEstadoInt, $idReserva];
         return $this->save($sql, $datos);
     }
-
+    
     // --- MÉTODOS PARA EL DASHBOARD DEL EMPLEADO ---
 
     // Contar reservas según fecha y estado
