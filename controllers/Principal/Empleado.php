@@ -9,16 +9,13 @@ class Empleado extends Controller
             session_start();
         }
 
-        // Cargar el modelo específico para este controlador
         $this->cargarModel('EmpleadoModel');
 
-        // Validar acceso solo para empleados (rol = 2)
         if (empty($_SESSION['usuario']) || $_SESSION['usuario']['rol'] != 2) {
             header('Location: ' . RUTA_PRINCIPAL . 'login');
             exit;
         }
 
-        // Verificación de que el modelo se cargó correctamente
         if (!$this->model) {
             die("Error: EmpleadoModel no se pudo cargar.");
         }
@@ -27,38 +24,55 @@ class Empleado extends Controller
     public function dashboard()
     {
         $data['title'] = 'Panel de Empleado';
-        // Acceso correcto a los datos del array
         $data['checkins_hoy'] = $this->model->contarReservasPorFecha('fecha_ingreso', 1)['total'];
         $data['checkouts_hoy'] = $this->model->contarReservasPorFecha('fecha_salida', 2)['total'];
         $data['habitaciones_ocupadas'] = $this->model->contarHabitacionesOcupadas()['total'];
         $data['actividad_dia'] = $this->model->getActividadDia();
-
-        // Ruta correcta para la vista
         $this->views->getView('empleado/dashboard', $data);
     }
 
-    public function reservas()
+    public function reservas($params = 'reservas')
     {
-        $data['title'] = 'Gestión de Reservas';
-        $data['habitaciones'] = $this->model->getDatos('habitaciones');
-        $data['clientes'] = $this->model->getDatos('clientes');
-        // Ruta correcta para la vista
-        $this->views->getView('empleado/reservas', $data);
+        if ($params == 'reservas') {
+            $data['title'] = 'Gestión de Reservas';
+            $data['habitaciones'] = $this->model->getDatos('habitaciones');
+            $data['clientes'] = $this->model->getDatos('clientes');
+            $this->views->getView('empleado/Reservas', $data);
+        } elseif ($params == 'listar') {
+            $this->listar();
+        } elseif ($params == 'crear') {
+            $this->crear();
+        } elseif (strpos($params, 'actualizar/') === 0) {
+            $id = str_replace('actualizar/', '', $params);
+            $this->actualizar($id);
+        }
     }
 
-    // --- API ENDPOINTS PARA AJAX ---
-
-    public function listarReservas()
+    public function listar()
     {
-        $data = $this->model->getReservas();
-        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        $reservas = $this->model->getReservas();
+        $data = [];
+
+        foreach ($reservas as $r) {
+            $data[] = [
+                $r['id'],
+                $r['estilo_habitacion'],
+                $r['nombre_cliente'],
+                $r['fecha_ingreso'],
+                $r['fecha_salida'],
+                '$' . number_format($r['monto'], 0, ',', '.'),
+                $r['estado'],
+                '<button class="btn btn-sm btn-info">Ver</button>
+             <button class="btn btn-sm btn-warning">Editar</button>'
+            ];
+        }
+
+        echo json_encode(['data' => $data], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         die();
     }
-
-    public function registrarReserva()
+    private function crear()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $idReserva = !empty($_POST['idReserva']) ? intval($_POST['idReserva']) : null;
             $idHabitacion = intval($_POST['habitacion']);
             $idCliente = intval($_POST['cliente']);
             $fechaIngreso = $_POST['fecha_ingreso'];
@@ -68,17 +82,32 @@ class Empleado extends Controller
             if (empty($idHabitacion) || empty($idCliente) || empty($fechaIngreso) || empty($fechaSalida) || empty($monto)) {
                 $res = ['status' => false, 'msg' => 'Todos los campos son obligatorios'];
             } else {
-                if ($idReserva) {
-                    $data = $this->model->actualizarReserva($idReserva, $idHabitacion, $idCliente, $fechaIngreso, $fechaSalida, $monto);
-                    $res = ($data > 0)
-                        ? ['status' => true, 'msg' => 'Reserva actualizada con éxito']
-                        : ['status' => false, 'msg' => 'Error al actualizar la reserva'];
-                } else {
-                    $data = $this->model->crearReserva($idHabitacion, $idCliente, $fechaIngreso, $fechaSalida, $monto, 'Confirmada');
-                    $res = ($data > 0)
-                        ? ['status' => true, 'msg' => 'Reserva registrada con éxito']
-                        : ['status' => false, 'msg' => 'Error al registrar la reserva'];
-                }
+                $data = $this->model->crearReserva($idHabitacion, $idCliente, $fechaIngreso, $fechaSalida, $monto, 'Confirmada');
+                $res = ($data > 0)
+                    ? ['status' => true, 'msg' => 'Reserva registrada con éxito']
+                    : ['status' => false, 'msg' => 'Error al registrar la reserva'];
+            }
+            echo json_encode($res, JSON_UNESCAPED_UNICODE);
+        }
+        die();
+    }
+
+    private function actualizar($id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && $id > 0) {
+            $idHabitacion = intval($_POST['habitacion']);
+            $idCliente = intval($_POST['cliente']);
+            $fechaIngreso = $_POST['fecha_ingreso'];
+            $fechaSalida = $_POST['fecha_salida'];
+            $monto = floatval($_POST['monto']);
+
+            if (empty($idHabitacion) || empty($idCliente) || empty($fechaIngreso) || empty($fechaSalida) || empty($monto)) {
+                $res = ['status' => false, 'msg' => 'Todos los campos son obligatorios'];
+            } else {
+                $data = $this->model->actualizarReserva($id, $idHabitacion, $idCliente, $fechaIngreso, $fechaSalida, $monto);
+                $res = ($data > 0)
+                    ? ['status' => true, 'msg' => 'Reserva actualizada con éxito']
+                    : ['status' => false, 'msg' => 'Error al actualizar la reserva'];
             }
             echo json_encode($res, JSON_UNESCAPED_UNICODE);
         }

@@ -103,9 +103,9 @@
                   </td>
                   <td><?php echo date("h:i A", strtotime($esLlegada ? $actividad['fecha_ingreso'] : $actividad['fecha_salida'])); ?></td>
                   <td>
-                    <a href="#" class="btn btn-sm btn-outline-primary me-1" title="Ver Reserva"><i class="fas fa-eye"></i></a>
+                    <a href="#" class="btn btn-sm btn-outline-primary me-1 btn-view-reserva" data-id="<?php echo $actividad['id']; ?>" title="Ver Reserva"><i class="fas fa-eye"></i></a>
                     <?php if ($esLlegada && $actividad['estado'] == 1) : // 1 es Confirmada ?>
-                      <a href="#" class="btn btn-sm btn-primary" title="Hacer Check-In">Check-In</a>
+                      <a href="#" class="btn btn-sm btn-primary btn-checkin" data-id="<?php echo $actividad['id']; ?>" title="Hacer Check-In">Check-In</a>
                     <?php endif; ?>
                   </td>
                 </tr>

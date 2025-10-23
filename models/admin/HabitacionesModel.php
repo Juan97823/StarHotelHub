@@ -90,39 +90,4 @@ class HabitacionesModel extends Query
             $temp_slug = $slug . '-' . $counter;
         }
     }
-
-    // -------------------- GALERÍA --------------------
-
-    public function getGaleria($id_habitacion, $soloActivas = true)
-    {
-        $sql = "SELECT * FROM galeria_habitaciones WHERE id_habitacion = ?";
-        if ($soloActivas) {
-            $sql .= " AND estado = 1";
-        }
-        return $this->selectAll($sql, [$id_habitacion]) ?? [];
-    }
-
-    public function insertarImagenGaleria($imagen, $id_habitacion)
-    {
-        $sql = "INSERT INTO galeria_habitaciones (imagen, id_habitacion, estado) VALUES (?, ?, 1)";
-        return $this->insert($sql, [$imagen, $id_habitacion]);
-    }
-
-    public function getFoto($id)
-    {
-        $sql = "SELECT * FROM galeria_habitaciones WHERE id = ?";
-        return $this->select($sql, [$id]) ?? [];
-    }
-
-    public function inhabilitarFotoGaleria($id)
-    {
-        $sql = "UPDATE galeria_habitaciones SET estado = 0 WHERE id = ?";
-        return $this->save($sql, [$id]);
-    }
-
-    public function reingresarFotoGaleria($id)
-    {
-        $sql = "UPDATE galeria_habitaciones SET estado = 1 WHERE id = ?";
-        return $this->save($sql, [$id]);
-    }
 }

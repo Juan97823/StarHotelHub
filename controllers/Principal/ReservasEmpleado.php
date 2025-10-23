@@ -26,41 +26,46 @@ class ReservasEmpleado extends Controller
     }
 
     // Listar reservas (JSON para DataTables)
-    public function listar()
+    private function listar()
     {
-        $reservas = $this->ReservaModel->getReservas(false);
+        ini_set('display_errors', 0);
+        error_reporting(0);
 
-        foreach ($reservas as $key => $res) {
-            // Estado
-            $reservas[$key]['estado'] = $res['estado'] == 1
-                ? '<span class="badge bg-success">Activa</span>'
-                : '<span class="badge bg-danger">Cancelada</span>';
+        $reservas = $this->model->getReservas();
+        $eventos = [];
 
-            // Acciones
-            $id = $res['id'];
-            $reservas[$key]['acciones'] = '
-                <div>
-                    <button class="btn btn-primary btn-sm" onclick="btnEditarReserva('.$id.')" title="Editar"><i class="fas fa-edit"></i></button>
-                    <button class="btn btn-warning btn-sm" onclick="btnCancelarReserva('.$id.')" title="Cancelar"><i class="fas fa-ban"></i></button>
-                </div>';
+        foreach ($reservas as $reserva) {
+            $eventos[] = [
+                'id' => $reserva['id'],
+                'title' => 'Hab. ' . $reserva['habitacion'] . ' - ' . $reserva['cliente'],
+                'start' => $reserva['fecha_ingreso'],
+                'end' => $reserva['fecha_salida'],
+                'extendedProps' => [
+                    'id_habitacion' => $reserva['id_habitacion'],
+                    'id_usuario' => $reserva['id_cliente'],
+                    'monto' => $reserva['monto'],
+                    'estado' => $reserva['estado_reserva']
+                ]
+            ];
         }
 
-        echo json_encode($reservas, JSON_UNESCAPED_UNICODE);
+        echo json_encode($eventos, JSON_UNESCAPED_UNICODE);
         die();
     }
+
 
     // Guardar o actualizar reserva
     public function guardar()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $datos = [
-                'idReserva'     => $_POST['idReserva'] ?? '',
-                'habitacion'    => $_POST['habitacion'],
-                'cliente'       => $_POST['cliente'],
+                'idReserva' => $_POST['idReserva'] ?? '',
+                'habitacion' => $_POST['habitacion'],
+                'cliente' => $_POST['cliente'],
                 'fecha_ingreso' => $_POST['fecha_ingreso'],
-                'fecha_salida'  => $_POST['fecha_salida'],
-                'monto'         => $_POST['monto'],
-                'descripcion'   => $_POST['descripcion'] ?? null
+                'fecha_salida' => $_POST['fecha_salida'],
+                'monto' => $_POST['monto'],
+                'descripcion' => $_POST['descripcion'] ?? null
             ];
 
             if (!empty($datos['idReserva'])) {

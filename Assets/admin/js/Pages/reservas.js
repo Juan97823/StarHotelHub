@@ -1,6 +1,3 @@
-// assets/admin/js/reservas.js
-
-// Declarar las variables globales necesarias
 let tblReservas;
 let myModal;
 

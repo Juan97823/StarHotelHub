@@ -21,27 +21,33 @@ class EmpleadoModel extends Query
     }
 
     // Obtener todas las reservas para el DataTable del empleado
+// Obtener todas las reservas para el DataTable del empleado
     public function getReservas()
     {
-        $sql = "SELECT r.id, h.estilo as estilo_habitacion, u.nombre as nombre_cliente, r.fecha_ingreso, r.fecha_salida, r.monto, 
+        $sql = "SELECT 
+                r.id,
+                h.estilo AS estilo_habitacion,
+                u.nombre AS nombre_cliente,
+                r.fecha_ingreso,
+                r.fecha_salida,
+                r.monto,
                 CASE r.estado
                     WHEN 0 THEN 'Cancelada'
                     WHEN 1 THEN 'Confirmada'
                     WHEN 2 THEN 'Activa'
                     WHEN 3 THEN 'Completada'
                     ELSE 'Desconocido'
-                END as estado
-                FROM reservas r
-                INNER JOIN habitaciones h ON r.id_habitacion = h.id
-                INNER JOIN usuarios u ON r.id_usuario = u.id";
-        return $this->selectAll($sql);
-    }
+                END AS estado
+            FROM reservas r
+            INNER JOIN habitaciones h ON r.id_habitacion = h.id
+            INNER JOIN usuarios u ON r.id_usuario = u.id
+            ORDER BY r.id DESC";
 
-    // Obtener una única reserva por su ID
-    public function getReserva($idReserva)
-    {
-        $sql = "SELECT * FROM reservas WHERE id = ?";
-        return $this->select($sql, [$idReserva]);
+        $data = $this->selectAll($sql);
+        // 👇 prueba temporal
+        // print_r($data);
+        // exit;
+        return $data;
     }
 
     // Crear una nueva reserva
@@ -73,7 +79,7 @@ class EmpleadoModel extends Query
         $datos = [$nuevoEstadoInt, $idReserva];
         return $this->save($sql, $datos);
     }
-    
+
     // --- MÉTODOS PARA EL DASHBOARD DEL EMPLEADO ---
 
     // Contar reservas según fecha y estado

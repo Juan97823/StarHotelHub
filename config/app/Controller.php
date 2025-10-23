@@ -33,7 +33,7 @@ class Controller
             $this->model = new $nombreModel();
         } else {
             $this->model = null;
-            error_log("⚠️ Error: $nombreModel no se pudo cargar. Ruta esperada: $ruta");
+            error_log(" Error: $nombreModel no se pudo cargar. Ruta esperada: $ruta");
         }
     }
 }
