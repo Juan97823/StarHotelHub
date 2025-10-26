@@ -151,28 +151,12 @@
             <?php foreach ($data['entradas'] as $entrada): ?>
                 <div class="col-lg-4 col-md-6">
                     <div class="single-news">
-                        <div class="news-img">
-                            <a href="<?= htmlspecialchars(RUTA_PRINCIPAL . 'blog/detalle/' . $entrada['slug']); ?>">
-                                <img loading="lazy"
-                                    src="<?= htmlspecialchars(RUTA_PRINCIPAL . 'assets/img/entradas/' . $entrada['foto']); ?>"
-                                    alt="<?= htmlspecialchars($entrada['titulo']); ?>">
-                            </a>
-                            <div class="dates">
-                                <span><?= htmlspecialchars($entrada['categoriass']); ?></span>
-                            </div>
-                        </div>
                         <div class="news-content-wrap">
                             <ul>
                                 <li><i class="flaticon-user"></i> <?= htmlspecialchars($entrada['autor']); ?></li>
                             </ul>
-                            <a href="<?= htmlspecialchars(RUTA_PRINCIPAL . 'blog/detalle/' . $entrada['slug']); ?>">
-                                <h3><?= htmlspecialchars($entrada['titulo']); ?></h3>
-                            </a>
+                            <h3><?= htmlspecialchars($entrada['titulo']); ?></h3>
                             <p><?= htmlspecialchars(substr($entrada['descripcion'], 0, 100)) . '...'; ?></p>
-                            <a class="read-more"
-                                href="<?= htmlspecialchars(RUTA_PRINCIPAL . 'blog/detalle/' . $entrada['slug']); ?>">
-                                Leer más <i class="flaticon-right"></i>
-                            </a>
                         </div>
                     </div>
                 </div>

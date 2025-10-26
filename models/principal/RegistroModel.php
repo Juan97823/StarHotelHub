@@ -11,21 +11,31 @@ class RegistroModel extends Query
     {
         $sql = "INSERT INTO usuarios (nombre, correo, clave, rol) VALUES (?, ?, ?, ?)";
         $datos = [$nombre, $correo, $hash, $rol];
-        return $this->insert($sql,[$nombre,$correo,$hash,$rol]);
+        return $this->insert($sql, $datos);
     }
-    public function validarUnique($item,$valor,$id_usuario) {
-        if ($id_usuario == 0) {
-            $sql = "SELECT * FROM usuarios WHERE $item = '$valor'";
-        } else {
-             $sql = "SELECT * FROM usuarios WHERE $item = '$valor' AND id != $id_usuario";
+    // Validar que un campo sea único - SEGURO contra SQL injection
+    public function validarUnique($item, $valor, $id_usuario)
+    {
+        // Validar que $item sea una columna permitida
+        $columnasPermitidas = ['correo', 'nombre'];
+        if (!in_array($item, $columnasPermitidas)) {
+            return null;
         }
-        return $this->select($sql);
+
+        if ($id_usuario == 0) {
+            $sql = "SELECT * FROM usuarios WHERE $item = ?";
+            return $this->select($sql, [$valor]);
+        } else {
+            $sql = "SELECT * FROM usuarios WHERE $item = ? AND id != ?";
+            return $this->select($sql, [$valor, $id_usuario]);
+        }
     }
+
+    // Verificar correo - SEGURO contra SQL injection
     public function verificarCorreo($correo)
     {
-        $correo = addslashes($correo); // sanitizar mínimamente
-        $sql = "SELECT id FROM usuarios WHERE correo = '$correo'";
-        return $this->select($sql);
+        $sql = "SELECT id FROM usuarios WHERE correo = ?";
+        return $this->select($sql, [$correo]);
     }
 
     public function getUsuarioById($id)

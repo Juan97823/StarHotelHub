@@ -82,6 +82,25 @@ class ReservaModel extends Query
         return $this->selectAll($query, $params);
     }
 
+    // Obtener detalle completo de una reserva
+    public function getDetalleReserva($id_reserva)
+    {
+        $query = "SELECT r.*,
+                         h.estilo AS tipo,
+                         h.numero AS numero_habitacion,
+                         h.categoria,
+                         h.precio AS precio_noche,
+                         u.nombre AS nombre_cliente,
+                         u.correo AS email,
+                         u.telefono
+                FROM reservas r
+                JOIN habitaciones h ON r.id_habitacion = h.id
+                JOIN usuarios u ON r.id_usuario = u.id
+                WHERE r.id = :id_reserva";
+        $params = [':id_reserva' => intval($id_reserva)];
+        return $this->select($query, $params);
+    }
+
     // Contar el total de reservas de un cliente
     public function getCantidadReservas($id_usuario)
     {

@@ -1,48 +1,54 @@
 <?php
-class Conexion {
+class Conexion
+{
     private $conect;
+    private static $instance = null;
 
-    public function __construct() {
+    public function __construct()
+    {
         $dsn = "mysql:host=" . HOST . ";dbname=" . DATABASE . ";charset=utf8mb4";
         try {
             $this->conect = new PDO($dsn, USER, PASS, [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES => false, //  seguridad contra inyecciones
+                PDO::ATTR_EMULATE_PREPARES => false, // Seguridad contra inyecciones
+                PDO::ATTR_PERSISTENT => false, // No usar conexiones persistentes
             ]);
         } catch (PDOException $e) {
-            // No mostrar detalles en producción
-            error_log("Error de conexión: " . $e->getMessage());
-            die("Error en la conexión a la base de datos.");
+            error_log("Error de conexión a BD: " . $e->getMessage());
+            die("Error en la conexión a la base de datos. Por favor, intente más tarde.");
         }
     }
 
-    public function conectar() {
+    /**
+     * Obtener instancia singleton de la conexión
+     */
+    public static function getInstance()
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    public function conectar()
+    {
         return $this->conect;
     }
 
-    // Consulta que devuelve solo un registro
-    public function select($sql, $params = []) {
-        $stmt = $this->conect->prepare($sql);
-        $stmt->execute($params);
-        return $stmt->fetch();
+    /**
+     * Verificar si la conexión está activa
+     */
+    public function isConnected()
+    {
+        return $this->conect !== null;
     }
 
-    // Consulta que devuelve todos los registros
-    public function selectAll($sql, $params = []) {
-        $stmt = $this->conect->prepare($sql);
-        $stmt->execute($params);
-        return $stmt->fetchAll();
-    }
-
-    // Para INSERT, UPDATE, DELETE
-    public function execute($sql, $params = []) {
-        $stmt = $this->conect->prepare($sql);
-        return $stmt->execute($params);
-    }
-
-    // Último ID insertado
-    public function lastInsertId() {
-        return $this->conect->lastInsertId();
+    /**
+     * Cerrar conexión
+     */
+    public function close()
+    {
+        $this->conect = null;
     }
 }

@@ -7,15 +7,21 @@ class EmpleadoModel extends Query
     }
 
     // ... (métodos existentes de getDatos, getReservas, etc.) ...
-    // Método genérico para obtener datos de una tabla (usado para habitaciones y clientes)
+    // Método genérico para obtener datos de una tabla (usado para habitaciones y clientes) - SEGURO
     public function getDatos($table)
     {
+        // Validar tabla permitida
+        $tablasPermitidas = ['clientes', 'habitaciones'];
+        if (!in_array($table, $tablasPermitidas)) {
+            return [];
+        }
+
         if ($table == 'clientes') {
             // Los clientes son usuarios con rol 3
             $sql = "SELECT id, nombre FROM usuarios WHERE rol = 3 AND estado = 1";
         } else {
-            // Obtener habitaciones activas
-            $sql = "SELECT id, estilo, numero FROM $table WHERE estado = 1";
+            // Obtener habitaciones activas con precio
+            $sql = "SELECT id, estilo, numero, precio FROM habitaciones WHERE estado = 1";
         }
         return $this->selectAll($sql);
     }
@@ -95,13 +101,46 @@ public function getReservas()
     // Obtener la actividad del día (llegadas y salidas)
     public function getActividadDia()
     {
-        $sql = "SELECT r.*, u.nombre as nombre_cliente, h.estilo as nombre_habitacion, 
+        $sql = "SELECT r.*, u.nombre as nombre_cliente, h.estilo as nombre_habitacion,
                 (CASE WHEN r.fecha_ingreso = CURDATE() THEN 'llegada' ELSE 'salida' END) as tipo
-                FROM reservas r 
+                FROM reservas r
                 INNER JOIN usuarios u ON r.id_usuario = u.id
                 INNER JOIN habitaciones h ON r.id_habitacion = h.id
                 WHERE (r.fecha_ingreso = CURDATE() AND r.estado = 1) OR (r.fecha_salida = CURDATE() AND r.estado = 2)";
         return $this->selectAll($sql);
+    }
+
+    // Obtener llegadas esperadas para hoy
+    public function getLlegadasHoy()
+    {
+        $sql = "SELECT r.id, r.fecha_ingreso, r.fecha_salida, u.nombre as nombre_cliente, h.estilo as nombre_habitacion
+                FROM reservas r
+                INNER JOIN usuarios u ON r.id_usuario = u.id
+                INNER JOIN habitaciones h ON r.id_habitacion = h.id
+                WHERE DATE(r.fecha_ingreso) = CURDATE() AND r.estado = 1
+                ORDER BY r.fecha_ingreso ASC";
+        return $this->selectAll($sql);
+    }
+
+    // Obtener salidas esperadas para hoy
+    public function getSalidasHoy()
+    {
+        $sql = "SELECT r.id, r.fecha_ingreso, r.fecha_salida, u.nombre as nombre_cliente, h.estilo as nombre_habitacion
+                FROM reservas r
+                INNER JOIN usuarios u ON r.id_usuario = u.id
+                INNER JOIN habitaciones h ON r.id_habitacion = h.id
+                WHERE DATE(r.fecha_salida) = CURDATE() AND r.estado = 2
+                ORDER BY r.fecha_salida ASC";
+        return $this->selectAll($sql);
+    }
+
+    // Contar habitaciones disponibles
+    public function contarHabitacionesDisponibles()
+    {
+        $sql = "SELECT COUNT(id) AS total FROM habitaciones WHERE estado = 1 AND id NOT IN (
+                    SELECT id_habitacion FROM reservas WHERE estado = 2
+                )";
+        return $this->select($sql);
     }
 
     // Función auxiliar para mapear el estado de string a entero

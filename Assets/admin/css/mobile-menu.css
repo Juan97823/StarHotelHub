@@ -1,0 +1,172 @@
+/* ============================================
+   ESTILOS PARA MENÚ MÓVIL
+   ============================================ */
+
+/* Overlay base */
+.overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: transparent;
+    z-index: 9;
+    display: none;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+    pointer-events: none;
+}
+
+/* Overlay cuando el menú está abierto */
+.wrapper.toggled .overlay {
+    background: rgba(0, 0, 0, 0.6);
+    display: block;
+    pointer-events: auto;
+}
+
+/* Estilos para pantallas pequeñas */
+@media screen and (max-width: 1024px) {
+
+    /* Asegurar que el overlay sea visible */
+    .overlay {
+        display: none;
+        pointer-events: none;
+    }
+
+    .wrapper.toggled .overlay {
+        display: block;
+        pointer-events: auto;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 9;
+    }
+
+    /* Sidebar en móvil */
+    .sidebar-wrapper {
+        position: fixed;
+        left: -300px;
+        top: 0;
+        width: 250px;
+        height: 100vh;
+        z-index: 11;
+        transition: left 0.3s ease-out;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .wrapper.toggled .sidebar-wrapper {
+        left: 0;
+    }
+
+    /* Topbar en móvil */
+    .topbar {
+        left: 0 !important;
+        z-index: 10;
+        position: relative;
+    }
+
+    /* Navbar en móvil */
+    .navbar {
+        display: flex !important;
+        align-items: center !important;
+        width: 100%;
+    }
+
+    /* Page wrapper en móvil */
+    .page-wrapper {
+        margin-left: 0 !important;
+        transition: margin-left 0.3s ease-out;
+    }
+
+    .wrapper.toggled .page-wrapper {
+        margin-left: 0;
+    }
+
+    /* Botón de menú móvil */
+    .mobile-toggle-menu {
+        display: block !important;
+        font-size: 28px !important;
+        color: #404142 !important;
+        cursor: pointer !important;
+        padding: 12px 18px !important;
+        transition: all 0.3s ease-out;
+        line-height: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        z-index: 12;
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    .mobile-toggle-menu i {
+        display: block;
+        font-size: 28px;
+        color: #404142;
+        line-height: 1;
+    }
+
+    .mobile-toggle-menu:hover {
+        color: #008cff !important;
+    }
+
+    .mobile-toggle-menu:hover i {
+        color: #008cff;
+    }
+    
+    /* Asegurar que el menú sea clickeable */
+    .sidebar-wrapper .metismenu a {
+        cursor: pointer;
+        transition: all 0.2s ease-out;
+    }
+    
+    .sidebar-wrapper .metismenu a:hover {
+        background-color: rgba(0, 140, 255, 0.1);
+    }
+}
+
+/* Pantallas muy pequeñas */
+@media screen and (max-width: 767px) {
+    .sidebar-wrapper {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .mobile-toggle-menu {
+        font-size: 24px;
+    }
+}
+
+/* Pantallas extra pequeñas */
+@media screen and (max-width: 480px) {
+    .sidebar-wrapper {
+        width: 100%;
+        max-width: 250px;
+    }
+    
+    .mobile-toggle-menu {
+        font-size: 22px;
+        padding: 8px 12px;
+    }
+}
+
+/* Asegurar que el overlay no interfiera con otros elementos */
+.overlay {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Animación suave para el overlay */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.wrapper.toggled .overlay {
+    animation: fadeIn 0.3s ease-out;
+}
+

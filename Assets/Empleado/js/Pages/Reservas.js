@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
   if (document.getElementById("reservaModal")) {
     tblReservas = $("#tableReservas").DataTable({
       ajax: {
-        url: base_url + "empleado/listar", //  ruta correcta
-        dataSrc: "data", // ✅ el JSON contiene la clave "data"
+        url: base_url + "empleado/listar",
+        dataSrc: "data",
       },
       columns: [
         { data: 0 }, // ID
@@ -30,13 +30,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document
       .getElementById("habitacion")
-      .addEventListener("change", calcularMonto);
+      .addEventListener("change", () => {
+        calcularMonto();
+        verificarDisponibilidad();
+      });
     document
       .getElementById("fecha_ingreso")
-      .addEventListener("change", calcularMonto);
+      .addEventListener("change", () => {
+        calcularMonto();
+        verificarDisponibilidad();
+      });
     document
       .getElementById("fecha_salida")
-      .addEventListener("change", calcularMonto);
+      .addEventListener("change", () => {
+        calcularMonto();
+        verificarDisponibilidad();
+      });
 
     document
       .getElementById("reservaForm")
@@ -49,33 +58,94 @@ function calcularMonto() {
   const fechaIngresoInput = document.getElementById("fecha_ingreso");
   const fechaSalidaInput = document.getElementById("fecha_salida");
   const montoInput = document.getElementById("monto");
-  const selectedOption =
-    habitacionSelect.options[habitacionSelect.selectedIndex];
 
-  if (!selectedOption || !selectedOption.hasAttribute("data-precio")) {
+  if (!habitacionSelect.value || !fechaIngresoInput.value || !fechaSalidaInput.value) {
     montoInput.value = "0.00";
     return;
   }
 
-  const precioPorNoche = parseFloat(selectedOption.getAttribute("data-precio"));
+  const selectedOption = habitacionSelect.options[habitacionSelect.selectedIndex];
+  if (!selectedOption) {
+    montoInput.value = "0.00";
+    return;
+  }
+
+  const precioPorNoche = parseFloat(selectedOption.getAttribute("data-precio") || 0);
+
+  if (!precioPorNoche || precioPorNoche <= 0) {
+    montoInput.value = "0.00";
+    return;
+  }
+
   const fechaIngreso = new Date(fechaIngresoInput.value);
   const fechaSalida = new Date(fechaSalidaInput.value);
 
-  if (
-    precioPorNoche > 0 &&
-    fechaIngreso instanceof Date &&
-    !isNaN(fechaIngreso) &&
-    fechaSalida instanceof Date &&
-    !isNaN(fechaSalida) &&
-    fechaSalida > fechaIngreso
-  ) {
-    const diffTime = Math.abs(fechaSalida - fechaIngreso);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    const montoTotal = diffDays * precioPorNoche;
-    montoInput.value = montoTotal.toFixed(2);
-  } else {
+  if (isNaN(fechaIngreso.getTime()) || isNaN(fechaSalida.getTime())) {
     montoInput.value = "0.00";
+    return;
   }
+
+  if (fechaSalida <= fechaIngreso) {
+    montoInput.value = "0.00";
+    return;
+  }
+
+  const diffTime = Math.abs(fechaSalida - fechaIngreso);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  const montoTotal = diffDays * precioPorNoche;
+  montoInput.value = montoTotal.toFixed(2);
+}
+
+function verificarDisponibilidad() {
+  const habitacionSelect = document.getElementById("habitacion");
+  const fechaIngresoInput = document.getElementById("fecha_ingreso");
+  const fechaSalidaInput = document.getElementById("fecha_salida");
+  const disponibilidadDiv = document.getElementById("disponibilidad-mensaje") || crearMensajeDisponibilidad();
+
+  if (!habitacionSelect.value || !fechaIngresoInput.value || !fechaSalidaInput.value) {
+    disponibilidadDiv.innerHTML = "";
+    return;
+  }
+
+  const fechaIngreso = new Date(fechaIngresoInput.value);
+  const fechaSalida = new Date(fechaSalidaInput.value);
+
+  if (fechaSalida <= fechaIngreso) {
+    disponibilidadDiv.innerHTML = '<span class="text-danger"><i class="fas fa-times-circle"></i> Fechas inválidas</span>';
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("habitacion", habitacionSelect.value);
+  formData.append("fecha_ingreso", fechaIngresoInput.value);
+  formData.append("fecha_salida", fechaSalidaInput.value);
+  formData.append("id_reserva", document.getElementById("idReserva").value || 0);
+
+  fetch(base_url + "empleado/reservas/verificar", {
+    method: "POST",
+    body: formData
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.disponible) {
+        disponibilidadDiv.innerHTML = '<span class="text-success"><i class="fas fa-check-circle"></i> Habitación disponible</span>';
+      } else {
+        disponibilidadDiv.innerHTML = '<span class="text-danger"><i class="fas fa-times-circle"></i> No disponible en esas fechas</span>';
+      }
+    })
+    .catch(() => {
+      disponibilidadDiv.innerHTML = '<span class="text-warning"><i class="fas fa-exclamation-circle"></i> Error al verificar</span>';
+    });
+}
+
+function crearMensajeDisponibilidad() {
+  const div = document.createElement("div");
+  div.id = "disponibilidad-mensaje";
+  div.className = "mt-2 small";
+  const montoDiv = document.getElementById("monto").parentElement;
+  montoDiv.parentElement.insertBefore(div, montoDiv.nextSibling);
+  return div;
 }
 
 function btnNuevaReserva() {
@@ -83,6 +153,7 @@ function btnNuevaReserva() {
   document.getElementById("idReserva").value = "";
   document.getElementById("reservaModalLabel").textContent = "Nueva Reserva";
   document.getElementById("monto").value = "0.00";
+  document.getElementById("disponibilidad-mensaje").innerHTML = "";
   myModal.show();
 }
 
@@ -98,9 +169,14 @@ function btnEditarReserva(id) {
       document.getElementById("fecha_ingreso").value = res.fecha_ingreso;
       document.getElementById("fecha_salida").value = res.fecha_salida;
       document.getElementById("monto").value = res.monto;
+
+      document.getElementById("habitacion").dispatchEvent(new Event("change"));
+      document.getElementById("fecha_ingreso").dispatchEvent(new Event("change"));
+      document.getElementById("fecha_salida").dispatchEvent(new Event("change"));
+
       myModal.show();
     })
-    .catch((err) => {
+    .catch(() => {
       Swal.fire(
         "¡Error!",
         "No se pudieron cargar los datos de la reserva.",
@@ -133,7 +209,7 @@ function guardarReserva(event) {
         Swal.fire("¡Error!", res.msg, "error");
       }
     })
-    .catch((err) => {
+    .catch(() => {
       Swal.fire(
         "¡Error de Conexión!",
         "No se pudo comunicar con el servidor.",
@@ -154,7 +230,7 @@ function btnCancelarReserva(id) {
     cancelButtonText: "No, mantener",
   }).then((result) => {
     if (result.isConfirmed) {
-      const url = base_url + "empleado/reservas/eliminar/" + id;
+      const url = base_url + "empleado/reservas/eliminar?id=" + id;
       fetch(url, { method: "GET" })
         .then((response) => response.json())
         .then((res) => {
@@ -168,37 +244,43 @@ function btnCancelarReserva(id) {
           } else {
             Swal.fire("¡Error!", res.msg, "error");
           }
+        })
+        .catch(() => {
+          Swal.fire("¡Error!", "Error de conexión", "error");
         });
     }
   });
 }
 
-function btnConfirmarReserva(id) {
+function btnCheckOutReserva(id) {
   Swal.fire({
     title: "¿Estás seguro?",
-    text: "¡Se confirmará la reserva!",
-    icon: "question",
+    text: "¡Se completará la reserva (Check-Out)!",
+    icon: "info",
     showCancelButton: true,
-    confirmButtonColor: "#28a745",
+    confirmButtonColor: "#ffc107",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Sí, ¡confirmar!",
+    confirmButtonText: "Sí, ¡completar!",
     cancelButtonText: "Cancelar",
   }).then((result) => {
     if (result.isConfirmed) {
-      const url = base_url + "empleado/reservas/confirmar/" + id;
+      const url = base_url + "empleado/reservas/checkout?id=" + id;
       fetch(url, { method: "GET" })
         .then((response) => response.json())
         .then((res) => {
           if (res.msg == "ok") {
             Swal.fire(
-              "¡Confirmada!",
-              "La reserva ha sido confirmada.",
+              "¡Completada!",
+              "La reserva ha sido completada (Check-Out).",
               "success"
             );
             tblReservas.ajax.reload();
           } else {
             Swal.fire("¡Error!", res.msg, "error");
           }
+        })
+        .catch(() => {
+          Swal.fire("¡Error!", "Error de conexión", "error");
         });
     }
   });
@@ -207,29 +289,32 @@ function btnConfirmarReserva(id) {
 function btnActivarReserva(id) {
   Swal.fire({
     title: "¿Estás seguro?",
-    text: "¡La reserva se reactivará como pendiente!",
+    text: "¡La reserva se activará (Check-In)!",
     icon: "info",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Sí, ¡reactivar!",
+    confirmButtonText: "Sí, ¡activar!",
     cancelButtonText: "Cancelar",
   }).then((result) => {
     if (result.isConfirmed) {
-      const url = base_url + "empleado/reservas/activar/" + id;
+      const url = base_url + "empleado/reservas/activar?id=" + id;
       fetch(url, { method: "GET" })
         .then((response) => response.json())
         .then((res) => {
-          if (res.msg == "ok") {
+          if (res.msg === "ok") {
             Swal.fire(
-              "¡Reactivada!",
-              "La reserva ha sido reactivada.",
+              "¡Activada!",
+              "La reserva ha sido activada (Check-In).",
               "success"
             );
             tblReservas.ajax.reload();
           } else {
-            Swal.fire("¡Error!", res.msg, "error");
+            Swal.fire("¡Error!", res.msg || "Error al activar", "error");
           }
+        })
+        .catch(() => {
+          Swal.fire("¡Error!", "Error de conexión", "error");
         });
     }
   });

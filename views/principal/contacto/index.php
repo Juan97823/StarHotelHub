@@ -27,7 +27,7 @@ include_once 'views/template/portada.php';
 
                                 <div class="col-lg-6 col-sm-6">
                                     <div class="form-group">
-                                        <input type="correo" name="correo" id="correo" class="form-control" required data-error="Por favor ingresa tu correo" placeholder="Tu Correo">
+                                        <input type="email" name="correo" id="correo" class="form-control" required data-error="Por favor ingresa tu correo" placeholder="Tu Correo">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>

@@ -1,19 +1,16 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 // Configuración principal
 define("ADMIN", "admin");
-define("RUTA_PRINCIPAL", "http://98.90.79.229/");  // IP pública de tu instancia EC2
+define("RUTA_PRINCIPAL", "http://localhost/Starhotelhub/");
 define("RUTA_ADMIN", RUTA_PRINCIPAL . ADMIN . '/');
 define("RUTA_RAIZ", dirname(__DIR__)); // Ruta física del proyecto
 
-// Configuración de la base de datos
-define('HOST', '127.0.0.1');           // localhost dentro de la instancia
-define('USER', 'staruser');             // usuario que creaste en MariaDB
-define('PASS', 'StarHub2025!');         // contraseña del usuario
-define('DATABASE', 'starhotelhub');     // nombre de la base de datos
-define('CHARSET', 'charset=utf8');
+// Configuración de la base de datos - USAR VARIABLES DE ENTORNO EN PRODUCCIÓN
+define('HOST', getenv('DB_HOST') ?: 'localhost');
+define('USER', getenv('DB_USER') ?: 'root');
+define('PASS', getenv('DB_PASS') ?: '');
+define('DATABASE', getenv('DB_NAME') ?: 'starhotelhub'); // ⚠️ MINÚSCULAS para Ubuntu
+define('CHARSET', 'charset=utf8mb4'); // utf8mb4 para mejor compatibilidad (emojis, caracteres especiales)
 
 // Configuración general
 define('TITLE', 'StarHotelHub');
@@ -21,12 +18,17 @@ define('TITLE', 'StarHotelHub');
 // Configuración de seguridad
 define('MAX_LOGIN_ATTEMPTS', 5);
 define('LOCKOUT_TIME', 300); // 5 minutos en segundos
+define('SESSION_TIMEOUT', 5400); // 1.5 horas
 
-// Iniciar sesión segura
-session_start([
-    'cookie_lifetime' => 5400, // 1.5 horas
-    'cookie_secure' => false,   // poner true cuando uses HTTPS
-    'cookie_httponly' => true,
-    'use_strict_mode' => true
-]);
-?>
+// Configurar parámetros de sesión ANTES de iniciar
+if (session_status() === PHP_SESSION_NONE) {
+    session_set_cookie_params([
+        'lifetime' => SESSION_TIMEOUT,
+        'path' => '/',
+        'domain' => '',
+        'secure' => isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on', // true solo en HTTPS
+        'httponly' => true,
+        'samesite' => 'Strict'
+    ]);
+    session_start();
+}

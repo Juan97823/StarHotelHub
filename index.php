@@ -1,13 +1,14 @@
 <?php
-// Al inicio de tu archivo index.php o config.php
-error_reporting(E_ALL ^ E_DEPRECATED);
+// Configuración de errores
+error_reporting(E_ALL);
+ini_set('display_errors', 0); // No mostrar errores en producción
+ini_set('log_errors', 1);
+ini_set('error_log', dirname(__DIR__) . '/logs/error.log');
+
 require_once 'config/config.php';
 require_once 'helpers/funciones.php';
 
-//  Iniciar sesión global para TODA la app
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+// La sesión ya se inicia en config.php
 
 //  Función para mostrar error 404 controlado
 function error404()

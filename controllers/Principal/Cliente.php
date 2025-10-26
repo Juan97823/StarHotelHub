@@ -75,5 +75,46 @@ class Cliente extends Controller
             echo json_encode(['estado' => false, 'msg' => 'Error al cancelar la reserva.']);
         }
     }
+
+    public function detalle($idReserva)
+    {
+        header('Content-Type: application/json');
+
+        $idReserva = intval($idReserva);
+        $idUsuario = $_SESSION['usuario']['id'];
+
+        // Obtener la reserva
+        $reserva = $this->reservaModel->getDetalleReserva($idReserva);
+
+        // Verificar que la reserva existe y pertenece al usuario
+        if (!$reserva || $reserva['id_usuario'] != $idUsuario) {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Reserva no encontrada o no tienes permiso para verla'
+            ]);
+            exit;
+        }
+
+        // Calcular información adicional
+        $fechaIngreso = new DateTime($reserva['fecha_ingreso']);
+        $fechaSalida = new DateTime($reserva['fecha_salida']);
+        $noches = $fechaSalida->diff($fechaIngreso)->days;
+
+        // Calcular precios
+        $precioNoche = $reserva['monto'] / $noches;
+        $subtotal = $reserva['monto'] * 0.85; // Aproximado
+        $impuestos = $reserva['monto'] - $subtotal;
+
+        // Agregar información calculada
+        $reserva['noches'] = $noches;
+        $reserva['precio_noche'] = $precioNoche;
+        $reserva['subtotal'] = $subtotal;
+        $reserva['impuestos'] = $impuestos;
+
+        echo json_encode([
+            'success' => true,
+            'reserva' => $reserva
+        ]);
+    }
 }
 ?>

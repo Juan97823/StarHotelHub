@@ -43,51 +43,64 @@ class Login extends Controller
     public function verify()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            $res = ['tipo' => 'error', 'msg' => 'PETICIÓN INVÁLIDA'];
-            echo json_encode($res, JSON_UNESCAPED_UNICODE);
-            die();
+            http_response_code(405);
+            echo json_encode(['tipo' => 'error', 'msg' => 'PETICIÓN INVÁLIDA'], JSON_UNESCAPED_UNICODE);
+            exit;
         }
 
-        //  Validar campos obligatorios
+        // Validar CSRF token
+        if (!isset($_POST['csrf_token']) || !validarCsrfToken($_POST['csrf_token'])) {
+            http_response_code(403);
+            echo json_encode(['tipo' => 'error', 'msg' => 'TOKEN INVÁLIDO'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        // Validar campos obligatorios
         if (!validarCampos(['usuario', 'clave'])) {
-            $res = ['tipo' => 'warning', 'msg' => 'TODOS LOS CAMPOS SON OBLIGATORIOS'];
-            echo json_encode($res, JSON_UNESCAPED_UNICODE);
-            die();
+            echo json_encode(['tipo' => 'warning', 'msg' => 'TODOS LOS CAMPOS SON OBLIGATORIOS'], JSON_UNESCAPED_UNICODE);
+            exit;
         }
 
-        $usuario = strClean($_POST['usuario']);
-        $clave = strClean($_POST['clave']);
+        $usuario = sanitizar($_POST['usuario']);
+        $clave = $_POST['clave']; // NO sanitizar contraseña antes de verificar hash
+
+        // Validar formato de email
+        if (!validarEmail($usuario)) {
+            echo json_encode(['tipo' => 'warning', 'msg' => 'FORMATO DE EMAIL INVÁLIDO'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
 
         $verificar = $this->model->validarAcceso($usuario);
 
         if (empty($verificar)) {
-            $res = ['tipo' => 'warning', 'msg' => 'EL USUARIO O CORREO NO EXISTE'];
-        } else {
-            if (password_verify($clave, $verificar['clave'])) {
-                //  Regenerar ID de sesión en cada login exitoso
-                session_regenerate_id(true);
-
-                $rol = (int)$verificar['rol'];
-                $_SESSION['usuario'] = [
-                    'id'     => (int)$verificar['id'],
-                    'nombre' => htmlspecialchars($verificar['nombre']),
-                    'correo' => htmlspecialchars($verificar['correo']),
-                    'rol'    => $rol,
-                    'login_time' => time()
-                ];
-
-                $res = [
-                    'tipo' => 'success',
-                    'msg'  => 'ACCESO CORRECTO',
-                    'rol'  => $rol
-                ];
-            } else {
-                $res = ['tipo' => 'warning', 'msg' => 'LA CONTRASEÑA ES INCORRECTA'];
-            }
+            // Usar mensaje genérico por seguridad
+            echo json_encode(['tipo' => 'warning', 'msg' => 'CREDENCIALES INVÁLIDAS'], JSON_UNESCAPED_UNICODE);
+            exit;
         }
 
-        echo json_encode($res, JSON_UNESCAPED_UNICODE);
-        die();
+        if (password_verify($clave, $verificar['clave'])) {
+            // Regenerar ID de sesión en cada login exitoso
+            session_regenerate_id(true);
+
+            $rol = (int)$verificar['rol'];
+            $_SESSION['usuario'] = [
+                'id'     => (int)$verificar['id'],
+                'nombre' => sanitizar($verificar['nombre']),
+                'correo' => sanitizar($verificar['correo']),
+                'rol'    => $rol,
+                'login_time' => time()
+            ];
+
+            echo json_encode([
+                'tipo' => 'success',
+                'msg'  => 'ACCESO CORRECTO',
+                'rol'  => $rol
+            ], JSON_UNESCAPED_UNICODE);
+        } else {
+            // Usar mensaje genérico por seguridad
+            echo json_encode(['tipo' => 'warning', 'msg' => 'CREDENCIALES INVÁLIDAS'], JSON_UNESCAPED_UNICODE);
+        }
+        exit;
     }
 
     public function salir()

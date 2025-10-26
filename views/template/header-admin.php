@@ -22,6 +22,7 @@ $nombreUsuario = htmlspecialchars($nombreUsuario, ENT_QUOTES, 'UTF-8');
     <!-- Fuentes -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
     <!-- Estilos de Plugins -->
     <link href="<?php echo $urlBase . 'assets/admin/plugins/simplebar/css/simplebar.css'; ?>" rel="stylesheet" />
@@ -38,6 +39,7 @@ $nombreUsuario = htmlspecialchars($nombreUsuario, ENT_QUOTES, 'UTF-8');
 
     <!-- Estilos Personalizados -->
     <link rel="stylesheet" href="<?php echo $urlBase . 'assets/admin/css/custom-dashboard.css'; ?>" />
+    <link rel="stylesheet" href="<?php echo $urlBase . 'assets/admin/css/mobile-menu.css'; ?>" />
 
     <script src="<?php echo $urlBase . 'assets/admin/js/pace.min.js'; ?>"></script>
 
@@ -142,12 +144,17 @@ $nombreUsuario = htmlspecialchars($nombreUsuario, ENT_QUOTES, 'UTF-8');
         <!-- Encabezado Principal -->
         <header>
             <div class="topbar d-flex align-items-center">
-                <nav class="navbar navbar-expand">
-                    <div class="mobile-toggle-menu"><i class='bx bx-menu'></i></div>
+                <nav class="navbar navbar-expand w-100">
+                    <div class="mobile-toggle-menu" id="mobileMenuToggle">
+                        <i class='bx bx-menu'></i>
+                    </div>
                 </nav>
             </div>
         </header>
         <!-- Fin Encabezado -->
+
+        <!-- Overlay para cerrar menú móvil -->
+        <div class="overlay"></div>
 
         <!-- Contenedor de la Página -->
         <div class="page-wrapper">

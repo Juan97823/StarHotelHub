@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-10-2025 a las 06:43:27
+-- Tiempo de generación: 26-10-2025 a las 19:15:52
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -43,6 +43,23 @@ INSERT INTO `categorias` (`id`, `categoria`, `estado`) VALUES
 (3, 'Eventos', 1),
 (4, 'Consejos de viaje', 1),
 (5, 'Novedades del hotel', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `contactos`
+--
+
+CREATE TABLE `contactos` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(150) NOT NULL,
+  `correo` varchar(150) NOT NULL,
+  `telefono` varchar(20) NOT NULL,
+  `asunto` varchar(255) NOT NULL,
+  `mensaje` longtext NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
+  `estado` int(11) NOT NULL DEFAULT 1 COMMENT '1=No leído, 2=Leído'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -89,18 +106,6 @@ INSERT INTO `entradas` (`id`, `titulo`, `descripcion`, `foto`, `slug`, `categori
 (19, 'Organiza un retiro de bienestar en nuestro hotel', 'Ideal para empresas o grupos de amigos que buscan relajación y crecimiento personal. Actividades de mindfulness, yoga y alimentación saludable garantizan un retiro inolvidable.', 'eventos4.jpg', 'retiro-bienestar-hotel', NULL, 3, 1, '2025-09-18 00:44:27', 23),
 (20, 'Consejos para evitar el jet lag', 'Aprende a minimizar los efectos del cambio de horario con recomendaciones de alimentación, sueño y actividades para mantener tu energía durante el viaje.', 'consejos4.jpg', 'evitar-jet-lag', NULL, 4, 1, '2025-09-18 00:44:27', 23),
 (21, 'Nueva terraza panorámica con vista al atardecer', 'Disfruta de nuestra renovada terraza con vistas espectaculares y un ambiente único para relajarte, tomar fotos y disfrutar de bebidas al atardecer.', 'novedades4.jpg', 'nueva-terrace-panoramica', NULL, 5, 1, '2025-09-30 22:58:00', 23);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `galeria_habitaciones`
---
-
-CREATE TABLE `galeria_habitaciones` (
-  `id` int(11) NOT NULL,
-  `imagen` varchar(100) NOT NULL,
-  `id_habitacion` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -167,26 +172,7 @@ CREATE TABLE `pagos` (
 --
 
 INSERT INTO `pagos` (`id`, `id_reserva`, `monto`, `num_transaccion`, `cod_reserva`, `fecha_ingreso`, `fecha_salida`, `descripcion`, `metodo`, `facturacion`, `id_habitacion`, `id_usuario`, `id_empleado`, `estado`, `fecha_pago`) VALUES
-(0, 127, 1440000.00, 'TRX-20251005071932-763', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', NULL, NULL, NULL, 1, '2025-10-05 05:19:32'),
-(0, 128, 1440000.00, 'TRX-20251005072154-377', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', NULL, NULL, NULL, 1, '2025-10-05 05:21:54'),
-(0, 129, 180000.00, 'TRX-20251005072225-260', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', NULL, NULL, NULL, 1, '2025-10-05 05:22:25'),
-(0, 132, 480000.00, 'TRX-20251009173241-648', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', 4, 39, NULL, 1, '2025-10-09 15:32:41'),
-(0, 133, 80000.00, 'TRX-20251009173550-968', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', 5, 36, NULL, 1, '2025-10-09 15:35:50'),
-(0, 134, 240000.00, 'TRX-20251009213454-144', NULL, NULL, NULL, NULL, 'pendiente', 'Sofia Salamanca', NULL, NULL, NULL, 1, '2025-10-09 19:34:54'),
-(0, 135, 240000.00, 'TRX-20251009215854-259', 'RES-000135', '2025-10-09', '2025-10-11', '', 'pendiente', 'Sofia Salamanca', 3, 26, NULL, 1, '2025-10-09 19:58:54'),
-(0, 136, 240000.00, 'TRX-20251009235047-972', 'RES-000136', '2025-10-09', '2025-10-11', '', 'pendiente', 'Sofia Salamanca', 3, 26, NULL, 1, '2025-10-09 21:50:47'),
-(0, 137, 240000.00, 'TRX-20251009235617-435', 'RES-000137', '2025-10-09', '2025-10-11', '', 'pendiente', 'Sofia Salamanca', 3, 26, NULL, 1, '2025-10-09 21:56:17'),
-(0, 138, 1400000.00, 'TRX-20251010012625-195', 'RES-000138', '2025-10-10', '2025-10-11', '', 'pendiente', 'Sofia Salamanca', 7, 26, NULL, 1, '2025-10-09 23:26:25'),
-(0, 139, 1400000.00, 'TRX-20251010012625-993', 'RES-000139', '2025-10-10', '2025-10-11', '', 'pendiente', 'Sofia Salamanca', 7, 26, NULL, 1, '2025-10-09 23:26:25'),
-(0, 140, 1400000.00, 'TRX-20251010012625-105', 'RES-000140', '2025-10-10', '2025-10-11', '', 'pendiente', 'Sofia Salamanca', 7, 26, NULL, 1, '2025-10-09 23:26:25'),
-(0, 17, 0.00, '', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', NULL, NULL, NULL, 1, '2025-10-09 23:58:24'),
-(0, 143, 90000.00, 'TRX-20251010032236-621', 'RES-000143', '2025-10-17', '2025-10-18', '', 'pendiente', 'Sofia Salamanca', 2, 26, NULL, 1, '2025-10-10 01:22:36'),
-(0, 144, 90000.00, 'TRX-20251010032236-617', 'RES-000144', '2025-10-17', '2025-10-18', '', 'pendiente', 'Sofia Salamanca', 2, 26, NULL, 1, '2025-10-10 01:22:36'),
-(0, 145, 90000.00, 'TRX-20251010032236-449', 'RES-000145', '2025-10-17', '2025-10-18', '', 'pendiente', 'Sofia Salamanca', 2, 26, NULL, 1, '2025-10-10 01:22:36'),
-(0, 146, 90000.00, 'TRX-20251010033046-522', 'RES-000146', '2025-10-17', '2025-10-18', '', 'pendiente', 'Sofia Salamanca', 2, 26, NULL, 1, '2025-10-10 01:30:46'),
-(0, 13, 0.00, '', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', NULL, NULL, NULL, 1, '2025-10-10 04:07:16'),
-(0, 8, 0.00, '', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', NULL, NULL, NULL, 1, '2025-10-10 04:08:21'),
-(0, 7, 0.00, '', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', NULL, NULL, NULL, 1, '2025-10-10 04:08:45');
+(24, 5, 0.00, '', NULL, NULL, NULL, NULL, 'pendiente', 'Pago sin factura', NULL, NULL, NULL, 1, '2025-10-10 13:33:33');
 
 -- --------------------------------------------------------
 
@@ -216,10 +202,8 @@ CREATE TABLE `reservas` (
 --
 
 INSERT INTO `reservas` (`id`, `monto`, `num_transaccion`, `cod_reserva`, `fecha_ingreso`, `fecha_salida`, `fecha_reserva`, `descripcion`, `estado`, `metodo`, `facturacion`, `id_habitacion`, `id_usuario`, `id_empleado`) VALUES
-(3, 2990000.00, '451231', '254778', '2025-09-01', '2025-09-24', '2025-10-10 03:59:50', 'Reserva con llegada a las 8 pm', 3, 1, '1', 1, 26, NULL),
-(4, 8060000.00, '5161200', '213215', '2025-07-01', '2025-09-01', '2025-10-10 04:03:24', '', 3, 1, '', 1, 26, NULL),
 (5, 1350000.00, '5161266', '213219', '2025-04-01', '2025-04-16', '2025-09-19 04:11:27', '', 1, 1, '', 2, 26, NULL),
-(6, 90000.00, 'TX101', 'RES101', '2025-09-09', '2025-09-10', '2025-09-19 04:11:39', 'Reserva prueba -1 día', 1, 1, '', 2, 26, NULL),
+(6, 90000.00, 'TX101', 'RES101', '2025-09-09', '2025-09-10', '2025-10-16 04:06:44', 'Reserva prueba -1 día', 1, 1, '', 2, 26, NULL),
 (7, 120000.00, 'TX102', 'RES102', '2025-09-08', '2025-09-09', '2025-09-19 04:11:54', 'Reserva prueba -2 días', 1, 1, '', 3, 26, NULL),
 (8, 480000.00, 'TX103', 'RES103', '2025-09-07', '2025-09-08', '2025-09-19 04:12:08', 'Reserva prueba -3 días', 1, 1, '', 4, 26, NULL),
 (9, 80000.00, 'TX104', 'RES104', '2025-09-06', '2025-09-07', '2025-09-19 04:12:19', 'Reserva prueba -4 días', 1, 1, '', 5, 26, NULL),
@@ -228,44 +212,14 @@ INSERT INTO `reservas` (`id`, `monto`, `num_transaccion`, `cod_reserva`, `fecha_
 (12, 400000.00, 'TX107', 'RES107', '2025-09-03', '2025-09-04', '2025-09-28 15:35:39', 'Reserva prueba -7 días', 1, 1, '', 8, 26, NULL),
 (13, 130000.00, 'TX100', 'RES100', '2025-09-10', '2025-09-11', '2025-09-19 04:13:01', 'Reserva de prueba hoy', 1, 1, '', 1, 26, NULL),
 (14, 960000.00, '', '', '2025-09-18', '2025-09-20', '2025-09-28 15:34:56', '', 1, 0, '', 4, 28, NULL),
-(15, 0.00, '', '', '2025-09-19', '2025-09-18', '2025-10-10 03:58:33', '', 3, 0, '', 1, 26, NULL),
 (16, 8800000.00, '', '', '2025-09-20', '2025-09-30', '2025-09-28 15:35:04', '', 1, 0, '', 9, 31, NULL),
 (17, 6160000.00, '', '', '2025-09-23', '2025-09-30', '2025-09-28 15:35:09', '', 1, 0, '', 9, 28, NULL),
 (18, 1760000.00, '', '', '2025-09-24', '2025-09-26', '2025-09-28 15:35:18', '', 1, 0, '', 9, 26, NULL),
 (19, 1500000.00, '', '', '2025-09-24', '2025-09-27', '2025-09-28 15:35:23', '', 1, 0, '', 6, 26, NULL),
 (20, 80000.00, '', '', '2025-09-24', '2025-09-25', '2025-09-28 15:35:27', '', 1, 0, '', 5, 26, NULL),
 (115, 500000.00, '', '', '2025-09-28', '2025-09-29', '2025-09-28 17:23:31', '12', 1, 0, '', 6, 36, NULL),
-(116, 0.00, '', '', '2025-09-30', '2025-10-03', '2025-09-30 22:57:10', 'Reserva pública', 0, 1, '', 2, 36, NULL),
-(117, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 04:55:48', 'Reserva pública', 1, 1, '', 4, 26, NULL),
-(118, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 04:58:01', 'Reserva pública', 1, 1, '', 4, 26, NULL),
-(119, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 04:58:56', 'Reserva pública', 1, 1, '', 4, 26, NULL),
-(120, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 04:59:40', 'Reserva pública', 1, 1, '', 4, 26, NULL),
-(121, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:00:11', 'Reserva pública', 1, 1, '', 4, 26, NULL),
-(122, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:01:14', 'Reserva pública', 1, 1, '', 4, 26, NULL),
-(123, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:01:59', 'Reserva pública', 1, 1, '', 4, 26, NULL),
-(124, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:02:36', 'Reserva pública', 1, 1, '', 4, 26, NULL),
-(125, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:07:49', 'Reserva pública', 1, 1, '', 4, 26, NULL),
-(126, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:12:16', 'Reserva pública', 1, 1, '', 4, 26, NULL),
-(127, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-10 04:02:28', 'Reserva pública', 3, 1, '', 4, 26, NULL),
-(128, 0.00, '', '', '2025-10-05', '2025-10-08', '2025-10-05 05:21:54', '', 1, 0, '', 4, 26, NULL),
-(129, 0.00, '', '', '2025-10-05', '2025-10-07', '2025-10-10 04:08:18', '', 3, 0, '', 2, 26, NULL),
-(130, 0.00, '', '', '2025-10-05', '2025-10-07', '2025-10-10 04:08:14', '', 3, 0, '', 2, 26, NULL),
-(131, 0.00, '', '', '2025-10-09', '2025-10-10', '2025-10-09 15:18:46', '', 1, 0, '', 4, 39, NULL),
-(132, 0.00, '', '', '2025-10-09', '2025-10-10', '2025-10-09 15:32:41', '', 1, 0, '', 4, 39, NULL),
-(133, 0.00, '', '', '2025-10-09', '2025-10-10', '2025-10-09 15:35:50', '', 1, 0, '', 5, 36, NULL),
-(134, 0.00, '', '', '2025-10-09', '2025-10-11', '2025-10-10 04:07:52', '', 3, 0, '', 3, 26, NULL),
-(135, 0.00, '', '', '2025-10-09', '2025-10-11', '2025-10-10 04:07:48', '', 3, 0, '', 3, 26, NULL),
-(136, 0.00, '', '', '2025-10-09', '2025-10-11', '2025-10-10 04:07:45', '', 3, 0, '', 3, 26, NULL),
-(137, 0.00, '', '', '2025-10-09', '2025-10-11', '2025-10-10 04:07:34', '', 3, 0, '', 3, 26, NULL),
-(138, 0.00, '', '', '2025-10-10', '2025-10-11', '2025-10-10 04:02:17', '', 3, 0, '', 7, 26, NULL),
-(139, 0.00, '', '', '2025-10-10', '2025-10-11', '2025-10-10 04:01:55', '', 3, 0, '', 7, 26, NULL),
-(140, 0.00, '', '', '2025-10-10', '2025-10-11', '2025-10-10 04:02:05', '', 3, 0, '', 7, 26, NULL),
-(141, 180000.00, '', '', '2025-10-13', '2025-10-15', '2025-10-09 23:38:54', '', 1, 0, '', 2, 27, NULL),
-(142, 1760000.00, '', '', '2025-10-09', '2025-10-11', '2025-10-09 23:39:50', '', 1, 0, '', 9, 26, NULL),
-(143, 0.00, '', '', '2025-10-17', '2025-10-18', '2025-10-10 04:08:11', '', 3, 0, '', 2, 26, NULL),
-(144, 0.00, '', '', '2025-10-17', '2025-10-18', '2025-10-10 04:08:07', '', 3, 0, '', 2, 26, NULL),
-(145, 0.00, '', '', '2025-10-17', '2025-10-18', '2025-10-10 04:08:04', '', 3, 0, '', 2, 26, NULL),
-(146, 0.00, '', '', '2025-10-17', '2025-10-18', '2025-10-10 04:07:59', '', 3, 0, '', 2, 26, NULL);
+(176, 90000.00, '', '', '2025-10-15', '2025-10-16', '2025-10-16 04:06:53', '', 2, 1, '', 2, 26, NULL),
+(177, 90000.00, '', '', '2025-10-23', '2025-10-24', '2025-10-23 19:19:33', '', 1, 1, '', 2, 26, NULL);
 
 -- --------------------------------------------------------
 
@@ -336,7 +290,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `clave`, `token`, `registrado_por`, `verify`, `rol`, `foto`, `estado`, `fecha`) VALUES
-(23, 'Juan', 'Juanesab423@gmail.com', '$2y$10$le84w2Y0t5zYH8BTJ7zmFu/nLppj7ugkwopl/o/6s4KjJWXFQh6dq', NULL, NULL, 0, 1, NULL, 1, '2025-09-09 22:37:13'),
+(23, 'Juan', 'Juanesab423@gmail.com', '$2y$10$Ue7srPRjHHeGIr4n3nDdyOecjvHePSGCc9qv5/0OGZ0s7GMWsJpqS', NULL, NULL, 0, 1, NULL, 1, '2025-10-16 04:05:12'),
 (25, 'Empleado', 'Empleado@gmail.com', '$2y$10$13KGtawbenSpE81bbt3S..MRqB.0pjrb78JVY9UzUTMLrc/LaZn16', NULL, NULL, 0, 2, NULL, 1, '2025-09-23 21:33:17'),
 (26, 'Sofia Salamanca', 'Salamancas648@gmail.com', '$2y$10$hEjwn2u5zkqjw.gOPYpD9etgUVMAl2jySl.Od0.6Apbb85E7TbKw.', NULL, NULL, 0, 3, NULL, 1, '2025-09-05 20:14:18'),
 (27, 'William Alfonso', 'Hwilliamac@gmail.com', '$2y$10$ruCR//vCKHBe0xv6MizxGuFBT/F6ZfOhdtxuT.0NR9o8tX3MFkSjO', NULL, 25, 0, 3, NULL, 1, '2025-09-24 20:18:49'),
@@ -363,19 +317,21 @@ ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `contactos`
+--
+ALTER TABLE `contactos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `correo` (`correo`),
+  ADD KEY `fecha` (`fecha`),
+  ADD KEY `estado` (`estado`);
+
+--
 -- Indices de la tabla `entradas`
 --
 ALTER TABLE `entradas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_categoria` (`id_categoria`),
   ADD KEY `id_usuario` (`id_usuario`);
-
---
--- Indices de la tabla `galeria_habitaciones`
---
-ALTER TABLE `galeria_habitaciones`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_habitacion` (`id_habitacion`);
 
 --
 -- Indices de la tabla `habitaciones`
@@ -387,6 +343,7 @@ ALTER TABLE `habitaciones`
 -- Indices de la tabla `pagos`
 --
 ALTER TABLE `pagos`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `fk_pago_reserva` (`id_reserva`),
   ADD KEY `fk_pago_usuario` (`id_usuario`),
   ADD KEY `fk_pago_habitacion` (`id_habitacion`);
@@ -431,16 +388,16 @@ ALTER TABLE `categorias`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT de la tabla `contactos`
+--
+ALTER TABLE `contactos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `entradas`
 --
 ALTER TABLE `entradas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
--- AUTO_INCREMENT de la tabla `galeria_habitaciones`
---
-ALTER TABLE `galeria_habitaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `habitaciones`
@@ -449,10 +406,16 @@ ALTER TABLE `habitaciones`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT de la tabla `pagos`
+--
+ALTER TABLE `pagos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
 -- AUTO_INCREMENT de la tabla `reservas`
 --
 ALTER TABLE `reservas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -482,12 +445,6 @@ ALTER TABLE `usuarios`
 ALTER TABLE `entradas`
   ADD CONSTRAINT `entradas_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `entradas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `galeria_habitaciones`
---
-ALTER TABLE `galeria_habitaciones`
-  ADD CONSTRAINT `galeria_habitaciones_ibfk_1` FOREIGN KEY (`id_habitacion`) REFERENCES `habitaciones` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pagos`

@@ -93,24 +93,44 @@ function fechaPerzo($fecha)
   );
   return $dia . " de " . $mes[$me] . " de " . $anio;
 }
-// VALIDAR CAMPOS REQUERIDOS
+// VALIDAR CAMPOS REQUERIDOS - Mejorado
 function validarCampos($campos)
 {
   foreach ($campos as $campo) {
-    if (empty($_POST[$campo])) {
+    if (!isset($_POST[$campo]) || trim($_POST[$campo]) === '') {
       return false;
     }
   }
   return true;
 }
-// CREAR SESIONES
+
+// VALIDAR EMAIL
+function validarEmail($email)
+{
+  return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+}
+
+// VALIDAR CONTRASEÑA - Mínimo 8 caracteres, mayúscula, minúscula, número
+function validarContrasena($password)
+{
+  return preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/', $password) === 1;
+}
+
+// SANITIZAR ENTRADA - Prevenir XSS
+function sanitizar($input)
+{
+  return htmlspecialchars(trim($input), ENT_QUOTES, 'UTF-8');
+}
+// CREAR SESIONES - Estructura consistente y segura
 function crearSesion($datos)
 {
-  $_SESSION['id_usuario'] = $datos['id'];             // Coincide con columna `id`
-  $_SESSION['usuario'] = $datos['correo'];            // Coincide con columna `correo`
-  $_SESSION['nombre'] = $datos['nombre'];             // Coincide con columna `nombre`
-  $_SESSION['rol'] = $datos['rol'];                   // Coincide con columna `rol`
-
+  $_SESSION['usuario'] = [
+    'id'     => (int)$datos['id'],
+    'nombre' => htmlspecialchars($datos['nombre'] ?? ''),
+    'correo' => htmlspecialchars($datos['correo'] ?? ''),
+    'rol'    => (int)$datos['rol'],
+    'login_time' => time()
+  ];
 }
 //REDIRECT
 function redirect($ruta)
@@ -321,16 +341,28 @@ function verificar($valor, $datos = [])
   $existe = array_search($valor, $datos, true);
   return is_numeric($existe);
 }
-//VERIFICAR ROL
+//VERIFICAR ROL - Actualizado para nueva estructura de sesión
 function verificarRol($rolRequerido)
 {
-  // Solo iniciar la sesión si aún no se ha hecho
-  if (session_status() == PHP_SESSION_NONE) {
+  // Verificar que la sesión esté iniciada
+  if (session_status() === PHP_SESSION_NONE) {
     session_start();
   }
-  if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== $rolRequerido) {
+
+  // Verificar que el usuario esté autenticado y tenga el rol correcto
+  if (!isset($_SESSION['usuario']) || !isset($_SESSION['usuario']['rol']) || $_SESSION['usuario']['rol'] !== $rolRequerido) {
     header('Location: ' . RUTA_PRINCIPAL . 'login');
     exit;
+  }
+
+  // Verificar timeout de sesión
+  if (isset($_SESSION['usuario']['login_time'])) {
+    $timeout = SESSION_TIMEOUT;
+    if (time() - $_SESSION['usuario']['login_time'] > $timeout) {
+      session_destroy();
+      header('Location: ' . RUTA_PRINCIPAL . 'login?expired=1');
+      exit;
+    }
   }
 }
 // Función para escapar la salida HTML y prevenir XSS

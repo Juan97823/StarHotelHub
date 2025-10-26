@@ -13,10 +13,23 @@ document.addEventListener("DOMContentLoaded", function () {
     let isSubmitting = false;
     const precios = {};
 
+    // Cargar precios de las opciones
+    function cargarPrecios() {
+      if (habitacionSelect) {
+        Array.from(habitacionSelect.options).forEach((opt) => {
+          if (opt.value) {
+            const precio = opt.getAttribute('data-precio') || opt.dataset.precio || 0;
+            precios[opt.value] = parseFloat(precio);
+          }
+        });
+      }
+    }
+
+    cargarPrecios();
+
+    // Recargar precios cuando cambia el select
     if (habitacionSelect) {
-      Array.from(habitacionSelect.options).forEach((opt) => {
-        if (opt.value) precios[opt.value] = parseFloat(opt.dataset.precio || 0);
-      });
+      habitacionSelect.addEventListener('change', cargarPrecios);
     }
 
     async function verificarDisponibilidad() {
@@ -47,21 +60,56 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function calcularTotal() {
       if (!totalReserva) return;
+
+      // Validar que todos los campos estén completos
       if (!f_llegada.value || !f_salida.value || !habitacionSelect.value) {
         totalReserva.value = "$0";
         return;
       }
-      const llegadaDate = new Date(f_llegada.value);
-      const salidaDate = new Date(f_salida.value);
-      if (llegadaDate >= salidaDate) {
+
+      try {
+        const llegadaDate = new Date(f_llegada.value);
+        const salidaDate = new Date(f_salida.value);
+
+        // Validar que las fechas sean válidas
+        if (isNaN(llegadaDate.getTime()) || isNaN(salidaDate.getTime())) {
+          totalReserva.value = "$0";
+          return;
+        }
+
+        // Validar que la fecha de salida sea posterior a la de llegada
+        if (llegadaDate >= salidaDate) {
+          totalReserva.value = "$0";
+          return;
+        }
+
+        // Calcular número de noches
+        const diffTime = salidaDate.getTime() - llegadaDate.getTime();
+        const noches = Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+
+        // Obtener precio de la habitación
+        const habitacionId = habitacionSelect.value;
+        let precio = precios[habitacionId];
+
+        // Si no está en el objeto precios, intentar obtenerlo del atributo data-precio
+        if (!precio || precio === 0) {
+          const selectedOption = habitacionSelect.options[habitacionSelect.selectedIndex];
+          precio = parseFloat(selectedOption.getAttribute('data-precio') || 0);
+        }
+
+        // Validar que el precio sea válido
+        if (!precio || precio <= 0) {
+          totalReserva.value = "$0";
+          return;
+        }
+
+        // Calcular total
+        const total = noches * precio;
+        totalReserva.value = `$${total.toLocaleString("es-CO")}`;
+      } catch (error) {
+        console.error('Error al calcular total:', error);
         totalReserva.value = "$0";
-        return;
       }
-      const diffTime = salidaDate.getTime() - llegadaDate.getTime();
-      const noches = Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
-      const precio = precios[habitacionSelect.value] || 0;
-      const total = noches * precio;
-      totalReserva.value = `$${total.toLocaleString("es-CO")}`;
     }
 
     function manejarCambioDeFecha() {

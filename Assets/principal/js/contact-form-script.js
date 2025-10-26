@@ -1,48 +1,67 @@
 /*==============================================================*/
-// Raque Contact Form  JS
+// StarHotelHub Contact Form JS
 /*==============================================================*/
 (function ($) {
-    "use strict"; // Start of use strict
-    $("#contactForm").validator().on("submit", function (event) {
-        if (event.isDefaultPrevented()) {
-            // handle the invalid form...
-            formError();
-            submitMSG(false, "Did you fill in the form properly?");
-        } else {
-            // everything looks good!
-            event.preventDefault();
-            submitForm();
-        }
+    "use strict";
+
+    $("#contactForm").on("submit", function (event) {
+        event.preventDefault();
+        submitForm();
     });
 
-
     function submitForm(){
-        // Initiate Variables With Form Content
-        var name = $("#name").val();
-        var email = $("#email").val();
-        var msg_subject = $("#msg_subject").val();
-        var phone_number = $("#phone_number").val();
-        var message = $("#message").val();
+        // Obtener valores del formulario
+        var name = $("#name").val().trim();
+        var correo = $("#correo").val().trim();
+        var msg_subject = $("#msg_subject").val().trim();
+        var phone_number = $("#phone_number").val().trim();
+        var message = $("#message").val().trim();
 
+        // Validar campos
+        if (!name || !correo || !msg_subject || !phone_number || !message) {
+            formError();
+            submitMSG(false, "Por favor completa todos los campos");
+            return;
+        }
 
+        // Validar email
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(correo)) {
+            formError();
+            submitMSG(false, "Por favor ingresa un email válido");
+            return;
+        }
+
+        // Enviar por AJAX
         $.ajax({
             type: "POST",
-            url: "assets/php/form-process.php",
-            data: "name=" + name + "&email=" + email + "&msg_subject=" + msg_subject + "&phone_number=" + phone_number + "&message=" + message,
-            success : function(text){
-                if (text == "success"){
+            url: base_url + "contacto/enviar",
+            data: {
+                name: name,
+                correo: correo,
+                msg_subject: msg_subject,
+                phone_number: phone_number,
+                message: message
+            },
+            dataType: "json",
+            success: function(response){
+                if (response.tipo === "success"){
                     formSuccess();
+                    submitMSG(true, response.msg);
                 } else {
                     formError();
-                    submitMSG(false,text);
+                    submitMSG(false, response.msg);
                 }
+            },
+            error: function(){
+                formError();
+                submitMSG(false, "Error al enviar el mensaje. Intenta de nuevo.");
             }
         });
     }
 
     function formSuccess(){
         $("#contactForm")[0].reset();
-        submitMSG(true, "Message Submitted!")
     }
 
     function formError(){

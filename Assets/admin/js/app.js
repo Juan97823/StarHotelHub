@@ -1,5 +1,51 @@
 $(function() {
     "use strict";
+
+    console.log("App.js cargado correctamente");
+
+    // Funciones para el menú móvil
+    function abrirMenuMovil() {
+        console.log("Abriendo menú móvil");
+        $(".wrapper").addClass("toggled");
+    }
+
+    function cerrarMenuMovil() {
+        console.log("Cerrando menú móvil");
+        $(".wrapper").removeClass("toggled");
+    }
+
+    // Evento para abrir el menú - usando ID específico
+    $("#mobileMenuToggle").on("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("Botón móvil clickeado");
+        abrirMenuMovil();
+    });
+
+    // Evento alternativo con clase
+    $(document).on("click", ".mobile-toggle-menu", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("Botón móvil clickeado (clase)");
+        abrirMenuMovil();
+    });
+
+    // Evento para cerrar el menú al hacer clic en el overlay
+    $(document).on("click", ".overlay", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("Overlay clickeado");
+        cerrarMenuMovil();
+    });
+
+    // Cerrar menú móvil cuando se hace clic en un enlace del menú
+    $(document).on("click", ".sidebar-wrapper .metismenu a", function() {
+        if ($(window).width() <= 1024) {
+            console.log("Enlace del menú clickeado");
+            cerrarMenuMovil();
+        }
+    });
+
     $(".mobile-search-icon").on("click", function() {
             $(".search-bar").addClass("full-search-bar")
         }),
@@ -7,11 +53,6 @@ $(function() {
         $(".search-close").on("click", function() {
             $(".search-bar").removeClass("full-search-bar")
         }),
-
-        $(".mobile-toggle-menu").on("click", function() {
-            $(".wrapper").addClass("toggled")
-        }),
-
 
         $(".toggle-icon").click(function() {
             $(".wrapper").hasClass("toggled") ? ($(".wrapper").removeClass("toggled"), $(".sidebar-wrapper").unbind("hover")) : ($(".wrapper").addClass("toggled"), $(".sidebar-wrapper").hover(function() {

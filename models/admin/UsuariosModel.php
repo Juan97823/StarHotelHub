@@ -20,7 +20,8 @@ class UsuariosModel extends Query
     }
     public function getClientes()
     {
-        $sql = "SELECT id, nombre FROM usuarios WHERE rol = 'cliente' AND estado = 1";
+        // rol = 3 es cliente (no string 'cliente')
+        $sql = "SELECT id, nombre FROM usuarios WHERE rol = 3 AND estado = 1";
         return $this->selectAll($sql);
     }
 

@@ -81,7 +81,11 @@
                                 <span class="input-group-text bg-light">$</span>
                                 <input type="number" step="0.01" class="form-control" id="monto" name="monto" readonly required>
                             </div>
-                            <small class="text-muted">El monto se calcula automáticamente según la habitación seleccionada.</small>
+                            <small class="text-muted">Se calcula automáticamente: días × precio por noche</small>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div id="disponibilidad-mensaje" class="mt-2 small"></div>
                         </div>
                     </div>
                 </div>
