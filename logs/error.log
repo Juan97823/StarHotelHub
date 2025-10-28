@@ -1,0 +1,57 @@
+[27-Oct-2025 18:24:49 Europe/Berlin]  Error: LogoutModel no se pudo cargar. Ruta esperada: models/principal/LogoutModel.php
+[27-Oct-2025 18:33:39 Europe/Berlin]  Error: OlvideContrasenaModel no se pudo cargar. Ruta esperada: models/principal/OlvideContrasenaModel.php
+[27-Oct-2025 18:34:26 Europe/Berlin] Intentando enviar email a: testprueba@gmail.com
+Asunto: Bienvenido a StarHotelHub - Confirmación de Registro
+Driver: smtp
+SMTP Host: smtp.gmail.com
+SMTP Port: 587
+SMTP User: starhotelhub@gmail.com
+
+[27-Oct-2025 18:34:29 Europe/Berlin] ❌ Error al enviar email a testprueba@gmail.com: SMTP Error: Could not authenticate.
+PHPMailer Error: SMTP Error: Could not authenticate.
+
+[27-Oct-2025 18:34:29 Europe/Berlin] Error al enviar email de registro: SMTP Error: Could not authenticate.
+[27-Oct-2025 18:34:48 Europe/Berlin]  Error: ClienteModel no se pudo cargar. Ruta esperada: models/principal/ClienteModel.php
+[27-Oct-2025 18:38:35 Europe/Berlin]  Error: OlvideContrasenaModel no se pudo cargar. Ruta esperada: models/principal/OlvideContrasenaModel.php
+[27-Oct-2025 18:38:53 Europe/Berlin]  Error: OlvideContrasenaModel no se pudo cargar. Ruta esperada: models/principal/OlvideContrasenaModel.php
+[27-Oct-2025 18:38:57 Europe/Berlin]  Error: OlvideContrasenaModel no se pudo cargar. Ruta esperada: models/principal/OlvideContrasenaModel.php
+[27-Oct-2025 18:39:02 Europe/Berlin]  Error: OlvideContrasenaModel no se pudo cargar. Ruta esperada: models/principal/OlvideContrasenaModel.php
+[27-Oct-2025 18:39:12 Europe/Berlin]  Error: OlvideContrasenaModel no se pudo cargar. Ruta esperada: models/principal/OlvideContrasenaModel.php
+[27-Oct-2025 18:39:23 Europe/Berlin]  Error: OlvideContrasenaModel no se pudo cargar. Ruta esperada: models/principal/OlvideContrasenaModel.php
+[27-Oct-2025 18:41:21 Europe/Berlin]  Error: OlvideContrasenaModel no se pudo cargar. Ruta esperada: models/principal/OlvideContrasenaModel.php
+[27-Oct-2025 18:41:24 Europe/Berlin]  Error: OlvideContrasenaModel no se pudo cargar. Ruta esperada: models/principal/OlvideContrasenaModel.php
+[27-Oct-2025 18:41:50 Europe/Berlin]  Error: OlvideContrasenaModel no se pudo cargar. Ruta esperada: models/principal/OlvideContrasenaModel.php
+[27-Oct-2025 18:41:51 Europe/Berlin] Intentando enviar email a: Juanesab423@gmail.com
+Asunto: Recuperación de Contraseña - StarHotelHub
+Driver: smtp
+SMTP Host: smtp.gmail.com
+SMTP Port: 587
+SMTP User: starhotelhub@gmail.com
+
+[27-Oct-2025 18:41:54 Europe/Berlin] ❌ Error al enviar email a Juanesab423@gmail.com: SMTP Error: Could not authenticate.
+PHPMailer Error: SMTP Error: Could not authenticate.
+
+[27-Oct-2025 18:41:54 Europe/Berlin] Error al enviar email de recuperación: SMTP Error: Could not authenticate.
+[27-Oct-2025 18:45:27 Europe/Berlin]  Error: AdminModel no se pudo cargar. Ruta esperada: models/admin/AdminModel.php
+[27-Oct-2025 18:45:29 Europe/Berlin]  Error: AdminModel no se pudo cargar. Ruta esperada: models/admin/AdminModel.php
+[27-Oct-2025 18:45:37 Europe/Berlin]  Error: PerfilModel no se pudo cargar. Ruta esperada: models/admin/PerfilModel.php
+[27-Oct-2025 18:45:45 Europe/Berlin]  Error: PerfilModel no se pudo cargar. Ruta esperada: models/admin/PerfilModel.php
+[27-Oct-2025 18:45:45 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined method UsuariosModel::getClaveActual() in C:\xampp\htdocs\Starhotelhub\controllers\Admin\perfil.php:63
+Stack trace:
+#0 C:\xampp\htdocs\Starhotelhub\index.php(102): Perfil->cambiarClave()
+#1 {main}
+  thrown in C:\xampp\htdocs\Starhotelhub\controllers\Admin\perfil.php on line 63
+[27-Oct-2025 18:47:20 Europe/Berlin]  Error: PerfilModel no se pudo cargar. Ruta esperada: models/admin/PerfilModel.php
+[27-Oct-2025 18:47:20 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined method UsuariosModel::getClaveActual() in C:\xampp\htdocs\Starhotelhub\controllers\Admin\perfil.php:63
+Stack trace:
+#0 C:\xampp\htdocs\Starhotelhub\index.php(102): Perfil->cambiarClave()
+#1 {main}
+  thrown in C:\xampp\htdocs\Starhotelhub\controllers\Admin\perfil.php on line 63
+[27-Oct-2025 19:16:13 Europe/Berlin]  Error: PerfilModel no se pudo cargar. Ruta esperada: models/admin/PerfilModel.php
+[27-Oct-2025 19:18:30 Europe/Berlin]  Error: PerfilModel no se pudo cargar. Ruta esperada: models/admin/PerfilModel.php
+[27-Oct-2025 19:18:49 Europe/Berlin]  Error: PerfilModel no se pudo cargar. Ruta esperada: models/admin/PerfilModel.php
+[27-Oct-2025 19:51:51 Europe/Berlin]  Error: OlvideContrasenaModel no se pudo cargar. Ruta esperada: models/principal/OlvideContrasenaModel.php
+[27-Oct-2025 19:53:19 Europe/Berlin]  Error: AdminModel no se pudo cargar. Ruta esperada: models/admin/AdminModel.php
+[27-Oct-2025 19:53:20 Europe/Berlin]  Error: AdminModel no se pudo cargar. Ruta esperada: models/admin/AdminModel.php
+[27-Oct-2025 19:53:35 Europe/Berlin]  Error: PerfilModel no se pudo cargar. Ruta esperada: models/admin/PerfilModel.php
+[27-Oct-2025 19:53:43 Europe/Berlin]  Error: PerfilModel no se pudo cargar. Ruta esperada: models/admin/PerfilModel.php

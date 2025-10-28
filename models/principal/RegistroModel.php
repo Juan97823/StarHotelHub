@@ -34,7 +34,7 @@ class RegistroModel extends Query
     // Verificar correo - SEGURO contra SQL injection
     public function verificarCorreo($correo)
     {
-        $sql = "SELECT id FROM usuarios WHERE correo = ?";
+        $sql = "SELECT id, nombre, correo FROM usuarios WHERE correo = ?";
         return $this->select($sql, [$correo]);
     }
 
@@ -53,6 +53,14 @@ class RegistroModel extends Query
             $sql = "UPDATE usuarios SET nombre = ?, correo = ? WHERE id = ?";
             $datos = [$nombre, $correo, $id];
         }
+        return $this->save($sql, $datos);
+    }
+
+    // Actualizar contraseña
+    public function actualizarContrasena($id, $hash)
+    {
+        $sql = "UPDATE usuarios SET clave = ? WHERE id = ?";
+        $datos = [$hash, $id];
         return $this->save($sql, $datos);
     }
 }

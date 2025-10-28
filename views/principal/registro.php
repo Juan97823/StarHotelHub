@@ -1,5 +1,8 @@
-<?php include_once 'views/template/header-principal.php'; ?>
-<?php include_once 'views/template/portada.php'; ?>
+<?php
+include_once 'views/template/header-principal.php';
+include_once 'views/template/portada.php';
+$csrf_token = generarCsrfToken();
+?>
 
 <section class="user-area-all-style sign-up-area ptb-100">
     <div class="container">
@@ -11,6 +14,8 @@
                         <p class="form-desc">Solo necesitas tu correo y contraseña.</p>
                     </div>
                     <form id="formulario" autocomplete="off">
+                        <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
+
                         <!-- Botón Google -->
                         <div class="mb-4">
                             <button class="default-btn w-100 py-3 fs-5" type="button" disabled>
@@ -23,7 +28,7 @@
                                 <input class="form-control" type="text" name="nombre" placeholder="Nombre completo" required>
                             </div>
                             <div class="col-12 mb-3">
-                                <input class="form-control" type="correo" name="correo" placeholder="Correo electrónico" required>
+                                <input class="form-control" type="email" name="correo" placeholder="Correo electrónico" required>
                             </div>
                             
                             <div class="col-12 mb-3">

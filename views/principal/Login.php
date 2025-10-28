@@ -36,7 +36,7 @@
                         <input class="form-check-input" type="checkbox" id="remember" name="remember">
                         <label class="form-check-label" for="remember">Recuérdame</label>
                     </div>
-                    <a href="#" class="forgot-password-link">¿Olvidaste tu contraseña?</a>
+                    <a href="<?php echo RUTA_PRINCIPAL . 'OlvideContrasena'; ?>" class="forgot-password-link">¿Olvidaste tu contraseña?</a>
                 </div>
 
                 <button class="login-btn" type="submit">Iniciar sesión</button>

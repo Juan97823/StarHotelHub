@@ -5,6 +5,22 @@ ini_set('display_errors', 0); // No mostrar errores en producción
 ini_set('log_errors', 1);
 ini_set('error_log', dirname(__DIR__) . '/logs/error.log');
 
+// Habilitar reporte de errores
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+ini_set('error_log', dirname(__FILE__) . '/logs/error.log');
+
+// Crear carpeta de logs si no existe
+if (!is_dir('logs')) {
+    mkdir('logs', 0755, true);
+}
+
+// Cargar autoload de composer (para PHPMailer y otras dependencias)
+if (file_exists('vendor/autoload.php')) {
+    require_once 'vendor/autoload.php';
+}
+
 require_once 'config/config.php';
 require_once 'helpers/funciones.php';
 

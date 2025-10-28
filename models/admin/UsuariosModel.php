@@ -85,4 +85,24 @@ class UsuariosModel extends Query
         return $res !== false;
     }
 
+    /**
+     * Obtener la contraseña (hash) actual de un usuario por su id
+     */
+    public function getClaveActual($id)
+    {
+        $sql = "SELECT clave FROM usuarios WHERE id = ? LIMIT 1";
+        $res = $this->select($sql, [$id]);
+        return $res['clave'] ?? null;
+    }
+
+    /**
+     * Actualizar la contraseña de un usuario (recibe la contraseña en texto plano)
+     */
+    public function actualizarClave($id, $nuevaClave)
+    {
+        $hash = password_hash($nuevaClave, PASSWORD_DEFAULT);
+        $sql = "UPDATE usuarios SET clave = ? WHERE id = ?";
+        return $this->save($sql, [$hash, $id]);
+    }
+
 }

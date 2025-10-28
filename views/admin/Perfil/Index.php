@@ -71,15 +71,15 @@
                 <form id="changePasswordForm">
                     <div class="mb-3">
                         <label for="currentPassword" class="form-label">Contraseña Actual</label>
-                        <input type="password" class="form-control" id="currentPassword" name="current_clave" required>
+                        <input type="password" class="form-control" id="currentPassword" name="current_clave" autocomplete="current-password" required>
                     </div>
                     <div class="mb-3">
                         <label for="newPassword" class="form-label">Nueva Contraseña</label>
-                        <input type="password" class="form-control" id="newPassword" name="clave" required>
+                        <input type="password" class="form-control" id="newPassword" name="clave" autocomplete="new-password" required>
                     </div>
                     <div class="mb-3">
                         <label for="confirmPassword" class="form-label">Confirmar Nueva Contraseña</label>
-                        <input type="password" class="form-control" id="confirmPassword" name="confirm_clave" required>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirm_clave" autocomplete="new-password" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -142,6 +142,10 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(res => {
                 if (res.tipo === 'success') {
                     Swal.fire('¡Éxito!', res.msg, 'success').then(() => {
+                        // Quitar foco del elemento activo antes de ocultar el modal para evitar warning aria-hidden
+                        if (document.activeElement && typeof document.activeElement.blur === 'function') {
+                            document.activeElement.blur();
+                        }
                         const modal = bootstrap.Modal.getInstance(document.getElementById('changePasswordModal'));
                         modal.hide();
                         changePasswordForm.reset();

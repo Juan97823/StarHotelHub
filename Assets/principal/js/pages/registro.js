@@ -20,22 +20,38 @@ document.addEventListener("DOMContentLoaded", function () {
       const http = new XMLHttpRequest();
       const url = base_url + "registro/crear";
       http.open("POST", url, true);
-      http.send(new FormData(frm));
+
       http.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          const res = JSON.parse(this.responseText);
+        if (this.readyState == 4) {
+          if (this.status == 200) {
+            try {
+              const res = JSON.parse(this.responseText);
+              alertaSW(res.msg, res.tipo);
 
-          alertaSW(res.msg, res.tipo);
-
-          if (res.tipo === "success") {
-            frm.reset();
-            //MANDAR A OTRA RUTA
-            setTimeout(() => {
-              window.location = base_url + "dashboard";
-            }, 1600); // Espera 1.6s para que el usuario vea la alerta
+              if (res.tipo === "success") {
+                frm.reset();
+                //MANDAR A OTRA RUTA
+                setTimeout(() => {
+                  window.location = base_url + "dashboard";
+                }, 1600); // Espera 1.6s para que el usuario vea la alerta
+              }
+            } catch (e) {
+              console.error("Error al parsear JSON:", e);
+              alertaSW("Error al procesar la respuesta", "error");
+            }
+          } else {
+            console.error("Error HTTP:", this.status, this.responseText);
+            alertaSW("Error en la petición: " + this.status, "error");
           }
         }
       };
+
+      http.onerror = function () {
+        console.error("Error en la petición AJAX");
+        alertaSW("Error de conexión", "error");
+      };
+
+      http.send(new FormData(frm));
     }
   });
 });
