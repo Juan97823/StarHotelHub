@@ -1,4 +1,7 @@
 <?php
+// Ajustar zona horaria a Colombia (America/Bogota)
+date_default_timezone_set('America/Bogota');
+
 // Configuración de errores
 error_reporting(E_ALL);
 ini_set('display_errors', 0); // No mostrar errores en producción

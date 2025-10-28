@@ -73,6 +73,8 @@ class Login extends Controller
         $verificar = $this->model->validarAcceso($usuario);
 
         if (empty($verificar)) {
+            // Generar nuevo token para reintentos
+            generarCsrfToken();
             // Usar mensaje genérico por seguridad
             echo json_encode(['tipo' => 'warning', 'msg' => 'CREDENCIALES INVÁLIDAS'], JSON_UNESCAPED_UNICODE);
             exit;
@@ -97,6 +99,8 @@ class Login extends Controller
                 'rol'  => $rol
             ], JSON_UNESCAPED_UNICODE);
         } else {
+            // Generar nuevo token para reintentos
+            generarCsrfToken();
             // Usar mensaje genérico por seguridad
             echo json_encode(['tipo' => 'warning', 'msg' => 'CREDENCIALES INVÁLIDAS'], JSON_UNESCAPED_UNICODE);
         }

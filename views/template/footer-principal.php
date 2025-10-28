@@ -198,6 +198,7 @@
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/js/custom.js"></script>
 
 <!-- Page specific scripts -->
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/busqueda-principal.js'; ?>"></script>
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/disponibilidad.js'; ?>"></script>
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/reservas.js'; ?>"></script>
 

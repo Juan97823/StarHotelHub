@@ -98,26 +98,17 @@
             
             <p>Gracias por registrarte en <strong>StarHotelHub</strong>. Tu cuenta ha sido creada exitosamente.</p>
 
-            <p>A continuación encontrarás tus credenciales de acceso:</p>
-
-            <div class="credentials">
-                <p><strong>📧 Correo Electrónico:</strong><br><?php echo htmlspecialchars($correo); ?></p>
-                <p><strong>🔐 Contraseña:</strong><br><?php echo htmlspecialchars($clave); ?></p>
-            </div>
-
-            <div class="warning">
-                <strong>⚠️ Importante:</strong>
-                <p>Por tu seguridad, te recomendamos cambiar tu contraseña en tu primer acceso. Puedes hacerlo desde tu perfil.</p>
-            </div>
-
-            <p>Para acceder a tu cuenta, haz clic en el siguiente botón:</p>
+            <p>Para activar tu cuenta y completar tu registro, haz clic en el botón de abajo:</p>
 
             <center>
-                <a href="<?php echo RUTA_PRINCIPAL; ?>login" class="button">Ir al Login</a>
+                <a href="<?php echo htmlspecialchars($confirmLink); ?>" class="button">Confirmar mi cuenta</a>
             </center>
 
+            <p>Si el botón no funciona, copia y pega el siguiente enlace en tu navegador:</p>
+            <p><a href="<?php echo htmlspecialchars($confirmLink); ?>"><?php echo htmlspecialchars($confirmLink); ?></a></p>
+
             <p><strong>¿Necesitas ayuda?</strong></p>
-            <p>Si tienes alguna pregunta o necesitas asistencia, no dudes en contactarnos a través de nuestro formulario de contacto o enviando un correo a <strong>contacto@starhotelhub.com</strong>.</p>
+            <p>Si tienes alguna pregunta o necesitas asistencia, no dudes en contactarnos a través de nuestro formulario de contacto o enviando un correo a <strong>starhotelhub@gmail.com</strong>.</p>
 
             <p>¡Esperamos que disfrutes tu experiencia con nosotros!</p>
         </div>

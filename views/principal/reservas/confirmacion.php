@@ -23,7 +23,7 @@ $factura = $data['factura'];
                                 <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/logo.png'; ?>" alt="Logo Hotel" width="150">
                                 <h5 class="mt-3">StarHotelHub</h5>
                                 <p class="mb-0">Dirección del Hotel, Ciudad</p>
-                                <p>Email: contacto@starhotelhub.com</p>
+                                <p>Email: starhotelhub@gmail.com</p>
                             </div>
                             <div class="col-md-6 text-md-end">
                                 <p><strong>Factura #:</strong> <?php echo $factura['numero']; ?></p>

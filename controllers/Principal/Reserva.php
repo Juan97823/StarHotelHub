@@ -53,14 +53,38 @@ class Reserva extends Controller
             $f_salida = strClean($_POST['f_salida'] ?? '');
             $habitacion_id = strClean($_POST['habitacion'] ?? '');
 
+            header('Content-Type: application/json');
+
             if (empty($f_llegada) || empty($f_salida) || empty($habitacion_id)) {
-                echo json_encode(['disponible' => false]);
+                echo json_encode(['disponible' => false, 'error' => 'Campos requeridos']);
+                exit;
+            }
+
+            // Validar que las fechas sean válidas
+            try {
+                $llegada = new DateTime($f_llegada);
+                $salida = new DateTime($f_salida);
+            } catch (Exception $e) {
+                echo json_encode(['disponible' => false, 'error' => 'Fechas inválidas']);
+                exit;
+            }
+
+            // Validar que salida sea posterior a llegada
+            if ($salida <= $llegada) {
+                echo json_encode(['disponible' => false, 'error' => 'La fecha de salida debe ser posterior a la llegada']);
+                exit;
+            }
+
+            // Validar que no sea fecha pasada
+            $hoy = new DateTime();
+            $hoy->setTime(0, 0, 0);
+            if ($llegada < $hoy) {
+                echo json_encode(['disponible' => false, 'error' => 'No se pueden hacer reservas en fechas pasadas']);
                 exit;
             }
 
             $reserva = $this->model->getDisponible($f_llegada, $f_salida, $habitacion_id);
 
-            header('Content-Type: application/json');
             echo json_encode(['disponible' => empty($reserva)]);
             exit;
         }
@@ -239,4 +263,3 @@ class Reserva extends Controller
         $this->views->getView('principal/clientes/reservas/pendiente', $data);
     }
 }
-?>

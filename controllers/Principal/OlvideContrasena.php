@@ -37,6 +37,7 @@ class OlvideContrasena extends Controller
 
         // Validar que el correo esté presente
         if (!isset($_POST['correo']) || empty($_POST['correo'])) {
+            generarCsrfToken();
             echo json_encode(['tipo' => 'warning', 'msg' => 'EL CORREO ES OBLIGATORIO'], JSON_UNESCAPED_UNICODE);
             exit;
         }
@@ -45,6 +46,7 @@ class OlvideContrasena extends Controller
 
         // Validar email
         if (!validarEmail($correo)) {
+            generarCsrfToken();
             echo json_encode(['tipo' => 'warning', 'msg' => 'EMAIL INVÁLIDO'], JSON_UNESCAPED_UNICODE);
             exit;
         }

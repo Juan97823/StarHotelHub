@@ -74,7 +74,7 @@ include_once 'views/template/portada.php';
                         <div class="single-contact-info">
                             <i class="bx bx-envelope"></i>
                             <h3>Correo Electrónico:</h3>
-                            <a href="mailto:contacto@starhotelhub.com">contacto@starhotelhub.com</a>
+                            <a href="mailto:starhotelhub@gmail.com">starhotelhub@gmail.com</a>
                             <a href="mailto:reservas@starhotelhub.com">reservas@starhotelhub.com</a>
                         </div>
                     </div>

@@ -30,25 +30,41 @@ document.addEventListener("DOMContentLoaded", function () {
 
               if (res.tipo === "success") {
                 frm.reset();
-                //MANDAR A OTRA RUTA
                 setTimeout(() => {
-                  window.location = base_url + "dashboard";
-                }, 1600); // Espera 1.6s para que el usuario vea la alerta
+                  window.location = base_url + "registro/exito";
+                }, 1200);
+              } else {
+                recargarToken();
               }
             } catch (e) {
-              console.error("Error al parsear JSON:", e);
               alertaSW("Error al procesar la respuesta", "error");
+              recargarToken();
             }
+          } else if (this.status == 403) {
+            try {
+              const res = JSON.parse(this.responseText);
+              alertaSW(res.msg || "Token inválido", "error");
+            } catch (e) {
+              alertaSW("Token inválido", "error");
+            }
+            recargarToken();
+          } else if (this.status == 400) {
+            try {
+              const res = JSON.parse(this.responseText);
+              alertaSW(res.msg || "Solicitud inválida", "error");
+            } catch (e) {
+              alertaSW("Solicitud inválida", "error");
+            }
+            recargarToken();
           } else {
-            console.error("Error HTTP:", this.status, this.responseText);
-            alertaSW("Error en la petición: " + this.status, "error");
+            alertaSW("Error en el servidor. Intenta de nuevo.", "error");
+            recargarToken();
           }
         }
       };
 
       http.onerror = function () {
-        console.error("Error en la petición AJAX");
-        alertaSW("Error de conexión", "error");
+        alertaSW("Error de conexión. Intenta de nuevo.", "error");
       };
 
       http.send(new FormData(frm));

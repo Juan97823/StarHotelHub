@@ -55,7 +55,7 @@ class Contacto extends Controller
 
         if ($resultado > 0) {
             // Enviar email de confirmación
-            $this->enviarEmailContacto($nombre, $correo, $asunto, $mensaje);
+            $this->enviarEmailContacto($nombre, $correo, $telefono, $asunto, $mensaje);
 
             echo json_encode([
                 'tipo' => 'success',
@@ -73,32 +73,53 @@ class Contacto extends Controller
     /**
      * Enviar email de confirmación
      */
-    private function enviarEmailContacto($nombre, $correo, $asunto, $mensaje)
+    private function enviarEmailContacto($nombre, $correo, $telefono, $asunto, $mensaje)
     {
-        // Nota: Descomentar cuando se configure servidor SMTP
-        // $destinatario = 'contacto@starhotelhub.com';
-        // $asunto_email = 'Nuevo mensaje de contacto: ' . $asunto;
-        //
-        // $cuerpo = "
-        // <html>
-        // <head>
-        //     <title>Nuevo Mensaje de Contacto</title>
-        // </head>
-        // <body>
-        //     <h2>Nuevo mensaje de contacto en StarHotelHub</h2>
-        //     <p><strong>Nombre:</strong> {$nombre}</p>
-        //     <p><strong>Email:</strong> {$correo}</p>
-        //     <p><strong>Asunto:</strong> {$asunto}</p>
-        //     <p><strong>Mensaje:</strong></p>
-        //     <p>{$mensaje}</p>
-        // </body>
-        // </html>
-        // ";
-        //
-        // $headers = "MIME-Version: 1.0\r\n";
-        // $headers .= "Content-type: text/html; charset=UTF-8\r\n";
-        // $headers .= "From: {$correo}\r\n";
-        //
-        // mail($destinatario, $asunto_email, $cuerpo, $headers);
+        // Enviar dos correos:
+        // 1) Al equipo/admin: detalles del mensaje de contacto
+        // 2) Al remitente: confirmación de recepción
+
+        try {
+            // Cargar helper de emails
+            require_once RUTA_RAIZ . '/config/email.php';
+            require_once RUTA_RAIZ . '/app/Helpers/EmailHelper.php';
+
+            // 1) Email al admin (starhotelhub@gmail.com)
+            $adminEmail = 'starhotelhub@gmail.com';
+            $adminSubject = 'Nuevo mensaje de contacto: ' . $asunto;
+            $adminBody = "<html><body>
+                <h2>Nuevo mensaje de contacto en StarHotelHub</h2>
+                <p><strong>Nombre:</strong> {$nombre}</p>
+                <p><strong>Email:</strong> {$correo}</p>
+                <p><strong>Teléfono:</strong> {$telefono}</p>
+                <p><strong>Asunto:</strong> {$asunto}</p>
+                <p><strong>Mensaje:</strong></p>
+                <p>{$mensaje}</p>
+                </body></html>";
+
+            $emailAdmin = new EmailHelper();
+            $emailAdmin->setTo($adminEmail, 'StarHotelHub')
+                       ->setSubject($adminSubject)
+                       ->setBody($adminBody)
+                       ->send();
+
+            // 2) Email de confirmación al remitente
+            $userSubject = 'Hemos recibido tu mensaje - StarHotelHub';
+            $userBody = "<html><body>
+                <p>Hola <strong>{$nombre}</strong>,</p>
+                <p>Hemos recibido tu mensaje con asunto <strong>{$asunto}</strong>. Nuestro equipo se pondrá en contacto contigo pronto.</p>
+                <p>Si necesitas contactarnos directamente, escríbenos a <strong>starhotelhub@gmail.com</strong>.</p>
+                <p>Saludos,<br/>Equipo StarHotelHub</p>
+                </body></html>";
+
+            $emailUser = new EmailHelper();
+            $emailUser->setTo($correo, $nombre)
+                      ->setSubject($userSubject)
+                      ->setBody($userBody)
+                      ->send();
+
+        } catch (Exception $e) {
+            error_log('Error al enviar emails de contacto: ' . $e->getMessage());
+        }
     }
 }

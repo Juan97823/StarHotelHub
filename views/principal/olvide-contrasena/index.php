@@ -57,18 +57,32 @@ $csrf_token = generarCsrfToken();
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('formRecuperarContrasena');
-    
+
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        
+
         const formData = new FormData(form);
         const url = '<?php echo RUTA_PRINCIPAL; ?>olvidecontrasena/recuperar';
-        
+
         fetch(url, {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else if (response.status === 403) {
+                return response.json().then(data => {
+                    throw { status: 403, msg: data.msg || 'Token inválido' };
+                });
+            } else if (response.status === 400) {
+                return response.json().then(data => {
+                    throw { status: 400, msg: data.msg || 'Solicitud inválida' };
+                });
+            } else {
+                throw { status: response.status, msg: 'Error en el servidor' };
+            }
+        })
         .then(data => {
             alertaSW(data.msg, data.tipo);
             if (data.tipo === 'success') {
@@ -76,14 +90,36 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => {
                     window.location.href = '<?php echo RUTA_PRINCIPAL; ?>login';
                 }, 2000);
+            } else {
+                recargarToken();
             }
         })
         .catch(error => {
-            console.error('Error:', error);
-            alertaSW('Error al procesar la solicitud', 'error');
+            if (error.status === 403 || error.status === 400) {
+                alertaSW(error.msg, 'error');
+                recargarToken();
+            } else {
+                alertaSW('Error al procesar la solicitud. Intenta de nuevo.', 'error');
+            }
         });
     });
 });
+
+function recargarToken() {
+    const csrfInput = document.querySelector('input[name="csrf_token"]');
+    if (csrfInput) {
+        fetch('<?php echo RUTA_PRINCIPAL; ?>api/csrf-token')
+            .then(response => response.json())
+            .then(data => {
+                if (data.token) {
+                    csrfInput.value = data.token;
+                }
+            })
+            .catch(() => {
+                location.reload();
+            });
+    }
+}
 </script>
 
 <?php include_once 'views/template/footer-principal.php'; ?>

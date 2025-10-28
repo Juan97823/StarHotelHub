@@ -49,18 +49,21 @@ class Registro extends Controller
 
         // Validar email
         if (!validarEmail($correo)) {
+            generarCsrfToken();
             echo json_encode(['tipo' => 'warning', 'msg' => 'EMAIL INVÁLIDO'], JSON_UNESCAPED_UNICODE);
             exit;
         }
 
         // Validar contraseña
         if (!validarContrasena($clave)) {
+            generarCsrfToken();
             echo json_encode(['tipo' => 'warning', 'msg' => 'LA CONTRASEÑA DEBE TENER AL MENOS 8 CARACTERES, MAYÚSCULA, MINÚSCULA Y NÚMERO'], JSON_UNESCAPED_UNICODE);
             exit;
         }
 
         // Validar que las contraseñas coincidan
         if ($clave !== $confirmar) {
+            generarCsrfToken();
             echo json_encode(['tipo' => 'warning', 'msg' => 'LAS CONTRASEÑAS NO COINCIDEN'], JSON_UNESCAPED_UNICODE);
             exit;
         }
@@ -68,6 +71,7 @@ class Registro extends Controller
         // Validar que el correo no esté registrado
         $verificarCorreo = $this->model->validarUnique('correo', $correo, 0);
         if (!empty($verificarCorreo)) {
+            generarCsrfToken();
             echo json_encode(['tipo' => 'warning', 'msg' => 'EL CORREO YA ESTÁ REGISTRADO'], JSON_UNESCAPED_UNICODE);
             exit;
         }
@@ -78,10 +82,40 @@ class Registro extends Controller
         $resultado = $this->model->registrarse($nombre, $correo, $hash, $rol);
 
         if ($resultado > 0) {
-            // Enviar email de confirmación
-            $this->enviarEmailRegistro($nombre, $correo, $clave);
+            // Generar token de verificación y guardarlo
+            try {
+                $token = bin2hex(random_bytes(32));
+                $this->model->setVerificationToken($resultado, $token);
+            } catch (Exception $e) {
+                // si falla la generación, continuar sin token (no ideal)
+                error_log('Error generando token de verificación: ' . $e->getMessage());
+                $token = null;
+            }
 
-            echo json_encode(['tipo' => 'success', 'msg' => 'USUARIO REGISTRADO EXITOSAMENTE. REVISA TU CORREO PARA CONFIRMAR.'], JSON_UNESCAPED_UNICODE);
+            // Responder inmediatamente al cliente para mejorar la UX
+            $response = ['tipo' => 'success', 'msg' => 'USUARIO REGISTRADO EXITOSAMENTE. REVISA TU CORREO PARA CONFIRMAR.'];
+            echo json_encode($response, JSON_UNESCAPED_UNICODE);
+
+            // Cerrar la sesión para evitar bloqueos y terminar la respuesta al cliente
+            if (session_status() == PHP_SESSION_ACTIVE) {
+                session_write_close();
+            }
+
+            // Intentar terminar la respuesta rápidamente si PHP-FPM está disponible
+            if (function_exists('fastcgi_finish_request')) {
+                fastcgi_finish_request();
+            } else {
+                // Intentar vaciar buffers y forzar flush como fallback
+                @ob_flush();
+                @flush();
+            }
+
+            // Enviar email de confirmación en background (el cliente ya recibió la respuesta)
+            try {
+                $this->enviarEmailRegistro($nombre, $correo, $token);
+            } catch (Exception $e) {
+                error_log("Error enviando email en background: " . $e->getMessage());
+            }
         } else {
             echo json_encode(['tipo' => 'error', 'msg' => 'ERROR AL REGISTRAR EL USUARIO'], JSON_UNESCAPED_UNICODE);
         }
@@ -91,7 +125,7 @@ class Registro extends Controller
     /**
      * Enviar email de confirmación de registro
      */
-    private function enviarEmailRegistro($nombre, $correo, $clave)
+    private function enviarEmailRegistro($nombre, $correo, $token)
     {
         try {
             // Cargar el helper de emails
@@ -99,12 +133,14 @@ class Registro extends Controller
             require_once RUTA_RAIZ . '/app/Helpers/EmailHelper.php';
 
             $email = new EmailHelper();
+            $confirmLink = $token ? RUTA_PRINCIPAL . 'registro/confirmar/' . $token : RUTA_PRINCIPAL . 'login';
+
             $email->setTo($correo, $nombre)
-                  ->setSubject('Bienvenido a StarHotelHub - Confirmación de Registro')
+                  ->setSubject('Bienvenido a StarHotelHub - Confirma tu correo')
                   ->loadTemplate('registro_confirmacion', [
                       'nombre' => $nombre,
                       'correo' => $correo,
-                      'clave' => $clave
+                      'confirmLink' => $confirmLink
                   ])
                   ->send();
 
@@ -112,6 +148,30 @@ class Registro extends Controller
             error_log("Error al enviar email de registro: " . $e->getMessage());
             // No interrumpir el flujo si falla el email
         }
+    }
+
+    // Endpoint para confirmar cuenta
+    public function confirmar($token = null)
+    {
+        if (!$token) {
+            $this->views->getView('principal/RegistroConfirmacion', ['success' => false, 'msg' => 'Token inválido']);
+            return;
+        }
+
+        $this->cargarModel('Registro');
+        $res = $this->model->verifyUserByToken($token);
+        if ($res) {
+            $this->views->getView('principal/RegistroConfirmacion', ['success' => true, 'msg' => 'Cuenta confirmada. Ya puedes iniciar sesión.']);
+        } else {
+            $this->views->getView('principal/RegistroConfirmacion', ['success' => false, 'msg' => 'Token inválido o expirado.']);
+        }
+    }
+
+    public function exito()
+    {
+        $data['title'] = 'Registro completado';
+        $data['subtitle'] = 'Revisa tu correo para confirmar tu cuenta';
+        $this->views->getView('principal/RegistroExito', $data);
     }
 }
  

@@ -13,6 +13,26 @@ class RegistroModel extends Query
         $datos = [$nombre, $correo, $hash, $rol];
         return $this->insert($sql, $datos);
     }
+
+    // Establecer token de verificación para el usuario recién registrado
+    public function setVerificationToken($id, $token)
+    {
+        $sql = "UPDATE usuarios SET token = ?, verify = 0 WHERE id = ?";
+        return $this->save($sql, [$token, $id]);
+    }
+
+    // Verificar usuario por token (activar cuenta)
+    public function verifyUserByToken($token)
+    {
+        // Buscar usuario con token
+        $sql = "SELECT id FROM usuarios WHERE token = ? AND verify = 0";
+        $user = $this->select($sql, [$token]);
+        if ($user) {
+            $sql2 = "UPDATE usuarios SET verify = 1, token = NULL WHERE id = ?";
+            return $this->save($sql2, [$user['id']]);
+        }
+        return false;
+    }
     // Validar que un campo sea único - SEGURO contra SQL injection
     public function validarUnique($item, $valor, $id_usuario)
     {
