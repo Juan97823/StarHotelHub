@@ -1,7 +1,7 @@
 <?php
 // Configuración principal
 define("ADMIN", "admin");
-define("RUTA_PRINCIPAL", "http://localhost/Starhotelhub/");
+define("RUTA_PRINCIPAL", "http://3.88.220.138/");
 define("RUTA_ADMIN", RUTA_PRINCIPAL . ADMIN . '/');
 define("RUTA_RAIZ", dirname(__DIR__)); // Ruta física del proyecto
 
