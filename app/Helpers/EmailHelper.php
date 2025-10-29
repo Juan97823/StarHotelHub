@@ -25,7 +25,7 @@ class EmailHelper
             $this->configurarPHPMailer();
         } else {
             // PHPMailer no disponible, usar mail() de PHP
-            error_log("⚠️ PHPMailer no está instalado. Usando mail() de PHP como fallback.");
+            error_log("ADVERTENCIA PHPMailer no esta instalado. Usando mail() de PHP como fallback.");
             $this->mail = null;
         }
     }
@@ -178,11 +178,11 @@ class EmailHelper
             // Enviar
             $resultado = $this->mail->send();
 
-            error_log("✅ Email enviado exitosamente a: " . $this->to);
+            error_log("Email enviado exitosamente a: " . $this->to);
             return $resultado;
 
         } catch (\PHPMailer\PHPMailer\Exception $e) {
-            $errorMsg = "❌ Error al enviar email a {$this->to}: " . $e->getMessage() . "\n";
+            $errorMsg = "ERROR Error al enviar email a {$this->to}: " . $e->getMessage() . "\n";
             $errorMsg .= "PHPMailer Error: " . $this->mail->ErrorInfo . "\n";
             error_log($errorMsg);
 
@@ -198,7 +198,7 @@ class EmailHelper
     private function sendWithPhpMail()
     {
         try {
-            error_log("📧 Enviando email con mail() de PHP a: {$this->to}");
+            error_log("Enviando email con mail() de PHP a: {$this->to}");
 
             // Headers
             $headers = [];
@@ -217,14 +217,14 @@ class EmailHelper
             );
 
             if ($resultado) {
-                error_log("✅ Email enviado con mail() de PHP a: " . $this->to);
+                error_log("Email enviado con mail() de PHP a: " . $this->to);
                 return true;
             } else {
-                error_log("❌ mail() de PHP falló para: " . $this->to);
+                error_log("ERROR mail() de PHP fallo para: " . $this->to);
                 return false;
             }
         } catch (\Exception $e) {
-            error_log("❌ Error en sendWithPhpMail(): " . $e->getMessage());
+            error_log("ERROR Error en sendWithPhpMail(): " . $e->getMessage());
             return false;
         }
     }

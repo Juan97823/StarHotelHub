@@ -27,13 +27,33 @@ class Dashboard extends Controller
      */
     public function getData()
     {
+        error_log("Dashboard::getData() - Iniciando");
+
         $this->cargarModel('DashboardModel');
 
-        // --- Indicadores ---
-        $reservasHoy = $this->model->getReservasHoy()['total'] ?? 0;
-        $habitacionesDisponibles = $this->model->getHabitacionesDisponibles()['total'] ?? 0;
-        $ingresosMes = $this->model->getIngresosMes()['total'] ?? 0.00;
-        $totalClientes = $this->model->getTotalClientes()['total'] ?? 0;
+        if (!$this->model) {
+            error_log("ERROR Dashboard::getData() - Model no esta cargado");
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'Model no cargado'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        error_log("Dashboard::getData() - Model cargado correctamente");
+
+        try {
+            // --- Indicadores ---
+            $reservasHoy = $this->model->getReservasHoy()['total'] ?? 0;
+            $habitacionesDisponibles = $this->model->getHabitacionesDisponibles()['total'] ?? 0;
+            $ingresosMes = $this->model->getIngresosMes()['total'] ?? 0.00;
+            $totalClientes = $this->model->getTotalClientes()['total'] ?? 0;
+
+            error_log("Dashboard::getData() - Indicadores obtenidos");
+        } catch (Exception $e) {
+            error_log("ERROR Dashboard::getData() - Error al obtener indicadores: " . $e->getMessage());
+            header('Content-Type: application/json');
+            echo json_encode(['error' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
 
         // --- Últimas reservas ---
         $ultimasReservasRaw = $this->model->getUltimasReservas(5);
@@ -97,6 +117,7 @@ class Dashboard extends Controller
             'ultimasReservas' => $ultimasReservas
         ];
 
+        error_log("Dashboard::getData() - Enviando JSON con datos completos");
         header('Content-Type: application/json');
         echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK);
         exit;

@@ -18,8 +18,23 @@ class Habitaciones extends Controller
 
     public function listar()
     {
-        $data = $this->model->getHabitaciones(false);
-        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        error_log("Habitaciones::listar() - Iniciando");
+
+        if (!$this->model) {
+            error_log("ERROR Habitaciones::listar() - Model no esta cargado");
+            echo json_encode(['error' => 'Model no cargado'], JSON_UNESCAPED_UNICODE);
+            die();
+        }
+
+        try {
+            $data = $this->model->getHabitaciones(false);
+            error_log("Habitaciones::listar() - Obtenidas " . count($data) . " habitaciones");
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        } catch (Exception $e) {
+            error_log("ERROR Habitaciones::listar() - Error: " . $e->getMessage());
+            echo json_encode(['error' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
+        }
         die();
     }
 

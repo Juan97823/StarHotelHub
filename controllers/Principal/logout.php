@@ -1,5 +1,5 @@
 <?php
-class Logout extends Controller
+class logout extends Controller
 {
     public function __construct()
     {

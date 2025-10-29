@@ -1,7 +1,5 @@
 <?php
 require_once 'helpers/seguridad.php';
-require 'models/admin/HabitacionesModel.php';
-require 'models/admin/UsuariosModel.php';
 
 class Reservas extends Controller
 {
@@ -12,6 +10,11 @@ class Reservas extends Controller
     {
         parent::__construct();
         verificarSesion(1); // Solo administradores
+
+        // Cargar el modelo principal de Reservas
+        $this->cargarModel('Reservas');
+
+        // Cargar modelos adicionales
         $this->HabitacionModel = new HabitacionesModel();
         $this->UsuariosModel = new UsuariosModel();
     }
@@ -30,7 +33,24 @@ class Reservas extends Controller
     // Listar todas las reservas (JSON para DataTables)
     public function listar()
     {
-        $reservas = $this->model->getReservas(true);
+        error_log("Reservas::listar() - Iniciando");
+
+        if (!$this->model) {
+            error_log("ERROR Reservas::listar() - Model no esta cargado");
+            echo json_encode(['error' => 'Model no cargado'], JSON_UNESCAPED_UNICODE);
+            die();
+        }
+
+        error_log("Reservas::listar() - Model cargado correctamente");
+
+        try {
+            $reservas = $this->model->getReservas(true);
+            error_log("Reservas::listar() - Obtenidas " . count($reservas) . " reservas");
+        } catch (Exception $e) {
+            error_log("ERROR Reservas::listar() - Error al obtener reservas: " . $e->getMessage());
+            echo json_encode(['error' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
+            die();
+        }
 
         foreach ($reservas as $key => $res) {
             // Inicializar acciones por defecto
@@ -74,6 +94,8 @@ class Reservas extends Controller
             $reservas[$key]['acciones'] = $acciones;
         }
 
+        error_log("Reservas::listar() - Enviando JSON con " . count($reservas) . " reservas");
+        header('Content-Type: application/json; charset=utf-8');
         echo json_encode($reservas, JSON_UNESCAPED_UNICODE);
         die();
     }

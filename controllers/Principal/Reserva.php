@@ -149,9 +149,9 @@ class Reserva extends Controller
                   ->setBody($cuerpo)
                   ->send();
 
-            error_log("✅ Email de confirmación enviado a: " . $usuario['correo']);
+            error_log(" Email de confirmación enviado a: " . $usuario['correo']);
         } catch (Exception $e) {
-            error_log("❌ Error al enviar email de confirmación: " . $e->getMessage());
+            error_log(" Error al enviar email de confirmación: " . $e->getMessage());
         }
     }
 
@@ -313,7 +313,7 @@ class Reserva extends Controller
 
             if ($id_reserva) {
                 $_SESSION['ultima_reserva'] = $id_reserva;
-                error_log("✅ Reserva creada con ID: " . $id_reserva);
+                error_log("Reserva creada con ID: " . $id_reserva);
 
                 // Obtener datos completos para el email
                 $reservaCompleta = $this->model->getReservaById($id_reserva);
@@ -342,23 +342,23 @@ class Reserva extends Controller
                 // Enviar email de confirmación (no bloquear si falla)
                 try {
                     $this->enviarConfirmacionReserva($id_reserva, $usuarioCompleto, $reservaCompleta, $habitacionCompleta, $factura);
-                    error_log("✅ Email de confirmación enviado");
+                    error_log("Email de confirmacion enviado");
                 } catch (Exception $e) {
-                    error_log("⚠️ Error al enviar email de confirmación: " . $e->getMessage());
+                    error_log("ADVERTENCIA Error al enviar email de confirmacion: " . $e->getMessage());
                 }
 
                 // Si es usuario nuevo, enviar credenciales (no bloquear si falla)
                 if (!$usuario) {
                     try {
                         $this->enviarCredencialesNuevoUsuario($usuarioCompleto, $clave);
-                        error_log("✅ Email de credenciales enviado");
+                        error_log("Email de credenciales enviado");
                     } catch (Exception $e) {
-                        error_log("⚠️ Error al enviar email de credenciales: " . $e->getMessage());
+                        error_log("ADVERTENCIA Error al enviar email de credenciales: " . $e->getMessage());
                     }
                 }
 
                 $redirectUrl = RUTA_PRINCIPAL . 'reserva/confirmacion';
-                error_log("✅ Redirigiendo a: " . $redirectUrl);
+                error_log("Redirigiendo a: " . $redirectUrl);
 
                 echo json_encode([
                     'status' => 'success',
@@ -367,7 +367,7 @@ class Reserva extends Controller
                     'id_reserva' => $id_reserva
                 ]);
             } else {
-                error_log("❌ Error al insertar reserva en la base de datos");
+                error_log("ERROR Error al insertar reserva en la base de datos");
                 echo json_encode(['status' => 'error', 'msg' => 'Error al guardar la reserva.']);
             }
             exit;
@@ -428,7 +428,7 @@ class Reserva extends Controller
                   ->setBody($cuerpo)
                   ->send();
 
-            error_log("✅ Email de credenciales enviado a: " . $usuario['correo']);
+            error_log(" Email de credenciales enviado a: " . $usuario['correo']);
         } catch (Exception $e) {
             error_log("❌ Error al enviar email de credenciales: " . $e->getMessage());
         }

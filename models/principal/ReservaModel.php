@@ -93,7 +93,6 @@ class ReservaModel extends Query
                          h.precio AS precio_noche,
                          u.nombre AS nombre_cliente,
                          u.correo AS email,
-                         u.telefono
                 FROM reservas r
                 JOIN habitaciones h ON r.id_habitacion = h.id
                 JOIN usuarios u ON r.id_usuario = u.id
@@ -125,11 +124,11 @@ class ReservaModel extends Query
         return $this->select($query, $params);
     }
     // Crea un usuario nuevo automáticamente
-    public function crearUsuario($nombre, $correo, $clave, $telefono)
+    public function crearUsuario($nombre, $correo, $clave)
     {
-        $sql = "INSERT INTO usuarios (nombre, correo, clave, telefono, rol) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO usuarios (nombre, correo, clave, rol) VALUES (?, ?, ?, ?)";
         // Suponiendo que rol 3 = cliente
-        $params = [$nombre, $correo, $clave, $telefono, 3];
+        $params = [$nombre, $correo, $clave, 3];
         return $this->insert($sql, $params);
     }
 
