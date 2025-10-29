@@ -130,7 +130,7 @@ class Registro extends Controller
         try {
             // Cargar el helper de emails
             require_once RUTA_RAIZ . '/config/email.php';
-            require_once RUTA_RAIZ . '/app/Helpers/EmailHelper.php';
+            require_once RUTA_RAIZ . '/app/helpers/EmailHelper.php';
 
             $email = new EmailHelper();
             $confirmLink = $token ? RUTA_PRINCIPAL . 'registro/confirmar/' . $token : RUTA_PRINCIPAL . 'login';

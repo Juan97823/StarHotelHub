@@ -7,7 +7,7 @@
     <title>StarHotelHub - Panel de Empleado</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo RUTA_PRINCIPAL . 'assets/img/Logo.png'; ?>">
+    <link rel="icon" type="image/png" href="<?php echo RUTA_PRINCIPAL . 'assets/img/logo.png'; ?>">
 
     <!-- Estilos principales -->
     <link href="<?php echo RUTA_PRINCIPAL . 'assets/admin/plugins/simplebar/css/simplebar.css'; ?>" rel="stylesheet" />
@@ -39,7 +39,7 @@
         <div class="sidebar-wrapper" data-simplebar="true">
             <div class="sidebar-header">
                 <div>
-                    <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/Logo.png'; ?>" class="logo-icon" alt="logo">
+                    <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/logo.png'; ?>" class="logo-icon" alt="logo">
                 </div>
                 <div>
                     <h4 class="logo-text">StarHotelHub</h4>

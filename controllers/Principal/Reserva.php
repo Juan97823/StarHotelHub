@@ -51,7 +51,7 @@ class Reserva extends Controller
     {
         try {
             require_once RUTA_RAIZ . '/config/email.php';
-            require_once RUTA_RAIZ . '/app/Helpers/EmailHelper.php';
+            require_once RUTA_RAIZ . '/app/helpers/EmailHelper.php';
 
             $asunto = 'Confirmación de Reserva - StarHotelHub';
             $cuerpo = "
@@ -359,7 +359,7 @@ class Reserva extends Controller
     {
         try {
             require_once RUTA_RAIZ . '/config/email.php';
-            require_once RUTA_RAIZ . '/app/Helpers/EmailHelper.php';
+            require_once RUTA_RAIZ . '/app/helpers/EmailHelper.php';
 
             $asunto = 'Bienvenido a StarHotelHub - Tus Credenciales de Acceso';
             $cuerpo = "

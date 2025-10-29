@@ -18,7 +18,7 @@ $urlCliente = $urlBase . 'cliente/';
     <title>StarHotelHub - Panel de Cliente</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo $urlBase . 'assets/img/Logo.png'; ?>">
+    <link rel="icon" type="image/png" href="<?php echo $urlBase . 'assets/img/logo.png'; ?>">
 
     <!-- CSS base -->
     <link href="<?php echo $urlBase . 'assets/admin/plugins/simplebar/css/simplebar.css'; ?>" rel="stylesheet" />
@@ -43,7 +43,7 @@ $urlCliente = $urlBase . 'cliente/';
         <div class="sidebar-wrapper" data-simplebar="true">
             <div class="sidebar-header">
                 <a href="<?php echo $urlBase; ?>" class="d-flex align-items-center">
-                    <img src="<?php echo $urlBase . 'assets/img/Logo.png'; ?>" class="logo-icon" alt="StarHotelHub Logo"
+                    <img src="<?php echo $urlBase . 'assets/img/logo.png'; ?>" class="logo-icon" alt="StarHotelHub Logo"
                         style="width: 40px; height: auto;">
                     <h4 class="logo-text ms-2">StarHotelHub</h4>
                 </a>

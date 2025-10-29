@@ -7,7 +7,7 @@
             
             <!-- Logo y Nombre -->
             <div class="logo-container">
-                <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/Logo.png'; ?>" alt="StarHotelHub Logo" class="logo-icon">
+                <img src="<?php echo RUTA_PRINCIPAL . 'assets/img/logo.png'; ?>" alt="StarHotelHub Logo" class="logo-icon">
                 <h2 class="logo-text">StarHotelHub</h2>
             </div>
 

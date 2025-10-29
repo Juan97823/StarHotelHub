@@ -56,10 +56,12 @@ class Dashboard extends Controller
             }
 
             $ultimasReservas[] = [
-                'cliente' => $reserva['nombre_usuario'],    // Ajusta al campo real en tu BD
-                'habitacion' => $reserva['habitacion'],    // Ajusta al campo real en tu BD
-                'fecha_reserva' => $reserva['fecha_ingreso'], // Ajusta al campo real
-                'estado_texto' => $estado_texto
+                'id' => $reserva['id'],                      // ID de la reserva para la factura
+                'cliente' => $reserva['cliente'],            // Nombre del cliente
+                'habitacion' => $reserva['habitacion'],      // Estilo de habitación
+                'fecha_reserva' => $reserva['fecha_ingreso'], // Fecha de ingreso
+                'estado' => $reserva['estado'],              // Estado numérico para el badge
+                'estado_texto' => $estado_texto              // Estado en texto
             ];
         }
 

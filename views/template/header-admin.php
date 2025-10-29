@@ -17,7 +17,7 @@ $nombreUsuario = htmlspecialchars($nombreUsuario, ENT_QUOTES, 'UTF-8');
     <title>StarHotelHub - Panel de Administración</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo $urlBase . 'assets/img/Logo.png'; ?>">
+    <link rel="icon" type="image/png" href="<?php echo $urlBase . 'assets/img/logo.png'; ?>">
 
     <!-- Fuentes -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
@@ -58,7 +58,7 @@ $nombreUsuario = htmlspecialchars($nombreUsuario, ENT_QUOTES, 'UTF-8');
         <div class="sidebar-wrapper" data-simplebar="true">
             <div class="sidebar-header">
                 <a href="<?php echo $urlAdmin . 'dashboard'; ?>" class="d-flex align-items-center">
-                    <img src="<?php echo $urlBase . 'assets/img/Logo.png'; ?>" class="logo-icon"
+                    <img src="<?php echo $urlBase . 'assets/img/logo.png'; ?>" class="logo-icon"
                         alt="StarHotelHub Logo">
                     <h4 class="logo-text ms-2">StarHotelHub</h4>
                 </a>

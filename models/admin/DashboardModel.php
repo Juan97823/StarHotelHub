@@ -79,7 +79,7 @@ class DashboardModel extends Query
      */
     public function getUltimasReservas($limite = 5)
     {
-        $sql = "SELECT r.fecha_reserva, r.estado, u.nombre AS cliente, h.estilo AS habitacion
+        $sql = "SELECT r.id, r.fecha_reserva, r.fecha_ingreso, r.estado, u.nombre AS cliente, h.estilo AS habitacion
                 FROM reservas r
                 INNER JOIN usuarios u ON r.id_usuario = u.id
                 INNER JOIN habitaciones h ON r.id_habitacion = h.id

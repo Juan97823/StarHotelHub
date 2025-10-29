@@ -53,7 +53,7 @@
     <?php endif; ?>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo RUTA_PRINCIPAL . 'assets'; ?>/img/Logo.png">
+    <link rel="icon" type="image/png" href="<?php echo RUTA_PRINCIPAL . 'assets'; ?>/img/logo.png">
 
     <!-- TITLE -->
     <title><?php echo TITLE . ' | ' . $data['title']; ?></title>
@@ -107,7 +107,7 @@
                 <nav class="navbar navbar-expand-md navbar-light">
                     <div class="container">
                         <a class="navbar-brand" href="<?php echo RUTA_PRINCIPAL; ?>">
-                            <img src="<?php echo RUTA_PRINCIPAL . 'assets'; ?>/img/Logo.png" alt="Logo">
+                            <img src="<?php echo RUTA_PRINCIPAL . 'assets'; ?>/img/logo.png" alt="Logo">
                         </a>
                         <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                             <ul class="navbar-nav m-auto">

@@ -10,7 +10,7 @@
 				<div class="col-lg-3 col-md-6 mb-4">
 					<div class="single-widget">
 						<a href="<?php echo RUTA_PRINCIPAL; ?>" class="footer-logo">
-							<img src="<?php echo RUTA_PRINCIPAL . 'assets'; ?>/img/Logo.png" alt="Logo Starhotelhub" style="max-width: 150px; height: auto;">
+							<img src="<?php echo RUTA_PRINCIPAL . 'assets'; ?>/img/logo.png" alt="Logo Starhotelhub" style="max-width: 150px; height: auto;">
 						</a>
 						<p style="margin-top: 15px; font-size: 14px; line-height: 1.6;">StarHotelHub es tu plataforma integral para gestionar reservas, habitaciones y operaciones hoteleras de forma eficiente y moderna.</p>
 						<ul class="social-icon" style="margin-top: 20px;">

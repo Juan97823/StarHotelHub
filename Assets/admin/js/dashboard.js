@@ -25,22 +25,23 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // --- FUNCIONES DE ACTUALIZACIÓN ---
-  function actualizarIndicadores(data) {
+  function actualizarIndicadores(indicadores) {
+    if (!indicadores) return;
     document.getElementById("reservasHoy").textContent =
-      data.reservasHoy ?? "0";
+      indicadores.reservasHoy ?? "0";
     document.getElementById("habitacionesDisponibles").textContent =
-      data.habitacionesDisponibles ?? "0";
-    document.getElementById("ingresosMes").textContent = `$${Number(
-      data.ingresosMes ?? 0
-    ).toLocaleString("es-ES")}`;
+      indicadores.habitacionesDisponibles ?? "0";
+    document.getElementById("ingresosMes").textContent = `$${
+      indicadores.ingresosMes ?? "0"
+    }`;
     document.getElementById("totalClientes").textContent =
-      data.totalClientes ?? "0";
+      indicadores.totalClientes ?? "0";
   }
 
   function actualizarGrafico(graficoData) {
     if (!graficoData) return;
-    graficoReservas.data.labels = graficoData.etiquetas;
-    graficoReservas.data.datasets[0].data = graficoData.valores;
+    graficoReservas.data.labels = graficoData.labels ?? [];
+    graficoReservas.data.datasets[0].data = graficoData.data ?? [];
     graficoReservas.update();
   }
 
@@ -102,9 +103,9 @@ document.addEventListener("DOMContentLoaded", function () {
         return response.json();
       })
       .then((data) => {
-        // Los datos se pasan directamente a las funciones, asumiendo una estructura plana.
-        actualizarIndicadores(data);
-        actualizarGrafico(data.grafico); // El controlador original usaba la clave 'grafico'
+        // Actualizar cada sección con los datos correctos
+        actualizarIndicadores(data.indicadores);
+        actualizarGrafico(data.graficoReservas);
         actualizarUltimasReservas(data.ultimasReservas);
       })
       .catch((error) => {

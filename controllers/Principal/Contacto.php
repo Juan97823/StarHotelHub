@@ -82,7 +82,7 @@ class Contacto extends Controller
         try {
             // Cargar helper de emails
             require_once RUTA_RAIZ . '/config/email.php';
-            require_once RUTA_RAIZ . '/app/Helpers/EmailHelper.php';
+            require_once RUTA_RAIZ . '/app/helpers/EmailHelper.php';
 
             // 1) Email al admin (starhotelhub@gmail.com)
             $adminEmail = 'starhotelhub@gmail.com';
