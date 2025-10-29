@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const M_RUTA = 'http://localhost/Starhotelhub/'; // Ajusta la ruta base de tu proyecto
+    const M_RUTA = base_url; // Usa la ruta base global
 
     // Delegación de eventos para los botones de cancelar
     document.body.addEventListener('click', function(e) {
