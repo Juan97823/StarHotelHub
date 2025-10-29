@@ -282,3 +282,4 @@ SMTP User: starhotelhub@gmail.com
 [29-Oct-2025 00:24:45 America/Bogota]  Error: AdminModel no se pudo cargar. Ruta esperada: models/admin/AdminModel.php
 [29-Oct-2025 00:27:52 America/Bogota]  Error: AdminModel no se pudo cargar. Ruta esperada: models/admin/AdminModel.php
 [29-Oct-2025 00:27:54 America/Bogota]  Error: AdminModel no se pudo cargar. Ruta esperada: models/admin/AdminModel.php
+[29-Oct-2025 00:39:55 America/Bogota] PHP Warning:  Undefined array key "telefono" in C:\xampp\htdocs\Starhotelhub\views\principal\reservas\factura.php on line 199

@@ -196,13 +196,11 @@
                 <h5>INFORMACIÓN DEL CLIENTE</h5>
                 <p><strong><?php echo $data['usuario']['nombre']; ?></strong></p>
                 <p>Email: <?php echo $data['usuario']['correo']; ?></p>
-                <p>Teléfono: <?php echo $data['usuario']['telefono']; ?></p>
             </div>
             <div class="info-section">
                 <h5>INFORMACIÓN DEL HOTEL</h5>
                 <p><strong>StarHotelHub</strong></p>
                 <p>Dirección: Calle Principal 123</p>
-                <p>Teléfono: +57 (1) 1234-5678</p>
                 <p>Email: info@starhotelhub.com</p>
             </div>
         </div>
