@@ -305,7 +305,7 @@ class Reserva extends Controller
                 'monto' => $monto,
                 'num_transaccion' => $num_transaccion,
                 'cod_reserva' => $cod_reserva,
-                'facturacion' => 'Factura Prataforma', // Tipo de facturación
+                'facturacion' => 'Factura Plataforma', // Tipo de facturación
                 'id_empleado' => null, // Sin empleado asignado aún
             ];
 
