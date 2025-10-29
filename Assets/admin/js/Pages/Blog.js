@@ -19,18 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
             { data: "titulo" },
             { data: "fecha" },
             {
-                data: "imagen",
-                render: function (data) {
-                    // Si no hay imagen, mostrar una por defecto
-                    if (!data || data === "undefined" || data === "") {
-                        return `<img src="${RUTA_PRINCIPAL}uploads/blog/default.png" 
-                            class="img-thumbnail" width="100">`;
-                    }
-                    return `<img src="${RUTA_PRINCIPAL}uploads/blog/${data}" 
-                        class="img-thumbnail" width="100">`;
-                }
-            },
-            {
                 data: "estado",
                 render: function (data) {
                     return data == 1
@@ -38,28 +26,23 @@ document.addEventListener("DOMContentLoaded", function () {
                         : '<span class="badge bg-danger">Inhabilitado</span>';
                 }
             },
-
             {
                 data: "id",
                 render: function (data, type, row) {
-                    let btnEditar = `
-            <a href="blog/editar/${row.id}" class="btn btn-primary btn-sm">
-                <i class="fas fa-edit"></i>
-            </a>`;
+                    let btnEditar = `<a href="blog/editar/${row.id}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-edit"></i>
+                    </a>`;
 
                     let btnEstado = row.estado == 1
                         ? `<button class="btn btn-warning btn-sm" onclick="handleStateChange(${row.id}, this)">
-                   <i class="fas fa-ban"></i>
-               </button>`
+                            <i class="fas fa-ban"></i>
+                        </button>`
                         : `<button class="btn btn-success btn-sm" onclick="handleStateChange(${row.id}, this)">
-                   <i class="fas fa-check"></i>
-               </button>`;
+                            <i class="fas fa-check"></i>
+                        </button>`;
 
                     return `${btnEditar} ${btnEstado}`;
                 }
-
-
-
             }
         ],
         language: {
@@ -67,62 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
     });
-    function mostrarPreview(event) {
-        const file = event.target.files[0];
-        const preview = document.getElementById('previewImg');
-
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = e => {
-                preview.src = e.target.result;
-                preview.classList.remove('d-none');
-            };
-            reader.readAsDataURL(file);
-        } else {
-            preview.src = "";
-            preview.classList.add('d-none');
-        }
-    }
-
-    /**
-     * Validación antes de enviar el formulario
-     */
-    document.addEventListener("DOMContentLoaded", () => {
-        const form = document.querySelector("form");
-        if (!form) return;
-
-        form.addEventListener("submit", function (e) {
-            const titulo = document.getElementById("titulo").value.trim();
-            const descripcion = document.getElementById("descripcion").value.trim(); {
-                e.preventDefault(); // detener envío
-
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Formulario incompleto',
-                    text: 'Por favor revisa que todos los campos obligatorios estén correctos.',
-                    confirmButtonText: 'Entendido'
-                });
-            }
-        });
-    });
 });
-//  Vista previa dinámica de nueva imagen
-function mostrarPreview(event) {
-    const file = event.target.files[0];
-    const preview = document.getElementById('previewImg');
-
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = e => {
-            preview.src = e.target.result;
-            preview.classList.remove('d-none');
-        };
-        reader.readAsDataURL(file);
-    } else {
-        preview.src = "";
-        preview.classList.add('d-none');
-    }
-}
 
 //  Confirmación antes de enviar el formulario
 document.addEventListener("DOMContentLoaded", () => {
@@ -167,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
  */
 function handleStateChange(id, btn) {
     const row = $(btn).closest("tr");
-    const estadoActual = row.find("td:eq(4)").text().trim();
+    const estadoActual = row.find("td:eq(3)").text().trim();
     const nuevoEstado = estadoActual === "Habilitado" ? 0 : 1;
 
     // Guardar contenido original del botón
@@ -182,7 +110,7 @@ function handleStateChange(id, btn) {
                 let badgeHtml = nuevoEstado === 1
                     ? '<span class="badge bg-success">Habilitado</span>'
                     : '<span class="badge bg-danger">Inhabilitado</span>';
-                row.find("td:eq(4)").html(badgeHtml);
+                row.find("td:eq(3)").html(badgeHtml);
 
                 // Cambiar el botón según nuevo estado
                 btn.className = nuevoEstado === 1
@@ -192,29 +120,14 @@ function handleStateChange(id, btn) {
                     ? '<i class="fas fa-ban"></i>'
                     : '<i class="fas fa-check"></i>';
             } else {
-                btn.innerHTML = originalHtml; // Restaurar si falla
+                btn.innerHTML = originalHtml;
                 Swal.fire("Error", data.mensaje, "error");
             }
         })
-    fetch(`${RUTA_PRINCIPAL}admin/blog/estado/${id},${nuevoEstado}`, { method: "GET" })
-        .then(async (res) => {
-            const raw = await res.text();
-            console.log("Respuesta cruda del servidor:", raw); // 🔍 Debug
-            try {
-                return JSON.parse(raw);
-            } catch (e) {
-                throw new Error("Respuesta no es JSON válido: " + raw);
-            }
-        })
-        .then((data) => {
-            console.log("JSON parseado:", data);
-            // ... aquí tu lógica de actualización
-        })
         .catch((err) => {
             console.error("Error:", err);
-            Swal.fire("Error", err.message, "error");
+            Swal.fire("Error", "No se pudo cambiar el estado", "error");
             btn.innerHTML = originalHtml;
-
         });
 }
 

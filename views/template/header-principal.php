@@ -38,7 +38,10 @@
     <link rel="stylesheet" href="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/css/dark.css">
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/css/responsive.css">
-
+    <!-- Header Login Consistencia CSS -->
+    <link rel="stylesheet" href="<?php echo RUTA_PRINCIPAL . 'assets/principal/css/header-login-consistencia.css'; ?>">
+    <!-- Variables dinámicas PHP -->
+    <link rel="stylesheet" href="<?php echo RUTA_PRINCIPAL . 'assets/principal/css/header-login-variables.php'; ?>">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
     <link rel="stylesheet"

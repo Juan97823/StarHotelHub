@@ -2,6 +2,7 @@
 class Principal extends Controller{
     public function __construct(){
         parent::__construct();
+        $this->cargarModel('Principal');
     }
     public function index(){
         $data['title'] = 'Página Principal';

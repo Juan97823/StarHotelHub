@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-10-2025 a las 19:15:52
+-- Tiempo de generación: 29-10-2025 a las 05:13:27
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -24,29 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categorias`
---
-
-CREATE TABLE `categorias` (
-  `id` int(11) NOT NULL,
-  `categoria` varchar(100) NOT NULL,
-  `estado` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `categorias`
---
-
-INSERT INTO `categorias` (`id`, `categoria`, `estado`) VALUES
-(1, 'Turismo', 1),
-(2, 'Gastronomía', 1),
-(3, 'Eventos', 1),
-(4, 'Consejos de viaje', 1),
-(5, 'Novedades del hotel', 1);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `contactos`
 --
 
@@ -61,6 +38,13 @@ CREATE TABLE `contactos` (
   `estado` int(11) NOT NULL DEFAULT 1 COMMENT '1=No leído, 2=Leído'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `contactos`
+--
+
+INSERT INTO `contactos` (`id`, `nombre`, `correo`, `telefono`, `asunto`, `mensaje`, `fecha`, `estado`) VALUES
+(1, 'Angela', 'Angelalilianab@gmail.com', '3246869893', 'Cuanto vale servicio', '!111', '2025-10-26 18:17:06', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -71,9 +55,7 @@ CREATE TABLE `entradas` (
   `id` int(11) NOT NULL,
   `titulo` varchar(200) NOT NULL,
   `descripcion` text NOT NULL,
-  `foto` varchar(100) DEFAULT NULL,
   `slug` varchar(200) NOT NULL,
-  `categorias` varchar(100) DEFAULT NULL,
   `id_categoria` int(11) NOT NULL,
   `estado` int(11) NOT NULL DEFAULT 1,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -84,28 +66,28 @@ CREATE TABLE `entradas` (
 -- Volcado de datos para la tabla `entradas`
 --
 
-INSERT INTO `entradas` (`id`, `titulo`, `descripcion`, `foto`, `slug`, `categorias`, `id_categoria`, `estado`, `fecha`, `id_usuario`) VALUES
-(1, 'Bienvenidos al Blog de StarHotelHub', 'Primer post de prueba para verificar integraciones.', 'blog1.jpg', 'bienvenidos-blog', NULL, 5, 1, '2025-09-23 22:07:40', 23),
-(2, '5 destinos imperdibles para tus próximas vacaciones', 'Descubre los lugares más espectaculares para visitar este año. Desde playas paradisíacas hasta ciudades llenas de historia, ¡prepara tus maletas y vive experiencias únicas!', 'turismo1.jpg', '5-destinos-imperdibles-para-tus-pr-ximas-vacaciones', '1', 1, 1, '2025-09-23 22:07:42', 23),
-(3, 'Top 10 platillos que debes probar en nuestro hotel', 'Una guía de los sabores que no puedes perderte en StarHotelHub: ensaladas frescas, platos fuertes exquisitos y postres que harán vibrar tu paladar.', 'gastronomia1.jpg', 'top-10-platillos-que-debes-probar-en-nuestro-hotel', '2', 2, 1, '2025-09-18 01:08:47', 23),
-(4, 'Organiza tu boda soñada en StarHotelHub', 'Conoce nuestros paquetes de bodas y eventos especiales. Disfruta de un lugar exclusivo, atención personalizada y servicios de lujo para que ese día sea inolvidable.', 'eventos1.jpg', 'organiza-tu-boda-soñada', NULL, 3, 1, '2025-09-18 00:44:27', 23),
-(5, '10 tips para viajar ligero y cómodo', 'Aprende a empacar eficientemente y disfrutar al máximo tus viajes sin preocuparte por el exceso de equipaje. Consejos prácticos para ahorrar tiempo y estrés en tus vacaciones.', 'consejos1.jpg', '10-tips-viajar-ligero', NULL, 4, 1, '2025-09-18 00:44:27', 23),
-(6, 'Renovación de la piscina y área de spa', 'Estamos felices de anunciar la renovación completa de nuestra piscina y área de spa. Disfruta de un espacio moderno, cómodo y lleno de relajación y bienestar.', 'novedades1.jpg', 'renovacion-piscina-spa', NULL, 5, 1, '2025-09-18 00:44:27', 23),
-(7, 'Cómo elegir la habitación perfecta para tu estancia', 'Te damos los mejores consejos para seleccionar la habitación que se adapte a tus necesidades: vistas, comodidad, servicios adicionales y ubicación dentro del hotel.', 'turismo2.jpg', 'elegir-habitacion-perfecta', NULL, 1, 1, '2025-09-18 00:44:27', 23),
-(8, 'Bebidas exóticas que debes probar en nuestro bar', 'Descubre cocteles únicos y bebidas refrescantes creadas por nuestros expertos bartenders. Cada sorbo es una experiencia inolvidable de sabor y creatividad.', 'gastronomia2.jpg', 'bebidas-exoticas-bar', NULL, 2, 1, '2025-09-18 00:44:27', 23),
-(9, 'Cómo organizar un evento corporativo exitoso', 'Aprende a planear tu evento empresarial en nuestro hotel: desde salas equipadas hasta catering personalizado y atención profesional en cada detalle.', 'eventos2.jpg', 'organizar-evento-corporativo', NULL, 3, 1, '2025-09-18 00:44:27', 23),
-(10, 'Guía para viajar con niños sin estrés', 'Tips esenciales para disfrutar de tus vacaciones en familia. Actividades para niños, recomendaciones de seguridad y consejos para mantener a todos felices.', 'consejos2.jpg', 'viajar-con-ninos', NULL, 4, 1, '2025-09-18 00:44:27', 23),
-(11, 'Nuevos menús de temporada en nuestro restaurante', 'Presentamos platos frescos y creativos inspirados en la temporada actual. Ingredientes locales y de alta calidad para una experiencia gastronómica única.', 'novedades2.jpg', 'nuevos-menus-temporada', NULL, 5, 1, '2025-09-18 00:44:27', 23),
-(12, 'Escapadas románticas para parejas', 'Descubre nuestros paquetes especiales para parejas, con cenas privadas, habitaciones con vista y actividades pensadas para momentos románticos inolvidables.', 'turismo3.jpg', 'escapadas-romanticas', NULL, 1, 1, '2025-09-18 00:44:27', 23),
-(13, 'Postres que te harán volver por más', 'Dulces y postres artesanales que combinan sabor y presentación. Desde tortas hasta helados gourmet, cada opción es un deleite para los sentidos.', 'gastronomia3.jpg', 'postres-para-volver', NULL, 2, 1, '2025-09-18 00:44:27', 23),
-(14, 'Celebra tu cumpleaños con nosotros', 'Hacemos que tu día especial sea único: decoración personalizada, catering exclusivo y sorpresas que harán de tu cumpleaños un recuerdo imborrable.', 'eventos3.jpg', 'celebra-cumpleanos', NULL, 3, 1, '2025-09-18 00:44:27', 23),
-(15, 'Consejos para descansar mejor durante tu viaje', 'Descubre técnicas y recomendaciones para dormir mejor, aprovechar al máximo tu estancia y regresar a casa renovado y relajado.', 'consejos3.jpg', 'dormir-mejor-viaje', NULL, 4, 1, '2025-09-18 00:44:27', 23),
-(16, 'Ampliación de nuestras instalaciones de gimnasio', '¡Entrena sin límites! Presentamos nuestras nuevas áreas de gimnasio con equipos de última generación para mantener tu rutina durante tus vacaciones.', 'novedades3.jpg', 'ampliacion-gimnasio', NULL, 5, 1, '2025-09-18 00:44:27', 23),
-(17, 'Rutas turísticas cerca del hotel', 'Explora los alrededores de StarHotelHub con rutas a pie, en bici o excursiones cortas que te permitirán conocer la cultura y naturaleza local.', 'turismo4.jpg', 'rutas-turisticas-cerca', NULL, 1, 1, '2025-09-18 00:44:27', 23),
-(18, 'Cenas temáticas para disfrutar en familia', 'Cada semana presentamos cenas especiales con temáticas divertidas, menús variados y actividades para toda la familia. ¡Una experiencia gastronómica única!', 'gastronomia4.jpg', 'cenas-tematicas-familia', NULL, 2, 1, '2025-09-18 00:44:27', 23),
-(19, 'Organiza un retiro de bienestar en nuestro hotel', 'Ideal para empresas o grupos de amigos que buscan relajación y crecimiento personal. Actividades de mindfulness, yoga y alimentación saludable garantizan un retiro inolvidable.', 'eventos4.jpg', 'retiro-bienestar-hotel', NULL, 3, 1, '2025-09-18 00:44:27', 23),
-(20, 'Consejos para evitar el jet lag', 'Aprende a minimizar los efectos del cambio de horario con recomendaciones de alimentación, sueño y actividades para mantener tu energía durante el viaje.', 'consejos4.jpg', 'evitar-jet-lag', NULL, 4, 1, '2025-09-18 00:44:27', 23),
-(21, 'Nueva terraza panorámica con vista al atardecer', 'Disfruta de nuestra renovada terraza con vistas espectaculares y un ambiente único para relajarte, tomar fotos y disfrutar de bebidas al atardecer.', 'novedades4.jpg', 'nueva-terrace-panoramica', NULL, 5, 1, '2025-09-30 22:58:00', 23);
+INSERT INTO `entradas` (`id`, `titulo`, `descripcion`, `slug`, `id_categoria`, `estado`, `fecha`, `id_usuario`) VALUES
+(1, 'Bienvenidos al Blog de StarHotelHub', 'Primer post de prueba para verificar integraciones.', 'bienvenidos-blog', 5, 1, '2025-09-23 22:07:40', 23),
+(2, '5 destinos imperdibles para tus próximas vacaciones', 'Descubre los lugares más espectaculares para visitar este año. Desde playas paradisíacas hasta ciudades llenas de historia, ¡prepara tus maletas y vive experiencias únicas!', '5-destinos-imperdibles-para-tus-pr-ximas-vacaciones', 1, 1, '2025-09-23 22:07:42', 23),
+(3, 'Top 10 platillos que debes probar en nuestro hotel', 'Una guía de los sabores que no puedes perderte en StarHotelHub: ensaladas frescas, platos fuertes exquisitos y postres que harán vibrar tu paladar.', 'top-10-platillos-que-debes-probar-en-nuestro-hotel', 2, 1, '2025-09-18 01:08:47', 23),
+(4, 'Organiza tu boda soñada en StarHotelHub', 'Conoce nuestros paquetes de bodas y eventos especiales. Disfruta de un lugar exclusivo, atención personalizada y servicios de lujo para que ese día sea inolvidable.', 'organiza-tu-boda-soñada', 3, 1, '2025-09-18 00:44:27', 23),
+(5, '10 tips para viajar ligero y cómodo', 'Aprende a empacar eficientemente y disfrutar al máximo tus viajes sin preocuparte por el exceso de equipaje. Consejos prácticos para ahorrar tiempo y estrés en tus vacaciones.', '10-tips-viajar-ligero', 4, 1, '2025-09-18 00:44:27', 23),
+(6, 'Renovación de la piscina y área de spa', 'Estamos felices de anunciar la renovación completa de nuestra piscina y área de spa. Disfruta de un espacio moderno, cómodo y lleno de relajación y bienestar.', 'renovacion-piscina-spa', 5, 1, '2025-09-18 00:44:27', 23),
+(7, 'Cómo elegir la habitación perfecta para tu estancia', 'Te damos los mejores consejos para seleccionar la habitación que se adapte a tus necesidades: vistas, comodidad, servicios adicionales y ubicación dentro del hotel.', 'elegir-habitacion-perfecta', 1, 1, '2025-09-18 00:44:27', 23),
+(8, 'Bebidas exóticas que debes probar en nuestro bar', 'Descubre cocteles únicos y bebidas refrescantes creadas por nuestros expertos bartenders. Cada sorbo es una experiencia inolvidable de sabor y creatividad.', 'bebidas-exoticas-bar', 2, 1, '2025-09-18 00:44:27', 23),
+(9, 'Cómo organizar un evento corporativo exitoso', 'Aprende a planear tu evento empresarial en nuestro hotel: desde salas equipadas hasta catering personalizado y atención profesional en cada detalle.', 'organizar-evento-corporativo', 3, 1, '2025-09-18 00:44:27', 23),
+(10, 'Guía para viajar con niños sin estrés', 'Tips esenciales para disfrutar de tus vacaciones en familia. Actividades para niños, recomendaciones de seguridad y consejos para mantener a todos felices.', 'viajar-con-ninos', 4, 1, '2025-09-18 00:44:27', 23),
+(11, 'Nuevos menús de temporada en nuestro restaurante', 'Presentamos platos frescos y creativos inspirados en la temporada actual. Ingredientes locales y de alta calidad para una experiencia gastronómica única.', 'nuevos-menus-temporada', 5, 1, '2025-09-18 00:44:27', 23),
+(12, 'Escapadas románticas para parejas', 'Descubre nuestros paquetes especiales para parejas, con cenas privadas, habitaciones con vista y actividades pensadas para momentos románticos inolvidables.', 'escapadas-romanticas', 1, 1, '2025-09-18 00:44:27', 23),
+(13, 'Postres que te harán volver por más', 'Dulces y postres artesanales que combinan sabor y presentación. Desde tortas hasta helados gourmet, cada opción es un deleite para los sentidos.', 'postres-para-volver', 2, 1, '2025-09-18 00:44:27', 23),
+(14, 'Celebra tu cumpleaños con nosotros', 'Hacemos que tu día especial sea único: decoración personalizada, catering exclusivo y sorpresas que harán de tu cumpleaños un recuerdo imborrable.', 'celebra-cumpleanos', 3, 1, '2025-09-18 00:44:27', 23),
+(15, 'Consejos para descansar mejor durante tu viaje', 'Descubre técnicas y recomendaciones para dormir mejor, aprovechar al máximo tu estancia y regresar a casa renovado y relajado.', 'dormir-mejor-viaje', 4, 1, '2025-09-18 00:44:27', 23),
+(16, 'Ampliación de nuestras instalaciones de gimnasio', '¡Entrena sin límites! Presentamos nuestras nuevas áreas de gimnasio con equipos de última generación para mantener tu rutina durante tus vacaciones.', 'ampliacion-gimnasio', 5, 1, '2025-09-18 00:44:27', 23),
+(17, 'Rutas turísticas cerca del hotel', 'Explora los alrededores de StarHotelHub con rutas a pie, en bici o excursiones cortas que te permitirán conocer la cultura y naturaleza local.', 'rutas-turisticas-cerca', 1, 1, '2025-09-18 00:44:27', 23),
+(18, 'Cenas temáticas para disfrutar en familia', 'Cada semana presentamos cenas especiales con temáticas divertidas, menús variados y actividades para toda la familia. ¡Una experiencia gastronómica única!', 'cenas-tematicas-familia', 2, 1, '2025-09-18 00:44:27', 23),
+(19, 'Organiza un retiro de bienestar en nuestro hotel', 'Ideal para empresas o grupos de amigos que buscan relajación y crecimiento personal. Actividades de mindfulness, yoga y alimentación saludable garantizan un retiro inolvidable.', 'retiro-bienestar-hotel', 3, 1, '2025-09-18 00:44:27', 23),
+(20, 'Consejos para evitar el jet lag', 'Aprende a minimizar los efectos del cambio de horario con recomendaciones de alimentación, sueño y actividades para mantener tu energía durante el viaje.', 'evitar-jet-lag', 4, 1, '2025-09-18 00:44:27', 23),
+(21, 'Nueva terraza panorámica con vista al atardecer', 'Disfruta de nuestra renovada terraza con vistas espectaculares y un ambiente único para relajarte, tomar fotos y disfrutar de bebidas al atardecer.', 'nueva-terrace-panoramica', 5, 1, '2025-09-30 22:58:00', 23);
 
 -- --------------------------------------------------------
 
@@ -202,7 +184,7 @@ CREATE TABLE `reservas` (
 --
 
 INSERT INTO `reservas` (`id`, `monto`, `num_transaccion`, `cod_reserva`, `fecha_ingreso`, `fecha_salida`, `fecha_reserva`, `descripcion`, `estado`, `metodo`, `facturacion`, `id_habitacion`, `id_usuario`, `id_empleado`) VALUES
-(5, 1350000.00, '5161266', '213219', '2025-04-01', '2025-04-16', '2025-09-19 04:11:27', '', 1, 1, '', 2, 26, NULL),
+(5, 1350000.00, '5161266', '213219', '2025-04-01', '2025-04-16', '2025-10-26 19:21:33', '', 2, 1, '', 2, 26, NULL),
 (6, 90000.00, 'TX101', 'RES101', '2025-09-09', '2025-09-10', '2025-10-16 04:06:44', 'Reserva prueba -1 día', 1, 1, '', 2, 26, NULL),
 (7, 120000.00, 'TX102', 'RES102', '2025-09-08', '2025-09-09', '2025-09-19 04:11:54', 'Reserva prueba -2 días', 1, 1, '', 3, 26, NULL),
 (8, 480000.00, 'TX103', 'RES103', '2025-09-07', '2025-09-08', '2025-09-19 04:12:08', 'Reserva prueba -3 días', 1, 1, '', 4, 26, NULL),
@@ -212,14 +194,15 @@ INSERT INTO `reservas` (`id`, `monto`, `num_transaccion`, `cod_reserva`, `fecha_
 (12, 400000.00, 'TX107', 'RES107', '2025-09-03', '2025-09-04', '2025-09-28 15:35:39', 'Reserva prueba -7 días', 1, 1, '', 8, 26, NULL),
 (13, 130000.00, 'TX100', 'RES100', '2025-09-10', '2025-09-11', '2025-09-19 04:13:01', 'Reserva de prueba hoy', 1, 1, '', 1, 26, NULL),
 (14, 960000.00, '', '', '2025-09-18', '2025-09-20', '2025-09-28 15:34:56', '', 1, 0, '', 4, 28, NULL),
-(16, 8800000.00, '', '', '2025-09-20', '2025-09-30', '2025-09-28 15:35:04', '', 1, 0, '', 9, 31, NULL),
 (17, 6160000.00, '', '', '2025-09-23', '2025-09-30', '2025-09-28 15:35:09', '', 1, 0, '', 9, 28, NULL),
 (18, 1760000.00, '', '', '2025-09-24', '2025-09-26', '2025-09-28 15:35:18', '', 1, 0, '', 9, 26, NULL),
 (19, 1500000.00, '', '', '2025-09-24', '2025-09-27', '2025-09-28 15:35:23', '', 1, 0, '', 6, 26, NULL),
 (20, 80000.00, '', '', '2025-09-24', '2025-09-25', '2025-09-28 15:35:27', '', 1, 0, '', 5, 26, NULL),
 (115, 500000.00, '', '', '2025-09-28', '2025-09-29', '2025-09-28 17:23:31', '12', 1, 0, '', 6, 36, NULL),
 (176, 90000.00, '', '', '2025-10-15', '2025-10-16', '2025-10-16 04:06:53', '', 2, 1, '', 2, 26, NULL),
-(177, 90000.00, '', '', '2025-10-23', '2025-10-24', '2025-10-23 19:19:33', '', 1, 1, '', 2, 26, NULL);
+(177, 90000.00, '', '', '2025-10-23', '2025-10-24', '2025-10-23 19:19:33', '', 1, 1, '', 2, 26, NULL),
+(178, 180000.00, 'EMP-1761503323', 'EMP-8142', '2025-10-26', '2025-10-28', '2025-10-26 18:28:43', '', 1, 3, '', 2, 27, NULL),
+(179, 480000.00, 'EMP-1761506793', 'EMP-2025', '2025-10-25', '2025-10-26', '2025-10-26 19:26:45', '', 2, 3, '', 4, 27, NULL);
 
 -- --------------------------------------------------------
 
@@ -290,31 +273,26 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `clave`, `token`, `registrado_por`, `verify`, `rol`, `foto`, `estado`, `fecha`) VALUES
-(23, 'Juan', 'Juanesab423@gmail.com', '$2y$10$Ue7srPRjHHeGIr4n3nDdyOecjvHePSGCc9qv5/0OGZ0s7GMWsJpqS', NULL, NULL, 0, 1, NULL, 1, '2025-10-16 04:05:12'),
+(23, 'Juan', 'Juanesab423@gmail.com', '$2y$10$UxiR5EUdA2gkD6fHfcf3cu5qLbYVcmhXZ9EY38kmEAGUwC.vdrE4u', NULL, NULL, 0, 1, NULL, 1, '2025-10-27 18:53:43'),
 (25, 'Empleado', 'Empleado@gmail.com', '$2y$10$13KGtawbenSpE81bbt3S..MRqB.0pjrb78JVY9UzUTMLrc/LaZn16', NULL, NULL, 0, 2, NULL, 1, '2025-09-23 21:33:17'),
 (26, 'Sofia Salamanca', 'Salamancas648@gmail.com', '$2y$10$hEjwn2u5zkqjw.gOPYpD9etgUVMAl2jySl.Od0.6Apbb85E7TbKw.', NULL, NULL, 0, 3, NULL, 1, '2025-09-05 20:14:18'),
-(27, 'William Alfonso', 'Hwilliamac@gmail.com', '$2y$10$ruCR//vCKHBe0xv6MizxGuFBT/F6ZfOhdtxuT.0NR9o8tX3MFkSjO', NULL, 25, 0, 3, NULL, 1, '2025-09-24 20:18:49'),
+(27, 'William Alfonso', 'Hwilliamac@gmail.com', '$2y$10$ec9bONxQsrzE3mGT4Zr6o.nBOtUKKQXHizyvDwj/uYJPCDdX.ofSK', NULL, 25, 0, 3, NULL, 1, '2025-10-28 04:40:23'),
 (28, 'Sebastian', 'Sebastian@gmail.com', '$2y$10$pEiGczFoVj5lPv2.yTsCsu0WaLg6KNE0RpDYPaciakdOBh02n9cuO', NULL, 25, 0, 3, NULL, 1, '2025-09-30 22:57:46'),
 (29, 'Cliente ', 'Cliente@gmail.com', '$2y$10$2CzvZA9gpQGXcjNuzJ6V1.q2ycvJwDKc8qBEIvwwF/3ggShMVnZ3q', NULL, 25, 0, 3, NULL, 1, '2025-09-17 12:19:40'),
 (30, 'Juan Bernal', 'Juanestebanalfonsobernal@gmail.com', '$2y$10$m4MR553aJpWUEtQihY6DJuqjOBW.XfOMIrnmwwShxNtYz9nJuB1ky', NULL, NULL, 0, 3, NULL, 1, '2025-09-24 19:24:00'),
-(31, 'Juan', 'Juanesab230403@gmail.com', '$2y$10$IpwnQ1ImUmybbBzCMAGEle/LgUk.2aywbY7GrQMRT..PFSGhd0VVi', NULL, NULL, 0, 3, NULL, 1, '2025-09-24 18:47:47'),
 (33, 'Sebastian', 'juan12332@gmail.com', '$2y$10$LUmKX/JwssbIB9fgS5FeeOCcK6XZMYlCrrl6ysAzyADwuyoR5MJcK', NULL, NULL, 0, 3, NULL, 1, '2025-09-19 13:55:18'),
 (34, 'Jose', 'juan1243@gmail.com', '$2y$10$kHzJrO12v1kYTNAhZqN8NeCX4U.DDg4eph3eSintLf2tTX0a4ComC', NULL, NULL, 0, 3, NULL, 1, '2025-09-24 19:23:43'),
 (35, 'Juan', 'Juanesab42322@gmail.com', '$2y$10$h4kuZkBylzFsSXafy9JwxO5Fivo8jnuM1UUCYn15Vb.TuaxpWiJz6', NULL, NULL, 0, 3, NULL, 1, '2025-09-19 14:56:16'),
 (36, 'William Alfonso', 'Hwliiam@gmail.com', '$2y$10$OwpFV3HpqQpaRym06Mvf8.t2cZK8LUvKRdstL3v1x1DO9h.IZOz4.', NULL, NULL, 0, 3, NULL, 1, '2025-09-19 19:11:12'),
 (37, 'William Alfonso', '1234@gmail.com', '$2y$10$0PVwPFBT4Bi1KxgRx30aR.2WQ7M2XcLBLqqN2pQZRIqjcil5dBgXe', NULL, NULL, 0, 3, NULL, 0, '2025-09-24 15:56:44'),
 (38, 'Juan', 'juan123@gmail.com', '$2y$10$G5JWF6femdJl4OIO29do1uWF7/Otw.CTm3zV3RPi7LxYYewMFKXBy', NULL, NULL, 0, 3, NULL, 1, '2025-09-28 15:41:09'),
-(39, 'William Alfonso', 'Hwliiamac@gmail.com', '$2y$10$8R9lr.jbddieRtrtFK2NoeCNyZxNN0ZZberoI1woGM99JoK9N0cHG', NULL, NULL, 0, 3, NULL, 1, '2025-10-09 15:18:46');
+(39, 'William Alfonso', 'Hwliiamac@gmail.com', '$2y$10$8R9lr.jbddieRtrtFK2NoeCNyZxNN0ZZberoI1woGM99JoK9N0cHG', NULL, NULL, 0, 3, NULL, 1, '2025-10-09 15:18:46'),
+(45, 'test', 'testprueba@gmail.com', '$2y$10$ENHrt97yD24fNcjM5McQqeVWXfHCgJzBDxxPK5OQdza.5oWh3TFPe', NULL, NULL, 0, 3, NULL, 1, '2025-10-27 17:34:26'),
+(46, 'Juan', 'Juanesab230403@gmail.com', '$2y$10$6sjEppLLTzqZUZ2.dMMvBuLxsqspxGlYPTOZQUvREd7J0e3zisYpW', NULL, NULL, 0, 3, NULL, 1, '2025-10-29 03:50:46');
 
 --
 -- Índices para tablas volcadas
 --
-
---
--- Indices de la tabla `categorias`
---
-ALTER TABLE `categorias`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `contactos`
@@ -382,22 +360,16 @@ ALTER TABLE `usuarios`
 --
 
 --
--- AUTO_INCREMENT de la tabla `categorias`
---
-ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT de la tabla `contactos`
 --
 ALTER TABLE `contactos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `entradas`
 --
 ALTER TABLE `entradas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `habitaciones`
@@ -415,7 +387,7 @@ ALTER TABLE `pagos`
 -- AUTO_INCREMENT de la tabla `reservas`
 --
 ALTER TABLE `reservas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -433,7 +405,7 @@ ALTER TABLE `sliders`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- Restricciones para tablas volcadas
@@ -443,7 +415,6 @@ ALTER TABLE `usuarios`
 -- Filtros para la tabla `entradas`
 --
 ALTER TABLE `entradas`
-  ADD CONSTRAINT `entradas_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `entradas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

@@ -3,7 +3,8 @@
 <div class="container-fluid py-4">
 
   <!-- Encabezado de Bienvenida -->
-  <div class="card border-0 shadow-lg rounded-4 mb-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+  <div class="card border-0 shadow-lg rounded-4 mb-4"
+    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
     <div class="card-body p-4 d-flex flex-column flex-md-row align-items-center justify-content-between text-white">
       <div class="d-flex align-items-center mb-3 mb-md-0">
         <div class="me-3">
@@ -90,14 +91,14 @@
           </h5>
         </div>
         <div class="card-body p-0">
-          <?php if (empty($data['llegadas_hoy'])) : ?>
+          <?php if (empty($data['llegadas_hoy'])): ?>
             <div class="text-center py-5">
               <i class='bx bx-wind fs-2 text-muted'></i>
               <p class="text-muted mt-2">No hay llegadas programadas</p>
             </div>
-          <?php else : ?>
+          <?php else: ?>
             <div class="list-group list-group-flush">
-              <?php foreach ($data['llegadas_hoy'] as $llegada) : ?>
+              <?php foreach ($data['llegadas_hoy'] as $llegada): ?>
                 <div class="list-group-item px-4 py-3 border-bottom">
                   <div class="d-flex justify-content-between align-items-start">
                     <div>
@@ -106,7 +107,8 @@
                         <i class='bx bxs-hotel me-1'></i><?php echo $llegada['nombre_habitacion']; ?>
                       </p>
                       <p class="mb-0 small text-muted">
-                        <i class='bx bx-calendar me-1'></i><?php echo date("d/m/Y", strtotime($llegada['fecha_ingreso'])); ?>
+                        <i
+                          class='bx bx-calendar me-1'></i><?php echo date("d/m/Y", strtotime($llegada['fecha_ingreso'])); ?>
                       </p>
                     </div>
                     <span class="badge bg-success">Confirmada</span>
@@ -128,14 +130,14 @@
           </h5>
         </div>
         <div class="card-body p-0">
-          <?php if (empty($data['salidas_hoy'])) : ?>
+          <?php if (empty($data['salidas_hoy'])): ?>
             <div class="text-center py-5">
               <i class='bx bx-wind fs-2 text-muted'></i>
               <p class="text-muted mt-2">No hay salidas programadas</p>
             </div>
-          <?php else : ?>
+          <?php else: ?>
             <div class="list-group list-group-flush">
-              <?php foreach ($data['salidas_hoy'] as $salida) : ?>
+              <?php foreach ($data['salidas_hoy'] as $salida): ?>
                 <div class="list-group-item px-4 py-3 border-bottom">
                   <div class="d-flex justify-content-between align-items-start">
                     <div>
@@ -170,44 +172,35 @@
         <div class="card-body">
           <div class="row g-3">
             <div class="col-12 col-sm-6 col-lg-3">
-              <a href="<?php echo RUTA_PRINCIPAL; ?>empleado/reservas" class="btn btn-outline-primary w-100 py-3 rounded-4">
+              <a href="<?php echo RUTA_PRINCIPAL; ?>empleado/reservas"
+                class="btn btn-outline-primary w-100 py-3 rounded-4">
                 <i class='bx bx-plus-circle me-2'></i> Nueva Reserva
               </a>
             </div>
             <div class="col-12 col-sm-6 col-lg-3">
-              <a href="<?php echo RUTA_PRINCIPAL; ?>empleado/reservas" class="btn btn-outline-info w-100 py-3 rounded-4">
+              <a href="<?php echo RUTA_PRINCIPAL; ?>empleado/reservas"
+                class="btn btn-outline-info w-100 py-3 rounded-4">
                 <i class='bx bx-list-check me-2'></i> Gestionar Reservas
-              </a>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-3">
-              <a href="<?php echo RUTA_PRINCIPAL; ?>empleado/clientes" class="btn btn-outline-success w-100 py-3 rounded-4">
-                <i class='bx bx-user-plus me-2'></i> Clientes
-              </a>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-3">
-              <a href="<?php echo RUTA_PRINCIPAL; ?>empleado/habitaciones" class="btn btn-outline-warning w-100 py-3 rounded-4">
-                <i class='bx bx-door-open me-2'></i> Habitaciones
               </a>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 
-</div>
+  <?php include_once 'views/template/footer-empleado.php'; ?>
 
-<?php include_once 'views/template/footer-empleado.php'; ?>
+  <script>
+    // Actualizar hora en tiempo real
+    function actualizarHora() {
+      const ahora = new Date();
+      const horas = String(ahora.getHours()).padStart(2, '0');
+      const minutos = String(ahora.getMinutes()).padStart(2, '0');
+      document.getElementById('hora-actual').textContent = horas + ':' + minutos;
+    }
 
-<script>
-  // Actualizar hora en tiempo real
-  function actualizarHora() {
-    const ahora = new Date();
-    const horas = String(ahora.getHours()).padStart(2, '0');
-    const minutos = String(ahora.getMinutes()).padStart(2, '0');
-    document.getElementById('hora-actual').textContent = horas + ':' + minutos;
-  }
-
-  actualizarHora();
-  setInterval(actualizarHora, 1000);
-</script>
+    actualizarHora();
+    setInterval(actualizarHora, 1000);
+  </script>

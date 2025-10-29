@@ -1,7 +1,9 @@
 <?php
 class Controller
 {
-    protected $model, $views;
+    /** @var object|null */
+    protected $model;
+    protected $views;
     public function __construct()
     {
         // Se incluye la clase Query, ya que es la base de todos los modelos

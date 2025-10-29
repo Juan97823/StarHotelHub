@@ -46,6 +46,115 @@ class Reserva extends Controller
         $this->views->getView('principal/reservas', $data);
     }
 
+    // Enviar confirmación de reserva por email
+    private function enviarConfirmacionReserva($idReserva, $usuario, $reserva, $habitacion, $factura)
+    {
+        try {
+            require_once RUTA_RAIZ . '/config/email.php';
+            require_once RUTA_RAIZ . '/app/Helpers/EmailHelper.php';
+
+            $asunto = 'Confirmación de Reserva - StarHotelHub';
+            $cuerpo = "
+            <html>
+            <body style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>
+                <div style='max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;'>
+                    <!-- Encabezado -->
+                    <div style='background-color: #007bff; color: white; padding: 20px; text-align: center;'>
+                        <h2>¡Reserva Confirmada!</h2>
+                    </div>
+
+                    <!-- Contenido -->
+                    <div style='padding: 20px;'>
+                        <p>Hola <strong>{$usuario['nombre']}</strong>,</p>
+                        <p>Tu reserva ha sido confirmada exitosamente. Aquí están los detalles:</p>
+
+                        <h3 style='color: #007bff; border-bottom: 2px solid #007bff; padding-bottom: 10px;'>Detalles de la Reserva</h3>
+                        <table style='width: 100%; border-collapse: collapse;'>
+                            <tr style='background-color: #f5f5f5;'>
+                                <td style='padding: 10px; border: 1px solid #ddd;'><strong>Número de Reserva:</strong></td>
+                                <td style='padding: 10px; border: 1px solid #ddd;'>FAC-" . str_pad($idReserva, 6, "0", STR_PAD_LEFT) . "</td>
+                            </tr>
+                            <tr>
+                                <td style='padding: 10px; border: 1px solid #ddd;'><strong>Código de Reserva:</strong></td>
+                                <td style='padding: 10px; border: 1px solid #ddd;'><code>{$reserva['cod_reserva']}</code></td>
+                            </tr>
+                            <tr style='background-color: #f5f5f5;'>
+                                <td style='padding: 10px; border: 1px solid #ddd;'><strong>Número de Transacción:</strong></td>
+                                <td style='padding: 10px; border: 1px solid #ddd;'><code>{$reserva['num_transaccion']}</code></td>
+                            </tr>
+                            <tr>
+                                <td style='padding: 10px; border: 1px solid #ddd;'><strong>Habitación:</strong></td>
+                                <td style='padding: 10px; border: 1px solid #ddd;'>{$habitacion['estilo']}</td>
+                            </tr>
+                            <tr style='background-color: #f5f5f5;'>
+                                <td style='padding: 10px; border: 1px solid #ddd;'><strong>Check-in:</strong></td>
+                                <td style='padding: 10px; border: 1px solid #ddd;'>" . date("d/m/Y H:i", strtotime($reserva['fecha_ingreso'])) . "</td>
+                            </tr>
+                            <tr>
+                                <td style='padding: 10px; border: 1px solid #ddd;'><strong>Check-out:</strong></td>
+                                <td style='padding: 10px; border: 1px solid #ddd;'>" . date("d/m/Y H:i", strtotime($reserva['fecha_salida'])) . "</td>
+                            </tr>
+                            <tr style='background-color: #f5f5f5;'>
+                                <td style='padding: 10px; border: 1px solid #ddd;'><strong>Noches:</strong></td>
+                                <td style='padding: 10px; border: 1px solid #ddd;'>{$factura['noches']}</td>
+                            </tr>
+                            <tr>
+                                <td style='padding: 10px; border: 1px solid #ddd;'><strong>Precio por Noche:</strong></td>
+                                <td style='padding: 10px; border: 1px solid #ddd;'>\${$factura['precio_noche']}</td>
+                            </tr>
+                            <tr style='background-color: #f5f5f5;'>
+                                <td style='padding: 10px; border: 1px solid #ddd;'><strong>Tipo de Facturación:</strong></td>
+                                <td style='padding: 10px; border: 1px solid #ddd;'>{$reserva['facturacion']}</td>
+                            </tr>
+                        </table>
+
+                        <h3 style='color: #007bff; border-bottom: 2px solid #007bff; padding-bottom: 10px; margin-top: 20px;'>Resumen de Pago</h3>
+                        <table style='width: 100%; border-collapse: collapse;'>
+                            <tr>
+                                <td style='padding: 10px; text-align: right;'><strong>Subtotal (sin IVA):</strong></td>
+                                <td style='padding: 10px; text-align: right;'>\$" . number_format($factura['subtotal'], 0, ',', '.') . "</td>
+                            </tr>
+                            <tr style='background-color: #f5f5f5;'>
+                                <td style='padding: 10px; text-align: right;'><strong>IVA (19% incluido):</strong></td>
+                                <td style='padding: 10px; text-align: right;'>\$" . number_format($factura['impuestos'], 0, ',', '.') . "</td>
+                            </tr>
+                            <tr style='background-color: #28a745; color: white;'>
+                                <td style='padding: 10px; text-align: right;'><strong>TOTAL A PAGAR:</strong></td>
+                                <td style='padding: 10px; text-align: right;'><strong>\$" . number_format($factura['total'], 0, ',', '.') . "</strong></td>
+                            </tr>
+                        </table>
+
+                        <div style='background-color: #e7f3ff; border-left: 4px solid #007bff; padding: 15px; margin-top: 20px; border-radius: 4px;'>
+                            <p style='margin: 0; color: #004085;'>
+                                <strong>ℹ️ Importante:</strong> El precio mostrado incluye el IVA del 19%. Este es el monto total que pagarás en el hotel al momento del check-in.
+                            </p>
+                        </div>
+
+                        <p style='margin-top: 20px;'>
+                            Si tienes alguna pregunta, no dudes en contactarnos a <strong>starhotelhub@gmail.com</strong>
+                        </p>
+                    </div>
+
+                    <!-- Pie de página -->
+                    <div style='background-color: #f5f5f5; padding: 15px; text-align: center; font-size: 12px; color: #666;'>
+                        <p>© 2025 StarHotelHub. Todos los derechos reservados.</p>
+                    </div>
+                </div>
+            </body>
+            </html>";
+
+            $email = new EmailHelper();
+            $email->setTo($usuario['correo'], $usuario['nombre'])
+                  ->setSubject($asunto)
+                  ->setBody($cuerpo)
+                  ->send();
+
+            error_log("✅ Email de confirmación enviado a: " . $usuario['correo']);
+        } catch (Exception $e) {
+            error_log("❌ Error al enviar email de confirmación: " . $e->getMessage());
+        }
+    }
+
     public function verificar()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -180,27 +289,128 @@ class Reserva extends Controller
             $noches = (new DateTime($f_llegada))->diff(new DateTime($f_salida))->days;
             $monto = $noches * $habitacion['precio'];
 
-            // Insertar reserva
+            // Generar códigos únicos
+            $num_transaccion = 'TX' . date('YmdHis') . rand(1000, 9999);
+            $cod_reserva = 'RES' . str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
+
+            // Insertar reserva CON TODOS LOS CAMPOS
             $dataReserva = [
                 'id_habitacion' => $habitacion_id,
                 'id_usuario' => $id_usuario,
                 'fecha_ingreso' => $f_llegada,
                 'fecha_salida' => $f_salida,
                 'descripcion' => $descripcion,
-                'metodo' => '1', // 1: Online
+                'metodo' => 1, // 1: Online
                 'estado' => 1, // 1: Pendiente
                 'monto' => $monto,
+                'num_transaccion' => $num_transaccion,
+                'cod_reserva' => $cod_reserva,
+                'facturacion' => 'Factura Prataforma', // Tipo de facturación
+                'id_empleado' => null, // Sin empleado asignado aún
             ];
 
             $id_reserva = $this->model->insertReservaPublica($dataReserva);
 
             if ($id_reserva) {
                 $_SESSION['ultima_reserva'] = $id_reserva;
+
+                // Obtener datos completos para el email
+                $reservaCompleta = $this->model->getReservaById($id_reserva);
+                $usuarioCompleto = $this->model->getUsuarioById($id_usuario);
+                $habitacionCompleta = $this->model->getHabitacion($habitacion_id);
+
+                // Calcular factura (IVA INCLUIDO EN EL PRECIO)
+                $fechaLlegada = new DateTime($f_llegada);
+                $fechaSalida = new DateTime($f_salida);
+                $intervalo = $fechaLlegada->diff($fechaSalida);
+                $noches = $intervalo->days > 0 ? $intervalo->days : 1;
+                $precioNoche = $habitacionCompleta['precio']; // Ya incluye IVA
+                $total = $noches * $precioNoche; // Total con IVA incluido
+                $subtotal = $total / 1.19; // Desglose: precio sin IVA
+                $impuestos = $total - $subtotal; // IVA desglosado
+
+                $factura = [
+                    'numero' => 'FAC-' . str_pad($id_reserva, 6, "0", STR_PAD_LEFT),
+                    'noches' => $noches,
+                    'precio_noche' => $precioNoche,
+                    'subtotal' => $subtotal,
+                    'impuestos' => $impuestos,
+                    'total' => $total
+                ];
+
+                // Enviar email de confirmación
+                $this->enviarConfirmacionReserva($id_reserva, $usuarioCompleto, $reservaCompleta, $habitacionCompleta, $factura);
+
+                // Si es usuario nuevo, enviar credenciales
+                if (!$usuario) {
+                    $this->enviarCredencialesNuevoUsuario($usuarioCompleto, $clave);
+                }
+
                 echo json_encode(['status' => 'success', 'msg' => 'Reserva realizada con éxito', 'redirect' => RUTA_PRINCIPAL . 'reserva/confirmacion']);
             } else {
                 echo json_encode(['status' => 'error', 'msg' => 'Error al guardar la reserva.']);
             }
             exit;
+        }
+    }
+
+    // Enviar credenciales a usuario nuevo
+    private function enviarCredencialesNuevoUsuario($usuario, $clave)
+    {
+        try {
+            require_once RUTA_RAIZ . '/config/email.php';
+            require_once RUTA_RAIZ . '/app/Helpers/EmailHelper.php';
+
+            $asunto = 'Bienvenido a StarHotelHub - Tus Credenciales de Acceso';
+            $cuerpo = "
+            <html>
+            <body style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>
+                <div style='max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;'>
+                    <!-- Encabezado -->
+                    <div style='background-color: #28a745; color: white; padding: 20px; text-align: center;'>
+                        <h2>¡Bienvenido a StarHotelHub!</h2>
+                    </div>
+
+                    <!-- Contenido -->
+                    <div style='padding: 20px;'>
+                        <p>Hola <strong>{$usuario['nombre']}</strong>,</p>
+                        <p>Tu cuenta ha sido creada exitosamente. Aquí están tus credenciales de acceso:</p>
+
+                        <div style='background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;'>
+                            <p><strong>Email:</strong> {$usuario['correo']}</p>
+                            <p><strong>Contraseña Temporal:</strong> <code style='background-color: #e9ecef; padding: 5px 10px; border-radius: 3px;'>{$clave}</code></p>
+                        </div>
+
+                        <p style='color: #d9534f;'>
+                            <strong>⚠️ Importante:</strong> Te recomendamos cambiar tu contraseña temporal por una más segura después de tu primer acceso.
+                        </p>
+
+                        <p style='margin-top: 20px;'>
+                            <a href='" . RUTA_PRINCIPAL . "login' style='display: inline-block; background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;'>Acceder a tu Cuenta</a>
+                        </p>
+
+                        <p style='margin-top: 20px;'>
+                            Si tienes alguna pregunta, no dudes en contactarnos a <strong>starhotelhub@gmail.com</strong>
+                        </p>
+                    </div>
+
+                    <!-- Pie de página -->
+                    <div style='background-color: #f5f5f5; padding: 15px; text-align: center; font-size: 12px; color: #666;'>
+                        <p>© 2025 StarHotelHub. Todos los derechos reservados.</p>
+                    </div>
+                </div>
+            </body>
+            </html>";
+
+            $email = new EmailHelper();
+            $email->setTo($usuario['correo'], $usuario['nombre'])
+                  ->setSubject($asunto)
+                  ->setBody($cuerpo)
+                  ->send();
+
+            error_log("✅ Email de credenciales enviado a: " . $usuario['correo']);
+        } catch (Exception $e) {
+            error_log("❌ Error al enviar email de credenciales: " . $e->getMessage());
         }
     }
 
@@ -230,11 +440,11 @@ class Reserva extends Controller
         $intervalo = $fechaLlegada->diff($fechaSalida);
         $noches = $intervalo->days > 0 ? $intervalo->days : 1;
 
-        // 2. Calcular desglose de costos
-        $precioNoche = $habitacion['precio'];
-        $subtotal = $noches * $precioNoche;
-        $impuestos = $subtotal * 0.19; // IVA 19%
-        $total = $subtotal + $impuestos;
+        // 2. Calcular desglose de costos (IVA INCLUIDO EN EL PRECIO)
+        $precioNoche = $habitacion['precio']; // Ya incluye IVA
+        $total = $noches * $precioNoche; // Total con IVA incluido
+        $subtotal = $total / 1.19; // Desglose: precio sin IVA
+        $impuestos = $total - $subtotal; // IVA desglosado
 
         // 3. Preparar datos para la vista
         $data = [

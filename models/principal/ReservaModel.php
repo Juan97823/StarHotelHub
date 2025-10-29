@@ -117,7 +117,7 @@ class ReservaModel extends Query
         return $this->select($query, $params);
     }
     // Verifica si existe un usuario por su correo
-    public function getUsuarioBycorreo($correo)
+    public function getUsuarioByCorreo($correo)
     {
         $query = "SELECT * FROM usuarios WHERE correo = :correo";
         $params = [':correo' => $correo];
@@ -133,7 +133,7 @@ class ReservaModel extends Query
     }
 
 
-    // Inserta la reserva asociada al usuario
+    // Inserta la reserva asociada al usuario - COMPLETA CON TODOS LOS CAMPOS
     public function insertReservaPublica($data)
     {
         $sql = "INSERT INTO reservas (
@@ -144,7 +144,11 @@ class ReservaModel extends Query
                 descripcion,
                 metodo,
                 estado,
-                monto
+                monto,
+                num_transaccion,
+                cod_reserva,
+                facturacion,
+                id_empleado
             ) VALUES (
                 :id_habitacion,
                 :id_usuario,
@@ -153,7 +157,11 @@ class ReservaModel extends Query
                 :descripcion,
                 :metodo,
                 :estado,
-                :monto
+                :monto,
+                :num_transaccion,
+                :cod_reserva,
+                :facturacion,
+                :id_empleado
             )";
 
         return $this->insert($sql, $data);

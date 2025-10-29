@@ -1,0 +1,310 @@
+/* ============================================
+   FOOTER MODERNO - STARHOTELHUB
+   ============================================ */
+
+/* Footer Principal */
+.footer-top-area {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #e0e0e0;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-top-area::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,50 Q300,0 600,50 T1200,50 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+    background-repeat: repeat-x;
+    background-size: 600px 120px;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.footer-middle-area,
+.footer-bottom-area {
+    position: relative;
+    z-index: 1;
+}
+
+/* Widget Individual */
+.single-widget {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.single-widget:hover {
+    transform: translateY(-5px);
+}
+
+/* Logo del Footer */
+.footer-logo {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.footer-logo:hover {
+    transform: scale(1.05);
+}
+
+.footer-logo img {
+    filter: brightness(1.1);
+    transition: filter 0.3s ease;
+}
+
+.footer-logo:hover img {
+    filter: brightness(1.2);
+}
+
+/* Iconos Sociales */
+.social-icon {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.social-icon li a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 18px;
+}
+
+.social-icon li a:hover {
+    background: #007bff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+}
+
+/* Enlaces Rápidos */
+.single-widget ul li a {
+    color: #b0b0b0;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.single-widget ul li a:hover {
+    color: #007bff;
+    padding-left: 5px;
+}
+
+.single-widget ul li a i {
+    transition: transform 0.3s ease;
+}
+
+.single-widget ul li a:hover i {
+    transform: translateX(3px);
+}
+
+/* Información de Contacto */
+.information li {
+    color: #b0b0b0;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.information li a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.information li a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Formulario Newsletter */
+.single-widget form input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.single-widget form input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.single-widget form input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+.single-widget form button {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.single-widget form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+}
+
+.single-widget form button:active {
+    transform: translateY(0);
+}
+
+/* Pie de Página */
+.footer-bottom-area {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.copy-right p,
+.designed p {
+    color: #b0b0b0;
+    font-size: 14px;
+    margin: 0;
+    transition: color 0.3s ease;
+}
+
+.copy-right a,
+.designed a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.copy-right a:hover,
+.designed a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer-middle-area .row {
+        gap: 20px;
+    }
+
+    .footer-bottom-area .row {
+        text-align: center;
+    }
+
+    .designed {
+        text-align: center !important;
+        margin-top: 15px;
+    }
+
+    .social-icon {
+        justify-content: center;
+    }
+
+    .single-widget h3 {
+        margin-top: 20px;
+    }
+}
+
+/* Animación de entrada */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.single-widget {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.single-widget:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.single-widget:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.single-widget:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.single-widget:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+/* Efecto hover en el footer completo */
+.footer-top-area {
+    position: relative;
+}
+
+.footer-top-area::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+    pointer-events: none;
+}
+
+.footer-top-area:hover::after {
+    left: 100%;
+}
+
+/* Estilos para el botón "Go Top" */
+.go-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+}
+
+.go-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.go-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.5);
+}
+
+.go-top i {
+    color: white;
+    font-size: 20px;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+

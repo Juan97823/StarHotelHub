@@ -6,64 +6,74 @@
 		<div class="footer-middle-area pt-60">
 			<div class="row">
 
-				<!-- Columna 1 -->
-				<div class="col-lg-3 col-md-6">
+				<!-- Columna 1: Logo y Descripción -->
+				<div class="col-lg-3 col-md-6 mb-4">
 					<div class="single-widget">
-						<a href="<?php echo RUTA_PRINCIPAL; ?>">
-							<img src="<?php echo RUTA_PRINCIPAL . 'assets'; ?>/img/Logo.png" alt="Logo Starhotelhub">
+						<a href="<?php echo RUTA_PRINCIPAL; ?>" class="footer-logo">
+							<img src="<?php echo RUTA_PRINCIPAL . 'assets'; ?>/img/Logo.png" alt="Logo Starhotelhub" style="max-width: 150px; height: auto;">
 						</a>
-						<p>Starhotelhub es una plataforma digital diseñada para conectar hoteles, huéspedes y
-							proveedores de servicios en un ecosistema inteligente y eficiente. Más que una simple
-							central de reservas, es un hub tecnológico que centraliza operaciones, optimiza la
-							experiencia del usuario y digitaliza la gestión del hospedaje. Con enfoque en
-							automatización, análisis de datos y personalización, Starhotelhub es el puente entre el
-							hospedaje tradicional y su evolución digital.</p>
-						<ul class="social-icon">
-							<li><a href="#"><i class="bx bxl-facebook"></i></a></li>
-							<li><a href="#"><i class="bx bxl-twitter"></i></a></li>
-							<li><a href="#"><i class="bx bxl-pinterest-alt"></i></a></li>
-							<li><a href="#"><i class="bx bxl-linkedin"></i></a></li>
-							<li><a href="#"><i class="bx bxl-youtube"></i></a></li>
+						<p style="margin-top: 15px; font-size: 14px; line-height: 1.6;">StarHotelHub es tu plataforma integral para gestionar reservas, habitaciones y operaciones hoteleras de forma eficiente y moderna.</p>
+						<ul class="social-icon" style="margin-top: 20px;">
+							<li><a href="#" title="Facebook"><i class="bx bxl-facebook"></i></a></li>
+							<li><a href="#" title="Twitter"><i class="bx bxl-twitter"></i></a></li>
+							<li><a href="#" title="Instagram"><i class="bx bxl-instagram"></i></a></li>
+							<li><a href="#" title="LinkedIn"><i class="bx bxl-linkedin"></i></a></li>
 						</ul>
 					</div>
 				</div>
 
-				<!-- Columna 2 -->
-				<div class="col-lg-3 col-md-6">
+				<!-- Columna 2: Enlaces Rápidos -->
+				<div class="col-lg-3 col-md-6 mb-4">
 					<div class="single-widget">
-						<h3>Enlaces rápidos</h3>
-						<ul>
-							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Big Data</a></li>
-							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Bienestar</a></li>
-							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Galería de Spa</a></li>
-							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Reservas</a></li>
-							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Preguntas frecuentes</a>
-							</li>
-							<li><a href="#"><i class="right-icon bx bx-chevrons-right"></i> Contacto</a></li>
+						<h3 style="font-size: 18px; font-weight: 600; margin-bottom: 20px;">Enlaces Rápidos</h3>
+						<ul style="list-style: none; padding: 0;">
+							<li style="margin-bottom: 10px;"><a href="<?php echo RUTA_PRINCIPAL; ?>" style="text-decoration: none; display: flex; align-items: center;"><i class="bx bx-chevrons-right" style="margin-right: 8px;"></i> Inicio</a></li>
+							<li style="margin-bottom: 10px;"><a href="<?php echo RUTA_PRINCIPAL; ?>habitaciones" style="text-decoration: none; display: flex; align-items: center;"><i class="bx bx-chevrons-right" style="margin-right: 8px;"></i> Habitaciones</a></li>
+							<li style="margin-bottom: 10px;"><a href="<?php echo RUTA_PRINCIPAL; ?>reservas" style="text-decoration: none; display: flex; align-items: center;"><i class="bx bx-chevrons-right" style="margin-right: 8px;"></i> Mis Reservas</a></li>
+							<li style="margin-bottom: 10px;"><a href="<?php echo RUTA_PRINCIPAL; ?>contacto" style="text-decoration: none; display: flex; align-items: center;"><i class="bx bx-chevrons-right" style="margin-right: 8px;"></i> Contacto</a></li>
 						</ul>
 					</div>
 				</div>
-				<!-- Columna 3 -->
-				<div class="col-lg-3 col-md-6">
+
+				<!-- Columna 3: Información de Contacto -->
+				<div class="col-lg-3 col-md-6 mb-4">
 					<div class="single-widget">
-						<h3>Información de contacto</h3>
-						<ul class="information">
-							<li class="address">
-								<i class="flaticon-maps-and-flags"></i>
-								<span>Dirección:</span>
-								205 Fida Walinton, Calle Tongo, Frente a USA
+						<h3 style="font-size: 18px; font-weight: 600; margin-bottom: 20px;">Contacto</h3>
+						<ul class="information" style="list-style: none; padding: 0;">
+							<li class="address" style="margin-bottom: 15px; display: flex; align-items: flex-start;">
+								<i class="flaticon-maps-and-flags" style="margin-right: 12px; margin-top: 2px;"></i>
+								<div>
+									<span style="font-weight: 600; display: block; margin-bottom: 4px;">Dirección:</span>
+									<span style="font-size: 14px;">205 Fida Walinton, Calle Tongo, Frente a USA</span>
+								</div>
 							</li>
-							<li class="address">
-								<i class="flaticon-call"></i>
-								<span>Teléfono:</span>
-								<a href="tel:+57-319-587-8776">+57 319 587 8776</a>
+							<li class="address" style="margin-bottom: 15px; display: flex; align-items: flex-start;">
+								<i class="flaticon-call" style="margin-right: 12px; margin-top: 2px;"></i>
+								<div>
+									<span style="font-weight: 600; display: block; margin-bottom: 4px;">Teléfono:</span>
+									<a href="tel:+57-319-587-8776" style="text-decoration: none; font-size: 14px;">+57 319 587 8776</a>
+								</div>
 							</li>
-							<li class="address">
-								<i class="flaticon-envelope"></i>
-								<span>Correo electrónico:</span>
-								<a href="mailto:Juanneoplus@gmail.com">Juanneoplus@gmail.com</a>
+							<li class="address" style="display: flex; align-items: flex-start;">
+								<i class="flaticon-envelope" style="margin-right: 12px; margin-top: 2px;"></i>
+								<div>
+									<span style="font-weight: 600; display: block; margin-bottom: 4px;">Correo:</span>
+									<a href="mailto:info@starhotelhub.com" style="text-decoration: none; font-size: 14px;">info@starhotelhub.com</a>
+								</div>
 							</li>
 						</ul>
+					</div>
+				</div>
+
+				<!-- Columna 4: Newsletter -->
+				<div class="col-lg-3 col-md-6 mb-4">
+					<div class="single-widget">
+						<h3 style="font-size: 18px; font-weight: 600; margin-bottom: 20px;">Newsletter</h3>
+						<p style="font-size: 14px; margin-bottom: 15px;">Suscríbete para recibir ofertas y noticias exclusivas.</p>
+						<form style="display: flex; flex-direction: column; gap: 10px;">
+							<input type="email" placeholder="Tu correo electrónico" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;" required>
+							<button type="submit" style="padding: 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; transition: background 0.3s;">Suscribirse</button>
+						</form>
 					</div>
 				</div>
 
@@ -71,18 +81,16 @@
 		</div>
 
 		<!-- Pie de página inferior -->
-		<div class="footer-bottom-area">
+		<div class="footer-bottom-area" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 30px;">
 			<div class="row align-items-center">
 				<div class="col-lg-6">
 					<div class="copy-right">
-						<p>&copy; 2025 <a href="<?php echo RUTA_PRINCIPAL; ?>">DevStock</a>. Todos los derechos
-							reservados.</p>
+						<p style="margin: 0; font-size: 14px;">&copy; 2025 <a href="<?php echo RUTA_PRINCIPAL; ?>" style="text-decoration: none;">StarHotelHub</a>. Todos los derechos reservados.</p>
 					</div>
 				</div>
-				<div class="col-lg-6">
-					<div class="designed">
-						<p>Diseñado con <i class='bx bx-heart'></i> por <a href="https://envytheme.com/"
-								target="_blank">DevStock</a></p>
+				<div class="col-lg-6 text-lg-end">
+					<div class="designed" style="text-align: right;">
+						<p style="margin: 0; font-size: 14px;">Desarrollado con <i class='bx bx-heart' style="color: #ff6b6b;"></i> para la industria hotelera</p>
 					</div>
 				</div>
 			</div>
@@ -142,6 +150,9 @@
 </div>
 <!-- End Go Top Area -->
 
+<!-- Footer Moderno CSS -->
+<link rel="stylesheet" href="<?php echo RUTA_PRINCIPAL . 'assets/principal/css/footer-moderno.css'; ?>">
+
 <!-- Jquery Min JS -->
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/js/jquery.min.js"></script>
 <!-- Bootstrap Min JS -->
@@ -196,6 +207,9 @@
 
 <!-- Custom JS -->
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal'; ?>/js/custom.js"></script>
+
+<!-- Footer Moderno JS -->
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/footer-moderno.js'; ?>"></script>
 
 <!-- Page specific scripts -->
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/busqueda-principal.js'; ?>"></script>

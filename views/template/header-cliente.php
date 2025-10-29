@@ -33,6 +33,7 @@ $urlCliente = $urlBase . 'cliente/';
     <!-- Definir RUTA_PRINCIPAL para JavaScript -->
     <script>
         const RUTA_PRINCIPAL = "<?php echo RUTA_PRINCIPAL; ?>";
+        const base_url = "<?php echo RUTA_PRINCIPAL; ?>";
     </script>
 </head>
 

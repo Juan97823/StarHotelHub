@@ -74,25 +74,14 @@ class Blog extends Controller
             $esEdicion = !empty($_POST['id']);
             $titulo = trim($_POST['titulo'] ?? '');
             $descripcion = trim($_POST['descripcion'] ?? '');
-            $id_categorias = $_POST['id_categorias'] ?? null;
             $id_usuario = $_SESSION['usuario']['id'];
             $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $titulo)));
-            $imagen = ($esEdicion && isset($_POST['imagen_actual'])) ? $_POST['imagen_actual'] : null;
-
-            // Subida de imagen
-            if (!empty($_FILES['imagen']['name'])) {
-                $nombreImg = time() . "_" . basename($_FILES['imagen']['name']);
-                $destino = 'uploads/blog/' . $nombreImg;
-                if (move_uploaded_file($_FILES['imagen']['tmp_name'], $destino)) {
-                    $imagen = $nombreImg;
-                }
-            }
 
             if ($esEdicion) {
                 $id = $_POST['id'];
-                $result = $this->model->actualizar($titulo, $descripcion, $imagen, $slug, $id_usuario, $id_categorias, $id);
+                $result = $this->model->actualizar($titulo, $descripcion, $slug, $id_usuario, $id);
             } else {
-                $result = $this->model->insertar($titulo, $descripcion, $imagen, $slug, $id_usuario, $id_categorias);
+                $result = $this->model->insertar($titulo, $descripcion, $slug, $id_usuario);
             }
 
             echo json_encode(
@@ -112,5 +101,59 @@ class Blog extends Controller
         $data['title'] = 'Editar Entrada';
         $data['entrada'] = $this->model->getEntrada($id);
         $this->views->getView('admin/blog/editar', $data);
+    }
+
+    // Mensajes del blog
+    public function mensajes()
+    {
+        $data['title'] = 'Mensajes del Blog';
+        $this->views->getView('admin/blog/mensajes', $data);
+    }
+
+    // Listar mensajes en JSON
+    public function listarMensajes()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        $data = $this->model->getMensajes();
+        echo json_encode(['data' => $data], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+
+
+    // Cambiar estado del mensaje
+    public function cambiarEstadoMensaje($param)
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        $parts = explode(",", $param);
+        $id = $parts[0] ?? null;
+        $nuevoEstado = $parts[1] ?? null;
+
+        if ($id && ($nuevoEstado == 1 || $nuevoEstado == 2)) {
+            $result = $this->model->cambiarEstadoMensaje($nuevoEstado, $id);
+            if ($result) {
+                echo json_encode(['status' => 'success', 'mensaje' => 'Estado actualizado']);
+            } else {
+                echo json_encode(['status' => 'error', 'mensaje' => 'No se pudo actualizar']);
+            }
+        } else {
+            echo json_encode(['status' => 'error', 'mensaje' => 'Parámetros no válidos']);
+        }
+        exit;
+    }
+
+    // Eliminar mensaje
+    public function eliminarMensaje($id)
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+            $result = $this->model->eliminarMensaje($id);
+            if ($result) {
+                echo json_encode(['status' => 'success', 'mensaje' => 'Mensaje eliminado']);
+            } else {
+                echo json_encode(['status' => 'error', 'mensaje' => 'No se pudo eliminar']);
+            }
+        }
+        exit;
     }
 }

@@ -34,45 +34,6 @@
                     <div class="invalid-feedback">El contenido es obligatorio.</div>
                 </div>
 
-                <!-- Categoría -->
-                <div class="mb-3">
-                    <label for="categorias" class="form-label fw-bold">Categoría</label>
-                    <select name="id_categorias" id="categorias" class="form-select" required>
-                        <option value="">Selecciona una categoría</option>
-                        <?php foreach ($data['categorias'] as $cat): ?>
-                            <option value="<?php echo $cat['id']; ?>" <?php echo $cat['id'] == $data['entrada']['id_categorias'] ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($cat['nombre']); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                    <div class="invalid-feedback">Debes seleccionar una categoría.</div>
-                </div>
-
-                <!-- Imagen actual -->
-                <div class="mb-3">
-                    <label class="form-label fw-bold">Imagen actual</label>
-                    <div>
-                        <?php if ($data['entrada']['foto']): ?>
-                            <img src="<?php echo RUTA_PRINCIPAL; ?>uploads/blog/<?php echo $data['entrada']['foto']; ?>"
-                                class="img-thumbnail shadow-sm" width="150" id="imgPreviewActual">
-                        <?php else: ?>
-                            <p class="text-muted fst-italic">No hay imagen cargada.</p>
-                        <?php endif; ?>
-                    </div>
-                </div>
-
-                <!-- Cambiar imagen -->
-                <div class="mb-3">
-                    <label for="imagen" class="form-label fw-bold">Cambiar imagen</label>
-                    <input type="file" name="imagen" id="imagen" class="form-control" accept="image/*"
-                        onchange="mostrarPreview(event)">
-                    <div class="mt-2">
-                        <img id="previewImg" src="" alt="Vista previa" class="img-thumbnail shadow-sm d-none"
-                            width="150">
-                    </div>
-                    <small class="text-muted">Si no seleccionas una nueva imagen, se mantendrá la actual.</small>
-                </div>
-
                 <!-- Botón Guardar -->
                 <div class="d-grid mt-4">
                     <button type="submit" class="btn btn-primary btn-lg shadow-sm">
@@ -85,3 +46,65 @@
 </div>
 
 <?php include_once 'views/template/footer-admin.php'; ?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('formBlog');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Validar formulario
+        if (!form.checkValidity()) {
+            e.stopPropagation();
+            form.classList.add('was-validated');
+            return;
+        }
+
+        // Mostrar confirmación
+        Swal.fire({
+            title: '¿Guardar cambios?',
+            text: "Se actualizará la entrada del blog.",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, guardar',
+            cancelButtonText: 'Cancelar',
+            customClass: {
+                confirmButton: 'btn btn-success me-2',
+                cancelButton: 'btn btn-secondary'
+            },
+            buttonsStyling: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Enviar por AJAX
+                const formData = new FormData(form);
+                const url = form.action;
+
+                fetch(url, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        Swal.fire({
+                            title: '¡Éxito!',
+                            text: 'La entrada ha sido actualizada correctamente.',
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        }).then(() => {
+                            window.location.href = '<?php echo RUTA_PRINCIPAL; ?>admin/blog';
+                        });
+                    } else {
+                        Swal.fire('Error', data.mensaje || 'No se pudo guardar', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire('Error', 'No se pudo comunicar con el servidor', 'error');
+                });
+            }
+        });
+    });
+});
+</script>

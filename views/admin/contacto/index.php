@@ -3,15 +3,11 @@
 <div class="container-fluid">
     <div class="card shadow">
         <div class="card-header">
-            <h5 class="card-title fw-semibold mb-0">Gestión de Blog</h5>
+            <h5 class="card-title fw-semibold mb-0">
+                <i class="fas fa-envelope me-2"></i> Mensajes de Contacto
+            </h5>
         </div>
         <div class="card-body">
-            <div class="mb-3">
-                <a href="<?php echo RUTA_PRINCIPAL; ?>admin/blog/crear" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Nueva Entrada
-                </a>
-            </div>
-
             <?php
             // Manejo de alertas de sesión
             if (isset($_SESSION['alerta'])) {
@@ -25,11 +21,14 @@
             ?>
 
             <div class="table-responsive">
-                <table id="tblBlog" class="table table-bordered table-striped" style="width:100%">
+                <table id="tblContacto" class="table table-bordered table-striped" style="width:100%">
                     <thead class="table-dark">
                         <tr>
                             <th>#</th>
-                            <th>Título</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Asunto</th>
+                            <th>Mensaje</th>
                             <th>Fecha</th>
                             <th>Estado</th>
                             <th>Acciones</th>
@@ -45,3 +44,6 @@
 </div>
 
 <?php include_once 'views/template/footer-admin.php'; ?>
+
+<script src="<?php echo RUTA_PRINCIPAL; ?>assets/admin/js/Pages/ContactoMensajes.js"></script>
+

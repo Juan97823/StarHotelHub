@@ -8,26 +8,16 @@
         <div class="card-body">
             <form id="blogForm" enctype="multipart/form-data">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="form-group mb-3">
                             <label for="titulo">Título</label>
                             <input type="text" class="form-control" id="titulo" name="titulo" required>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="descripcion">Descripción</label>
+                            <label for="descripcion">Contenido</label>
                             <div id="editor" style="height: 300px;"></div>
                             <input type="hidden" name="descripcion" id="descripcion">
                         </div>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="imagen">Imagen Destacada</label>
-                        <input type="file" class="form-control-file" id="imagen" name="imagen" accept="image/*"
-                            required>
-                    </div>
-                    <div class="form-group">
-                        <img id="imagen-preview" src="" alt="Vista previa de la imagen" class="img-thumbnail"
-                            style="display: none; max-height: 200px;">
                     </div>
                 </div>
         </div>
@@ -56,28 +46,14 @@
             document.getElementById('descripcion').value = quill.root.innerHTML;
         });
 
-        // Vista previa de la imagen
-        const inputImagen = document.getElementById('imagen');
-        const imagenPreview = document.getElementById('imagen-preview');
-        inputImagen.addEventListener('change', function (e) {
-            if (e.target.files && e.target.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function (event) {
-                    imagenPreview.src = event.target.result;
-                    imagenPreview.style.display = 'block';
-                };
-                reader.readAsDataURL(e.target.files[0]);
-            }
-        });
-
         // Enviar formulario
         const form = document.getElementById('blogForm');
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // Asegurarse de que la descripción no esté vacía
+            // Validar que la descripción no esté vacía
             if (quill.getLength() <= 1) {
-                Swal.fire('Error', 'La descripción no puede estar vacía.', 'error');
+                Swal.fire('Error', 'El contenido no puede estar vacío.', 'error');
                 return;
             }
 
@@ -99,7 +75,6 @@
                     }
                 })
                 .catch(err => {
-                    console.error('Error en la solicitud:', err);
                     Swal.fire('Error', 'No se pudo comunicar con el servidor.', 'error');
                 });
         });
