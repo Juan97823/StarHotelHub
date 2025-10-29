@@ -29,7 +29,7 @@
 						<ul style="list-style: none; padding: 0;">
 							<li style="margin-bottom: 10px;"><a href="<?php echo RUTA_PRINCIPAL; ?>" style="text-decoration: none; display: flex; align-items: center;"><i class="bx bx-chevrons-right" style="margin-right: 8px;"></i> Inicio</a></li>
 							<li style="margin-bottom: 10px;"><a href="<?php echo RUTA_PRINCIPAL; ?>habitaciones" style="text-decoration: none; display: flex; align-items: center;"><i class="bx bx-chevrons-right" style="margin-right: 8px;"></i> Habitaciones</a></li>
-							<li style="margin-bottom: 10px;"><a href="<?php echo RUTA_PRINCIPAL; ?>reservas" style="text-decoration: none; display: flex; align-items: center;"><i class="bx bx-chevrons-right" style="margin-right: 8px;"></i> Mis Reservas</a></li>
+							<li style="margin-bottom: 10px;"><a href="<?php echo RUTA_PRINCIPAL; ?>login" style="text-decoration: none; display: flex; align-items: center;"><i class="bx bx-chevrons-right" style="margin-right: 8px;"></i> Mis Reservas</a></li>
 							<li style="margin-bottom: 10px;"><a href="<?php echo RUTA_PRINCIPAL; ?>contacto" style="text-decoration: none; display: flex; align-items: center;"><i class="bx bx-chevrons-right" style="margin-right: 8px;"></i> Contacto</a></li>
 						</ul>
 					</div>

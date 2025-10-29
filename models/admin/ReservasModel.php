@@ -8,13 +8,20 @@ class ReservasModel extends Query
     }
 
     // Obtener todas las reservas
-    public function getReservas()
+    public function getReservas($soloActivas = false)
     {
         $sql = "SELECT r.id, r.monto, r.num_transaccion, r.cod_reserva, r.fecha_ingreso, r.fecha_salida, r.descripcion, r.estado,
                    h.estilo AS habitacion, u.nombre AS cliente
             FROM reservas r
             INNER JOIN habitaciones h ON r.id_habitacion = h.id
             INNER JOIN usuarios u ON r.id_usuario = u.id";
+
+        if ($soloActivas) {
+            $sql .= " WHERE r.estado IN (1, 2)"; // 1 = Pendiente, 2 = Confirmado
+        }
+
+        $sql .= " ORDER BY r.fecha_ingreso DESC";
+
         return $this->selectAll($sql) ?? [];
     }
 

@@ -253,3 +253,30 @@ SMTP User: starhotelhub@gmail.com
 
 [29-Oct-2025 00:08:16 America/Bogota] ✅ Email enviado exitosamente a: Salamancas648@gmail.com
 [29-Oct-2025 00:08:16 America/Bogota] ✅ Email de confirmación enviado a: Salamancas648@gmail.com
+[29-Oct-2025 00:16:01 America/Bogota] Intentando enviar email a: starhotelhub@gmail.com
+Asunto: Nuevo mensaje de contacto: Cancelacion de reserva
+Driver: smtp
+SMTP Host: smtp.gmail.com
+SMTP Port: 587
+SMTP User: starhotelhub@gmail.com
+
+[29-Oct-2025 00:16:04 America/Bogota] ✅ Email enviado exitosamente a: starhotelhub@gmail.com
+[29-Oct-2025 00:16:04 America/Bogota] Intentando enviar email a: juanesab230403@gmail.com
+Asunto: Hemos recibido tu mensaje - StarHotelHub
+Driver: smtp
+SMTP Host: smtp.gmail.com
+SMTP Port: 587
+SMTP User: starhotelhub@gmail.com
+
+[29-Oct-2025 00:16:07 America/Bogota] ✅ Email enviado exitosamente a: juanesab230403@gmail.com
+[29-Oct-2025 00:17:33 America/Bogota]  Error: AdminModel no se pudo cargar. Ruta esperada: models/admin/AdminModel.php
+[29-Oct-2025 00:17:33 America/Bogota]  Error: AdminModel no se pudo cargar. Ruta esperada: models/admin/AdminModel.php
+[29-Oct-2025 00:19:13 America/Bogota]  Error: AdminModel no se pudo cargar. Ruta esperada: models/admin/AdminModel.php
+[29-Oct-2025 00:19:27 America/Bogota]  Error: AdminModel no se pudo cargar. Ruta esperada: models/admin/AdminModel.php
+[29-Oct-2025 00:19:28 America/Bogota]  Error: AdminModel no se pudo cargar. Ruta esperada: models/admin/AdminModel.php
+[29-Oct-2025 00:21:21 America/Bogota]  Error: AdminModel no se pudo cargar. Ruta esperada: models/admin/AdminModel.php
+[29-Oct-2025 00:21:21 America/Bogota]  Error: AdminModel no se pudo cargar. Ruta esperada: models/admin/AdminModel.php
+[29-Oct-2025 00:21:29 America/Bogota]  Error: LogoutModel no se pudo cargar. Ruta esperada: models/principal/LogoutModel.php
+[29-Oct-2025 00:24:40 America/Bogota]  Error: AdminModel no se pudo cargar. Ruta esperada: models/admin/AdminModel.php
+[29-Oct-2025 00:24:41 America/Bogota]  Error: AdminModel no se pudo cargar. Ruta esperada: models/admin/AdminModel.php
+[29-Oct-2025 00:24:45 America/Bogota]  Error: AdminModel no se pudo cargar. Ruta esperada: models/admin/AdminModel.php

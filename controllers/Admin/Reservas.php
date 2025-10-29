@@ -33,10 +33,13 @@ class Reservas extends Controller
         $reservas = $this->model->getReservas(true);
 
         foreach ($reservas as $key => $res) {
+            // Inicializar acciones por defecto
+            $acciones = '<div></div>';
+
             switch ($res['estado']) {
                 case 1: // Pendiente
                     $reservas[$key]['estado'] = '<span class="badge bg-warning">Pendiente</span>';
-                    $reservas[$key]['acciones'] = '
+                    $acciones = '
                         <div>
                             <button class="btn btn-success btn-sm" onclick="btnConfirmarReserva(' . $res['id'] . ')" title="Confirmar"><i class="fas fa-check"></i></button>
                             <button class="btn btn-danger btn-sm" onclick="btnCancelarReserva(' . $res['id'] . ')" title="Cancelar"><i class="fas fa-times"></i></button>
@@ -44,19 +47,25 @@ class Reservas extends Controller
                     break;
                 case 2: // Confirmado
                     $reservas[$key]['estado'] = '<span class="badge bg-success">Confirmado</span>';
-                    $reservas[$key]['acciones'] = '
+                    $acciones = '
                         <div>
                             <button class="btn btn-danger btn-sm" onclick="btnCancelarReserva(' . $res['id'] . ')" title="Cancelar"><i class="fas fa-times"></i></button>
                         </div>';
                     break;
                 case 0: // Cancelado
                     $reservas[$key]['estado'] = '<span class="badge bg-danger">Cancelado</span>';
-                    $reservas[$key]['acciones'] = '
+                    $acciones = '
                         <div>
                             <button class="btn btn-info btn-sm" onclick="btnActivarReserva(' . $res['id'] . ')" title="Reactivar"><i class="fas fa-sync-alt"></i></button>
                         </div>';
                     break;
+                default:
+                    $reservas[$key]['estado'] = '<span class="badge bg-secondary">Desconocido</span>';
+                    $acciones = '<div></div>';
+                    break;
             }
+
+            $reservas[$key]['acciones'] = $acciones;
         }
 
         echo json_encode($reservas, JSON_UNESCAPED_UNICODE);
