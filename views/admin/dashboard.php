@@ -86,12 +86,13 @@
               <th>Habitación</th>
               <th>Fecha de Reserva</th>
               <th>Estado</th>
+              <th class="text-center">Acciones</th>
             </tr>
           </thead>
           <tbody id="ultimasReservas">
             <!-- El contenido se cargará dinámicamente con JavaScript -->
             <tr>
-              <td colspan="4" class="text-center">Cargando...</td>
+              <td colspan="5" class="text-center">Cargando...</td>
             </tr>
           </tbody>
         </table>

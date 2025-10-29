@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!ultimasReservas || ultimasReservas.length === 0) {
       tbody.innerHTML =
-        '<tr><td colspan="4" class="text-center">No hay reservas recientes.</td></tr>';
+        '<tr><td colspan="5" class="text-center">No hay reservas recientes.</td></tr>';
       return;
     }
 
@@ -76,10 +76,21 @@ document.addEventListener("DOMContentLoaded", function () {
             <td>${reserva.habitacion ?? "-"}</td>
             <td>${reserva.fecha_reserva ?? "-"}</td>
             <td>${estadoBadge}</td>
+            <td class="text-center">
+                <button class="btn btn-sm btn-primary" onclick="imprimirFactura(${reserva.id})" title="Imprimir Factura">
+                    <i class="bx bx-printer"></i> Factura
+                </button>
+            </td>
         </tr>
     `;
     });
   }
+
+  // Función para imprimir factura
+  window.imprimirFactura = function(idReserva) {
+    const url = base_url + "reserva/factura/" + idReserva;
+    window.open(url, '_blank', 'width=900,height=700');
+  };
 
   // --- CARGA DE DATOS ---
   function cargarDatosDashboard() {

@@ -472,4 +472,67 @@ class Reserva extends Controller
         $data['title'] = 'Reserva Pendiente';
         $this->views->getView('principal/clientes/reservas/pendiente', $data);
     }
+
+    // Mostrar factura de una reserva específica (por ID)
+    public function factura($idReserva = null)
+    {
+        if (!$idReserva) {
+            echo json_encode(['error' => 'ID de reserva no proporcionado']);
+            exit;
+        }
+
+        $idReserva = intval($idReserva);
+        $reserva = $this->model->getReservaById($idReserva);
+
+        if (!$reserva) {
+            echo json_encode(['error' => 'Reserva no encontrada']);
+            exit;
+        }
+
+        // Verificar permisos: solo admin, empleado o el cliente propietario
+        if (isset($_SESSION['usuario'])) {
+            $rol = $_SESSION['usuario']['rol'];
+            $usuarioId = $_SESSION['usuario']['id'];
+
+            // Permitir si es admin (1), empleado (2), o cliente propietario (3)
+            if ($rol != 1 && $rol != 2 && ($rol == 3 && $reserva['id_usuario'] != $usuarioId)) {
+                echo json_encode(['error' => 'No tienes permiso para ver esta factura']);
+                exit;
+            }
+        }
+
+        $usuario = $this->model->getUsuarioById($reserva['id_usuario']);
+        $habitacion = $this->model->getHabitacion($reserva['id_habitacion']);
+
+        // Calcular número de noches
+        $fechaLlegada = new DateTime($reserva['fecha_ingreso']);
+        $fechaSalida = new DateTime($reserva['fecha_salida']);
+        $intervalo = $fechaLlegada->diff($fechaSalida);
+        $noches = $intervalo->days > 0 ? $intervalo->days : 1;
+
+        // Calcular desglose de costos (IVA INCLUIDO EN EL PRECIO)
+        $precioNoche = $habitacion['precio'];
+        $total = $noches * $precioNoche;
+        $subtotal = $total / 1.19;
+        $impuestos = $total - $subtotal;
+
+        // Preparar datos para la vista
+        $data = [
+            'title' => 'Factura de Reserva',
+            'subtitle' => 'Detalles de la Factura',
+            'reserva' => $reserva,
+            'usuario' => $usuario,
+            'habitacion' => $habitacion,
+            'factura' => [
+                'numero' => 'FAC-' . str_pad($idReserva, 6, "0", STR_PAD_LEFT),
+                'noches' => $noches,
+                'precio_noche' => $precioNoche,
+                'subtotal' => $subtotal,
+                'impuestos' => $impuestos,
+                'total' => $total
+            ]
+        ];
+
+        $this->views->getView('principal/reservas/factura', $data);
+    }
 }

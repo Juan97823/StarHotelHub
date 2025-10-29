@@ -212,3 +212,9 @@ function btnActivarReserva(id) {
         }
     });
 }
+
+// Función para imprimir factura
+function imprimirFactura(idReserva) {
+    const url = base_url + "reserva/factura/" + idReserva;
+    window.open(url, '_blank', 'width=900,height=700');
+}

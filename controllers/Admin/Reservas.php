@@ -40,28 +40,34 @@ class Reservas extends Controller
                 case 1: // Pendiente
                     $reservas[$key]['estado'] = '<span class="badge bg-warning">Pendiente</span>';
                     $acciones = '
-                        <div>
-                            <button class="btn btn-success btn-sm" onclick="btnConfirmarReserva(' . $res['id'] . ')" title="Confirmar"><i class="fas fa-check"></i></button>
-                            <button class="btn btn-danger btn-sm" onclick="btnCancelarReserva(' . $res['id'] . ')" title="Cancelar"><i class="fas fa-times"></i></button>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button class="btn btn-success" onclick="btnConfirmarReserva(' . $res['id'] . ')" title="Confirmar"><i class="fas fa-check"></i></button>
+                            <button class="btn btn-danger" onclick="btnCancelarReserva(' . $res['id'] . ')" title="Cancelar"><i class="fas fa-times"></i></button>
+                            <button class="btn btn-primary" onclick="imprimirFactura(' . $res['id'] . ')" title="Imprimir Factura"><i class="fas fa-print"></i></button>
                         </div>';
                     break;
                 case 2: // Confirmado
                     $reservas[$key]['estado'] = '<span class="badge bg-success">Confirmado</span>';
                     $acciones = '
-                        <div>
-                            <button class="btn btn-danger btn-sm" onclick="btnCancelarReserva(' . $res['id'] . ')" title="Cancelar"><i class="fas fa-times"></i></button>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button class="btn btn-danger" onclick="btnCancelarReserva(' . $res['id'] . ')" title="Cancelar"><i class="fas fa-times"></i></button>
+                            <button class="btn btn-primary" onclick="imprimirFactura(' . $res['id'] . ')" title="Imprimir Factura"><i class="fas fa-print"></i></button>
                         </div>';
                     break;
                 case 0: // Cancelado
                     $reservas[$key]['estado'] = '<span class="badge bg-danger">Cancelado</span>';
                     $acciones = '
-                        <div>
-                            <button class="btn btn-info btn-sm" onclick="btnActivarReserva(' . $res['id'] . ')" title="Reactivar"><i class="fas fa-sync-alt"></i></button>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button class="btn btn-info" onclick="btnActivarReserva(' . $res['id'] . ')" title="Reactivar"><i class="fas fa-sync-alt"></i></button>
+                            <button class="btn btn-primary" onclick="imprimirFactura(' . $res['id'] . ')" title="Imprimir Factura"><i class="fas fa-print"></i></button>
                         </div>';
                     break;
                 default:
                     $reservas[$key]['estado'] = '<span class="badge bg-secondary">Desconocido</span>';
-                    $acciones = '<div></div>';
+                    $acciones = '
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button class="btn btn-primary" onclick="imprimirFactura(' . $res['id'] . ')" title="Imprimir Factura"><i class="fas fa-print"></i></button>
+                        </div>';
                     break;
             }
 

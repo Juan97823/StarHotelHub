@@ -111,7 +111,12 @@
                           class='bx bx-calendar me-1'></i><?php echo date("d/m/Y", strtotime($llegada['fecha_ingreso'])); ?>
                       </p>
                     </div>
-                    <span class="badge bg-success">Confirmada</span>
+                    <div class="d-flex gap-2 align-items-center">
+                      <span class="badge bg-success">Confirmada</span>
+                      <button class="btn btn-sm btn-primary" onclick="imprimirFactura(<?php echo $llegada['id_reserva']; ?>)" title="Imprimir Factura">
+                        <i class='bx bx-printer'></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
               <?php endforeach; ?>
@@ -149,7 +154,12 @@
                         <i class='bx bx-calendar me-1'></i><?php echo date("d/m/Y", strtotime($salida['fecha_salida'])); ?>
                       </p>
                     </div>
-                    <span class="badge bg-warning">Activa</span>
+                    <div class="d-flex gap-2 align-items-center">
+                      <span class="badge bg-warning">Activa</span>
+                      <button class="btn btn-sm btn-primary" onclick="imprimirFactura(<?php echo $salida['id_reserva']; ?>)" title="Imprimir Factura">
+                        <i class='bx bx-printer'></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
               <?php endforeach; ?>
@@ -203,4 +213,11 @@
 
     actualizarHora();
     setInterval(actualizarHora, 1000);
+
+    // Función para imprimir factura
+    function imprimirFactura(idReserva) {
+      const baseUrl = "<?php echo RUTA_PRINCIPAL; ?>";
+      const url = baseUrl + "reserva/factura/" + idReserva;
+      window.open(url, '_blank', 'width=900,height=700');
+    }
   </script>

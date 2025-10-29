@@ -52,15 +52,20 @@
                                         </span>
                                     </td>
                                     <td class="text-center">
-                                        <?php if ($reserva['estado'] == 1) : //  1 es PENDIENTE ?>
-                                            <button class="btn btn-danger btn-sm btn-cancelar" data-id="<?php echo $reserva['id']; ?>">
-                                                <i class="bx bx-x-circle me-1"></i>Cancelar
+                                        <div class="btn-group" role="group">
+                                            <?php if ($reserva['estado'] == 1) : //  1 es PENDIENTE ?>
+                                                <button class="btn btn-danger btn-sm btn-cancelar" data-id="<?php echo $reserva['id']; ?>">
+                                                    <i class="bx bx-x-circle me-1"></i>Cancelar
+                                                </button>
+                                            <?php else: ?>
+                                                <button class="btn btn-info btn-sm btn-ver-detalle" data-id="<?php echo $reserva['id']; ?>">
+                                                    <i class="bx bx-info-circle me-1"></i>Ver Detalle
+                                                </button>
+                                            <?php endif; ?>
+                                            <button class="btn btn-primary btn-sm" onclick="imprimirFactura(<?php echo $reserva['id']; ?>)" title="Imprimir Factura">
+                                                <i class="bx bx-printer me-1"></i>Factura
                                             </button>
-                                        <?php else: ?>
-                                            <button class="btn btn-info btn-sm btn-ver-detalle" data-id="<?php echo $reserva['id']; ?>">
-                                                <i class="bx bx-info-circle me-1"></i>Ver Detalle
-                                            </button>
-                                        <?php endif; ?>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -287,4 +292,10 @@
     document.getElementById('btnDescargarFactura').addEventListener('click', function() {
         Swal.fire('Información', 'La funcionalidad de descarga de factura estará disponible pronto', 'info');
     });
+
+    // Función para imprimir factura
+    function imprimirFactura(idReserva) {
+        const url = base_url + 'reserva/factura/' + idReserva;
+        window.open(url, '_blank', 'width=900,height=700');
+    }
 </script>

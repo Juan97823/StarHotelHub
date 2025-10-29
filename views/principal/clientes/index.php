@@ -66,12 +66,13 @@
                             <th>Salida</th>
                             <th>Monto</th>
                             <th class="text-center">Estado</th>
+                            <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if (empty($data['reservas'])): ?>
                             <tr>
-                                <td colspan="5" class="text-center py-5">
+                                <td colspan="6" class="text-center py-5">
                                     <h5>No se encontraron reservas.</h5>
                                 </td>
                             </tr>
@@ -95,6 +96,11 @@
                                                 class="bx bxs-<?php echo $estado['icono']; ?> me-1"></i><?php echo $estado['texto']; ?>
                                         </span>
                                     </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm btn-primary" onclick="imprimirFactura(<?php echo $reserva['id']; ?>)" title="Imprimir Factura">
+                                            <i class="bx bx-printer"></i> Factura
+                                        </button>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
@@ -104,5 +110,13 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Función para imprimir factura
+    function imprimirFactura(idReserva) {
+        const url = base_url + 'reserva/factura/' + idReserva;
+        window.open(url, '_blank', 'width=900,height=700');
+    }
+</script>
 
 <?php include_once 'views/template/footer-cliente.php'; ?>
