@@ -12,10 +12,11 @@ class ReservaModel extends Query
     public function getDisponible($f_llegada, $f_salida, $habitacion)
     {
         $id_habitacion = intval($habitacion);
-        $query = "SELECT * FROM reservas 
+        $query = "SELECT * FROM reservas
                 WHERE fecha_ingreso < :f_salida
-                AND fecha_salida > :f_llegada 
-                AND id_habitacion = :habitacion";
+                AND fecha_salida > :f_llegada
+                AND id_habitacion = :habitacion
+                AND estado != 0";
         $params = [
             ':f_llegada' => $f_llegada,
             ':f_salida' => $f_salida,
