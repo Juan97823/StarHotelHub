@@ -313,6 +313,7 @@ class Reserva extends Controller
 
             if ($id_reserva) {
                 $_SESSION['ultima_reserva'] = $id_reserva;
+                error_log("✅ Reserva creada con ID: " . $id_reserva);
 
                 // Obtener datos completos para el email
                 $reservaCompleta = $this->model->getReservaById($id_reserva);
@@ -338,16 +339,35 @@ class Reserva extends Controller
                     'total' => $total
                 ];
 
-                // Enviar email de confirmación
-                $this->enviarConfirmacionReserva($id_reserva, $usuarioCompleto, $reservaCompleta, $habitacionCompleta, $factura);
-
-                // Si es usuario nuevo, enviar credenciales
-                if (!$usuario) {
-                    $this->enviarCredencialesNuevoUsuario($usuarioCompleto, $clave);
+                // Enviar email de confirmación (no bloquear si falla)
+                try {
+                    $this->enviarConfirmacionReserva($id_reserva, $usuarioCompleto, $reservaCompleta, $habitacionCompleta, $factura);
+                    error_log("✅ Email de confirmación enviado");
+                } catch (Exception $e) {
+                    error_log("⚠️ Error al enviar email de confirmación: " . $e->getMessage());
                 }
 
-                echo json_encode(['status' => 'success', 'msg' => 'Reserva realizada con éxito', 'redirect' => RUTA_PRINCIPAL . 'reserva/confirmacion']);
+                // Si es usuario nuevo, enviar credenciales (no bloquear si falla)
+                if (!$usuario) {
+                    try {
+                        $this->enviarCredencialesNuevoUsuario($usuarioCompleto, $clave);
+                        error_log("✅ Email de credenciales enviado");
+                    } catch (Exception $e) {
+                        error_log("⚠️ Error al enviar email de credenciales: " . $e->getMessage());
+                    }
+                }
+
+                $redirectUrl = RUTA_PRINCIPAL . 'reserva/confirmacion';
+                error_log("✅ Redirigiendo a: " . $redirectUrl);
+
+                echo json_encode([
+                    'status' => 'success',
+                    'msg' => 'Reserva realizada con éxito',
+                    'redirect' => $redirectUrl,
+                    'id_reserva' => $id_reserva
+                ]);
             } else {
+                error_log("❌ Error al insertar reserva en la base de datos");
                 echo json_encode(['status' => 'error', 'msg' => 'Error al guardar la reserva.']);
             }
             exit;

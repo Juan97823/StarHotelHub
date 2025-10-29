@@ -19,8 +19,15 @@ class EmailHelper
      */
     public function __construct()
     {
-        $this->mail = new \PHPMailer\PHPMailer\PHPMailer(true);
-        $this->configurarPHPMailer();
+        // Verificar si PHPMailer está disponible
+        if (class_exists('\PHPMailer\PHPMailer\PHPMailer')) {
+            $this->mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+            $this->configurarPHPMailer();
+        } else {
+            // PHPMailer no disponible, usar mail() de PHP
+            error_log("⚠️ PHPMailer no está instalado. Usando mail() de PHP como fallback.");
+            $this->mail = null;
+        }
     }
 
     /**
@@ -143,6 +150,11 @@ class EmailHelper
             throw new Exception("Faltan datos requeridos para enviar el email");
         }
 
+        // Si PHPMailer no está disponible, usar mail() de PHP directamente
+        if ($this->mail === null) {
+            return $this->sendWithPhpMail();
+        }
+
         try {
             // Agregar destinatario
             $this->mail->addAddress($this->to, $this->toName);
@@ -174,36 +186,46 @@ class EmailHelper
             $errorMsg .= "PHPMailer Error: " . $this->mail->ErrorInfo . "\n";
             error_log($errorMsg);
 
-            // Si usamos SMTP, intentar fallback a mail() para no bloquear flujos importantes
-            if (EMAIL_DRIVER === 'smtp') {
-                try {
-                    error_log("Intentando fallback a mail() para: {$this->to}");
-                    // Reconfigurar PHPMailer para usar mail()
-                    $this->mail = new \PHPMailer\PHPMailer\PHPMailer(true);
-                    $this->mail->isMail();
-                    $this->mail->setFrom(EMAIL_FROM, EMAIL_FROM_NAME);
-                    $this->mail->isHTML(true);
-                    $this->mail->CharSet = 'UTF-8';
-                    $this->mail->Encoding = 'base64';
-                    $this->mail->addAddress($this->to, $this->toName);
-                    foreach ($this->attachments as $attachment) {
-                        $this->mail->addAttachment($attachment['path'], $attachment['name']);
-                    }
-                    $this->mail->Subject = $this->subject;
-                    $this->mail->Body = $this->body;
+            // Intentar fallback a mail() de PHP
+            error_log("Intentando fallback a mail() de PHP para: {$this->to}");
+            return $this->sendWithPhpMail();
+        }
+    }
 
-                    $res2 = $this->mail->send();
-                    if ($res2) {
-                        error_log("✅ Email enviado por fallback mail() a: " . $this->to);
-                        return true;
-                    }
-                } catch (\Exception $ex2) {
-                    error_log("❌ Fallback mail() también falló para {$this->to}: " . $ex2->getMessage());
-                }
+    /**
+     * Enviar email usando la función mail() de PHP (fallback)
+     */
+    private function sendWithPhpMail()
+    {
+        try {
+            error_log("📧 Enviando email con mail() de PHP a: {$this->to}");
+
+            // Headers
+            $headers = [];
+            $headers[] = 'MIME-Version: 1.0';
+            $headers[] = 'Content-type: text/html; charset=UTF-8';
+            $headers[] = 'From: ' . EMAIL_FROM_NAME . ' <' . EMAIL_FROM . '>';
+            $headers[] = 'Reply-To: ' . EMAIL_FROM;
+            $headers[] = 'X-Mailer: PHP/' . phpversion();
+
+            // Enviar
+            $resultado = mail(
+                $this->to,
+                $this->subject,
+                $this->body,
+                implode("\r\n", $headers)
+            );
+
+            if ($resultado) {
+                error_log("✅ Email enviado con mail() de PHP a: " . $this->to);
+                return true;
+            } else {
+                error_log("❌ mail() de PHP falló para: " . $this->to);
+                return false;
             }
-
-            // Re-lanzar excepción después de intentar fallback
-            throw $e;
+        } catch (\Exception $e) {
+            error_log("❌ Error en sendWithPhpMail(): " . $e->getMessage());
+            return false;
         }
     }
 
