@@ -83,4 +83,70 @@ class RegistroModel extends Query
         $datos = [$hash, $id];
         return $this->save($sql, $datos);
     }
+
+    // ========== MÉTODOS PARA RESTABLECIMIENTO DE CONTRASEÑA CON TOKEN ==========
+
+    /**
+     * Guardar token de restablecimiento de contraseña
+     * @param int $id_usuario ID del usuario
+     * @param string $token Token único generado
+     * @param string $expira Fecha y hora de expiración (formato: Y-m-d H:i:s)
+     * @return int Número de filas afectadas
+     */
+    public function guardarTokenReset($id_usuario, $token, $expira)
+    {
+        $sql = "UPDATE usuarios SET reset_token = ?, reset_token_expira = ? WHERE id = ?";
+        $datos = [$token, $expira, $id_usuario];
+        return $this->save($sql, $datos);
+    }
+
+    /**
+     * Validar token de restablecimiento
+     * @param string $token Token a validar
+     * @return array|null Datos del usuario si el token es válido, null si no
+     */
+    public function validarTokenReset($token)
+    {
+        $sql = "SELECT id, nombre, correo, reset_token_expira
+                FROM usuarios
+                WHERE reset_token = ?
+                AND reset_token_expira > NOW()";
+        return $this->select($sql, [$token]);
+    }
+
+    /**
+     * Actualizar contraseña usando token de restablecimiento
+     * @param string $token Token de restablecimiento
+     * @param string $hash Nueva contraseña hasheada
+     * @return int Número de filas afectadas
+     */
+    public function actualizarContrasenaConToken($token, $hash)
+    {
+        // Primero validar que el token sea válido
+        $usuario = $this->validarTokenReset($token);
+        if (!$usuario) {
+            return 0;
+        }
+
+        // Actualizar contraseña y limpiar token
+        $sql = "UPDATE usuarios
+                SET clave = ?,
+                    reset_token = NULL,
+                    reset_token_expira = NULL
+                WHERE reset_token = ?
+                AND reset_token_expira > NOW()";
+        $datos = [$hash, $token];
+        return $this->save($sql, $datos);
+    }
+
+    /**
+     * Limpiar token de restablecimiento (cancelar solicitud)
+     * @param int $id_usuario ID del usuario
+     * @return int Número de filas afectadas
+     */
+    public function limpiarTokenReset($id_usuario)
+    {
+        $sql = "UPDATE usuarios SET reset_token = NULL, reset_token_expira = NULL WHERE id = ?";
+        return $this->save($sql, [$id_usuario]);
+    }
 }

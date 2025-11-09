@@ -136,13 +136,13 @@ class Registro extends Controller
             $confirmLink = $token ? RUTA_PRINCIPAL . 'registro/confirmar/' . $token : RUTA_PRINCIPAL . 'login';
 
             $email->setTo($correo, $nombre)
-                  ->setSubject('Bienvenido a StarHotelHub - Confirma tu correo')
-                  ->loadTemplate('registro_confirmacion', [
-                      'nombre' => $nombre,
-                      'correo' => $correo,
-                      'confirmLink' => $confirmLink
-                  ])
-                  ->send();
+                ->setSubject('Bienvenido a StarHotelHub - Confirma tu correo')
+                ->loadTemplate('registro_confirmacion', [
+                    'nombre' => $nombre,
+                    'correo' => $correo,
+                    'confirmLink' => $confirmLink
+                ])
+                ->send();
 
         } catch (Exception $e) {
             error_log("Error al enviar email de registro: " . $e->getMessage());
@@ -174,4 +174,3 @@ class Registro extends Controller
         $this->views->getView('principal/RegistroExito', $data);
     }
 }
- 

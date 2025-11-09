@@ -13,7 +13,7 @@ $csrf_token = generarCsrfToken();
                         <h3 class="form-title">
                             <i class="bx bx-lock-open"></i> Recuperar Contraseña
                         </h3>
-                        <p class="form-desc">Ingresa tu correo y te enviaremos una contraseña temporal.</p>
+                        <p class="form-desc">Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña.</p>
                     </div>
 
                     <form id="formRecuperarContrasena" autocomplete="off">
@@ -43,9 +43,10 @@ $csrf_token = generarCsrfToken();
                         <strong>¿Cómo funciona?</strong>
                         <ul class="mb-0 mt-2">
                             <li>Ingresa el correo asociado a tu cuenta</li>
-                            <li>Recibirás un email con una contraseña temporal</li>
-                            <li>Usa esa contraseña para acceder a tu cuenta</li>
-                            <li>Cambia tu contraseña en tu perfil</li>
+                            <li>Recibirás un email con un enlace seguro</li>
+                            <li>Haz clic en el enlace (válido por 1 hora)</li>
+                            <li>Ingresa tu nueva contraseña</li>
+                            <li>Tu contraseña anterior permanecerá activa hasta que confirmes el cambio</li>
                         </ul>
                     </div>
                 </div>

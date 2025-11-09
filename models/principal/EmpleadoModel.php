@@ -113,7 +113,7 @@ public function getReservas()
     // Obtener llegadas esperadas para hoy
     public function getLlegadasHoy()
     {
-        $sql = "SELECT r.id, r.fecha_ingreso, r.fecha_salida, u.nombre as nombre_cliente, h.estilo as nombre_habitacion
+        $sql = "SELECT r.id as id_reserva, r.fecha_ingreso, r.fecha_salida, u.nombre as nombre_cliente, h.estilo as nombre_habitacion
                 FROM reservas r
                 INNER JOIN usuarios u ON r.id_usuario = u.id
                 INNER JOIN habitaciones h ON r.id_habitacion = h.id
@@ -125,7 +125,7 @@ public function getReservas()
     // Obtener salidas esperadas para hoy
     public function getSalidasHoy()
     {
-        $sql = "SELECT r.id, r.fecha_ingreso, r.fecha_salida, u.nombre as nombre_cliente, h.estilo as nombre_habitacion
+        $sql = "SELECT r.id as id_reserva, r.fecha_ingreso, r.fecha_salida, u.nombre as nombre_cliente, h.estilo as nombre_habitacion
                 FROM reservas r
                 INNER JOIN usuarios u ON r.id_usuario = u.id
                 INNER JOIN habitaciones h ON r.id_habitacion = h.id

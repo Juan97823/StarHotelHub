@@ -2,11 +2,23 @@ let tblReservas;
 let myModal;
 
 document.addEventListener("DOMContentLoaded", function () {
-  if (document.getElementById("reservaModal")) {
+  console.log("reservas.js cargado");
+  console.log("base_url:", base_url);
+
+  // Verificar si existe la tabla
+  const tableElement = document.getElementById("tableReservas");
+  console.log("Tabla encontrada:", tableElement);
+
+  if (tableElement) {
+    console.log("Inicializando DataTable...");
     tblReservas = $("#tableReservas").DataTable({
       ajax: {
         url: base_url + "empleado/listar",
         dataSrc: "data",
+        error: function(xhr, error, code) {
+          console.error("Error al cargar datos:", error, code);
+          console.error("Respuesta:", xhr.responseText);
+        }
       },
       columns: [
         { data: 0 }, // ID
@@ -25,8 +37,13 @@ document.addEventListener("DOMContentLoaded", function () {
       dom: "Bfrtilp",
       buttons: ["copy", "csv", "excel", "pdf", "print"],
     });
+    console.log("DataTable inicializado");
+  }
 
-    myModal = new bootstrap.Modal(document.getElementById("reservaModal"));
+  // Inicializar modal si existe
+  const modalElement = document.getElementById("reservaModal");
+  if (modalElement) {
+    myModal = new bootstrap.Modal(modalElement);
 
     document
       .getElementById("habitacion")

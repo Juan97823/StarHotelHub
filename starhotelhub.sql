@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-10-2025 a las 05:13:27
+-- Tiempo de generación: 06-11-2025 a las 14:37:58
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -43,7 +43,8 @@ CREATE TABLE `contactos` (
 --
 
 INSERT INTO `contactos` (`id`, `nombre`, `correo`, `telefono`, `asunto`, `mensaje`, `fecha`, `estado`) VALUES
-(1, 'Angela', 'Angelalilianab@gmail.com', '3246869893', 'Cuanto vale servicio', '!111', '2025-10-26 18:17:06', 1);
+(1, 'Angela', 'Angelalilianab@gmail.com', '3246869893', 'Cuanto vale servicio', '!111', '2025-10-26 18:17:06', 2),
+(2, 'Juan Esteban Alfonso B', 'juanesab230403@gmail.com', '3043371609', 'Cancelacion de reserva', 'Quiero cancelar reserva', '2025-10-29 05:16:01', 1);
 
 -- --------------------------------------------------------
 
@@ -87,7 +88,13 @@ INSERT INTO `entradas` (`id`, `titulo`, `descripcion`, `slug`, `id_categoria`, `
 (18, 'Cenas temáticas para disfrutar en familia', 'Cada semana presentamos cenas especiales con temáticas divertidas, menús variados y actividades para toda la familia. ¡Una experiencia gastronómica única!', 'cenas-tematicas-familia', 2, 1, '2025-09-18 00:44:27', 23),
 (19, 'Organiza un retiro de bienestar en nuestro hotel', 'Ideal para empresas o grupos de amigos que buscan relajación y crecimiento personal. Actividades de mindfulness, yoga y alimentación saludable garantizan un retiro inolvidable.', 'retiro-bienestar-hotel', 3, 1, '2025-09-18 00:44:27', 23),
 (20, 'Consejos para evitar el jet lag', 'Aprende a minimizar los efectos del cambio de horario con recomendaciones de alimentación, sueño y actividades para mantener tu energía durante el viaje.', 'evitar-jet-lag', 4, 1, '2025-09-18 00:44:27', 23),
-(21, 'Nueva terraza panorámica con vista al atardecer', 'Disfruta de nuestra renovada terraza con vistas espectaculares y un ambiente único para relajarte, tomar fotos y disfrutar de bebidas al atardecer.', 'nueva-terrace-panoramica', 5, 1, '2025-09-30 22:58:00', 23);
+(21, 'Nueva terraza panorámica con vista al atardecer', 'Disfruta de nuestra renovada terraza con vistas espectaculares y un ambiente único para relajarte, tomar fotos y disfrutar de bebidas al atardecer.', 'nueva-terrace-panoramica', 5, 1, '2025-09-30 22:58:00', 23),
+(26, '1', '<p>1</p>', '1', 1, 0, '2025-10-29 04:18:18', 23),
+(27, 'Bienvenidos al Blog de StarHotelHub', '', 'bienvenidos-al-blog-de-starhotelhub', 1, 1, '2025-10-29 04:19:48', 23),
+(28, 'Bienvenidos al Blog de StarHotelHub', '', 'bienvenidos-al-blog-de-starhotelhub', 1, 1, '2025-10-29 04:19:58', 23),
+(29, '5 destinos imperdibles para tus próximas vacaciones', '', '5-destinos-imperdibles-para-tus-pr-ximas-vacaciones', 1, 1, '2025-10-29 04:20:07', 23),
+(30, '5 destinos imperdibles para tus próximas vacaciones', '', '5-destinos-imperdibles-para-tus-pr-ximas-vacaciones', 1, 1, '2025-10-29 04:22:04', 23),
+(31, 'Bienvenidos al Blog de StarHotelHub', '', 'bienvenidos-al-blog-de-starhotelhub', 1, 1, '2025-10-29 04:22:16', 23);
 
 -- --------------------------------------------------------
 
@@ -185,7 +192,7 @@ CREATE TABLE `reservas` (
 
 INSERT INTO `reservas` (`id`, `monto`, `num_transaccion`, `cod_reserva`, `fecha_ingreso`, `fecha_salida`, `fecha_reserva`, `descripcion`, `estado`, `metodo`, `facturacion`, `id_habitacion`, `id_usuario`, `id_empleado`) VALUES
 (5, 1350000.00, '5161266', '213219', '2025-04-01', '2025-04-16', '2025-10-26 19:21:33', '', 2, 1, '', 2, 26, NULL),
-(6, 90000.00, 'TX101', 'RES101', '2025-09-09', '2025-09-10', '2025-10-16 04:06:44', 'Reserva prueba -1 día', 1, 1, '', 2, 26, NULL),
+(6, 90000.00, 'TX101', 'RES101', '2025-09-09', '2025-09-10', '2025-10-29 05:00:05', 'Reserva prueba -1 día', 3, 1, '', 2, 26, NULL),
 (7, 120000.00, 'TX102', 'RES102', '2025-09-08', '2025-09-09', '2025-09-19 04:11:54', 'Reserva prueba -2 días', 1, 1, '', 3, 26, NULL),
 (8, 480000.00, 'TX103', 'RES103', '2025-09-07', '2025-09-08', '2025-09-19 04:12:08', 'Reserva prueba -3 días', 1, 1, '', 4, 26, NULL),
 (9, 80000.00, 'TX104', 'RES104', '2025-09-06', '2025-09-07', '2025-09-19 04:12:19', 'Reserva prueba -4 días', 1, 1, '', 5, 26, NULL),
@@ -202,7 +209,10 @@ INSERT INTO `reservas` (`id`, `monto`, `num_transaccion`, `cod_reserva`, `fecha_
 (176, 90000.00, '', '', '2025-10-15', '2025-10-16', '2025-10-16 04:06:53', '', 2, 1, '', 2, 26, NULL),
 (177, 90000.00, '', '', '2025-10-23', '2025-10-24', '2025-10-23 19:19:33', '', 1, 1, '', 2, 26, NULL),
 (178, 180000.00, 'EMP-1761503323', 'EMP-8142', '2025-10-26', '2025-10-28', '2025-10-26 18:28:43', '', 1, 3, '', 2, 27, NULL),
-(179, 480000.00, 'EMP-1761506793', 'EMP-2025', '2025-10-25', '2025-10-26', '2025-10-26 19:26:45', '', 2, 3, '', 4, 27, NULL);
+(179, 480000.00, 'EMP-1761506793', 'EMP-2025', '2025-10-25', '2025-10-26', '2025-10-26 19:26:45', '', 2, 3, '', 4, 27, NULL),
+(181, 520000.00, 'TX202510290000388085', 'RES191500', '2025-10-29', '2025-10-31', '2025-10-29 05:00:38', '', 1, 1, 'Factura Proforma', 1, 46, NULL),
+(182, 500000.00, 'TX202510290008131719', 'RES537196', '2025-10-29', '2025-10-30', '2025-10-29 05:08:13', '', 1, 1, 'Factura Prataforma', 6, 26, NULL),
+(183, 260000.00, 'TX202510290753127357', 'RES120734', '2025-10-31', '2025-11-01', '2025-10-29 12:53:12', '', 1, 1, 'Factura Prataforma', 1, 46, NULL);
 
 -- --------------------------------------------------------
 
@@ -259,6 +269,8 @@ CREATE TABLE `usuarios` (
   `nombre` varchar(150) NOT NULL,
   `correo` varchar(150) NOT NULL,
   `clave` varchar(150) NOT NULL,
+  `reset_token` varchar(100) DEFAULT NULL,
+  `reset_token_expira` datetime DEFAULT NULL,
   `token` varchar(100) DEFAULT NULL,
   `registrado_por` int(11) DEFAULT NULL,
   `verify` int(11) NOT NULL DEFAULT 0,
@@ -272,23 +284,22 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `clave`, `token`, `registrado_por`, `verify`, `rol`, `foto`, `estado`, `fecha`) VALUES
-(23, 'Juan', 'Juanesab423@gmail.com', '$2y$10$UxiR5EUdA2gkD6fHfcf3cu5qLbYVcmhXZ9EY38kmEAGUwC.vdrE4u', NULL, NULL, 0, 1, NULL, 1, '2025-10-27 18:53:43'),
-(25, 'Empleado', 'Empleado@gmail.com', '$2y$10$13KGtawbenSpE81bbt3S..MRqB.0pjrb78JVY9UzUTMLrc/LaZn16', NULL, NULL, 0, 2, NULL, 1, '2025-09-23 21:33:17'),
-(26, 'Sofia Salamanca', 'Salamancas648@gmail.com', '$2y$10$hEjwn2u5zkqjw.gOPYpD9etgUVMAl2jySl.Od0.6Apbb85E7TbKw.', NULL, NULL, 0, 3, NULL, 1, '2025-09-05 20:14:18'),
-(27, 'William Alfonso', 'Hwilliamac@gmail.com', '$2y$10$ec9bONxQsrzE3mGT4Zr6o.nBOtUKKQXHizyvDwj/uYJPCDdX.ofSK', NULL, 25, 0, 3, NULL, 1, '2025-10-28 04:40:23'),
-(28, 'Sebastian', 'Sebastian@gmail.com', '$2y$10$pEiGczFoVj5lPv2.yTsCsu0WaLg6KNE0RpDYPaciakdOBh02n9cuO', NULL, 25, 0, 3, NULL, 1, '2025-09-30 22:57:46'),
-(29, 'Cliente ', 'Cliente@gmail.com', '$2y$10$2CzvZA9gpQGXcjNuzJ6V1.q2ycvJwDKc8qBEIvwwF/3ggShMVnZ3q', NULL, 25, 0, 3, NULL, 1, '2025-09-17 12:19:40'),
-(30, 'Juan Bernal', 'Juanestebanalfonsobernal@gmail.com', '$2y$10$m4MR553aJpWUEtQihY6DJuqjOBW.XfOMIrnmwwShxNtYz9nJuB1ky', NULL, NULL, 0, 3, NULL, 1, '2025-09-24 19:24:00'),
-(33, 'Sebastian', 'juan12332@gmail.com', '$2y$10$LUmKX/JwssbIB9fgS5FeeOCcK6XZMYlCrrl6ysAzyADwuyoR5MJcK', NULL, NULL, 0, 3, NULL, 1, '2025-09-19 13:55:18'),
-(34, 'Jose', 'juan1243@gmail.com', '$2y$10$kHzJrO12v1kYTNAhZqN8NeCX4U.DDg4eph3eSintLf2tTX0a4ComC', NULL, NULL, 0, 3, NULL, 1, '2025-09-24 19:23:43'),
-(35, 'Juan', 'Juanesab42322@gmail.com', '$2y$10$h4kuZkBylzFsSXafy9JwxO5Fivo8jnuM1UUCYn15Vb.TuaxpWiJz6', NULL, NULL, 0, 3, NULL, 1, '2025-09-19 14:56:16'),
-(36, 'William Alfonso', 'Hwliiam@gmail.com', '$2y$10$OwpFV3HpqQpaRym06Mvf8.t2cZK8LUvKRdstL3v1x1DO9h.IZOz4.', NULL, NULL, 0, 3, NULL, 1, '2025-09-19 19:11:12'),
-(37, 'William Alfonso', '1234@gmail.com', '$2y$10$0PVwPFBT4Bi1KxgRx30aR.2WQ7M2XcLBLqqN2pQZRIqjcil5dBgXe', NULL, NULL, 0, 3, NULL, 0, '2025-09-24 15:56:44'),
-(38, 'Juan', 'juan123@gmail.com', '$2y$10$G5JWF6femdJl4OIO29do1uWF7/Otw.CTm3zV3RPi7LxYYewMFKXBy', NULL, NULL, 0, 3, NULL, 1, '2025-09-28 15:41:09'),
-(39, 'William Alfonso', 'Hwliiamac@gmail.com', '$2y$10$8R9lr.jbddieRtrtFK2NoeCNyZxNN0ZZberoI1woGM99JoK9N0cHG', NULL, NULL, 0, 3, NULL, 1, '2025-10-09 15:18:46'),
-(45, 'test', 'testprueba@gmail.com', '$2y$10$ENHrt97yD24fNcjM5McQqeVWXfHCgJzBDxxPK5OQdza.5oWh3TFPe', NULL, NULL, 0, 3, NULL, 1, '2025-10-27 17:34:26'),
-(46, 'Juan', 'Juanesab230403@gmail.com', '$2y$10$6sjEppLLTzqZUZ2.dMMvBuLxsqspxGlYPTOZQUvREd7J0e3zisYpW', NULL, NULL, 0, 3, NULL, 1, '2025-10-29 03:50:46');
+INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `clave`, `reset_token`, `reset_token_expira`, `token`, `registrado_por`, `verify`, `rol`, `foto`, `estado`, `fecha`) VALUES
+(23, 'Juan', 'Juanesab423@gmail.com', '$2y$10$UxiR5EUdA2gkD6fHfcf3cu5qLbYVcmhXZ9EY38kmEAGUwC.vdrE4u', NULL, NULL, NULL, NULL, 0, 1, NULL, 1, '2025-10-27 18:53:43'),
+(25, 'Empleado', 'Empleado@gmail.com', '$2y$10$13KGtawbenSpE81bbt3S..MRqB.0pjrb78JVY9UzUTMLrc/LaZn16', NULL, NULL, NULL, NULL, 0, 2, NULL, 1, '2025-09-23 21:33:17'),
+(26, 'Sofia Salamanca', 'Salamancas648@gmail.com', '$2y$10$hEjwn2u5zkqjw.gOPYpD9etgUVMAl2jySl.Od0.6Apbb85E7TbKw.', NULL, NULL, NULL, NULL, 0, 3, NULL, 1, '2025-09-05 20:14:18'),
+(27, 'William Alfonso', 'Hwilliamac@gmail.com', '$2y$10$ec9bONxQsrzE3mGT4Zr6o.nBOtUKKQXHizyvDwj/uYJPCDdX.ofSK', NULL, NULL, NULL, 25, 0, 3, NULL, 1, '2025-10-28 04:40:23'),
+(28, 'Sebastian', 'Sebastian@gmail.com', '$2y$10$pEiGczFoVj5lPv2.yTsCsu0WaLg6KNE0RpDYPaciakdOBh02n9cuO', NULL, NULL, NULL, 25, 0, 3, NULL, 1, '2025-09-30 22:57:46'),
+(29, 'Cliente ', 'Cliente@gmail.com', '$2y$10$2CzvZA9gpQGXcjNuzJ6V1.q2ycvJwDKc8qBEIvwwF/3ggShMVnZ3q', NULL, NULL, NULL, 25, 0, 3, NULL, 1, '2025-09-17 12:19:40'),
+(30, 'Juan Bernal', 'Juanestebanalfonsobernal@gmail.com', '$2y$10$m4MR553aJpWUEtQihY6DJuqjOBW.XfOMIrnmwwShxNtYz9nJuB1ky', NULL, NULL, NULL, NULL, 0, 3, NULL, 1, '2025-09-24 19:24:00'),
+(33, 'Sebastian', 'juan12332@gmail.com', '$2y$10$LUmKX/JwssbIB9fgS5FeeOCcK6XZMYlCrrl6ysAzyADwuyoR5MJcK', NULL, NULL, NULL, NULL, 0, 3, NULL, 1, '2025-09-19 13:55:18'),
+(34, 'Jose', 'juan1243@gmail.com', '$2y$10$kHzJrO12v1kYTNAhZqN8NeCX4U.DDg4eph3eSintLf2tTX0a4ComC', NULL, NULL, NULL, NULL, 0, 3, NULL, 1, '2025-09-24 19:23:43'),
+(35, 'Juan', 'Juanesab42322@gmail.com', '$2y$10$h4kuZkBylzFsSXafy9JwxO5Fivo8jnuM1UUCYn15Vb.TuaxpWiJz6', NULL, NULL, NULL, NULL, 0, 3, NULL, 1, '2025-09-19 14:56:16'),
+(36, 'William Alfonso', 'Hwliiam@gmail.com', '$2y$10$OwpFV3HpqQpaRym06Mvf8.t2cZK8LUvKRdstL3v1x1DO9h.IZOz4.', NULL, NULL, NULL, NULL, 0, 3, NULL, 1, '2025-09-19 19:11:12'),
+(37, 'William Alfonso', '1234@gmail.com', '$2y$10$0PVwPFBT4Bi1KxgRx30aR.2WQ7M2XcLBLqqN2pQZRIqjcil5dBgXe', NULL, NULL, NULL, NULL, 0, 3, NULL, 0, '2025-09-24 15:56:44'),
+(38, 'Juan', 'juan123@gmail.com', '$2y$10$G5JWF6femdJl4OIO29do1uWF7/Otw.CTm3zV3RPi7LxYYewMFKXBy', NULL, NULL, NULL, NULL, 0, 3, NULL, 1, '2025-09-28 15:41:09'),
+(39, 'William Alfonso', 'Hwliiamac@gmail.com', '$2y$10$8R9lr.jbddieRtrtFK2NoeCNyZxNN0ZZberoI1woGM99JoK9N0cHG', NULL, NULL, NULL, NULL, 0, 3, NULL, 1, '2025-10-09 15:18:46'),
+(46, 'Juan', 'Juanesab230403@gmail.com', '$2y$10$LK3TCOVSiXows3VQuV3JdO3tNm15fYabn42IDw8Q7fwYZ1HvmdqZu', NULL, NULL, NULL, NULL, 0, 3, NULL, 1, '2025-10-29 19:04:53');
 
 --
 -- Índices para tablas volcadas
@@ -353,7 +364,8 @@ ALTER TABLE `sliders`
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
   ADD KEY `usuarios_ibfk_1` (`rol`),
-  ADD KEY `usuarios_ibfk_2` (`registrado_por`);
+  ADD KEY `usuarios_ibfk_2` (`registrado_por`),
+  ADD KEY `idx_reset_token` (`reset_token`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -363,13 +375,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `contactos`
 --
 ALTER TABLE `contactos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `entradas`
 --
 ALTER TABLE `entradas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de la tabla `habitaciones`
@@ -387,7 +399,7 @@ ALTER TABLE `pagos`
 -- AUTO_INCREMENT de la tabla `reservas`
 --
 ALTER TABLE `reservas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`

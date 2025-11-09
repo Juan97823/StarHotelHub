@@ -2,12 +2,6 @@
 // Ajustar zona horaria a Colombia (America/Bogota)
 date_default_timezone_set('America/Bogota');
 
-// Configuración de errores
-error_reporting(E_ALL);
-ini_set('display_errors', 0); // No mostrar errores en producción
-ini_set('log_errors', 1);
-ini_set('error_log', dirname(__DIR__) . '/logs/error.log');
-
 // Habilitar reporte de errores
 error_reporting(E_ALL);
 ini_set('display_errors', 0);

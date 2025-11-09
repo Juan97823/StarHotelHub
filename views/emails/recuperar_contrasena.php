@@ -146,43 +146,47 @@
             </div>
 
             <div class="message">
-                Hemos recibido una solicitud para recuperar tu contraseña en StarHotelHub. 
-                A continuación encontrarás tu contraseña temporal para acceder a tu cuenta.
+                Hemos recibido una solicitud para restablecer tu contraseña en StarHotelHub.
+                Haz clic en el botón de abajo para crear una nueva contraseña.
             </div>
 
-            <!-- Contraseña Temporal -->
-            <div class="password-box">
-                <div class="password-label">Tu contraseña temporal es:</div>
-                <div class="password-value"><?php echo htmlspecialchars($clave_temporal); ?></div>
+            <!-- Botón de Acción Principal -->
+            <div class="button-container">
+                <a href="<?php echo htmlspecialchars($enlace_reset); ?>" class="button">Restablecer Mi Contraseña</a>
             </div>
 
             <!-- Instrucciones -->
             <div class="instructions">
                 <strong>Pasos a seguir:</strong>
                 <ol>
-                    <li>Accede a tu cuenta usando esta contraseña temporal</li>
-                    <li>Ve a tu perfil o configuración de cuenta</li>
-                    <li>Cambia tu contraseña por una nueva y segura</li>
-                    <li>Guarda los cambios</li>
+                    <li>Haz clic en el botón "Restablecer Mi Contraseña"</li>
+                    <li>Ingresa tu nueva contraseña (mínimo 6 caracteres)</li>
+                    <li>Confirma tu nueva contraseña</li>
+                    <li>¡Listo! Ya podrás iniciar sesión con tu nueva contraseña</li>
                 </ol>
+            </div>
+
+            <!-- Enlace alternativo -->
+            <div class="password-box">
+                <div class="password-label">O copia y pega este enlace en tu navegador:</div>
+                <div style="font-size: 12px; color: #667eea; word-break: break-all; margin-top: 10px;">
+                    <?php echo htmlspecialchars($enlace_reset); ?>
+                </div>
             </div>
 
             <!-- Advertencia -->
             <div class="warning">
-                <strong>Importante:</strong>
-                Esta contraseña temporal es válida por 24 horas. 
-                Si no la utilizas en este tiempo, deberás solicitar una nueva recuperación de contraseña.
-            </div>
-
-            <!-- Botón de Acción -->
-            <div class="button-container">
-                <a href="<?php echo RUTA_PRINCIPAL; ?>login" class="button">Ir al Login</a>
+                <strong>⏰ Importante:</strong>
+                Este enlace es válido por <strong>1 hora</strong> por razones de seguridad.
+                Si no lo utilizas en este tiempo, deberás solicitar un nuevo enlace de restablecimiento.
             </div>
 
             <!-- Mensaje de Seguridad -->
-            <div class="message" style="font-size: 12px; color: #999; margin-top: 30px;">
-                Si no solicitaste esta recuperación de contraseña, por favor ignora este email. 
-                Tu cuenta seguirá siendo segura con tu contraseña actual.
+            <div class="message" style="font-size: 12px; color: #999; margin-top: 30px; background-color: #f8f9fa; padding: 15px; border-radius: 4px;">
+                <strong>🔒 Seguridad:</strong><br>
+                Si <strong>NO</strong> solicitaste restablecer tu contraseña, puedes ignorar este email con total tranquilidad.
+                <strong>Tu contraseña actual permanecerá activa</strong> y tu cuenta seguirá siendo segura.
+                El cambio solo se realizará si haces clic en el enlace e ingresas una nueva contraseña.
             </div>
         </div>
 

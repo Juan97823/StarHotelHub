@@ -83,7 +83,9 @@ class EmailHelper
     public function setSubject($subject)
     {
         $this->subject = $subject;
-        $this->mail->Subject = $subject;
+        if ($this->mail !== null) {
+            $this->mail->Subject = $subject;
+        }
         return $this;
     }
 
@@ -93,7 +95,9 @@ class EmailHelper
     public function setBody($body)
     {
         $this->body = $body;
-        $this->mail->Body = $body;
+        if ($this->mail !== null) {
+            $this->mail->Body = $body;
+        }
         return $this;
     }
 
