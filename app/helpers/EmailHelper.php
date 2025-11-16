@@ -112,18 +112,29 @@ class EmailHelper
             throw new Exception("Plantilla de email no encontrada: $template");
         }
 
-        // Extraer variables para la plantilla
+        // Renderizar plantilla con las variables
+        $this->body = $this->renderTemplate($templatePath, $data);
+
+        // Actualizar el body en PHPMailer si está disponible
+        if ($this->mail !== null) {
+            $this->mail->Body = $this->body;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Renderizar plantilla con variables
+     */
+    private function renderTemplate($templatePath, $data = [])
+    {
+        // Extraer variables para que estén disponibles en la plantilla
         extract($data);
 
         // Capturar salida de la plantilla
         ob_start();
         include $templatePath;
-        $this->body = ob_get_clean();
-
-        // Actualizar el body en PHPMailer
-        $this->mail->Body = $this->body;
-
-        return $this;
+        return ob_get_clean();
     }
 
     /**
