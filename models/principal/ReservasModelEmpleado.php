@@ -81,16 +81,23 @@ class ReservasModelEmpleado extends Query
      */
     public function registrarReserva($datos)
     {
-        $sql = "INSERT INTO reservas 
-                    (id_habitacion, id_usuario, fecha_ingreso, fecha_salida, monto, descripcion, estado) 
-                VALUES (?, ?, ?, ?, ?, ?, 1)";
+        // Generar códigos únicos para nueva reserva
+        $num_transaccion = 'EMP-' . date('YmdHis') . rand(1000, 9999);
+        $cod_reserva = 'EMP-' . str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
+
+        $sql = "INSERT INTO reservas
+                    (id_habitacion, id_usuario, fecha_ingreso, fecha_salida, monto, descripcion, estado, num_transaccion, cod_reserva, metodo, facturacion)
+                VALUES (?, ?, ?, ?, ?, ?, 1, ?, ?, 3, 'Factura Empleado')";
+        // estado 1 = Pendiente, metodo 3 = Manual/Empleado
         $params = [
             $datos['habitacion'],
             $datos['cliente'],
             $datos['fecha_ingreso'],
             $datos['fecha_salida'],
             $datos['monto'],
-            $datos['descripcion'] ?? null
+            $datos['descripcion'] ?? null,
+            $num_transaccion,
+            $cod_reserva
         ];
         return $this->save($sql, $params);
     }

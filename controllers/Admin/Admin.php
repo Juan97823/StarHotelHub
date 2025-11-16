@@ -5,7 +5,10 @@ class Admin extends Controller
 {
     public function __construct()
     {
-        parent::__construct();
+        // No llamar a parent::__construct() para evitar cargar AdminModel
+        require_once 'config/app/Query.php';
+        $this->views = new Views();
+
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }

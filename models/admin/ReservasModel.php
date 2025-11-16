@@ -36,14 +36,21 @@ class ReservasModel extends Query
     public function guardarReserva($datos)
     {
         if (empty($datos['idReserva'])) {
-            $sql = "INSERT INTO reservas (id_habitacion, id_usuario, fecha_ingreso, fecha_salida, monto, estado)
-                    VALUES (?, ?, ?, ?, ?, 1)"; // Por defecto, estado 1 = Pendiente
+            // Generar códigos únicos para nueva reserva
+            $num_transaccion = 'ADM-' . date('YmdHis') . rand(1000, 9999);
+            $cod_reserva = 'ADM-' . str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
+
+            $sql = "INSERT INTO reservas (id_habitacion, id_usuario, fecha_ingreso, fecha_salida, monto, estado, num_transaccion, cod_reserva, metodo, descripcion, facturacion)
+                    VALUES (?, ?, ?, ?, ?, 1, ?, ?, 2, 'Reserva creada por administrador', 'Factura Administrativa')";
+            // estado 1 = Pendiente, metodo 2 = Administrativo
             $params = [
                 $datos['habitacion'],
                 $datos['cliente'],
                 $datos['fecha_ingreso'],
                 $datos['fecha_salida'],
-                $datos['monto']
+                $datos['monto'],
+                $num_transaccion,
+                $cod_reserva
             ];
             return $this->save($sql, $params);
         } else {
