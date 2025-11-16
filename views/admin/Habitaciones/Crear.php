@@ -13,10 +13,17 @@
                         enctype="multipart/form-data">
                         <input type="hidden" name="id" value=""> <!-- Campo oculto para la edición -->
 
-                        <div class="mb-3">
-                            <label for="estilo" class="form-label">Estilo de Habitación</label>
-                            <input id="estilo" class="form-control" type="text" name="estilo"
-                                placeholder="Ej: Suite, Doble, Individual" required>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="estilo" class="form-label">Estilo de Habitación</label>
+                                <input id="estilo" class="form-control" type="text" name="estilo"
+                                    placeholder="Ej: Suite, Doble, Individual" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="numero" class="form-label">Número de Habitación</label>
+                                <input id="numero" class="form-control" type="number" name="numero"
+                                    placeholder="Ej: 101, 102, 201" required>
+                            </div>
                         </div>
 
                         <div class="row">
