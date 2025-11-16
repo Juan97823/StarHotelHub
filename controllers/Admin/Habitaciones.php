@@ -47,6 +47,10 @@ class Habitaciones extends Controller
     public function guardar()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            error_log("=== GUARDAR HABITACIÓN ===");
+            error_log("POST data: " . print_r($_POST, true));
+            error_log("FILES data: " . print_r($_FILES, true));
+
             $id          = $_POST['id'] ?? null;
             $estilo      = $_POST['estilo'] ?? '';
             $numero      = $_POST['numero'] ?? 0;
@@ -57,6 +61,8 @@ class Habitaciones extends Controller
             $foto_actual = $_POST['foto_actual'] ?? '';
             $foto        = $_FILES['foto'] ?? null;
 
+            error_log("ID: $id, Estilo: $estilo, Numero: $numero, Capacidad: $capacidad, Precio: $precio");
+
             $nombre_foto = $foto_actual;
             if ($foto && $foto['name'] !== '') {
                 $destino = 'assets/img/habitaciones/';
@@ -64,21 +70,33 @@ class Habitaciones extends Controller
                     mkdir($destino, 0777, true);
                 }
                 $nombre_foto = date('YmdHis') . '_' . basename($foto['name']);
+                error_log("Intentando subir foto: $nombre_foto");
                 if (move_uploaded_file($foto['tmp_name'], $destino . $nombre_foto)) {
+                    error_log("Foto subida exitosamente");
                     if (!empty($foto_actual) && file_exists($destino . $foto_actual)) {
                         unlink($destino . $foto_actual);
                     }
                 } else {
+                    error_log("Error al subir foto");
                     $nombre_foto = $foto_actual;
                 }
             }
 
-            if (is_null($id)) {
-                $this->model->registrarHabitacion($estilo, $numero, $capacidad, $precio, $descripcion, $servicios, $nombre_foto);
-                $mensaje = ['tipo' => 'success', 'mensaje' => 'Habitación registrada con éxito.'];
-            } else {
-                $this->model->actualizarHabitacion($estilo, $numero, $capacidad, $precio, $descripcion, $servicios, $nombre_foto, $id);
-                $mensaje = ['tipo' => 'success', 'mensaje' => 'Habitación actualizada con éxito.'];
+            try {
+                if (is_null($id)) {
+                    error_log("Registrando nueva habitación...");
+                    $resultado = $this->model->registrarHabitacion($estilo, $numero, $capacidad, $precio, $descripcion, $servicios, $nombre_foto);
+                    error_log("Resultado de registrarHabitacion: " . print_r($resultado, true));
+                    $mensaje = ['tipo' => 'success', 'mensaje' => 'Habitación registrada con éxito.'];
+                } else {
+                    error_log("Actualizando habitación ID: $id");
+                    $resultado = $this->model->actualizarHabitacion($estilo, $numero, $capacidad, $precio, $descripcion, $servicios, $nombre_foto, $id);
+                    error_log("Resultado de actualizarHabitacion: " . print_r($resultado, true));
+                    $mensaje = ['tipo' => 'success', 'mensaje' => 'Habitación actualizada con éxito.'];
+                }
+            } catch (Exception $e) {
+                error_log("ERROR al guardar habitación: " . $e->getMessage());
+                $mensaje = ['tipo' => 'error', 'mensaje' => 'Error al guardar: ' . $e->getMessage()];
             }
 
             $_SESSION['alerta'] = $mensaje;

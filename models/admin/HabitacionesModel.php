@@ -19,11 +19,26 @@ class HabitacionesModel extends Query
     // Registrar nueva habitación
     public function registrarHabitacion($estilo, $numero, $capacidad, $precio, $descripcion, $servicios, $foto)
     {
+        error_log("=== REGISTRAR HABITACIÓN EN MODEL ===");
+        error_log("Estilo: $estilo, Numero: $numero, Capacidad: $capacidad, Precio: $precio");
+        error_log("Descripcion: $descripcion");
+        error_log("Servicios: $servicios");
+        error_log("Foto: $foto");
+
         $slug = $this->generateSlug($estilo);
-        $sql = "INSERT INTO habitaciones (estilo, numero, capacidad, precio, descripcion, servicios, foto, slug, estado) 
+        error_log("Slug generado: $slug");
+
+        $sql = "INSERT INTO habitaciones (estilo, numero, capacidad, precio, descripcion, servicios, foto, slug, estado)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
         $datos = [$estilo, $numero, $capacidad, $precio, $descripcion, $servicios, $foto, $slug];
-        return $this->insert($sql, $datos);
+
+        error_log("SQL: $sql");
+        error_log("Datos: " . print_r($datos, true));
+
+        $resultado = $this->insert($sql, $datos);
+        error_log("Resultado insert: " . print_r($resultado, true));
+
+        return $resultado;
     }
 
     // Obtener una habitación específica
