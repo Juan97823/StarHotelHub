@@ -11,7 +11,7 @@
                     <!-- Corregido: La acción del formulario apunta al método 'guardar' -->
                     <form action="<?php echo RUTA_PRINCIPAL . 'admin/habitaciones/guardar'; ?>" method="post"
                         enctype="multipart/form-data">
-                        <input type="hidden" name="id" value=""> <!-- Campo oculto para la edición -->
+                        <!-- No incluir campo id para nueva habitación -->
 
                         <div class="row">
                             <div class="col-md-6 mb-3">

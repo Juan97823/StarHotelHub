@@ -51,7 +51,8 @@ class Habitaciones extends Controller
             error_log("POST data: " . print_r($_POST, true));
             error_log("FILES data: " . print_r($_FILES, true));
 
-            $id          = $_POST['id'] ?? null;
+            // Convertir string vacío a null para el ID
+            $id          = !empty($_POST['id']) ? $_POST['id'] : null;
             $estilo      = $_POST['estilo'] ?? '';
             $numero      = $_POST['numero'] ?? 0;
             $capacidad   = $_POST['capacidad'] ?? 1;
@@ -61,7 +62,7 @@ class Habitaciones extends Controller
             $foto_actual = $_POST['foto_actual'] ?? '';
             $foto        = $_FILES['foto'] ?? null;
 
-            error_log("ID: $id, Estilo: $estilo, Numero: $numero, Capacidad: $capacidad, Precio: $precio");
+            error_log("ID: " . ($id ?? 'NULL') . ", Estilo: $estilo, Numero: $numero, Capacidad: $capacidad, Precio: $precio");
 
             $nombre_foto = $foto_actual;
             if ($foto && $foto['name'] !== '') {
