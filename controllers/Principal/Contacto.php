@@ -19,6 +19,9 @@ class Contacto extends Controller
      */
     public function enviar()
     {
+        error_log("=== CONTACTO::ENVIAR ===");
+        error_log("POST data: " . print_r($_POST, true));
+
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             http_response_code(405);
             echo json_encode(['tipo' => 'error', 'msg' => 'PETICIÓN INVÁLIDA'], JSON_UNESCAPED_UNICODE);
@@ -27,6 +30,7 @@ class Contacto extends Controller
 
         // Validar campos requeridos
         if (!validarCampos(['name', 'correo', 'phone_number', 'msg_subject', 'message'])) {
+            error_log("ERROR: Campos faltantes");
             echo json_encode(['tipo' => 'warning', 'msg' => 'TODOS LOS CAMPOS SON OBLIGATORIOS'], JSON_UNESCAPED_UNICODE);
             exit;
         }
@@ -38,23 +42,30 @@ class Contacto extends Controller
         $asunto = sanitizar($_POST['msg_subject']);
         $mensaje = sanitizar($_POST['message']);
 
+        error_log("Datos sanitizados - Nombre: $nombre, Correo: $correo, Telefono: $telefono");
+
         // Validar email
         if (!validarEmail($correo)) {
+            error_log("ERROR: Email inválido: $correo");
             echo json_encode(['tipo' => 'warning', 'msg' => 'EMAIL INVÁLIDO'], JSON_UNESCAPED_UNICODE);
             exit;
         }
 
         // Validar teléfono (solo números y caracteres permitidos)
         if (!preg_match('/^[0-9\s\-\+\(\)]+$/', $telefono)) {
+            error_log("ERROR: Teléfono inválido: $telefono");
             echo json_encode(['tipo' => 'warning', 'msg' => 'TELÉFONO INVÁLIDO'], JSON_UNESCAPED_UNICODE);
             exit;
         }
 
         // Guardar en BD
+        error_log("Intentando guardar en BD...");
         $resultado = $this->model->guardarContacto($nombre, $correo, $telefono, $asunto, $mensaje);
+        error_log("Resultado de guardarContacto: " . ($resultado ? $resultado : 'FALSE'));
 
         if ($resultado > 0) {
             // Enviar email de confirmación
+            error_log("Enviando emails de confirmación...");
             $this->enviarEmailContacto($nombre, $correo, $telefono, $asunto, $mensaje);
 
             echo json_encode([
@@ -62,6 +73,7 @@ class Contacto extends Controller
                 'msg' => 'MENSAJE ENVIADO CORRECTAMENTE. NOS PONDREMOS EN CONTACTO PRONTO.'
             ], JSON_UNESCAPED_UNICODE);
         } else {
+            error_log("ERROR: No se pudo guardar en BD. Resultado: " . var_export($resultado, true));
             echo json_encode([
                 'tipo' => 'error',
                 'msg' => 'ERROR AL ENVIAR EL MENSAJE. INTENTA DE NUEVO.'
