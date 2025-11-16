@@ -90,4 +90,58 @@ class HabitacionesModel extends Query
             $temp_slug = $slug . '-' . $counter;
         }
     }
+
+    // --- MÉTODOS DE GALERÍA ---
+
+    /**
+     * Obtener galería de imágenes de una habitación
+     * @param int $id_habitacion ID de la habitación
+     * @param bool $soloActivas Si es true, solo devuelve imágenes activas
+     * @return array Array de imágenes
+     */
+    public function getGaleria($id_habitacion, $soloActivas = true)
+    {
+        $sql = "SELECT * FROM galeria_habitaciones WHERE id_habitacion = ?";
+        if ($soloActivas) {
+            $sql .= " AND estado = 1";
+        }
+        $sql .= " ORDER BY id DESC";
+        return $this->selectAll($sql, [$id_habitacion]) ?? [];
+    }
+
+    /**
+     * Insertar imagen en la galería
+     */
+    public function insertarImagenGaleria($nombre_imagen, $id_habitacion)
+    {
+        $sql = "INSERT INTO galeria_habitaciones (id_habitacion, imagen, estado) VALUES (?, ?, 1)";
+        return $this->save($sql, [$id_habitacion, $nombre_imagen]);
+    }
+
+    /**
+     * Obtener una foto específica de la galería
+     */
+    public function getFoto($id_foto)
+    {
+        $sql = "SELECT * FROM galeria_habitaciones WHERE id = ?";
+        return $this->select($sql, [$id_foto]);
+    }
+
+    /**
+     * Inhabilitar (eliminar lógicamente) una foto de la galería
+     */
+    public function inhabilitarFotoGaleria($id_foto)
+    {
+        $sql = "UPDATE galeria_habitaciones SET estado = 0 WHERE id = ?";
+        return $this->save($sql, [$id_foto]);
+    }
+
+    /**
+     * Reingresar (reactivar) una foto de la galería
+     */
+    public function reingresarFotoGaleria($id_foto)
+    {
+        $sql = "UPDATE galeria_habitaciones SET estado = 1 WHERE id = ?";
+        return $this->save($sql, [$id_foto]);
+    }
 }
