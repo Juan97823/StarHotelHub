@@ -4,7 +4,7 @@ class Contacto extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->cargarModel('Contacto');
+        $this->cargarModel('ContactoModel');
     }
 
     public function index()
