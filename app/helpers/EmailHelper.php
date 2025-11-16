@@ -128,13 +128,23 @@ class EmailHelper
      */
     private function renderTemplate($templatePath, $data = [])
     {
+        error_log("=== RENDERIZANDO PLANTILLA ===");
+        error_log("Template: $templatePath");
+        error_log("Data: " . print_r($data, true));
+
         // Extraer variables para que estén disponibles en la plantilla
         extract($data);
+
+        error_log("Variables extraídas. Verificando clave_temporal: " . (isset($clave_temporal) ? $clave_temporal : 'NO DEFINIDA'));
 
         // Capturar salida de la plantilla
         ob_start();
         include $templatePath;
-        return ob_get_clean();
+        $output = ob_get_clean();
+
+        error_log("Plantilla renderizada. Longitud: " . strlen($output));
+
+        return $output;
     }
 
     /**

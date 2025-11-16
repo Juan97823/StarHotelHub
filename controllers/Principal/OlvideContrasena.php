@@ -94,6 +94,11 @@ class OlvideContrasena extends Controller
             require_once RUTA_RAIZ . '/config/email.php';
             require_once RUTA_RAIZ . '/app/helpers/EmailHelper.php';
 
+            error_log("=== ENVIANDO EMAIL ===");
+            error_log("Nombre: $nombre");
+            error_log("Correo: $correo");
+            error_log("Clave temporal: $clave_temporal");
+
             $email = new EmailHelper();
             $email->setTo($correo, $nombre)
                 ->setSubject('Recuperación de Contraseña - StarHotelHub')
@@ -103,6 +108,8 @@ class OlvideContrasena extends Controller
                     'clave_temporal' => $clave_temporal
                 ])
                 ->send();
+
+            error_log("Email enviado correctamente");
 
         } catch (Exception $e) {
             error_log("Error al enviar email de recuperación: " . $e->getMessage());
