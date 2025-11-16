@@ -59,8 +59,8 @@ if ($isAdmin && (count($array) == 1 || (count($array) == 2 && empty($array[1])))
 } else {
     $indiceUrl = $isAdmin ? 1 : 0;
 
-    if ($isAdmin && isset($array[1]) && $array[1] === 'dashboard') {
-        // Caso especial: /admin/dashboard
+    if ($isAdmin && isset($array[1]) && $array[1] === 'dashboard' && !isset($array[2])) {
+        // Caso especial: /admin/dashboard (sin método adicional)
         $controller = 'Admin';
         $metodo = 'dashboard';
     } else {
