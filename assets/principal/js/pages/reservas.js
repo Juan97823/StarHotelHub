@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("reservas.js cargado correctamente");
   // --- LOGICA PARA LA PÁGINA DE RESERVA DETALLADA (CON CALENDARIO) ---
   const calendarEl = document.getElementById("calendar");
 
   if (calendarEl) {
+    console.log("Calendario encontrado, inicializando...");
     const f_llegada = document.querySelector("#f_llegada");
     const f_salida = document.querySelector("#f_salida");
     const habitacionSelect = document.querySelector("#habitacion");
@@ -169,17 +171,25 @@ document.addEventListener("DOMContentLoaded", function () {
     calendar.render();
 
     if (frm) {
+      console.log("Formulario encontrado, agregando event listener");
       frm.addEventListener("submit", async function (e) {
+        console.log("Submit interceptado por JavaScript");
         e.preventDefault();
-        if (isSubmitting) return;
+        if (isSubmitting) {
+          console.log("Ya se está procesando, ignorando...");
+          return;
+        }
         isSubmitting = true;
         const btnTextOriginal = btnSubmit.innerHTML;
         btnSubmit.disabled = true;
         btnSubmit.innerHTML = 'Procesando...';
         try {
+          console.log("Enviando fetch a:", frm.action);
           const response = await fetch(frm.action, { method: "POST", body: new FormData(frm) });
           const data = await response.json();
+          console.log("Respuesta recibida:", data);
           if (data.status === "success" && data.redirect) {
+            console.log("Redirigiendo a:", data.redirect);
             window.location.href = data.redirect;
           } else {
             alertaSW(data.msg || "Error al registrar la reserva", "error");
@@ -188,12 +198,15 @@ document.addEventListener("DOMContentLoaded", function () {
             btnSubmit.innerHTML = btnTextOriginal;
           }
         } catch (error) {
+          console.error("Error en fetch:", error);
           alertaSW("Error de conexión con el servidor.", "error");
           isSubmitting = false;
           btnSubmit.disabled = false;
           btnSubmit.innerHTML = btnTextOriginal;
         }
       });
+    } else {
+      console.log("Formulario NO encontrado");
     }
 
     window.addEventListener("load", () => {
