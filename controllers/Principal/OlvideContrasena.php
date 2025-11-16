@@ -3,7 +3,9 @@ class OlvideContrasena extends Controller
 {
     public function __construct()
     {
-        parent::__construct();
+        // No llamar a parent::__construct() para evitar cargar OlvideContrasenaModel
+        require_once 'config/app/Query.php';
+        $this->views = new Views();
         $this->cargarModel('Registro');
     }
 
