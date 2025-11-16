@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
 
         const formData = new FormData(form);
-        const url = '<?php echo RUTA_PRINCIPAL; ?>olvidecontrasena/recuperar';
+        const url = '<?php echo RUTA_PRINCIPAL; ?>OlvideContrasena/recuperar';
 
         fetch(url, {
             method: 'POST',
