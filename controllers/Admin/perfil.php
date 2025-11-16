@@ -5,7 +5,7 @@ class Perfil extends Controller
 {
     public function __construct()
     {
-        parent::__construct();
+        session_start();
         verificarSesion(1);
         $this->cargarModel('UsuariosModel');
     }
