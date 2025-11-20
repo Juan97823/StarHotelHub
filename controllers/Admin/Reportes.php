@@ -7,7 +7,7 @@ class Reportes extends Controller
     {
         parent::__construct();          // Inicializa views y model
         //verificarRol(1);                // Solo admins
-        $this->cargarModel('Reportes'); // Cargar ReportesModel.php
+        $this->cargarModel('ReportesModel'); // Cargar ReportesModel.php
     }
 
     public function index()
