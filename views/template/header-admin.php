@@ -43,13 +43,6 @@ $nombreUsuario = htmlspecialchars($nombreUsuario, ENT_QUOTES, 'UTF-8');
 
     <script src="<?php echo $urlBase . 'assets/admin/js/pace.min.js'; ?>"></script>
 
-    <!-- ** INICIO DE LA CORRECCIÓN ** -->
-    <!-- Definir la constante RUTA_PRINCIPAL como una variable global de JavaScript -->
-    <script>
-        const RUTA_PRINCIPAL = "<?php echo RUTA_PRINCIPAL; ?>";
-    </script>
-    <!-- ** FIN DE LA CORRECCIÓN ** -->
-
 </head>
 
 <body>
