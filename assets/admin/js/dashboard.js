@@ -58,14 +58,14 @@ document.addEventListener("DOMContentLoaded", function () {
     ultimasReservas.forEach((reserva) => {
       let estadoBadge;
       switch (reserva.estado) {
-        case 1:
+        case 0:
           estadoBadge = '<span class="badge bg-warning">Pendiente</span>';
           break;
-        case 2:
+        case 1:
           estadoBadge = '<span class="badge bg-success">Confirmada</span>';
           break;
-        case 3:
-          estadoBadge = '<span class="badge bg-danger">Cancelada</span>';
+        case 2:
+          estadoBadge = '<span class="badge bg-info">Completada</span>';
           break;
         default:
           estadoBadge = '<span class="badge bg-secondary">Desconocido</span>';

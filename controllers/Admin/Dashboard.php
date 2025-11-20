@@ -62,14 +62,14 @@ class Dashboard extends Controller
         foreach ($ultimasReservasRaw as $reserva) {
             // Convertir estado numérico a texto
             switch ($reserva['estado']) {
-                case 1:
+                case 0:
                     $estado_texto = 'Pendiente';
                     break;
-                case 2:
-                    $estado_texto = 'Confirmado';
+                case 1:
+                    $estado_texto = 'Confirmada';
                     break;
-                case 3:
-                    $estado_texto = 'Cancelado';
+                case 2:
+                    $estado_texto = 'Completada';
                     break;
                 default:
                     $estado_texto = 'Desconocido';
