@@ -105,4 +105,21 @@ class UsuariosModel extends Query
         return $this->save($sql, [$hash, $id]);
     }
 
+    /**
+     * Actualizar perfil de usuario (solo nombre y correo, sin cambiar rol)
+     */
+    public function actualizarPerfil($id, $nombre, $correo)
+    {
+        // Verificar si el correo ya existe en otro usuario
+        $sqlCheck = "SELECT id FROM usuarios WHERE correo = ? AND id != ?";
+        $existe = $this->select($sqlCheck, [$correo, $id]);
+
+        if ($existe) {
+            return 'existe';
+        }
+
+        $sql = "UPDATE usuarios SET nombre = ?, correo = ? WHERE id = ?";
+        return $this->save($sql, [$nombre, $correo, $id]);
+    }
+
 }
