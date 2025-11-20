@@ -30,14 +30,14 @@
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/plugins/chartjs/js/Chart.min.js'; ?>"></script>
 
-<!-- Scripts de la APLICACIÓN -->
-<script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/js/app.js'; ?>"></script>
-<script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/js/custom.js'; ?>"></script>
-
-<!-- Variables Globales JS -->
+<!-- Variables Globales JS - DEBE IR ANTES DE LOS SCRIPTS -->
 <script>
     const base_url = '<?php echo RUTA_PRINCIPAL; ?>';
 </script>
+
+<!-- Scripts de la APLICACIÓN -->
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/js/app.js'; ?>"></script>
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/js/custom.js'; ?>"></script>
 
 <!-- Scripts específicos de la PÁGINA -->
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/admin/js/Pages/reservas.js'; ?>"></script>

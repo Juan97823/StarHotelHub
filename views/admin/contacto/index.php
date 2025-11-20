@@ -45,5 +45,5 @@
 
 <?php include_once 'views/template/footer-admin.php'; ?>
 
-<script src="<?php echo RUTA_PRINCIPAL; ?>assets/admin/js/Pages/ContactoMensajes.js"></script>
+<script src="<?php echo RUTA_PRINCIPAL; ?>assets/admin/js/Pages/ContactoMensajes.js?v=<?php echo time(); ?>"></script>
 
