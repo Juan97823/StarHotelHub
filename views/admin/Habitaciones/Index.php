@@ -43,8 +43,4 @@
 
 <?php include_once 'views/template/footer-admin.php'; ?>
 
-<!-- Definir la constante en JS ANTES de cargar el script -->
-<script>
-    const RUTA_PRINCIPAL = "<?php echo RUTA_PRINCIPAL; ?>";
-</script>
 <script src="<?php echo RUTA_PRINCIPAL; ?>assets/admin/js/Pages/Habitaciones.js"></script>

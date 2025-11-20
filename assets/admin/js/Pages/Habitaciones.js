@@ -3,7 +3,7 @@ let tblHabitaciones;
 document.addEventListener('DOMContentLoaded', function () {
     tblHabitaciones = $('#tblHabitaciones').DataTable({
         ajax: {
-            url: `${RUTA_PRINCIPAL}admin/habitaciones/listar`,
+            url: `${base_url}admin/habitaciones/listar`,
             dataSrc: ""
         },
         columns: [
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 data: 'foto',
                 render: function (data) {
                     return data
-                        ? `<img src="${RUTA_PRINCIPAL}assets/img/habitaciones/${data}" width="100" class="img-thumbnail">`
+                        ? `<img src="${base_url}assets/img/habitaciones/${data}" width="100" class="img-thumbnail">`
                         : 'Sin foto';
                 }
             },
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
             {
                 data: null,
                 render: function (data, type, row) {
-                    const urlEditar = `${RUTA_PRINCIPAL}admin/habitaciones/editar/${row.id}`;
+                    const urlEditar = `${base_url}admin/habitaciones/editar/${row.id}`;
                     let btnReingresar = '';
                     if (row.estado == 0) {
                         btnReingresar = `<button class="btn btn-success btn-sm" onclick="reingresarHabitacion(${row.id})"><i class="fas fa-check-circle"></i></button>`;
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         ],
         language: {
-            url: `${RUTA_PRINCIPAL}assets/DataTables/es-ES.json`
+            url: `${base_url}assets/DataTables/es-ES.json`
         },
         responsive: true
     });
@@ -67,7 +67,7 @@ function eliminarHabitacion(id) {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            const url = `${RUTA_PRINCIPAL}admin/habitaciones/eliminar/${id}`;
+            const url = `${base_url}admin/habitaciones/eliminar/${id}`;
             fetch(url)
                 .then(response => response.json())
                 .then(res => {
@@ -92,7 +92,7 @@ function reingresarHabitacion(id) {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            const url = `${RUTA_PRINCIPAL}admin/habitaciones/reingresar/${id}`;
+            const url = `${base_url}admin/habitaciones/reingresar/${id}`;
             fetch(url)
                 .then(response => response.json())
                 .then(res => {
