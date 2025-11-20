@@ -102,12 +102,6 @@ $nombreUsuario = htmlspecialchars($nombreUsuario, ENT_QUOTES, 'UTF-8');
                         <div class="menu-title">Mensajes de Contacto</div>
                     </a>
                 </li>
-                <li>
-                    <a href="<?php echo $urlAdmin . 'reportes'; ?>">
-                        <div class="parent-icon"><i class='bx bx-line-chart'></i></div>
-                        <div class="menu-title">Reportes</div>
-                    </a>
-                </li>
             </ul>
             <!-- Fin Menú de Navegación -->
 
