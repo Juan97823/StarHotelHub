@@ -2,16 +2,16 @@
 let tblBlog;
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Asegurarse de que la RUTA_PRINCIPAL está definida (la definimos en el header-admin.php)
-    if (typeof RUTA_PRINCIPAL === 'undefined') {
-        console.error("La variable RUTA_PRINCIPAL no está definida. Revisa el header-admin.php");
+    // Asegurarse de que la base_url está definida (la definimos en el footer-admin.php)
+    if (typeof base_url === 'undefined') {
+        console.error("La variable base_url no está definida. Revisa el footer-admin.php");
         return;
     }
 
     tblBlog = $('#tblBlog').DataTable({
         ajax: {
-            // Usar la variable RUTA_PRINCIPAL para construir la URL del AJAX
-            url: `${RUTA_PRINCIPAL}admin/blog/listarEntradas`,
+            // Usar la variable base_url para construir la URL del AJAX
+            url: `${base_url}admin/blog/listarEntradas`,
             dataSrc: "data" // Especificar que los datos vienen en la propiedad "data" del JSON
         },
         columns: [
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         ],
         language: {
-            url: `${RUTA_PRINCIPAL}assets/admin/js/i18n/es-ES.json`
+            url: `${base_url}assets/admin/js/i18n/es-ES.json`
         }
 
     });
@@ -102,7 +102,7 @@ function handleStateChange(id, btn) {
     const originalHtml = btn.innerHTML;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
 
-    fetch(`${RUTA_PRINCIPAL}admin/blog/estado/${id},${nuevoEstado}`, { method: "GET" })
+    fetch(`${base_url}admin/blog/estado/${id},${nuevoEstado}`, { method: "GET" })
         .then((res) => res.json())
         .then((data) => {
             if (data.status === "success") {

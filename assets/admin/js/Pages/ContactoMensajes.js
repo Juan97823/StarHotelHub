@@ -1,14 +1,14 @@
 let tblContacto;
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (typeof RUTA_PRINCIPAL === 'undefined') {
-        console.error("La variable RUTA_PRINCIPAL no está definida");
+    if (typeof base_url === 'undefined') {
+        console.error("La variable base_url no está definida");
         return;
     }
 
     tblContacto = $('#tblContacto').DataTable({
         ajax: {
-            url: `${RUTA_PRINCIPAL}admin/contacto/listarMensajes`,
+            url: `${base_url}admin/contacto/listarMensajes`,
             dataSrc: "data"
         },
         columns: [
@@ -53,14 +53,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         ],
         language: {
-            url: `${RUTA_PRINCIPAL}assets/admin/js/i18n/es-ES.json`
+            url: `${base_url}assets/admin/js/i18n/es-ES.json`
         },
         responsive: true
     });
 });
 
 function verMensaje(id) {
-    fetch(`${RUTA_PRINCIPAL}admin/contacto/verMensaje/${id}`)
+    fetch(`${base_url}admin/contacto/verMensaje/${id}`)
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
@@ -94,7 +94,7 @@ function verMensaje(id) {
 }
 
 function cambiarEstado(id, nuevoEstado) {
-    fetch(`${RUTA_PRINCIPAL}admin/contacto/cambiarEstado/${id},${nuevoEstado}`)
+    fetch(`${base_url}admin/contacto/cambiarEstado/${id},${nuevoEstado}`)
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
@@ -120,7 +120,7 @@ function eliminarMensaje(id) {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch(`${RUTA_PRINCIPAL}admin/contacto/eliminarMensaje/${id}`, {
+            fetch(`${base_url}admin/contacto/eliminarMensaje/${id}`, {
                 method: 'DELETE'
             })
                 .then(response => response.json())
