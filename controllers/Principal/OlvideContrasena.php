@@ -66,8 +66,8 @@ class OlvideContrasena extends Controller
         $clave_temporal = EmailHelper::generateTempPassword(12);
         $hash = password_hash($clave_temporal, PASSWORD_DEFAULT);
 
-        // Actualizar contraseña en la base de datos
-        $resultado = $this->model->actualizarContrasena($usuario['id'], $hash);
+        // Actualizar contraseña en la base de datos y marcar como temporal
+        $resultado = $this->model->actualizarContrasenaTemp($usuario['id'], $hash);
 
         if ($resultado > 0) {
             // Enviar email con contraseña temporal

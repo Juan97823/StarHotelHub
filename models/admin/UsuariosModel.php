@@ -97,11 +97,12 @@ class UsuariosModel extends Query
 
     /**
      * Actualizar la contraseña de un usuario (recibe la contraseña en texto plano)
+     * También marca temp_password = 0 para indicar que ya no es temporal
      */
     public function actualizarClave($id, $nuevaClave)
     {
         $hash = password_hash($nuevaClave, PASSWORD_DEFAULT);
-        $sql = "UPDATE usuarios SET clave = ? WHERE id = ?";
+        $sql = "UPDATE usuarios SET clave = ?, temp_password = 0 WHERE id = ?";
         return $this->save($sql, [$hash, $id]);
     }
 

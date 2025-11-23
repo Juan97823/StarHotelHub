@@ -76,10 +76,18 @@ class RegistroModel extends Query
         return $this->save($sql, $datos);
     }
 
-    // Actualizar contraseña
+    // Actualizar contraseña y marcar como no temporal (usado cuando el usuario cambia su contraseña)
     public function actualizarContrasena($id, $hash)
     {
-        $sql = "UPDATE usuarios SET clave = ? WHERE id = ?";
+        $sql = "UPDATE usuarios SET clave = ?, temp_password = 0 WHERE id = ?";
+        $datos = [$hash, $id];
+        return $this->save($sql, $datos);
+    }
+
+    // Actualizar contraseña y marcar como TEMPORAL (usado en recuperación de contraseña)
+    public function actualizarContrasenaTemp($id, $hash)
+    {
+        $sql = "UPDATE usuarios SET clave = ?, temp_password = 1 WHERE id = ?";
         $datos = [$hash, $id];
         return $this->save($sql, $datos);
     }

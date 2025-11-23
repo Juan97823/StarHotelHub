@@ -276,8 +276,9 @@ class Reserva extends Controller
             if ($usuario) {
                 $id_usuario = $usuario['id'];
             } else {
+                // Generar contraseña temporal aleatoria
                 $clave = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);
-                $id_usuario = $this->model->crearUsuario($nombre, $correo, $clave, 'N/A', 3);
+                $id_usuario = $this->model->crearUsuario($nombre, $correo, $clave);
                 if (!$id_usuario) {
                     echo json_encode(['status' => 'error', 'msg' => 'Error al crear el usuario.']);
                     exit;

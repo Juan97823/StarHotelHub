@@ -85,19 +85,33 @@ class Login extends Controller
             session_regenerate_id(true);
 
             $rol = (int)$verificar['rol'];
+            $temp_password = isset($verificar['temp_password']) ? (int)$verificar['temp_password'] : 0;
+
             $_SESSION['usuario'] = [
                 'id'     => (int)$verificar['id'],
                 'nombre' => sanitizar($verificar['nombre']),
                 'correo' => sanitizar($verificar['correo']),
                 'rol'    => $rol,
-                'login_time' => time()
+                'login_time' => time(),
+                'temp_password' => $temp_password
             ];
 
-            echo json_encode([
-                'tipo' => 'success',
-                'msg'  => 'ACCESO CORRECTO',
-                'rol'  => $rol
-            ], JSON_UNESCAPED_UNICODE);
+            // Si tiene contraseña temporal, forzar cambio
+            if ($temp_password == 1) {
+                echo json_encode([
+                    'tipo' => 'success',
+                    'msg'  => 'ACCESO CORRECTO - DEBES CAMBIAR TU CONTRASEÑA',
+                    'rol'  => $rol,
+                    'temp_password' => true
+                ], JSON_UNESCAPED_UNICODE);
+            } else {
+                echo json_encode([
+                    'tipo' => 'success',
+                    'msg'  => 'ACCESO CORRECTO',
+                    'rol'  => $rol,
+                    'temp_password' => false
+                ], JSON_UNESCAPED_UNICODE);
+            }
         } else {
             // Generar nuevo token para reintentos
             generarCsrfToken();

@@ -29,20 +29,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
               if (res.tipo === "success") {
                 frm.reset();
-                setTimeout(() => {
-                  if (res.rol == 1) {
-                    window.location = base_url + "admin/dashboard";
-                  } else if (res.rol == 2) {
-                    window.location = base_url + "empleado/dashboard";
-                  } else if (res.rol == 3) {
-                    window.location = base_url + "cliente/dashboard";
-                  } else if (res.rol == 4) {
-                    window.location = base_url + "Login";
-                    alertaSW("Usuario inactivo. Contacta al administrador.", "error");
-                  } else {
-                    alertaSW("Rol no reconocido. Contacta al administrador.", "error");
-                  }
-                }, 1600);
+
+                // Si tiene contraseña temporal, redirigir a cambio de contraseña
+                if (res.temp_password === true) {
+                  setTimeout(() => {
+                    window.location = base_url + "perfil/cambiar-contrasena";
+                  }, 1600);
+                } else {
+                  // Redirección normal según rol
+                  setTimeout(() => {
+                    if (res.rol == 1) {
+                      window.location = base_url + "admin/dashboard";
+                    } else if (res.rol == 2) {
+                      window.location = base_url + "empleado/dashboard";
+                    } else if (res.rol == 3) {
+                      window.location = base_url + "cliente/dashboard";
+                    } else if (res.rol == 4) {
+                      window.location = base_url + "Login";
+                      alertaSW("Usuario inactivo. Contacta al administrador.", "error");
+                    } else {
+                      alertaSW("Rol no reconocido. Contacta al administrador.", "error");
+                    }
+                  }, 1600);
+                }
               } else {
                 recargarToken();
               }
