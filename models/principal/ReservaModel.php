@@ -123,12 +123,16 @@ class ReservaModel extends Query
         $params = [':correo' => $correo];
         return $this->select($query, $params);
     }
-    // Crea un usuario nuevo automáticamente
+    // Crea un usuario nuevo automáticamente con contraseña temporal
     public function crearUsuario($nombre, $correo, $clave)
     {
-        $sql = "INSERT INTO usuarios (nombre, correo, clave, rol) VALUES (?, ?, ?, ?)";
-        // Suponiendo que rol 3 = cliente
-        $params = [$nombre, $correo, $clave, 3];
+        // Hashear la contraseña antes de guardarla
+        $hash = password_hash($clave, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO usuarios (nombre, correo, clave, temp_password, rol) VALUES (?, ?, ?, 1, ?)";
+        // temp_password = 1 indica que es contraseña temporal
+        // rol 3 = cliente
+        $params = [$nombre, $correo, $hash, 3];
         return $this->insert($sql, $params);
     }
 
