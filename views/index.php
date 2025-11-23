@@ -122,14 +122,14 @@
             <?php foreach ($data['habitaciones'] as $habitacion): ?>
                 <div class="single-rooms-item">
                     <div class="rooms-img">
-                        <a href="room-details.html">
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#reservationModal" data-id="<?= $habitacion['id']; ?>">
                             <img loading="lazy"
                                 src="<?= htmlspecialchars(RUTA_PRINCIPAL . 'assets/img/habitaciones/' . $habitacion['foto']); ?>"
                                 alt="<?= htmlspecialchars($habitacion['estilo']); ?>">
                         </a>
                     </div>
                     <div class="rooms-content">
-                        <h3><a href="room-details.html"><?= htmlspecialchars($habitacion['estilo']); ?></a></h3>
+                        <h3><a href="#" data-bs-toggle="modal" data-bs-target="#reservationModal" data-id="<?= $habitacion['id']; ?>"><?= htmlspecialchars($habitacion['estilo']); ?></a></h3>
                         <span class="price">Desde $<?= number_format($habitacion['precio']); ?>/noche</span>
                     </div>
                 </div>

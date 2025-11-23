@@ -213,6 +213,7 @@
 
 <!-- Page specific scripts -->
 <script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/busqueda-principal.js'; ?>"></script>
+<script src="<?php echo RUTA_PRINCIPAL . 'assets/principal/js/pages/reservas.js?v=<?php echo time(); ?>'; ?>"></script>
 
 </body>
 </html>
